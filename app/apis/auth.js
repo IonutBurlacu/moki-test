@@ -1,20 +1,31 @@
 import axios from 'axios';
 
-const host = 'http://local.moki.com';
+const host = 'http://mokidev.eu-west-1.elasticbeanstalk.com';
 const root = '/api/auth';
 
 export default class AuthAPI {
-	static login(headers = {}, email, password) {
-		return axios({
-			method: 'post',
-			url: `${host}${root}/login`,
-			headers: {
-				...headers
-			},
-			data: {
-				email,
-				password
-			}
-		});
-	}
+    static login(headers = {}, email, password) {
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: `${host}${root}/login`,
+                headers: {
+                    ...headers
+                },
+                data: {
+                    email,
+                    password
+                }
+            })
+                .then(response => {
+                    resolve({ error: false, data: response.data });
+                })
+                .catch(error => {
+                    reject({
+                        error: true,
+                        message: error.response.data.message
+                    });
+                });
+        });
+    }
 }

@@ -6,31 +6,31 @@ import { login } from '../actions/auth';
 import Routes from '../Routes';
 
 export class Root extends Component {
-  componentWillMount() {
-    const token = sessionStorage.getItem('Authorization');
-    const { login } = this.props;
-    if (token) {
-      login(token);
+    componentWillMount() {
+        const token = sessionStorage.getItem('Authorization');
+        const { login } = this.props;
+        if (token) {
+            login(token);
+        }
     }
-  }
 
-  render() {
-    const { store, history } = this.props;
-    return (
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <Routes />
-        </ConnectedRouter>
-      </Provider>
-    );
-  }
+    render() {
+        const { store, history } = this.props;
+        return (
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <Routes />
+                </ConnectedRouter>
+            </Provider>
+        );
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
-  login: token => dispatch(login(token))
+    login: token => dispatch(login(token))
 });
 
 export default connect(
-  undefined,
-  mapDispatchToProps
+    undefined,
+    mapDispatchToProps
 )(Root);
