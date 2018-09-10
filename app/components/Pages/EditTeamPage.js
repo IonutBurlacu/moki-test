@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Footer } from '../Footer';
+import Footer from '../Footer';
 import Loader from '../Loader';
 import EditTeamForm from './EditTeamPage/EditTeamForm';
 import PlayersList from './EditTeamPage/PlayersList';

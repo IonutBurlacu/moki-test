@@ -1,5 +1,5 @@
 import React from 'react';
-import { Footer } from '../Footer';
+import Footer from '../Footer';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
 import EditChallengeForm from './EditChallengePage/EditChallengeForm';

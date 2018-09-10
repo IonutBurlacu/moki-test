@@ -1,5 +1,5 @@
 import React from 'react';
-import { Footer } from '../Footer';
+import Footer from '../Footer';
 import Loader from '../Loader';
 import AddChallengeForm from './AddChallengePage/AddChallengeForm';
 import Alert from '../Alert';
