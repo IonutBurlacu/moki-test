@@ -1,0 +1,62 @@
+.form-input-select {
+  background: transparent;
+  border: 2px solid white;
+  color: #74ef5c;
+  font-size: 3.4vmin;
+  padding: 0;
+  width: 65%;
+
+  .form-select__control {
+    background: transparent;
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+
+    &::before {
+      border-color: #fff transparent transparent transparent;
+      border-style: solid;
+      border-width: 2vmin 1.2vmin 0 1.2vmin;
+      content: '';
+      display: inline-block;
+      height: 0;
+      margin-right: 1vmin;
+      vertical-align: middle;
+      width: 0;
+    }
+
+    &:hover {
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  .form-select__single-value {
+    color: #74ef5c;
+  }
+
+  .form-select__indicators {
+    display: none;
+  }
+
+  .form-select__menu {
+    background: #797992;
+    border: 1px solid #54546b;
+    padding: 0 3vmin;
+  }
+
+  .form-select__option {
+    background: #797992;
+    border-bottom: 1px solid #a0a1ae;
+    cursor: pointer;
+    font-size: 3vmin;
+
+    &:active,
+    &:hover {
+      background: #66667b;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

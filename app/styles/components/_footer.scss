@@ -1,0 +1,32 @@
+.footer {
+  background: $footerBackground;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 15px 30px;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+.footer__menu-item {
+  align-items: center;
+  color: $footerTextColor;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 80px;
+  text-decoration: none;
+}
+
+.footer__icon {
+  display: block;
+  height: 5.3vmin;
+}
+
+.footer__text {
+  font-size: 2vmin;
+}

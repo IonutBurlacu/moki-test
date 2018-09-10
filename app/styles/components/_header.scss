@@ -1,0 +1,40 @@
+.header {
+  background: $headerBackground;
+  display: flex;
+  height: 9.5vmin;
+  justify-content: space-between;
+  left: 0;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+
+  .left-side,
+  .right-side {
+    align-items: center;
+    display: flex;
+  }
+
+  .center-side {
+    align-items: center;
+    display: flex;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  a,
+  button {
+    background: transparent;
+    border: none;
+    color: $headerButtonColor;
+    font-size: 3vmin;
+    text-decoration: none;
+  }
+
+  .logo {
+    height: 4.3vmin;
+  }
+}

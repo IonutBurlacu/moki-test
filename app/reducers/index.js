@@ -1,11 +1,16 @@
-// @flow
 import { combineReducers } from 'redux';
-import { routerReducer as router } from 'react-router-redux';
-import counter from './counter';
+import authReducer from './auth';
+import loaderReducer from './loader';
+import challengesReducer from './challenges';
+import teamsReducer from './teams';
+import playersReducer from './players';
+import alertReducer from './alert';
 
-const rootReducer = combineReducers({
-  counter,
-  router
+export default combineReducers({
+	auth: authReducer,
+	alert: alertReducer,
+	loader: loaderReducer,
+	challenges: challengesReducer,
+	teams: teamsReducer,
+	players: playersReducer
 });
-
-export default rootReducer;

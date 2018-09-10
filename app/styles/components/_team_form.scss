@@ -1,0 +1,44 @@
+.team-form {
+  background: #1f1f42;
+  display: flex;
+  justify-content: center;
+  padding: 3vmin 0;
+
+  form {
+    display: flex;
+    flex-direction: row;
+    width: 80vmin;
+  }
+
+  .left-side,
+  .right-side {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .edit-photo-input {
+    display: none;
+  }
+
+  .edit-photo-button {
+    color: #74ef5c;
+    cursor: pointer;
+    font-size: 2vmin;
+    margin-top: 1vmin;
+  }
+
+  .left-side {
+    margin-right: 4vmin;
+
+    .avatar {
+      height: 18vmin;
+      width: 18vmin;
+    }
+  }
+
+  .right-side {
+    flex: 1;
+  }
+}

@@ -1,0 +1,18 @@
+.page-title {
+  align-items: center;
+  background: $pageTitleBackground;
+  display: flex;
+  height: 8.5vmin;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 9.5vmin;
+  width: 100%;
+  z-index: 10;
+
+  h1 {
+    color: white;
+    font-size: 3vmin;
+    font-weight: normal;
+  }
+}

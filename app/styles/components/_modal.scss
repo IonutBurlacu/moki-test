@@ -1,0 +1,68 @@
+.ReactModalPortal {
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(23, 23, 41, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal {
+  background: #292e6b;
+  height: 60%;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 40%;
+}
+
+.modal-alert {
+  height: 40%;
+  width: 30%;
+
+  .message {
+    color: white;
+    font-size: 2.5vmin;
+    padding: 2vmin;
+    text-align: center;
+  }
+}
+
+.modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.modal-header {
+  background: #fe335e;
+  color: white;
+  font-size: 3vmin;
+  padding: 1vmin;
+  text-align: center;
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.modal-footer {
+  border-top: 1px solid #4c4d5c;
+  padding: 2vmin;
+}
+
+.cancel-button {
+  background: #fe335e;
+  border: 1px solid white;
+  color: white;
+  font-size: 3vmin;
+  padding: 1.5vmin;
+  width: 100%;
+}

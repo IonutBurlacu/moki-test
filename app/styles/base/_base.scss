@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: TTNorms;
+  src: url('/fonts/TT Norms Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  font-family: 'TTNorms', sans-serif;
+  font-size: $size-16;
+  height: 100%;
+  line-height: 1.6;
+}
+
+body > div,
+body > div > div,
+body > div > div > div {
+  height: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+.is-active {
+  font-weight: bold;
+}
+
+.container {
+  background: $containerBackground;
+  min-height: 100%;
+  padding: 9.5vmin 0 11vmin 0;
+  width: 100%;
+}
+
+.container-with-title {
+  padding-top: 18vmin;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
