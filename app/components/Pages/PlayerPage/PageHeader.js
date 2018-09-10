@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 import defaultAvatar from '../../../images/default_avatar.png';
 
-export default class PageHeader extends React.Component {
+export default class PageHeader extends Component {
   render() {
     return (
       <div className="page-header">

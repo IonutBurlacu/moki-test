@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from '../images/logo.png';
 
 export const Header = ({ leftButton, rightButton }) => (

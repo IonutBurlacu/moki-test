@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import ChallengesListModal from './ChallengesListModal';
@@ -7,7 +7,7 @@ import { detachTeamFromChallengeRequest } from '../../../actions/teams';
 import defaultAvatar from '../../../images/default_avatar.png';
 import challengesListIcon from '../../../images/challenges_list_icon.png';
 
-export class ChallengesList extends React.Component {
+export class ChallengesList extends Component {
   constructor(props) {
     super(props);
 

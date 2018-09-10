@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Footer from '../Footer';
 import Loader from '../Loader';
 import AddTeamForm from './AddTeamPage/AddTeamForm';
 import Alert from '../Alert';
 
-export class AddTeamPage extends React.Component {
+export class AddTeamPage extends Component {
 	render() {
 		return (
 			<div className="container">

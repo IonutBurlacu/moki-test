@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
@@ -8,7 +8,7 @@ import { editTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
 import PageHeader from './TeamPage/PageHeader';
 
-export class TeamPage extends React.Component {
+export class TeamPage extends Component {
 	handleEdit = id => {
 		this.props.showLoader();
 		this.props.editTeamRequest(id);

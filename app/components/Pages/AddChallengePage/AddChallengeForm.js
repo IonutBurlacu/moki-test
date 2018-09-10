@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
@@ -8,7 +8,7 @@ import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import defaultAvatar from '../../../images/default_avatar.png';
 
-export class AddChallengeForm extends React.Component {
+export class AddChallengeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {

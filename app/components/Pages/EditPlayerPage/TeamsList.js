@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import TeamsListModal from './TeamsListModal';
@@ -7,7 +7,7 @@ import { detachPlayerFromTeamRequest } from '../../../actions/players';
 import defaultAvatar from '../../../images/default_avatar.png';
 import teamsListIcon from '../../../images/teams_list_icon.png';
 
-export class TeamsList extends React.Component {
+export class TeamsList extends Component {
   constructor(props) {
     super(props);
 

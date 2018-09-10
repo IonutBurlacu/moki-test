@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Modal from 'react-modal';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -6,7 +6,7 @@ import { showLoader } from '../../../actions/loader';
 import { attachPlayerToTeamRequest } from '../../../actions/players';
 import defaultAvatar from '../../../images/default_avatar.png';
 
-export class TeamsListModal extends React.Component {
+export class TeamsListModal extends Component {
   attachPlayerToTeam = teamId => {
     this.props.showLoader();
     this.props.attachPlayerToTeamRequest(teamId, this.props.id);

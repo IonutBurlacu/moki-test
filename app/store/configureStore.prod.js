@@ -10,12 +10,14 @@ import saga from '../sagas/index';
 const history = createHashHistory();
 const router = routerMiddleware(history);
 const sagaMiddleware = createSagaMiddleware();
-const enhancer = applyMiddleware(thunk, router);
-
-sagaMiddleware.run(saga);
+const enhancer = applyMiddleware(thunk, router, sagaMiddleware);
 
 function configureStore(initialState?) {
-  return createStore(rootReducer, initialState, enhancer);
+  const store = createStore(rootReducer, initialState, enhancer);
+
+  sagaMiddleware.run(saga);
+
+  return store;
 }
 
 export default { configureStore, history };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import moment from 'moment';
@@ -15,7 +15,7 @@ import defaultAvatar from '../../images/default_avatar.png';
 import teamsIcon from '../../images/teams_icon.png';
 import playersIconWide from '../../images/players_icon_wide.png';
 
-export class ChallengesPage extends React.Component {
+export class ChallengesPage extends Component {
   componentWillMount() {
     this.props.showLoader();
     this.props.getChallengesRequest();

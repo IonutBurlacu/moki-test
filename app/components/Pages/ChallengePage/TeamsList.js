@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 import defaultAvatar from '../../../images/default_avatar.png';
 import teamsListIcon from '../../../images/teams_list_icon.png';
 
-export default class TeamsList extends React.Component {
+export default class TeamsList extends Component {
   handleEdit = id => {};
 
   render() {

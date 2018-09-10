@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Footer from '../Footer';
 import Loader from '../Loader';
 import AddChallengeForm from './AddChallengePage/AddChallengeForm';
 import Alert from '../Alert';
 
-export class AddChallengePage extends React.Component {
+export class AddChallengePage extends Component {
 	render() {
 		return (
 			<div className="container">

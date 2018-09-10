@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
@@ -8,7 +8,7 @@ import { editPlayerRequest } from '../../actions/players';
 import { showLoader } from '../../actions/loader';
 import PageHeader from './PlayerPage/PageHeader';
 
-export class PlayerPage extends React.Component {
+export class PlayerPage extends Component {
 	handleEdit = id => {
 		this.props.showLoader();
 		this.props.editPlayerRequest(id);

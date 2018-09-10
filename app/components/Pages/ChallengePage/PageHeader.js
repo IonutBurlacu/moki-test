@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 import defaultAvatar from '../../../images/default_avatar.png';
 import teamsIcon from '../../../images/teams_icon.png';
 import playersIconWide from '../../../images/players_icon_wide.png';
 
-export default class PageHeader extends React.Component {
+export default class PageHeader extends Component {
   render() {
     return (
       <div className="page-header">

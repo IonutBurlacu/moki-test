@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
@@ -10,7 +10,7 @@ import PlayersList from './ChallengePage/PlayersList';
 import TeamsList from './ChallengePage/TeamsList';
 import PageHeader from './ChallengePage/PageHeader';
 
-export class ChallengePage extends React.Component {
+export class ChallengePage extends Component {
 	handleEdit = id => {
 		this.props.showLoader();
 		this.props.editChallengeRequest(id);

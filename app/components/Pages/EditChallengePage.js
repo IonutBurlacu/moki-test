@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Footer from '../Footer';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
@@ -7,7 +7,7 @@ import TeamsList from './EditChallengePage/TeamsList';
 import PlayersList from './EditChallengePage/PlayersList';
 import Alert from '../Alert';
 
-export class EditChallengePage extends React.Component {
+export class EditChallengePage extends Component {
 	render() {
 		return (
 			<div className="container">

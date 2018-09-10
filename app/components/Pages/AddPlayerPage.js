@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
@@ -9,7 +9,7 @@ import { createPlayerRequest } from '../../actions/players';
 import { showLoader } from '../../actions/loader';
 import Alert from '../Alert';
 
-export class AddPlayerPage extends React.Component {
+export class AddPlayerPage extends Component {
 	componentWillMount() {
 		this.props.showLoader();
 		this.props.createPlayerRequest();

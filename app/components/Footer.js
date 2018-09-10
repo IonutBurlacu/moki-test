@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import playersIcon from '../images/players_icon.png';
 import teamsIcon from '../images/teams_icon.png';

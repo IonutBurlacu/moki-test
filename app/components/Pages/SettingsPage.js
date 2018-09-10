@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
@@ -7,7 +7,7 @@ import { PageTitle } from '../PageTitle';
 import Loader from '../Loader';
 import { logout } from '../../actions/auth';
 
-export class SettingsPage extends React.Component {
+export class SettingsPage extends Component {
 	constructor(props) {
 		super(props);
 

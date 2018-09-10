@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { showLoader } from '../../../actions/loader';
 import { loginRequest } from '../../../actions/auth';
 
-export class LoginForm extends React.Component {
+export class LoginForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

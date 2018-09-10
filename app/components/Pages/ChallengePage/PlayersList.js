@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 import defaultAvatar from '../../../images/default_avatar.png';
 import playersListIcon from '../../../images/players_list_icon.png';
 
-export default class PlayersList extends React.Component {
+export default class PlayersList extends Component {
   handleEdit = id => {};
 
   render() {

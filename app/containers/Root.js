@@ -1,10 +1,19 @@
 // @flow
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import { login } from '../actions/auth';
 import Routes from '../Routes';
 
-export default class Root extends Component {
+export class Root extends Component {
+  componentWillMount() {
+    const token = sessionStorage.getItem('Authorization');
+    const { login } = this.props;
+    if (token) {
+      login(token);
+    }
+  }
+
   render() {
     const { store, history } = this.props;
     return (
@@ -16,3 +25,12 @@ export default class Root extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  login: token => dispatch(login(token))
+});
+
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(Root);
