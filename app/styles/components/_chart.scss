@@ -1,0 +1,12 @@
+.charts-container {
+    display: flex;
+
+    .chart-container {
+        flex: 1;
+
+        .chart {
+            height: 40vmin;
+            width: 100%;
+        }
+    }
+}

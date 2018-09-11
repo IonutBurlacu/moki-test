@@ -34,7 +34,7 @@ export class ChallengePage extends Component {
                     }
                 />
                 {!this.props.loading ? (
-                    <div>
+                    <div className="content">
                         <PageHeader challenge={this.props.challenge} />
                         {this.props.challenge.type === 'player' ? (
                             <PlayersList
@@ -49,7 +49,7 @@ export class ChallengePage extends Component {
                         )}
                     </div>
                 ) : (
-                    <div />
+                    <div className="content" />
                 )}
                 <Loader />
                 <Footer />

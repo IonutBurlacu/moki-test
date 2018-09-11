@@ -33,148 +33,153 @@ export class PlayersPage extends Component {
                     leftButton={<Link to="/bands/pair">Pair Bands</Link>}
                     rightButton={<Link to="/players/add">Add</Link>}
                 />
-                <PageTitle title="Players" />
-                <TopFilters />
-                {!loading ? (
-                    <div className="table-wrapper">
-                        <table className="table">
-                            <tbody>
-                                {players.map(player => (
-                                    <tr
-                                        onClick={() =>
-                                            this.handleView(player.id)
-                                        }
-                                        key={player.id}
-                                    >
-                                        <td style={{ width: '11vmin' }}>
-                                            <img
-                                                src={defaultAvatar}
-                                                className="avatar"
-                                                alt="avatar"
-                                            />
-                                        </td>
-                                        <td>
-                                            <h1 className="title">
-                                                {`${player.first_name} ${
-                                                    player.last_name
-                                                }`}
-                                            </h1>
-                                            <span className="subtitle">
-                                                Last Sync:{' '}
-                                                {player.last_sync_at === null
-                                                    ? 'Never'
-                                                    : moment(
-                                                          player.last_sync_at
-                                                      ).format(
-                                                          'DD/MM/YYYY \\at HH.mma'
-                                                      )}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            {player.challenges.length > 0 ? (
-                                                <img
-                                                    src={challengesIcon}
-                                                    className="icon"
-                                                    alt="icon"
-                                                />
-                                            ) : (
-                                                ''
-                                            )}
-                                            <span className="icon-label">
-                                                {player.challenges
-                                                    .reduce(
-                                                        (string, item) =>
-                                                            `${string +
-                                                                item.name}, `,
-                                                        ''
-                                                    )
-                                                    .slice(0, -2)}
-                                            </span>
-                                        </td>
-                                        <td className="align-right">
-                                            {player.teams.length > 0 ? (
-                                                <img
-                                                    src={teamsIcon}
-                                                    className="icon"
-                                                    alt="icon"
-                                                />
-                                            ) : (
-                                                ''
-                                            )}
 
-                                            <span className="icon-label">
-                                                {player.teams
-                                                    .reduce(
-                                                        (string, item) =>
-                                                            `${string +
-                                                                item.name}, `,
-                                                        ''
-                                                    )
-                                                    .slice(0, -2)}
-                                            </span>
-                                        </td>
-                                        {player.previous_steps -
-                                            player.current_steps !==
-                                        0 ? (
-                                            <td
-                                                className={
-                                                    player.previous_steps >
-                                                    player.current_steps
-                                                        ? 'negative align-right'
-                                                        : 'positive align-right'
-                                                }
-                                            >
-                                                <span className="percentage-icon" />
-                                                <span className="percentage">
-                                                    {player.previous_steps >
-                                                    player.current_steps
-                                                        ? (
-                                                              ((player.previous_steps -
-                                                                  player.current_steps) /
-                                                                  player.previous_steps) *
-                                                              100
-                                                          ).toFixed(2)
-                                                        : (
-                                                              ((player.current_steps -
-                                                                  player.previous_steps) /
-                                                                  player.current_steps) *
-                                                              100
-                                                          ).toFixed(2)}
-                                                    %
+                {!loading ? (
+                    <div className="content">
+                        <PageTitle title="Players" />
+                        <TopFilters />
+                        <div className="table-wrapper">
+                            <table className="table">
+                                <tbody>
+                                    {players.map(player => (
+                                        <tr
+                                            onClick={() =>
+                                                this.handleView(player.id)
+                                            }
+                                            key={player.id}
+                                        >
+                                            <td style={{ width: '11vmin' }}>
+                                                <img
+                                                    src={defaultAvatar}
+                                                    className="avatar"
+                                                    alt="avatar"
+                                                />
+                                            </td>
+                                            <td>
+                                                <h1 className="title">
+                                                    {`${player.first_name} ${
+                                                        player.last_name
+                                                    }`}
+                                                </h1>
+                                                <span className="subtitle">
+                                                    Last Sync:{' '}
+                                                    {player.last_sync_at ===
+                                                    null
+                                                        ? 'Never'
+                                                        : moment(
+                                                              player.last_sync_at
+                                                          ).format(
+                                                              'DD/MM/YYYY \\at HH.mma'
+                                                          )}
                                                 </span>
                                             </td>
-                                        ) : (
-                                            <td className="positive align-right">
-                                                <span className="percentage-icon" />
-                                                <span className="percentage">
-                                                    0%
+                                            <td>
+                                                {player.challenges.length >
+                                                0 ? (
+                                                    <img
+                                                        src={challengesIcon}
+                                                        className="icon"
+                                                        alt="icon"
+                                                    />
+                                                ) : (
+                                                    ''
+                                                )}
+                                                <span className="icon-label">
+                                                    {player.challenges
+                                                        .reduce(
+                                                            (string, item) =>
+                                                                `${string +
+                                                                    item.name}, `,
+                                                            ''
+                                                        )
+                                                        .slice(0, -2)}
                                                 </span>
                                             </td>
-                                        )}
-                                        <td className="align-right">
-                                            <h1 className="title">
-                                                {player.current_steps}
-                                                <small>steps</small>
-                                            </h1>
-                                        </td>
-                                    </tr>
-                                ))}
-                                {players.length === 0 ? (
-                                    <tr className="no-items-row">
-                                        <td>
-                                            <span>
-                                                There are no players yet.
-                                            </span>
-                                        </td>
-                                    </tr>
-                                ) : (
-                                    <tr />
-                                )}
-                            </tbody>
-                        </table>
+                                            <td className="align-right">
+                                                {player.teams.length > 0 ? (
+                                                    <img
+                                                        src={teamsIcon}
+                                                        className="icon"
+                                                        alt="icon"
+                                                    />
+                                                ) : (
+                                                    ''
+                                                )}
+
+                                                <span className="icon-label">
+                                                    {player.teams
+                                                        .reduce(
+                                                            (string, item) =>
+                                                                `${string +
+                                                                    item.name}, `,
+                                                            ''
+                                                        )
+                                                        .slice(0, -2)}
+                                                </span>
+                                            </td>
+                                            {player.previous_steps -
+                                                player.current_steps !==
+                                            0 ? (
+                                                <td
+                                                    className={
+                                                        player.previous_steps >
+                                                        player.current_steps
+                                                            ? 'negative align-right'
+                                                            : 'positive align-right'
+                                                    }
+                                                >
+                                                    <span className="percentage-icon" />
+                                                    <span className="percentage">
+                                                        {player.previous_steps >
+                                                        player.current_steps
+                                                            ? (
+                                                                  ((player.previous_steps -
+                                                                      player.current_steps) /
+                                                                      player.previous_steps) *
+                                                                  100
+                                                              ).toFixed(2)
+                                                            : (
+                                                                  ((player.current_steps -
+                                                                      player.previous_steps) /
+                                                                      player.current_steps) *
+                                                                  100
+                                                              ).toFixed(2)}
+                                                        %
+                                                    </span>
+                                                </td>
+                                            ) : (
+                                                <td className="positive align-right">
+                                                    <span className="percentage-icon" />
+                                                    <span className="percentage">
+                                                        0%
+                                                    </span>
+                                                </td>
+                                            )}
+                                            <td className="align-right">
+                                                <h1 className="title">
+                                                    {player.current_steps}
+                                                    <small>steps</small>
+                                                </h1>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {players.length === 0 ? (
+                                        <tr className="no-items-row">
+                                            <td>
+                                                <span>
+                                                    There are no players yet.
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ) : (
+                                        <tr />
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 ) : (
-                    <div />
+                    <div className="content" />
                 )}
                 <Loader />
                 <Footer />

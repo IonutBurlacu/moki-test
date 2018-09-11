@@ -9,13 +9,15 @@ import Loader from '../Loader';
 import Alert from '../Alert';
 
 const LoginPage = ({ history }) => (
-    <div className="container container-with-title">
+    <div className="container">
         <Header
             leftButton={<Link to="/contact-support">Contact Support</Link>}
             rightButton={<Link to="/contact-support">Contact Support</Link>}
         />
-        <PageTitle title="Login" />
-        <LoginForm history={history} />
+        <div className="content">
+            <PageTitle title="Login" />
+            <LoginForm history={history} />
+        </div>
         <Alert />
         <Loader />
         <Footer />

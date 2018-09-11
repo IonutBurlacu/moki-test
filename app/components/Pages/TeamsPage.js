@@ -32,132 +32,139 @@ export class TeamsPage extends Component {
                     leftButton={<Link to="/bands/pair">Pair Bands</Link>}
                     rightButton={<Link to="/teams/add">Add</Link>}
                 />
-                <PageTitle title="Teams" />
+
                 {!loading ? (
-                    <div className="table-wrapper">
-                        <table className="table">
-                            <tbody>
-                                {teams.map(team => (
-                                    <tr
-                                        onClick={() => this.handleView(team.id)}
-                                        key={team.id}
-                                    >
-                                        <td style={{ width: '11vmin' }}>
-                                            <img
-                                                src={defaultAvatar}
-                                                className="avatar"
-                                                alt="avatar"
-                                            />
-                                        </td>
-                                        <td>
-                                            <h1 className="title">
-                                                {team.name}
-                                            </h1>
-                                            <span className="subtitle">
-                                                Last Sync:{' '}
-                                                {team.last_sync_at === null
-                                                    ? 'Never'
-                                                    : moment(
-                                                          team.last_sync_at
-                                                      ).format(
-                                                          'DD/MM/YYYY \\at HH.mma'
-                                                      )}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            {team.challenges.length > 0 ? (
+                    <div className="content">
+                        <PageTitle title="Teams" />
+                        <div className="table-wrapper">
+                            <table className="table">
+                                <tbody>
+                                    {teams.map(team => (
+                                        <tr
+                                            onClick={() =>
+                                                this.handleView(team.id)
+                                            }
+                                            key={team.id}
+                                        >
+                                            <td style={{ width: '11vmin' }}>
                                                 <img
-                                                    src={challengesIcon}
+                                                    src={defaultAvatar}
+                                                    className="avatar"
+                                                    alt="avatar"
+                                                />
+                                            </td>
+                                            <td>
+                                                <h1 className="title">
+                                                    {team.name}
+                                                </h1>
+                                                <span className="subtitle">
+                                                    Last Sync:{' '}
+                                                    {team.last_sync_at === null
+                                                        ? 'Never'
+                                                        : moment(
+                                                              team.last_sync_at
+                                                          ).format(
+                                                              'DD/MM/YYYY \\at HH.mma'
+                                                          )}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {team.challenges.length > 0 ? (
+                                                    <img
+                                                        src={challengesIcon}
+                                                        className="icon"
+                                                        alt="icon"
+                                                    />
+                                                ) : (
+                                                    ''
+                                                )}
+                                                <span className="icon-label">
+                                                    {team.challenges
+                                                        .reduce(
+                                                            (string, item) =>
+                                                                `${string +
+                                                                    item.name}, `,
+                                                            ''
+                                                        )
+                                                        .slice(0, -2)}
+                                                </span>
+                                            </td>
+                                            <td className="align-right">
+                                                <img
+                                                    src={playersIconWide}
                                                     className="icon"
                                                     alt="icon"
-                                                />
+                                                />{' '}
+                                                <span className="icon-label">
+                                                    {team.players_count} Player
+                                                    {team.players_count !== 1
+                                                        ? 's'
+                                                        : ''}
+                                                </span>
+                                            </td>
+                                            {team.previous_steps -
+                                                team.current_steps !==
+                                            0 ? (
+                                                <td
+                                                    className={
+                                                        team.previous_steps >
+                                                        team.current_steps
+                                                            ? 'negative align-right'
+                                                            : 'positive align-right'
+                                                    }
+                                                >
+                                                    <span className="percentage-icon" />
+                                                    <span className="percentage">
+                                                        {team.previous_steps >
+                                                        team.current_steps
+                                                            ? (
+                                                                  ((team.previous_steps -
+                                                                      team.current_steps) /
+                                                                      team.previous_steps) *
+                                                                  100
+                                                              ).toFixed(2)
+                                                            : (
+                                                                  ((team.current_steps -
+                                                                      team.previous_steps) /
+                                                                      team.current_steps) *
+                                                                  100
+                                                              ).toFixed(2)}
+                                                        %
+                                                    </span>
+                                                </td>
                                             ) : (
-                                                ''
+                                                <td className="positive align-right">
+                                                    <span className="percentage-icon" />
+                                                    <span className="percentage">
+                                                        0%
+                                                    </span>
+                                                </td>
                                             )}
-                                            <span className="icon-label">
-                                                {team.challenges
-                                                    .reduce(
-                                                        (string, item) =>
-                                                            `${string +
-                                                                item.name}, `,
-                                                        ''
-                                                    )
-                                                    .slice(0, -2)}
-                                            </span>
-                                        </td>
-                                        <td className="align-right">
-                                            <img
-                                                src={playersIconWide}
-                                                className="icon"
-                                                alt="icon"
-                                            />{' '}
-                                            <span className="icon-label">
-                                                {team.players_count} Player
-                                                {team.players_count !== 1
-                                                    ? 's'
-                                                    : ''}
-                                            </span>
-                                        </td>
-                                        {team.previous_steps -
-                                            team.current_steps !==
-                                        0 ? (
-                                            <td
-                                                className={
-                                                    team.previous_steps >
-                                                    team.current_steps
-                                                        ? 'negative align-right'
-                                                        : 'positive align-right'
-                                                }
-                                            >
-                                                <span className="percentage-icon" />
-                                                <span className="percentage">
-                                                    {team.previous_steps >
-                                                    team.current_steps
-                                                        ? (
-                                                              ((team.previous_steps -
-                                                                  team.current_steps) /
-                                                                  team.previous_steps) *
-                                                              100
-                                                          ).toFixed(2)
-                                                        : (
-                                                              ((team.current_steps -
-                                                                  team.previous_steps) /
-                                                                  team.current_steps) *
-                                                              100
-                                                          ).toFixed(2)}
-                                                    %
+                                            <td className="align-right">
+                                                <h1 className="title">
+                                                    {team.current_steps}
+                                                    <small>steps</small>
+                                                </h1>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {teams.length === 0 ? (
+                                        <tr className="no-items-row">
+                                            <td>
+                                                <span>
+                                                    There are no teams yet.
                                                 </span>
                                             </td>
-                                        ) : (
-                                            <td className="positive align-right">
-                                                <span className="percentage-icon" />
-                                                <span className="percentage">
-                                                    0%
-                                                </span>
-                                            </td>
-                                        )}
-                                        <td className="align-right">
-                                            <h1 className="title">
-                                                {team.current_steps}
-                                                <small>steps</small>
-                                            </h1>
-                                        </td>
-                                    </tr>
-                                ))}
-                                {teams.length === 0 ? (
-                                    <tr className="no-items-row">
-                                        <td>
-                                            <span>There are no teams yet.</span>
-                                        </td>
-                                    </tr>
-                                ) : (
-                                    <tr />
-                                )}
-                            </tbody>
-                        </table>
+                                        </tr>
+                                    ) : (
+                                        <tr />
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 ) : (
-                    <div />
+                    <div className="content" />
                 )}
                 <Loader />
                 <Footer />
