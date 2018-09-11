@@ -1,6 +1,6 @@
 import axios from 'axios';
+import host from '../constants/serverUrl';
 
-const host = 'http://mokidev.eu-west-1.elasticbeanstalk.com';
 const root = '/api/players';
 
 export default class PlayersAPI {

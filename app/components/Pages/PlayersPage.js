@@ -26,6 +26,7 @@ export class PlayersPage extends Component {
     };
 
     render() {
+        const { players, loading } = this.props;
         return (
             <div className="container container-with-title">
                 <Header
@@ -34,11 +35,11 @@ export class PlayersPage extends Component {
                 />
                 <PageTitle title="Players" />
                 <TopFilters />
-                {!this.props.loading ? (
+                {!loading ? (
                     <div className="table-wrapper">
                         <table className="table">
                             <tbody>
-                                {this.props.players.map(player => (
+                                {players.map(player => (
                                     <tr
                                         onClick={() =>
                                             this.handleView(player.id)
@@ -49,6 +50,7 @@ export class PlayersPage extends Component {
                                             <img
                                                 src={defaultAvatar}
                                                 className="avatar"
+                                                alt="avatar"
                                             />
                                         </td>
                                         <td>
@@ -73,6 +75,7 @@ export class PlayersPage extends Component {
                                                 <img
                                                     src={challengesIcon}
                                                     className="icon"
+                                                    alt="icon"
                                                 />
                                             ) : (
                                                 ''
@@ -93,6 +96,7 @@ export class PlayersPage extends Component {
                                                 <img
                                                     src={teamsIcon}
                                                     className="icon"
+                                                    alt="icon"
                                                 />
                                             ) : (
                                                 ''
@@ -109,21 +113,53 @@ export class PlayersPage extends Component {
                                                     .slice(0, -2)}
                                             </span>
                                         </td>
-                                        <td className="negative align-right">
-                                            <span className="percentage-icon" />
-                                            <span className="percentage">
-                                                18%
-                                            </span>
-                                        </td>
+                                        {player.previous_steps -
+                                            player.current_steps !==
+                                        0 ? (
+                                            <td
+                                                className={
+                                                    player.previous_steps >
+                                                    player.current_steps
+                                                        ? 'negative align-right'
+                                                        : 'positive align-right'
+                                                }
+                                            >
+                                                <span className="percentage-icon" />
+                                                <span className="percentage">
+                                                    {player.previous_steps >
+                                                    player.current_steps
+                                                        ? (
+                                                              ((player.previous_steps -
+                                                                  player.current_steps) /
+                                                                  player.previous_steps) *
+                                                              100
+                                                          ).toFixed(2)
+                                                        : (
+                                                              ((player.current_steps -
+                                                                  player.previous_steps) /
+                                                                  player.current_steps) *
+                                                              100
+                                                          ).toFixed(2)}
+                                                    %
+                                                </span>
+                                            </td>
+                                        ) : (
+                                            <td className="positive align-right">
+                                                <span className="percentage-icon" />
+                                                <span className="percentage">
+                                                    0%
+                                                </span>
+                                            </td>
+                                        )}
                                         <td className="align-right">
                                             <h1 className="title">
-                                                {player.total_steps}
+                                                {player.current_steps}
                                                 <small>steps</small>
                                             </h1>
                                         </td>
                                     </tr>
                                 ))}
-                                {this.props.players.length === 0 ? (
+                                {players.length === 0 ? (
                                     <tr className="no-items-row">
                                         <td>
                                             <span>
