@@ -46,7 +46,7 @@ export class TeamsPage extends Component {
                                             }
                                             key={team.id}
                                         >
-                                            <td style={{ width: '11vmin' }}>
+                                            <td>
                                                 <img
                                                     src={defaultAvatar}
                                                     className="avatar"

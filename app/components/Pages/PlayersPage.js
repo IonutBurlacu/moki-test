@@ -33,7 +33,6 @@ export class PlayersPage extends Component {
                     leftButton={<Link to="/bands/pair">Pair Bands</Link>}
                     rightButton={<Link to="/players/add">Add</Link>}
                 />
-
                 {!loading ? (
                     <div className="content">
                         <PageTitle title="Players" />
@@ -48,7 +47,7 @@ export class PlayersPage extends Component {
                                             }
                                             key={player.id}
                                         >
-                                            <td style={{ width: '11vmin' }}>
+                                            <td>
                                                 <img
                                                     src={defaultAvatar}
                                                     className="avatar"

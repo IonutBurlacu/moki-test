@@ -17,7 +17,7 @@ export default class TeamsList extends Component {
           <tbody>
             {this.props.items.map(item => (
               <tr onClick={() => this.handleEdit(item.id)} key={item.id}>
-                <td style={{ width: '11vmin' }}>
+                <td >
                   <img src={defaultAvatar} className="avatar" />
                 </td>
                 <td>

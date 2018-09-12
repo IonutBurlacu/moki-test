@@ -48,7 +48,7 @@ export class ChallengesPage extends Component {
                                             }
                                             key={challenge.id}
                                         >
-                                            <td style={{ width: '11vmin' }}>
+                                            <td>
                                                 <img
                                                     src={defaultAvatar}
                                                     className="avatar"

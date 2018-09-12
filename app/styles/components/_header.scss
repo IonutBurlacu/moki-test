@@ -11,18 +11,21 @@
     // z-index: 10;
 
     .left-side,
+    .center-side,
     .right-side {
         align-items: center;
         display: flex;
+        flex: 1;
     }
 
     .center-side {
         align-items: center;
         display: flex;
-        // left: 50%;
-        // position: absolute;
-        // top: 50%;
-        // transform: translateX(-50%) translateY(-50%);
+        justify-content: center;
+    }
+
+    .right-side {
+        justify-content: flex-end;
     }
 
     a,

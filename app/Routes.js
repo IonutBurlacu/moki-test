@@ -22,28 +22,36 @@ import EditPlayerPage from './components/Pages/EditPlayerPage';
 import ChallengePage from './components/Pages/ChallengePage';
 import PlayerPage from './components/Pages/PlayerPage';
 import TeamPage from './components/Pages/TeamPage';
+import NFCListener from './components/NFCListener';
 
 export default () => (
-  <App>
-    <Switch>
-      <Redirect from="/" exact to="/players" />
-      <PrivateRoute path="/players" component={PlayersPage} exact />
-      <PrivateRoute path="/players/add" component={AddPlayerPage} />
-      <PrivateRoute path="/players/edit/:id" component={EditPlayerPage} />
-      <PrivateRoute path="/players/view/:id" component={PlayerPage} />
-      <PrivateRoute path="/bands/pair" component={PairBandsPage} />
-      <PrivateRoute path="/teams" component={TeamsPage} exact />
-      <PrivateRoute path="/teams/add" component={AddTeamPage} />
-      <PrivateRoute path="/teams/edit/:id" component={EditTeamPage} />
-      <PrivateRoute path="/teams/view/:id" component={TeamPage} />
-      <PrivateRoute path="/challenges" component={ChallengesPage} exact />
-      <PrivateRoute path="/challenges/add" component={AddChallengePage} />
-      <PrivateRoute path="/challenges/edit/:id" component={EditChallengePage} />
-      <PrivateRoute path="/challenges/view/:id" component={ChallengePage} />
-      <PrivateRoute path="/reports" component={ReportsPage} />
-      <PrivateRoute path="/settings" component={SettingsPage} />
-      <PublicRoute path="/login" component={LoginPage} exact />
-      <Route component={NotFoundPage} />
-    </Switch>
-  </App>
+    <App>
+        <Switch>
+            <Redirect from="/" exact to="/players" />
+            <PrivateRoute path="/players" component={PlayersPage} exact />
+            <PrivateRoute path="/players/add" component={AddPlayerPage} />
+            <PrivateRoute path="/players/edit/:id" component={EditPlayerPage} />
+            <PrivateRoute path="/players/view/:id" component={PlayerPage} />
+            <PrivateRoute path="/bands/pair" component={PairBandsPage} />
+            <PrivateRoute path="/teams" component={TeamsPage} exact />
+            <PrivateRoute path="/teams/add" component={AddTeamPage} />
+            <PrivateRoute path="/teams/edit/:id" component={EditTeamPage} />
+            <PrivateRoute path="/teams/view/:id" component={TeamPage} />
+            <PrivateRoute path="/challenges" component={ChallengesPage} exact />
+            <PrivateRoute path="/challenges/add" component={AddChallengePage} />
+            <PrivateRoute
+                path="/challenges/edit/:id"
+                component={EditChallengePage}
+            />
+            <PrivateRoute
+                path="/challenges/view/:id"
+                component={ChallengePage}
+            />
+            <PrivateRoute path="/reports" component={ReportsPage} />
+            <PrivateRoute path="/settings" component={SettingsPage} />
+            <PublicRoute path="/login" component={LoginPage} exact />
+            <Route component={NotFoundPage} />
+        </Switch>
+        <NFCListener />
+    </App>
 );

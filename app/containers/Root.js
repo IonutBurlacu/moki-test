@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import { Provider, connect } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';

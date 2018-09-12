@@ -42,7 +42,9 @@
         "promise/always-return": "error",
         "promise/catch-or-return": "error",
         "promise/no-native": "off",
-        "react/destructuring-assignment": ["error", "never"],
+        "react/destructuring-assignment": "off",
+        "import/prefer-default-export": "off",
+        "no-nested-ternary": "off",
         "react/prop-types": 0,
         "react/sort-comp": [
             "error",

@@ -5,12 +5,14 @@ import challengesReducer from './challenges';
 import teamsReducer from './teams';
 import playersReducer from './players';
 import alertReducer from './alert';
+import bandsReducer from './bands';
 
 export default combineReducers({
-	auth: authReducer,
-	alert: alertReducer,
-	loader: loaderReducer,
-	challenges: challengesReducer,
-	teams: teamsReducer,
-	players: playersReducer
+    auth: authReducer,
+    alert: alertReducer,
+    loader: loaderReducer,
+    challenges: challengesReducer,
+    bands: bandsReducer,
+    teams: teamsReducer,
+    players: playersReducer
 });

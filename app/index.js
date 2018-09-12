@@ -1,5 +1,4 @@
 import React from 'react';
-import { NFC } from 'nfc-pcsc';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
@@ -26,24 +25,3 @@ if (module.hot) {
         );
     });
 }
-
-const nfc = new NFC();
-nfc.on('reader', reader => {
-    console.log(`${reader.reader.name}  device attached`);
-
-    reader.on('card', card => {
-        console.log(`Card detected ${card.uid}`);
-    });
-
-    reader.on('card.off', card => {
-        console.log(`${reader.reader.name}  card removed`, card);
-    });
-
-    reader.on('error', err => {
-        console.log(`${reader.reader.name}  an error occurred`, err);
-    });
-
-    reader.on('end', () => {
-        console.log(`${reader.reader.name}  device removed`);
-    });
-});

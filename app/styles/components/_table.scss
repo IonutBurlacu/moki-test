@@ -1,5 +1,5 @@
 .table-wrapper {
-    padding: 0 3vmin;
+    // padding: 0 3vmin;
 }
 
 .table {
@@ -12,11 +12,22 @@
 
     tr {
         border-bottom: 1px solid #50505a;
+        cursor: pointer;
     }
 
     td {
+        border-bottom: 1px solid #50505a;
         padding: 1vmin 0;
         vertical-align: middle;
+
+        &:first-child {
+            padding-left: 3vmin;
+            width: 14vmin;
+        }
+
+        &:last-child {
+            padding-right: 3vmin;
+        }
     }
 
     .switch-column {
@@ -50,6 +61,14 @@
         font-size: 2vmin;
         line-height: 1;
         margin: 0;
+    }
+
+    .subtitle.red {
+        color: #f4325c;
+    }
+
+    .subtitle.green {
+        color: #23dec8;
     }
 
     .icon {
@@ -137,6 +156,10 @@
                 font-size: 2vmin;
             }
         }
+    }
+
+    .selected {
+        background: #292e6b;
     }
 }
 

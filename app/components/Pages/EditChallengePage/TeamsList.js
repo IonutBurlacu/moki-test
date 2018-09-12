@@ -43,7 +43,7 @@ export class TeamsList extends Component {
           <tbody>
             {this.props.items.map(item => (
               <tr key={item.id}>
-                <td style={{ width: '11vmin' }}>
+                <td >
                   <img src={defaultAvatar} className="avatar" />
                 </td>
                 <td>
