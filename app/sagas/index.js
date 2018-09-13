@@ -38,13 +38,14 @@ import {
     playerDetachFromChallenge
 } from './players';
 
-import { pairBand } from './bands';
+import { pairBand, syncBand } from './bands';
 
 export default function* sagas() {
     yield [
         fork(takeLatest, 'LOGIN_REQUEST', login),
 
         fork(takeLatest, 'PAIR_BAND_REQUEST', pairBand),
+        fork(takeLatest, 'SYNC_BAND_REQUEST', syncBand),
 
         fork(takeLatest, 'GET_CHALLENGES_REQUEST', challengesFetchList),
         fork(takeLatest, 'INSERT_CHALLENGE_REQUEST', challengeInsert),

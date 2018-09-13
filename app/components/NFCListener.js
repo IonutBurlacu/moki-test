@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NFC } from 'nfc-pcsc';
+import { push } from 'react-router-redux';
 import { showAlert } from '../actions/alert';
-import { pairBandRequest } from '../actions/bands';
+import { pairBandRequest, syncBandRequest } from '../actions/bands';
 import { showLoader } from '../actions/loader';
 
 export class NFCListener extends Component {
@@ -28,6 +29,13 @@ export class NFCListener extends Component {
                             'Select a player from the list to pair a band.'
                         );
                     }
+                } else {
+                    this.props.showLoader();
+                    this.props.syncBandRequest(card.uid, 200, [
+                        { hour_id: 0, steps: 10 },
+                        { hour_id: 1, steps: 15 }
+                    ]);
+                    this.props.push('/bands/sync');
                 }
             });
 
@@ -60,7 +68,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message)),
     showLoader: () => dispatch(showLoader()),
-    pairBandRequest: (id, uuid) => dispatch(pairBandRequest(id, uuid))
+    pairBandRequest: (id, uuid) => dispatch(pairBandRequest(id, uuid)),
+    syncBandRequest: (id, totalSteps, steps) =>
+        dispatch(syncBandRequest(id, totalSteps, steps)),
+    push: pathName => dispatch(push(pathName))
 });
 
 export default connect(

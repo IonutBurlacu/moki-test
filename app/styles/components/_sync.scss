@@ -1,0 +1,90 @@
+.syncs-wrapper {
+    list-style: none;
+    margin: 5vmin auto 0;
+    padding: 0;
+    width: 60vmin;
+
+    .separator {
+        background: #585861;
+        height: 1px;
+        margin: 3vmin auto;
+        width: 90%;
+    }
+}
+
+.sync-body {
+    .top {
+        display: flex;
+        justify-content: center;
+
+        .avatar {
+            width: 11vmin;
+        }
+
+        .right {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 3vmin;
+
+            .title {
+                color: white;
+                font-size: 4vmin;
+                font-weight: normal;
+                line-height: 1;
+                margin: 0 0 0.5vmin 0;
+
+                span {
+                    font-size: 3.2vmin;
+                }
+            }
+
+            .subtitle {
+                color: #23dec8;
+                font-size: 6vmin;
+                font-weight: normal;
+                line-height: 1;
+                margin: 0;
+
+                span {
+                    font-size: 3vmin;
+                }
+            }
+        }
+    }
+
+    .challenges-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            color: white;
+            font-size: 3vmin;
+            text-align: center;
+
+            small {
+                font-size: 1.5vmin;
+            }
+        }
+
+        .finished {
+            color: #23dec8;
+        }
+    }
+
+    &:after {
+        background: url('./images/sync_separator.png');
+        background-size: contain;
+        content: '';
+        display: block;
+        height: 3.2vmin;
+        margin: 0 auto 3vmin;
+        width: 3.2vmin;
+    }
+
+    &:last-child:after {
+        display: none;
+    }
+}

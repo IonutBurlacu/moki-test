@@ -36,3 +36,34 @@ export function* pairBand(action) {
         type: 'HIDE_LOADER'
     });
 }
+
+export function* syncBand(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        BandsAPI.sync,
+        { Authorization: token },
+        action
+    );
+
+    if (response.data.status) {
+        yield put({
+            type: 'SYNC_BAND',
+            player: response.data.player,
+            totalSteps: response.data.steps
+        });
+
+        yield put({
+            type: 'SHOW_ALERT',
+            message: response.data.message
+        });
+    } else {
+        yield put({
+            type: 'SHOW_ALERT',
+            message: response.data.message
+        });
+    }
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}

@@ -16,4 +16,19 @@ export default class BandsAPI {
             }
         });
     }
+
+    static sync(headers = {}, action) {
+        return axios({
+            method: 'post',
+            url: `${host}${root}/sync`,
+            headers: {
+                ...headers
+            },
+            data: {
+                uuid: action.uuid,
+                total_steps: action.totalSteps,
+                steps: action.steps
+            }
+        });
+    }
 }

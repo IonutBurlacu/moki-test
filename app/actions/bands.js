@@ -20,3 +20,16 @@ export const pairBandRequest = (id, uuid) => ({
 export const pairBand = () => ({
     type: 'PAIR_MODE_OFF'
 });
+
+export const syncBandRequest = (uuid, totalSteps, steps) => ({
+    type: 'SYNC_BAND_REQUEST',
+    uuid,
+    totalSteps,
+    steps
+});
+
+export const syncBand = (player, totalSteps) => ({
+    type: 'SYNC_BAND',
+    player,
+    totalSteps
+});

@@ -31,7 +31,7 @@ export class PairBandsPage extends Component {
     render() {
         const { loading, players } = this.props;
         return (
-            <div className="container container-with-title">
+            <div className="container">
                 <Header
                     leftButton={<div />}
                     rightButton={<Link to="/players">Done</Link>}

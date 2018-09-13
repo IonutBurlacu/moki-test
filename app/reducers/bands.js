@@ -1,4 +1,12 @@
-export default (state = { pairing: false, selectedPlayerId: null }, action) => {
+export default (
+    state = {
+        pairing: false,
+        selectedPlayerId: null,
+        syncs: [],
+        loading: false
+    },
+    action
+) => {
     switch (action.type) {
         case 'PAIR_MODE_ON':
             return {
@@ -25,6 +33,25 @@ export default (state = { pairing: false, selectedPlayerId: null }, action) => {
             return {
                 ...state,
                 selectedPlayerId: null
+            };
+        }
+        case 'SYNC_BAND_REQUEST': {
+            return {
+                ...state,
+                loading: true
+            };
+        }
+        case 'SYNC_BAND': {
+            return {
+                ...state,
+                syncs: [
+                    ...state.syncs,
+                    {
+                        steps: action.totalSteps,
+                        ...action.player
+                    }
+                ],
+                loading: false
             };
         }
         default:
