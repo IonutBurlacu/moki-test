@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
+import { list } from 'postcss';
 import { Header } from '../Header';
 import Footer from '../Footer';
 import Loader from '../Loader';
@@ -19,8 +20,8 @@ export class SyncBandsPage extends Component {
                     <div className="content">
                         <PageTitle title="Recording Steps" isGreen />
                         <ul className="syncs-wrapper">
-                            {this.props.syncs.map(sync => (
-                                <li className="sync-body">
+                            {this.props.syncs.map((sync, key) => (
+                                <li key={key} className="sync-body">
                                     <div className="top">
                                         <div className="left">
                                             <img
@@ -41,36 +42,49 @@ export class SyncBandsPage extends Component {
                                         </div>
                                     </div>
                                     <div className="separator" />
-                                    <ul className="challenges-list">
-                                        {sync.challenges.map(challenge => (
-                                            <li
-                                                className={
-                                                    challenge.target_steps -
+                                    {sync.challenges.length > 0 ? (
+                                        <ul className="challenges-list">
+                                            {sync.challenges.map(challenge => (
+                                                <li
+                                                    key={challenge.id}
+                                                    className={
+                                                        challenge.target_steps -
+                                                            challenge.progress <=
+                                                        0
+                                                            ? 'finished'
+                                                            : ''
+                                                    }
+                                                >
+                                                    {challenge.target_steps -
                                                         challenge.progress <=
-                                                    0
-                                                        ? 'finished'
-                                                        : ''
-                                                }
-                                            >
-                                                {challenge.target_steps -
-                                                    challenge.progress <=
-                                                0 ? (
-                                                    <span>
-                                                        {challenge.name} -
-                                                        Complete!
-                                                    </span>
-                                                ) : (
-                                                    <span>
-                                                        {`${challenge.name} - `}
-                                                        {challenge.target_steps -
-                                                            challenge.progress}{' '}
-                                                        <small>steps</small> to
-                                                        go
-                                                    </span>
-                                                )}
+                                                    0 ? (
+                                                        <span>
+                                                            {challenge.name} -
+                                                            Complete!
+                                                        </span>
+                                                    ) : (
+                                                        <span>
+                                                            {`${
+                                                                challenge.name
+                                                            } - `}
+                                                            {challenge.target_steps -
+                                                                challenge.progress}{' '}
+                                                            <small>steps</small>{' '}
+                                                            to go
+                                                        </span>
+                                                    )}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <ul className="challenges-list">
+                                            <li>
+                                                Player doesn't have any
+                                                challenges
                                             </li>
-                                        ))}
-                                    </ul>
+                                        </ul>
+                                    )}
+
                                     <div className="separator" />
                                 </li>
                             ))}

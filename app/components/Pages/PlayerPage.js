@@ -60,20 +60,23 @@ export class PlayerPage extends Component {
                                 <h1>Overview</h1>
                                 <div className="chart">
                                     <ResponsiveContainer width="99%">
-                                        <LineChart data={data}>
+                                        <LineChart
+                                            data={this.props.player.overview}
+                                        >
                                             <CartesianGrid
                                                 stroke="#53535d"
                                                 vertical={false}
                                             />
                                             <XAxis
-                                                dataKey="name"
+                                                dataKey="hour_id"
                                                 stroke="#f6f6f7"
                                             />
                                             <YAxis stroke="#f6f6f7" />
                                             <Tooltip />
                                             <Line
                                                 type="monotone"
-                                                dataKey="steps"
+                                                dataKey="total_steps"
+                                                name="Steps"
                                                 stroke="#fe335e"
                                                 strokeWidth="2"
                                                 dot={{
@@ -89,24 +92,27 @@ export class PlayerPage extends Component {
                                 <h1>Typical</h1>
                                 <div className="chart">
                                     <ResponsiveContainer width="99%">
-                                        <LineChart data={data}>
+                                        <LineChart
+                                            data={this.props.player.typical}
+                                        >
                                             <CartesianGrid
                                                 stroke="#53535d"
                                                 vertical={false}
                                             />
                                             <XAxis
-                                                dataKey="name"
+                                                dataKey="hour_id"
                                                 stroke="#f6f6f7"
                                             />
                                             <YAxis stroke="#f6f6f7" />
                                             <Tooltip />
                                             <Line
                                                 type="monotone"
-                                                dataKey="steps"
-                                                stroke="#fe335e"
+                                                dataKey="total_steps"
+                                                name="Steps"
+                                                stroke="#27fdd5"
                                                 strokeWidth="2"
                                                 dot={{
-                                                    stroke: '#fe335e',
+                                                    stroke: '#27fdd5',
                                                     strokeWidth: 5
                                                 }}
                                             />

@@ -1,5 +1,4 @@
-import { takeLatest } from 'redux-saga';
-import { fork } from 'redux-saga/effects';
+import { fork, takeLatest } from 'redux-saga/effects';
 import { login } from './auth';
 import {
     challengesFetchList,

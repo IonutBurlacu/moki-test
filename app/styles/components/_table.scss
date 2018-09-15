@@ -207,6 +207,10 @@
     }
 }
 
+.settings-table-wrapper {
+    padding: 0 3vmin;
+}
+
 .settings-table {
     .setting-button,
     .setting-label {
@@ -216,6 +220,18 @@
         font-size: 3vmin;
         line-height: 6vmin;
         padding: 0;
+    }
+
+    td:first-child {
+        width: inherit;
+    }
+
+    .align-right {
+        padding-right: 3vmin !important;
+    }
+
+    .switch-column {
+        padding-right: 7vmin !important;
     }
 }
 

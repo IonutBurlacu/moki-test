@@ -45,11 +45,11 @@ export default (
             return {
                 ...state,
                 syncs: [
-                    ...state.syncs,
                     {
-                        steps: action.totalSteps,
-                        ...action.player
-                    }
+                        ...action.player,
+                        steps: action.totalSteps
+                    },
+                    ...state.syncs
                 ],
                 loading: false
             };

@@ -43,7 +43,7 @@ export class SettingsPage extends Component {
                 />
                 <div className="content">
                     <PageTitle title="Settings" />
-                    <div className="table-wrapper">
+                    <div className="table-wrapper settings-table-wrapper">
                         <table className="table settings-table">
                             <tr>
                                 <td>
@@ -90,7 +90,7 @@ export class SettingsPage extends Component {
                                 </td>
                             </tr>
                             <tr>
-                                <td colSpan="2">
+                                <td>
                                     <button
                                         className="setting-button"
                                         type="button"
@@ -98,9 +98,10 @@ export class SettingsPage extends Component {
                                         Read Band Battery Levels
                                     </button>
                                 </td>
+                                <td />
                             </tr>
                             <tr>
-                                <td colSpan="2">
+                                <td>
                                     <button
                                         className="setting-button"
                                         type="button"
@@ -108,6 +109,7 @@ export class SettingsPage extends Component {
                                         Delete Band Battery Levels
                                     </button>
                                 </td>
+                                <td />
                             </tr>
                             <tr>
                                 <td>
@@ -125,7 +127,7 @@ export class SettingsPage extends Component {
                                 </td>
                             </tr>
                             <tr>
-                                <td colSpan="2">
+                                <td>
                                     <button
                                         className="setting-button"
                                         type="button"
@@ -133,9 +135,10 @@ export class SettingsPage extends Component {
                                         Account
                                     </button>
                                 </td>
+                                <td />
                             </tr>
                             <tr>
-                                <td colSpan="2">
+                                <td>
                                     <button
                                         type="button"
                                         className="setting-button"
@@ -144,9 +147,10 @@ export class SettingsPage extends Component {
                                         Log Out
                                     </button>
                                 </td>
+                                <td />
                             </tr>
                             <tr>
-                                <td colSpan="2">
+                                <td>
                                     <button
                                         className="setting-button"
                                         type="button"
@@ -154,6 +158,7 @@ export class SettingsPage extends Component {
                                         Contact Support
                                     </button>
                                 </td>
+                                <td />
                             </tr>
                         </table>
                     </div>
