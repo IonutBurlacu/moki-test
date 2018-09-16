@@ -58,6 +58,7 @@
             }
 
             .chart-select-list-wrapper {
+                display: none;
                 position: absolute;
                 right: 0;
                 top: 5.5vmin;
@@ -94,6 +95,15 @@
                         color: white;
                         font-size: 2.7vmin;
                         padding: 1vmin 0;
+
+                        button {
+                            background: transparent;
+                            border: none;
+                            color: white;
+                            padding: 0;
+                            text-align: left;
+                            width: 100%;
+                        }
 
                         &:last-child {
                             border-bottom: none;

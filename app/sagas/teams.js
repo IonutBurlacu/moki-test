@@ -17,6 +17,27 @@ export function* teamsFetchList() {
     });
 }
 
+export function* teamStats(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        TeamsAPI.stats,
+        { Authorization: token },
+        action.id,
+        action.statsType
+    );
+
+    yield put({
+        type: 'STATS_TEAM',
+        overview: response.data.overview,
+        typical: response.data.typical,
+        statsType: action.statsType
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
 export function* teamInsert(action) {
     const token = yield select(getToken);
     const response = yield call(

@@ -17,7 +17,48 @@ export function* playersFetchList() {
     });
 }
 
-export function* playerCreate(action) {
+export function* playerView(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        PlayersAPI.view,
+        { Authorization: token },
+        action.id
+    );
+
+    yield put({
+        type: 'VIEW_PLAYER',
+        player: response.data.player,
+        grades: response.data.grades,
+        years: response.data.years
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
+export function* playerStats(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        PlayersAPI.stats,
+        { Authorization: token },
+        action.id,
+        action.statsType
+    );
+
+    yield put({
+        type: 'STATS_PLAYER',
+        overview: response.data.overview,
+        typical: response.data.typical,
+        statsType: action.statsType
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
+export function* playerCreate() {
     const token = yield select(getToken);
     const response = yield call(PlayersAPI.create, { Authorization: token });
 
@@ -93,26 +134,6 @@ export function* playerUpdate(action) {
     });
 
     yield put(goBack());
-}
-
-export function* playerView(action) {
-    const token = yield select(getToken);
-    const response = yield call(
-        PlayersAPI.view,
-        { Authorization: token },
-        action.id
-    );
-
-    yield put({
-        type: 'VIEW_PLAYER',
-        player: response.data.player,
-        grades: response.data.grades,
-        years: response.data.years
-    });
-
-    yield put({
-        type: 'HIDE_LOADER'
-    });
 }
 
 export function* playerAttachToTeam(action) {

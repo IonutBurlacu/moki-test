@@ -27,6 +27,10 @@ export function* pairBand(action) {
         });
     } else {
         yield put({
+            type: 'PAIR_BAND'
+        });
+
+        yield put({
             type: 'SHOW_ALERT',
             message: response.data.message
         });

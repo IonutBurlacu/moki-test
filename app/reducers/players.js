@@ -6,6 +6,7 @@ export default (
         years: [],
         challenges: [],
         teams: [],
+        statsType: 'today',
         loading: false
     },
     action
@@ -31,6 +32,22 @@ export default (
             return {
                 ...state,
                 player: action.player,
+                loading: false
+            };
+        case 'STATS_PLAYER_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'STATS_PLAYER':
+            return {
+                ...state,
+                player: {
+                    ...state.player,
+                    overview: action.overview,
+                    typical: action.typical
+                },
+                statsType: action.statsType,
                 loading: false
             };
         case 'CREATE_PLAYER_REQUEST':

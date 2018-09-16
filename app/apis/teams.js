@@ -24,6 +24,19 @@ export default class TeamsAPI {
         });
     }
 
+    static stats(headers = {}, id, statsType) {
+        return axios({
+            method: 'post',
+            url: `${host}${root}/stats/${id}`,
+            headers: {
+                ...headers
+            },
+            data: {
+                type: statsType
+            }
+        });
+    }
+
     static insert(headers = {}, team) {
         return axios({
             method: 'post',

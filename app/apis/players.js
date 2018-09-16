@@ -24,6 +24,19 @@ export default class PlayersAPI {
         });
     }
 
+    static stats(headers = {}, id, statsType) {
+        return axios({
+            method: 'post',
+            url: `${host}${root}/stats/${id}`,
+            headers: {
+                ...headers
+            },
+            data: {
+                type: statsType
+            }
+        });
+    }
+
     static create(headers = {}) {
         return axios({
             method: 'get',
