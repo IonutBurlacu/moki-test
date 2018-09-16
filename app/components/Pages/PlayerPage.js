@@ -57,19 +57,53 @@ export class PlayerPage extends Component {
                         <PageHeader player={this.props.player} />
                         <div className="charts-container">
                             <div className="chart-container">
-                                <h1>Overview</h1>
+                                <div className="chart-header">
+                                    <h1>Overview</h1>
+                                    <div className="chart-select-wrapper">
+                                        <div className="chart-select">
+                                            <button
+                                                type="button"
+                                                className="chart-select-button"
+                                            >
+                                                Today
+                                            </button>
+                                            <div className="chart-select-list-wrapper">
+                                                <div className="chart-select-list-header">
+                                                    Select Date
+                                                    <button type="button">
+                                                        ⨉
+                                                    </button>
+                                                </div>
+                                                <ul className="chart-select-list">
+                                                    <li>Today</li>
+                                                    <li>This Week</li>
+                                                    <li>This Month</li>
+                                                    <li>This Year</li>
+                                                    <li>All Time</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="chart">
                                     <ResponsiveContainer width="99%">
                                         <LineChart
                                             data={this.props.player.overview}
+                                            margin={{
+                                                top: 10,
+                                                right: 10,
+                                                left: 10,
+                                                bottom: 10
+                                            }}
                                         >
                                             <CartesianGrid
                                                 stroke="#53535d"
                                                 vertical={false}
                                             />
                                             <XAxis
-                                                dataKey="hour_id"
+                                                dataKey="day_name"
                                                 stroke="#f6f6f7"
+                                                interval={0}
                                             />
                                             <YAxis stroke="#f6f6f7" />
                                             <Tooltip />
@@ -89,19 +123,53 @@ export class PlayerPage extends Component {
                                 </div>
                             </div>
                             <div className="chart-container">
-                                <h1>Typical</h1>
+                                <div className="chart-header">
+                                    <h1>Typical</h1>
+                                    <div className="chart-select-wrapper">
+                                        <div className="chart-select">
+                                            <button
+                                                type="button"
+                                                className="chart-select-button"
+                                            >
+                                                Today
+                                            </button>
+                                            <div className="chart-select-list-wrapper">
+                                                <div className="chart-select-list-header">
+                                                    Select Date
+                                                    <button type="button">
+                                                        ⨉
+                                                    </button>
+                                                </div>
+                                                <ul className="chart-select-list">
+                                                    <li>Today</li>
+                                                    <li>This Week</li>
+                                                    <li>This Month</li>
+                                                    <li>This Year</li>
+                                                    <li>All Time</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="chart">
                                     <ResponsiveContainer width="99%">
                                         <LineChart
                                             data={this.props.player.typical}
+                                            margin={{
+                                                top: 10,
+                                                right: 10,
+                                                left: 10,
+                                                bottom: 10
+                                            }}
                                         >
                                             <CartesianGrid
                                                 stroke="#53535d"
                                                 vertical={false}
                                             />
                                             <XAxis
-                                                dataKey="hour_id"
+                                                dataKey="day_name"
                                                 stroke="#f6f6f7"
+                                                interval={0}
                                             />
                                             <YAxis stroke="#f6f6f7" />
                                             <Tooltip />

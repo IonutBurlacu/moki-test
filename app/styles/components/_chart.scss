@@ -4,6 +4,105 @@
     .chart-container {
         flex: 1;
 
+        .chart-header {
+            margin: 4vmin 0;
+            // margin-top: 4vmin;
+            position: relative;
+
+            h1 {
+                color: white;
+                font-size: 4vmin;
+                font-weight: normal;
+                line-height: 5.5vmin;
+                margin: 0;
+                text-align: center;
+            }
+
+            .chart-select-wrapper {
+                position: absolute;
+                right: 10px;
+                top: 0;
+
+                .chart-select {
+                    position: relative;
+                }
+            }
+
+            .chart-select-button {
+                background: transparent;
+                border: 1px solid white;
+                color: white;
+                font-size: 2.7vmin;
+                height: 5.5vmin;
+                padding: 1vmin 0;
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 25vmin;
+
+                &:before {
+                    border-color: #fff transparent transparent transparent;
+                    border-style: solid;
+                    border-width: 1.6vmin 0.9vmin 0 0.9vmin;
+                    content: '';
+                    display: inline-block;
+                    height: 0;
+                    left: 1.4vmin;
+                    margin-right: 1vmin;
+                    position: absolute;
+                    vertical-align: middle;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 0;
+                }
+            }
+
+            .chart-select-list-wrapper {
+                position: absolute;
+                right: 0;
+                top: 5.5vmin;
+                z-index: 999;
+
+                .chart-select-list-header {
+                    background: #66667b;
+                    color: white;
+                    font-size: 2.7vmin;
+                    padding: 1vmin 0 1vmin 3vmin;
+                    position: relative;
+
+                    button {
+                        background: transparent;
+                        border: none;
+                        color: #bfc0c5;
+                        font-size: 4vmin;
+                        position: absolute;
+                        right: 1vmin;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+
+                .chart-select-list {
+                    background: #797993;
+                    list-style: none;
+                    padding: 0 3vmin;
+                    margin: 0;
+                    width: 40vmin;
+
+                    li {
+                        border-bottom: 1px solid #acacb7;
+                        color: white;
+                        font-size: 2.7vmin;
+                        padding: 1vmin 0;
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
+        }
+
         .chart {
             height: 40vmin;
             width: 100%;
