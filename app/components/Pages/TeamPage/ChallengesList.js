@@ -1,34 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import ChallengesListModal from './ChallengesListModal';
-import { showLoader } from '../../../actions/loader';
-import { detachPlayerFromChallengeRequest } from '../../../actions/players';
 import defaultAvatar from '../../../images/default_avatar.png';
 import challengesListIcon from '../../../images/challenges_list_icon.png';
 
 export class ChallengesList extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            modalIsOpen: false
-        };
-    }
-
-    openModal = () => {
-        this.setState({ modalIsOpen: true });
-    };
-
-    closeModal = () => {
-        this.setState({ modalIsOpen: false });
-    };
-
-    detachFromChallenge = challengeId => {
-        this.props.showLoader();
-        this.props.detachPlayerFromChallengeRequest(challengeId, this.props.id);
-    };
-
     render() {
         return (
             <div className="table-wrapper">
@@ -39,13 +15,6 @@ export class ChallengesList extends Component {
                         alt="table-header-icon"
                     />
                     <h3 className="table-header-title">Challenges</h3>
-                    <button
-                        type="button"
-                        className="add-button"
-                        onClick={this.openModal}
-                    >
-                        Add
-                    </button>
                 </div>
                 <table className="table">
                     <tbody>
@@ -69,17 +38,6 @@ export class ChallengesList extends Component {
                                               )}
                                     </span>
                                 </td>
-                                <td className="align-right">
-                                    <button
-                                        type="button"
-                                        className="green-button"
-                                        onClick={() =>
-                                            this.detachFromChallenge(item.id)
-                                        }
-                                    >
-                                        Remove
-                                    </button>
-                                </td>
                             </tr>
                         ))}
                         {this.props.items.length === 0 ? (
@@ -95,24 +53,9 @@ export class ChallengesList extends Component {
                         )}
                     </tbody>
                 </table>
-                <ChallengesListModal
-                    modalIsOpen={this.state.modalIsOpen}
-                    closeModal={this.closeModal}
-                    challenges={this.props.challenges}
-                    id={this.props.id}
-                />
             </div>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    detachPlayerFromChallengeRequest: (challengeId, playerId) =>
-        dispatch(detachPlayerFromChallengeRequest(challengeId, playerId)),
-    showLoader: () => dispatch(showLoader())
-});
-
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(ChallengesList);
+export default connect(undefined)(ChallengesList);

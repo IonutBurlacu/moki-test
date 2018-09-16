@@ -171,7 +171,7 @@ export class PlayersPage extends Component {
                                             </td>
                                         </tr>
                                     ) : (
-                                        <tr />
+                                        ''
                                     )}
                                 </tbody>
                             </table>

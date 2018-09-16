@@ -9,6 +9,8 @@ import { showLoader } from '../../actions/loader';
 import PageHeader from './PlayerPage/PageHeader';
 import OverviewChart from './PlayerPage/OverviewChart';
 import TypicalChart from './PlayerPage/TypicalChart';
+import TeamsList from './PlayerPage/TeamsList';
+import ChallengesList from './PlayerPage/ChallengesList';
 
 export class PlayerPage extends Component {
     handleEdit = id => {
@@ -40,6 +42,22 @@ export class PlayerPage extends Component {
                             <OverviewChart />
                             <TypicalChart />
                         </div>
+                        <div className="two-sides">
+                            <div className="side">
+                                <TeamsList
+                                    items={this.props.player.teams}
+                                    teams={this.props.teams}
+                                    id={this.props.match.params.id}
+                                />
+                            </div>
+                            <div className="side">
+                                <ChallengesList
+                                    items={this.props.player.challenges}
+                                    challenges={this.props.challenges}
+                                    id={this.props.match.params.id}
+                                />
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <div className="content" />
@@ -53,7 +71,9 @@ export class PlayerPage extends Component {
 
 const mapStateToProps = state => ({
     player: state.players.player,
-    loading: state.players.loading
+    loading: state.players.loading,
+    teams: state.players.teams,
+    challenges: state.players.challenges
 });
 
 const mapDispatchToProps = dispatch => ({

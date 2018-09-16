@@ -36,10 +36,14 @@ export default class PageHeader extends Component {
                             className="small-icon"
                             alt="small-icon"
                         />
-                        <span>
-                            {team.players.length} Player
-                            {team.players.length != 1 ? 's' : ''}
-                        </span>
+                        {team.players ? (
+                            <span>
+                                {team.players.length} Player
+                                {team.players.length != 1 ? 's' : ''}
+                            </span>
+                        ) : (
+                            ''
+                        )}
                     </div>
                     <div className="row">
                         <span>

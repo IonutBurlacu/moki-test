@@ -13,10 +13,13 @@
     tr {
         border-bottom: 1px solid #50505a;
         cursor: pointer;
+
+        &:last-child {
+            // border-bottom: none;
+        }
     }
 
     td {
-        border-bottom: 1px solid #50505a;
         padding: 1vmin 0;
         vertical-align: middle;
 
@@ -199,6 +202,7 @@
 
     .side {
         flex: 1;
+        padding: 0 3vmin;
 
         .add-button {
             left: inherit;

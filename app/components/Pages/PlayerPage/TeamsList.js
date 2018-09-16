@@ -1,43 +1,20 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import TeamsListModal from './TeamsListModal';
-import { showLoader } from '../../../actions/loader';
-import { detachChallengeFromTeamRequest } from '../../../actions/challenges';
 import defaultAvatar from '../../../images/default_avatar.png';
 import teamsListIcon from '../../../images/teams_list_icon.png';
 
 export class TeamsList extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            modalIsOpen: false
-        };
-    }
-
-    openModal = () => {
-        this.setState({ modalIsOpen: true });
-    };
-
-    closeModal = () => {
-        this.setState({ modalIsOpen: false });
-    };
-
-    detachFromTeam = teamId => {
-        this.props.showLoader();
-        this.props.detachChallengeFromTeamRequest(teamId, this.props.id);
-    };
-
     render() {
         return (
             <div className="table-wrapper">
                 <div className="table-header">
-                    <img src={teamsListIcon} className="table-header-icon" />
+                    <img
+                        src={teamsListIcon}
+                        className="table-header-icon"
+                        alt="table-header-icon"
+                    />
                     <h3 className="table-header-title">Teams</h3>
-                    <button className="add-button" onClick={this.openModal}>
-                        Add
-                    </button>
                 </div>
                 <table className="table">
                     <tbody>
@@ -47,6 +24,7 @@ export class TeamsList extends Component {
                                     <img
                                         src={defaultAvatar}
                                         className="avatar"
+                                        alt="avatar"
                                     />
                                 </td>
                                 <td>
@@ -60,23 +38,13 @@ export class TeamsList extends Component {
                                               )}
                                     </span>
                                 </td>
-                                <td className="align-right">
-                                    <button
-                                        className="green-button"
-                                        onClick={() =>
-                                            this.detachFromTeam(item.id)
-                                        }
-                                    >
-                                        Remove
-                                    </button>
-                                </td>
                             </tr>
                         ))}
                         {this.props.items.length === 0 ? (
                             <tr className="no-items-row">
                                 <td>
                                     <span>
-                                        Challenge doesn't have any team yet.
+                                        Player isn't part of any team yet.
                                     </span>
                                 </td>
                             </tr>
@@ -85,24 +53,9 @@ export class TeamsList extends Component {
                         )}
                     </tbody>
                 </table>
-                <TeamsListModal
-                    modalIsOpen={this.state.modalIsOpen}
-                    closeModal={this.closeModal}
-                    teams={this.props.teams}
-                    id={this.props.id}
-                />
             </div>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    detachChallengeFromTeamRequest: (teamId, challengeId) =>
-        dispatch(detachChallengeFromTeamRequest(teamId, challengeId)),
-    showLoader: () => dispatch(showLoader())
-});
-
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(TeamsList);
+export default connect(undefined)(TeamsList);

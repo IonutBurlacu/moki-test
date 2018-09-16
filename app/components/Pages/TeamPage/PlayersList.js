@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import defaultAvatar from '../../../images/default_avatar.png';
 import playersListIcon from '../../../images/players_list_icon.png';
 
-export default class PlayersList extends Component {
+export class PlayersList extends Component {
     render() {
         return (
             <div className="table-wrapper">
@@ -39,40 +40,13 @@ export default class PlayersList extends Component {
                                               )}
                                     </span>
                                 </td>
-                                <td className="align-right">
-                                    <div className="progress-bar">
-                                        <div
-                                            className="filler"
-                                            style={{
-                                                width: `${
-                                                    item.progress <=
-                                                    this.props.targetSteps
-                                                        ? (item.progress *
-                                                              100) /
-                                                          this.props.targetSteps
-                                                        : 100
-                                                }%`
-                                            }}
-                                        />
-                                    </div>
-                                </td>
-                                <td className="align-right">
-                                    <h1 className="title">
-                                        {item.progress <= this.props.targetSteps
-                                            ? this.props.targetSteps -
-                                              item.progress
-                                            : 0}
-                                        <small>steps</small>
-                                        <span>to go</span>
-                                    </h1>
-                                </td>
                             </tr>
                         ))}
                         {this.props.items.length === 0 ? (
                             <tr className="no-items-row">
                                 <td>
                                     <span>
-                                        Challenge doesn't have any player yet.
+                                        Team doesn't have any players yet.
                                     </span>
                                 </td>
                             </tr>
@@ -85,3 +59,5 @@ export default class PlayersList extends Component {
         );
     }
 }
+
+export default connect(undefined)(PlayersList);
