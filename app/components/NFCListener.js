@@ -132,7 +132,7 @@ export class NFCListener extends Component {
             reader.read(SUNDAY, 16, 16)
         ])
             .then(responses => {
-                console.log(responses);
+                // console.log(responses);
                 let dayFound = false;
                 responses.forEach((response, index) => {
                     /* 

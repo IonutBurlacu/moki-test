@@ -37,6 +37,7 @@ export class TypicalChart extends Component {
 
     handleDateChange = type => {
         this.props.showLoader();
+        this.setState({ dateSelectOpen: false });
         this.props.statsPlayerRequest(this.props.player.id, type);
     };
 
@@ -60,7 +61,7 @@ export class TypicalChart extends Component {
                                 className="chart-select-button"
                                 onClick={this.handleDateSelectMenu}
                             >
-                                {this.getSelectedDateType(this.props.statsType)}
+                                {this.getSelectedDateType(this.props.chartType)}
                             </button>
                             <div
                                 className="chart-select-list-wrapper"
@@ -126,37 +127,44 @@ export class TypicalChart extends Component {
                     </div>
                 </div>
                 <div className="chart">
-                    <ResponsiveContainer width="99%">
-                        <LineChart
-                            data={this.props.player.typical}
-                            margin={{
-                                top: 10,
-                                right: 15,
-                                left: 10,
-                                bottom: 10
-                            }}
-                        >
-                            <CartesianGrid stroke="#53535d" vertical={false} />
-                            <XAxis
-                                dataKey="x_axis"
-                                stroke="#f6f6f7"
-                                interval={0}
-                            />
-                            <YAxis stroke="#f6f6f7" />
-                            <Tooltip />
-                            <Line
-                                type="monotone"
-                                dataKey="total_steps"
-                                name="Steps"
-                                stroke="#27fdd5"
-                                strokeWidth="2"
-                                dot={{
-                                    stroke: '#27fdd5',
-                                    strokeWidth: 5
+                    {this.props.player.typical.length ? (
+                        <ResponsiveContainer width="99%">
+                            <LineChart
+                                data={this.props.player.typical}
+                                margin={{
+                                    top: 10,
+                                    right: 15,
+                                    left: 10,
+                                    bottom: 10
                                 }}
-                            />
-                        </LineChart>
-                    </ResponsiveContainer>
+                            >
+                                <CartesianGrid
+                                    stroke="#53535d"
+                                    vertical={false}
+                                />
+                                <XAxis
+                                    dataKey="x_axis"
+                                    stroke="#f6f6f7"
+                                    interval={0}
+                                />
+                                <YAxis stroke="#f6f6f7" />
+                                <Tooltip />
+                                <Line
+                                    type="monotone"
+                                    dataKey="total_steps"
+                                    name="Steps"
+                                    stroke="#27fdd5"
+                                    strokeWidth="2"
+                                    dot={{
+                                        stroke: '#27fdd5',
+                                        strokeWidth: 5
+                                    }}
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    ) : (
+                        ''
+                    )}
                 </div>
             </div>
         );
@@ -165,7 +173,7 @@ export class TypicalChart extends Component {
 
 const mapStateToProps = state => ({
     player: state.players.player,
-    statsType: state.players.statsType
+    chartType: state.players.chartType
 });
 
 const mapDispatchToProps = dispatch => ({

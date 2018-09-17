@@ -1,10 +1,13 @@
 export default (
     state = {
         items: [],
-        team: {},
+        team: {
+            overview: [],
+            typical: []
+        },
         challenges: [],
         players: [],
-        statsType: 'today',
+        chartType: 'today',
         loading: false
     },
     action
@@ -45,7 +48,7 @@ export default (
                     overview: action.overview,
                     typical: action.typical
                 },
-                statsType: action.statsType,
+                chartType: action.chartType,
                 loading: false
             };
         case 'INSERT_TEAM_REQUEST':

@@ -23,14 +23,14 @@ export function* teamStats(action) {
         TeamsAPI.stats,
         { Authorization: token },
         action.id,
-        action.statsType
+        action.chartType
     );
 
     yield put({
         type: 'STATS_TEAM',
         overview: response.data.overview,
         typical: response.data.typical,
-        statsType: action.statsType
+        chartType: action.chartType
     });
 
     yield put({

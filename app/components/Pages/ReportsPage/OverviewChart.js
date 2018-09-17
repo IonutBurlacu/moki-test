@@ -9,7 +9,7 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
-import { statsTeamRequest } from '../../../actions/teams';
+import { statsReportsTeamsRequest } from '../../../actions/reports';
 import { showLoader } from '../../../actions/loader';
 
 export class OverviewChart extends Component {
@@ -38,7 +38,11 @@ export class OverviewChart extends Component {
     handleDateChange = type => {
         this.props.showLoader();
         this.setState({ dateSelectOpen: false });
-        this.props.statsTeamRequest(this.props.team.id, type);
+        this.props.statsReportsTeamsRequest(
+            this.props.teamIdsA,
+            this.props.teamIdsB,
+            type
+        );
     };
 
     handleDateSelectMenu = () => {
@@ -127,10 +131,10 @@ export class OverviewChart extends Component {
                     </div>
                 </div>
                 <div className="chart">
-                    {this.props.team.overview.length ? (
+                    {this.props.overview.length ? (
                         <ResponsiveContainer width="99%">
                             <LineChart
-                                data={this.props.team.overview}
+                                data={this.props.overview}
                                 margin={{
                                     top: 10,
                                     right: 15,
@@ -151,12 +155,23 @@ export class OverviewChart extends Component {
                                 <Tooltip />
                                 <Line
                                     type="monotone"
-                                    dataKey="total_steps"
-                                    name="Steps"
+                                    dataKey="total_steps_a"
+                                    name="Steps Data A"
                                     stroke="#fe335e"
                                     strokeWidth="2"
                                     dot={{
                                         stroke: '#fe335e',
+                                        strokeWidth: 5
+                                    }}
+                                />
+                                <Line
+                                    type="monotone"
+                                    dataKey="total_steps_b"
+                                    name="Steps Data B"
+                                    stroke="#27ffd4"
+                                    strokeWidth="2"
+                                    dot={{
+                                        stroke: '#27ffd4',
                                         strokeWidth: 5
                                     }}
                                 />
@@ -172,12 +187,15 @@ export class OverviewChart extends Component {
 }
 
 const mapStateToProps = state => ({
-    team: state.teams.team,
-    chartType: state.teams.chartType
+    overview: state.reports.overview,
+    teamIdsA: state.reports.teamIdsA,
+    teamIdsB: state.reports.teamIdsB,
+    chartType: state.reports.chartType
 });
 
 const mapDispatchToProps = dispatch => ({
-    statsTeamRequest: (id, type) => dispatch(statsTeamRequest(id, type)),
+    statsReportsTeamsRequest: (teamIdsA, teamIdsB, type) =>
+        dispatch(statsReportsTeamsRequest(teamIdsA, teamIdsB, type)),
     showLoader: () => dispatch(showLoader())
 });
 

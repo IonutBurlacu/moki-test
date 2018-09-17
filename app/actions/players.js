@@ -17,17 +17,17 @@ export const viewPlayer = player => ({
     player
 });
 
-export const statsPlayerRequest = (id, statsType) => ({
+export const statsPlayerRequest = (id, chartType) => ({
     type: 'STATS_PLAYER_REQUEST',
     id,
-    statsType
+    chartType
 });
 
-export const statsPlayer = (overview, typical, statsType) => ({
+export const statsPlayer = (overview, typical, chartType) => ({
     type: 'STATS_PLAYER',
     overview,
     typical,
-    statsType
+    chartType
 });
 
 export const createPlayerRequest = () => ({

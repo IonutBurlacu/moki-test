@@ -17,17 +17,17 @@ export const viewTeam = team => ({
     team
 });
 
-export const statsTeamRequest = (id, statsType) => ({
+export const statsTeamRequest = (id, chartType) => ({
     type: 'STATS_TEAM_REQUEST',
     id,
-    statsType
+    chartType
 });
 
-export const statsTeam = (overview, typical, statsType) => ({
+export const statsTeam = (overview, typical, chartType) => ({
     type: 'STATS_TEAM',
     overview,
     typical,
-    statsType
+    chartType
 });
 
 export const insertTeamRequest = team => ({

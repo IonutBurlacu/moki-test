@@ -43,14 +43,14 @@ export function* playerStats(action) {
         PlayersAPI.stats,
         { Authorization: token },
         action.id,
-        action.statsType
+        action.chartType
     );
 
     yield put({
         type: 'STATS_PLAYER',
         overview: response.data.overview,
         typical: response.data.typical,
-        statsType: action.statsType
+        chartType: action.chartType
     });
 
     yield put({

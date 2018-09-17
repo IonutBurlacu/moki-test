@@ -7,9 +7,35 @@
     padding: 0 4vmin;
     width: 100%;
 
-    .filter {
+    .left-side {
         display: flex;
         flex: 1;
+        justify-content: flex-start;
+
+        .filter-wrapper {
+            margin-right: 2vmin;
+        }
+    }
+
+    .center-side {
+        display: flex;
+        justify-content: center;
+    }
+
+    .right-side {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+
+        .filter-wrapper {
+            margin-left: 2vmin;
+        }
+    }
+
+    .filter-wrapper {
+        display: flex;
+        position: relative;
+        width: 30vmin;
 
         .filter-button {
             background: none;
@@ -17,6 +43,7 @@
             color: white;
             font-size: 2.5vmin;
             padding: 1vmin;
+            width: 100%;
         }
     }
 
@@ -40,23 +67,58 @@
         }
     }
 
-    .align-center {
-        justify-content: center;
-    }
+    .filter-select-list-wrapper {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 5.5vmin;
+        z-index: 999;
 
-    .align-right {
-        justify-content: flex-end;
-    }
+        .filter-select-list-header {
+            background: #66667b;
+            color: white;
+            font-size: 2.7vmin;
+            padding: 1vmin 0 1vmin 3vmin;
+            position: relative;
 
-    .sort-by {
-        min-width: 37vmin;
-    }
+            button {
+                background: transparent;
+                border: none;
+                color: #bfc0c5;
+                font-size: 4vmin;
+                position: absolute;
+                right: 1vmin;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
 
-    .date {
-        min-width: 30vmin;
-    }
+        .filter-select-list {
+            background: #797993;
+            list-style: none;
+            padding: 0 3vmin;
+            margin: 0;
+            width: 40vmin;
 
-    .filter-by {
-        min-width: 30vmin;
+            li {
+                border-bottom: 1px solid #acacb7;
+                color: white;
+                font-size: 2.7vmin;
+                padding: 1vmin 0;
+
+                button {
+                    background: transparent;
+                    border: none;
+                    color: white;
+                    padding: 0;
+                    text-align: left;
+                    width: 100%;
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@ export default class PlayersAPI {
         });
     }
 
-    static stats(headers = {}, id, statsType) {
+    static stats(headers = {}, id, chartType) {
         return axios({
             method: 'post',
             url: `${host}${root}/stats/${id}`,
@@ -32,7 +32,7 @@ export default class PlayersAPI {
                 ...headers
             },
             data: {
-                type: statsType
+                type: chartType
             }
         });
     }

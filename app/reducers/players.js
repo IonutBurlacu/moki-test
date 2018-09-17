@@ -1,12 +1,15 @@
 export default (
     state = {
         items: [],
-        player: {},
+        player: {
+            overview: [],
+            typical: []
+        },
         grades: [],
         years: [],
         challenges: [],
         teams: [],
-        statsType: 'today',
+        chartType: 'today',
         loading: false
     },
     action
@@ -47,7 +50,7 @@ export default (
                     overview: action.overview,
                     typical: action.typical
                 },
-                statsType: action.statsType,
+                chartType: action.chartType,
                 loading: false
             };
         case 'CREATE_PLAYER_REQUEST':
