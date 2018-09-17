@@ -65,11 +65,14 @@ export class PlayersPage extends Component {
                                                     {player.last_sync_at ===
                                                     null
                                                         ? 'Never'
-                                                        : moment(
-                                                              player.last_sync_at
-                                                          ).format(
-                                                              'DD/MM/YYYY \\at HH.mma'
-                                                          )}
+                                                        : moment
+                                                              .utc(
+                                                                  player.last_sync_at
+                                                              )
+                                                              .local()
+                                                              .format(
+                                                                  'DD/MM/YYYY \\at HH.mma'
+                                                              )}
                                                 </span>
                                             </td>
                                             <td>

@@ -48,7 +48,10 @@ export default class PageHeader extends Component {
                     <div className="row">
                         <span>
                             Created:{' '}
-                            {moment(team.created_at).format('DD/MM/YYYY')}
+                            {moment
+                                .utc(team.created_at)
+                                .local()
+                                .format('DD/MM/YYYY')}
                         </span>
                     </div>
                     <div className="row">
@@ -56,9 +59,10 @@ export default class PageHeader extends Component {
                             Last Sync:{' '}
                             {team.last_sync_at === null
                                 ? 'Never'
-                                : moment(team.last_sync_at).format(
-                                      'DD/MM/YYYY'
-                                  )}
+                                : moment
+                                      .utc(team.last_sync_at)
+                                      .local()
+                                      .format('DD/MM/YYYY \\at HH.mma')}
                         </span>
                     </div>
                 </div>

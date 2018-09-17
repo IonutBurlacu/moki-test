@@ -54,9 +54,10 @@ export default class PageHeader extends Component {
                     <div className="row">
                         <span>
                             Created:{' '}
-                            {moment(this.props.player.created_at).format(
-                                'DD/MM/YYYY'
-                            )}
+                            {moment
+                                .utc(this.props.player.created_at)
+                                .local()
+                                .format('DD/MM/YYYY')}
                         </span>
                     </div>
                     <div className="row">
@@ -64,9 +65,10 @@ export default class PageHeader extends Component {
                             Last Sync:{' '}
                             {this.props.player.last_sync_at === null
                                 ? 'Never'
-                                : moment(this.props.player.last_sync_at).format(
-                                      'DD/MM/YYYY \\at HH.mma'
-                                  )}
+                                : moment
+                                      .utc(this.props.player.last_sync_at)
+                                      .local()
+                                      .format('DD/MM/YYYY \\at HH.mma')}
                         </span>
                     </div>
                 </div>

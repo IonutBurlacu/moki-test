@@ -71,7 +71,7 @@ export class NFCListener extends Component {
     }
 
     writeCurrentDate = reader => {
-        const today = moment.utc();
+        const today = moment();
         const year = today
             .year()
             .toString()
@@ -82,15 +82,20 @@ export class NFCListener extends Component {
         const minutes = today.minute();
         const seconds = today.second();
 
-        const dataToWrite = Buffer.from([year, month, day, hours]);
+        const dataToWrite = Buffer.from([
+            `0x${year}`,
+            `0x${month}`,
+            `0x${day}`,
+            `0x${hours}`
+        ]);
 
         reader
             .write(0xc0, dataToWrite)
             .then(() => {
                 console.log('First date part has been set');
                 const dataToWrite2 = Buffer.from([
-                    minutes,
-                    seconds,
+                    `0x${minutes}`,
+                    `0x${seconds}`,
                     0x00,
                     0x00
                 ]);
@@ -127,7 +132,7 @@ export class NFCListener extends Component {
             reader.read(SUNDAY, 16, 16)
         ])
             .then(responses => {
-                // console.log(responses);
+                console.log(responses);
                 let dayFound = false;
                 responses.forEach((response, index) => {
                     /* 

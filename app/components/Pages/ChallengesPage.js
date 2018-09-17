@@ -64,11 +64,14 @@ export class ChallengesPage extends Component {
                                                     {challenge.last_sync_at ===
                                                     null
                                                         ? 'Never'
-                                                        : moment(
-                                                              challenge.last_sync_at
-                                                          ).format(
-                                                              'DD/MM/YYYY \\at HH.mma'
-                                                          )}
+                                                        : moment
+                                                              .utc(
+                                                                  challenge.last_sync_at
+                                                              )
+                                                              .local()
+                                                              .format(
+                                                                  'DD/MM/YYYY \\at HH.mma'
+                                                              )}
                                                 </span>
                                             </td>
                                             <td className="align-right">

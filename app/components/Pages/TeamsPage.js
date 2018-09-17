@@ -61,11 +61,14 @@ export class TeamsPage extends Component {
                                                     Last Sync:{' '}
                                                     {team.last_sync_at === null
                                                         ? 'Never'
-                                                        : moment(
-                                                              team.last_sync_at
-                                                          ).format(
-                                                              'DD/MM/YYYY \\at HH.mma'
-                                                          )}
+                                                        : moment
+                                                              .utc(
+                                                                  team.last_sync_at
+                                                              )
+                                                              .local()
+                                                              .format(
+                                                                  'DD/MM/YYYY \\at HH.mma'
+                                                              )}
                                                 </span>
                                             </td>
                                             <td>

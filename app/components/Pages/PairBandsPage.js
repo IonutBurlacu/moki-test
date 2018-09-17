@@ -81,12 +81,15 @@ export class PairBandsPage extends Component {
                                                 ) : (
                                                     <span className="subtitle red">
                                                         Last Paired:{' '}
-                                                        {moment(
-                                                            player.band
-                                                                .created_at
-                                                        ).format(
-                                                            'DD/MM/YYYY \\at HH.mma'
-                                                        )}
+                                                        {moment
+                                                            .utc(
+                                                                player.band
+                                                                    .created_at
+                                                            )
+                                                            .local()
+                                                            .format(
+                                                                'DD/MM/YYYY \\at HH.mma'
+                                                            )}
                                                     </span>
                                                 )}
                                             </td>

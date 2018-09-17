@@ -35,9 +35,12 @@ export class PlayersList extends Component {
                                         Last Sync:{' '}
                                         {item.last_sync_at === null
                                             ? 'Never'
-                                            : moment(item.last_sync_at).format(
-                                                  'DD/MM/YYYY \\at HH.mma'
-                                              )}
+                                            : moment
+                                                  .utc(item.last_sync_at)
+                                                  .local()
+                                                  .format(
+                                                      'DD/MM/YYYY \\at HH.mma'
+                                                  )}
                                     </span>
                                 </td>
                             </tr>

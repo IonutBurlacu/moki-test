@@ -33,9 +33,17 @@ export class TeamsList extends Component {
         return (
             <div className="table-wrapper">
                 <div className="table-header">
-                    <img src={teamsListIcon} className="table-header-icon" />
+                    <img
+                        src={teamsListIcon}
+                        className="table-header-icon"
+                        alt="table-header-icon"
+                    />
                     <h3 className="table-header-title">Teams</h3>
-                    <button className="add-button" onClick={this.openModal}>
+                    <button
+                        type="button"
+                        className="add-button"
+                        onClick={this.openModal}
+                    >
                         Add
                     </button>
                 </div>
@@ -47,6 +55,7 @@ export class TeamsList extends Component {
                                     <img
                                         src={defaultAvatar}
                                         className="avatar"
+                                        alt="avatar"
                                     />
                                 </td>
                                 <td>
@@ -55,13 +64,17 @@ export class TeamsList extends Component {
                                         Last Sync:{' '}
                                         {item.last_sync_at === null
                                             ? 'Never'
-                                            : moment(item.last_sync_at).format(
-                                                  'DD/MM/YYYY \\at HH.mma'
-                                              )}
+                                            : moment
+                                                  .utc(item.last_sync_at)
+                                                  .local()
+                                                  .format(
+                                                      'DD/MM/YYYY \\at HH.mma'
+                                                  )}
                                     </span>
                                 </td>
                                 <td className="align-right">
                                     <button
+                                        type="button"
                                         className="green-button"
                                         onClick={() =>
                                             this.detachFromTeam(item.id)
