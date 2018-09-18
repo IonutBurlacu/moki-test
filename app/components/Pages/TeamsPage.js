@@ -163,7 +163,6 @@ const mapStateToProps = state => ({
         filterByValue: state.teams.listFilterValue,
         sortBy: state.teams.listSort
     }),
-    // teams: state.teams.items,
     listDate: state.teams.listDate,
     loading: state.teams.loading
 });

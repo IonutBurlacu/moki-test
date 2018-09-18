@@ -3,13 +3,18 @@ import { goBack } from 'react-router-redux';
 import { getToken } from '../selectors/auth';
 import ChallengesAPI from '../apis/challenges';
 
-export function* challengesFetchList() {
+export function* challengesFetchList(action) {
     const token = yield select(getToken);
-    const response = yield call(ChallengesAPI.get, { Authorization: token });
+    const response = yield call(
+        ChallengesAPI.get,
+        { Authorization: token },
+        action.listDate
+    );
 
     yield put({
         type: 'GET_CHALLENGES',
-        challenges: response.data.challenges
+        challenges: response.data.challenges,
+        listDate: action.listDate
     });
 
     yield put({

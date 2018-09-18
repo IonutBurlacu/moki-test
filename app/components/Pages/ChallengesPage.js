@@ -14,11 +14,13 @@ import { showLoader } from '../../actions/loader';
 import defaultAvatar from '../../images/default_avatar.png';
 import teamsIcon from '../../images/teams_icon.png';
 import playersIconWide from '../../images/players_icon_wide.png';
+import TopFilters from './ChallengesPage/TopFilters';
+import getFilteredChallenges from '../../selectors/challenges';
 
 export class ChallengesPage extends Component {
     componentWillMount() {
         this.props.showLoader();
-        this.props.getChallengesRequest();
+        this.props.getChallengesRequest(this.props.listDate);
     }
 
     handleView = id => {
@@ -38,6 +40,7 @@ export class ChallengesPage extends Component {
                 {!loading ? (
                     <div className="content">
                         <PageTitle title="Challenges" />
+                        <TopFilters />
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>
@@ -117,44 +120,21 @@ export class ChallengesPage extends Component {
                                                     </div>
                                                 )}
                                             </td>
-                                            {challenge.previous_steps -
-                                                challenge.current_steps !==
-                                            0 ? (
-                                                <td
-                                                    className={
-                                                        challenge.previous_steps >
-                                                        challenge.current_steps
-                                                            ? 'negative align-right'
-                                                            : 'positive align-right'
-                                                    }
-                                                >
-                                                    <span className="percentage-icon" />
-                                                    <span className="percentage">
-                                                        {challenge.previous_steps >
-                                                        challenge.current_steps
-                                                            ? (
-                                                                  ((challenge.previous_steps -
-                                                                      challenge.current_steps) /
-                                                                      challenge.previous_steps) *
-                                                                  100
-                                                              ).toFixed(2)
-                                                            : (
-                                                                  ((challenge.current_steps -
-                                                                      challenge.previous_steps) /
-                                                                      challenge.current_steps) *
-                                                                  100
-                                                              ).toFixed(2)}
-                                                        %
-                                                    </span>
-                                                </td>
-                                            ) : (
-                                                <td className="positive align-right">
-                                                    <span className="percentage-icon" />
-                                                    <span className="percentage">
-                                                        0%
-                                                    </span>
-                                                </td>
-                                            )}
+                                            <td
+                                                className={
+                                                    challenge.percentage < 0
+                                                        ? 'negative align-right'
+                                                        : 'positive align-right'
+                                                }
+                                            >
+                                                <span className="percentage-icon" />
+                                                <span className="percentage">
+                                                    {Math.abs(
+                                                        challenge.percentage
+                                                    ).toFixed(2)}
+                                                    %
+                                                </span>
+                                            </td>
                                             <td className="align-right">
                                                 <h1 className="title">
                                                     {challenge.current_steps}
@@ -189,12 +169,17 @@ export class ChallengesPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    challenges: state.challenges.items,
-    loading: state.challenges.loading
+    challenges: getFilteredChallenges(state.challenges.items, {
+        filterBy: state.challenges.listFilter,
+        filterByValue: state.challenges.listFilterValue,
+        sortBy: state.challenges.listSort
+    }),
+    loading: state.challenges.loading,
+    listDate: state.challenges.listDate
 });
 
 const mapDispatchToProps = dispatch => ({
-    getChallengesRequest: () => dispatch(getChallengesRequest()),
+    getChallengesRequest: listDate => dispatch(getChallengesRequest(listDate)),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     showLoader: () => dispatch(showLoader())
 });
