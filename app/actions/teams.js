@@ -1,10 +1,29 @@
-export const getTeamsRequest = () => ({
-    type: 'GET_TEAMS_REQUEST'
+export const getTeamsRequest = listDate => ({
+    type: 'GET_TEAMS_REQUEST',
+    listDate
 });
 
-export const getTeams = teams => ({
+export const getTeams = (teams, listDate) => ({
     type: 'GET_TEAMS',
-    teams
+    teams,
+    listDate
+});
+
+export const changeTeamsListDate = listDate => ({
+    type: 'CHANGE_TEAMS_LIST_DATE',
+    listDate
+});
+
+export const changeTeamsListSort = (listSort, listSortLabel) => ({
+    type: 'CHANGE_TEAMS_LIST_SORT',
+    listSort,
+    listSortLabel
+});
+
+export const changeTeamsListFilter = (listFilter, listFilterValue) => ({
+    type: 'CHANGE_TEAMS_LIST_FILTER',
+    listFilter,
+    listFilterValue
 });
 
 export const viewTeamRequest = id => ({

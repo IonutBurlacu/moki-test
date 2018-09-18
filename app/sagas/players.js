@@ -3,13 +3,20 @@ import { goBack } from 'react-router-redux';
 import { getToken } from '../selectors/auth';
 import PlayersAPI from '../apis/players';
 
-export function* playersFetchList() {
+export function* playersFetchList(action) {
     const token = yield select(getToken);
-    const response = yield call(PlayersAPI.get, { Authorization: token });
+    const response = yield call(
+        PlayersAPI.get,
+        { Authorization: token },
+        action.listDate
+    );
 
     yield put({
         type: 'GET_PLAYERS',
-        players: response.data.players
+        players: response.data.players,
+        grades: response.data.grades,
+        years: response.data.years,
+        listDate: action.listDate
     });
 
     yield put({

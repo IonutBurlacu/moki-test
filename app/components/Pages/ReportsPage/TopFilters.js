@@ -5,7 +5,9 @@ import {
     getReportsTeamsRequest,
     statsReportsTeamsRequest,
     addTeamToDataA,
-    addTeamToDataB
+    addTeamToDataB,
+    removeTeamFromDataA,
+    removeTeamFromDataB
 } from '../../../actions/reports';
 
 export class TopFilters extends Component {
@@ -33,24 +35,42 @@ export class TopFilters extends Component {
         this.setState({ dataBSelectOpen: false });
     };
 
-    handleTeamAddToDataA = teamId => {
-        this.props.addTeamToDataA(teamId);
+    handleTeamModifyToDataA = teamId => {
         this.props.showLoader();
-        this.props.statsReportsTeamsRequest(
-            [...this.props.teamIdsA, teamId],
-            this.props.teamIdsB,
-            this.props.chartType
-        );
+        if (this.props.teamIdsA.includes(teamId)) {
+            this.props.removeTeamFromDataA(teamId);
+            this.props.statsReportsTeamsRequest(
+                this.props.teamIdsA.filter(teamIdA => teamIdA !== teamId),
+                this.props.teamIdsB,
+                this.props.chartType
+            );
+        } else {
+            this.props.addTeamToDataA(teamId);
+            this.props.statsReportsTeamsRequest(
+                [...this.props.teamIdsA, teamId],
+                this.props.teamIdsB,
+                this.props.chartType
+            );
+        }
     };
 
-    handleTeamAddToDataB = teamId => {
-        this.props.addTeamToDataB(teamId);
+    handleTeamModifyToDataB = teamId => {
         this.props.showLoader();
-        this.props.statsReportsTeamsRequest(
-            this.props.teamIdsA,
-            [...this.props.teamIdsB, teamId],
-            this.props.chartType
-        );
+        if (this.props.teamIdsB.includes(teamId)) {
+            this.props.removeTeamFromDataB(teamId);
+            this.props.statsReportsTeamsRequest(
+                this.props.teamIdsA,
+                this.props.teamIdsB.filter(teamIdB => teamIdB !== teamId),
+                this.props.chartType
+            );
+        } else {
+            this.props.addTeamToDataB(teamId);
+            this.props.statsReportsTeamsRequest(
+                this.props.teamIdsA,
+                [...this.props.teamIdsB, teamId],
+                this.props.chartType
+            );
+        }
     };
 
     render() {
@@ -84,11 +104,19 @@ export class TopFilters extends Component {
                             </div>
                             <ul className="filter-select-list">
                                 {this.props.teams.map(team => (
-                                    <li>
+                                    <li
+                                        className={
+                                            this.props.teamIdsA.includes(
+                                                team.id
+                                            )
+                                                ? 'selected'
+                                                : ''
+                                        }
+                                    >
                                         <button
                                             type="button"
                                             onClick={() =>
-                                                this.handleTeamAddToDataA(
+                                                this.handleTeamModifyToDataA(
                                                     team.id
                                                 )
                                             }
@@ -144,11 +172,19 @@ export class TopFilters extends Component {
                             </div>
                             <ul className="filter-select-list">
                                 {this.props.teams.map(team => (
-                                    <li>
+                                    <li
+                                        className={
+                                            this.props.teamIdsB.includes(
+                                                team.id
+                                            )
+                                                ? 'selected'
+                                                : ''
+                                        }
+                                    >
                                         <button
                                             type="button"
                                             onClick={() =>
-                                                this.handleTeamAddToDataB(
+                                                this.handleTeamModifyToDataB(
                                                     team.id
                                                 )
                                             }
@@ -187,6 +223,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(statsReportsTeamsRequest(teamIdsA, teamIdsB, type)),
     addTeamToDataA: teamId => dispatch(addTeamToDataA(teamId)),
     addTeamToDataB: teamId => dispatch(addTeamToDataB(teamId)),
+    removeTeamFromDataA: teamId => dispatch(removeTeamFromDataA(teamId)),
+    removeTeamFromDataB: teamId => dispatch(removeTeamFromDataB(teamId)),
     showLoader: () => dispatch(showLoader())
 });
 

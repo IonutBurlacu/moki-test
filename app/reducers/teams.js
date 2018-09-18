@@ -8,6 +8,11 @@ export default (
         challenges: [],
         players: [],
         chartType: 'today',
+        listDate: 'today',
+        listSort: 'most_steps',
+        listSortLabel: 'Most steps',
+        listFilter: '',
+        listFilterValue: '',
         loading: false
     },
     action
@@ -21,8 +26,41 @@ export default (
         case 'GET_TEAMS':
             return {
                 ...state,
-                items: action.teams,
+                items: action.teams.map(team => ({
+                    ...team,
+                    percentage:
+                        team.previous_steps - team.current_steps !== 0
+                            ? team.previous_steps > team.current_steps
+                                ? -(
+                                      ((team.previous_steps -
+                                          team.current_steps) /
+                                          team.previous_steps) *
+                                      100
+                                  )
+                                : ((team.current_steps - team.previous_steps) /
+                                      team.current_steps) *
+                                  100
+                            : 0
+                })),
+                listDate: action.listDate,
                 loading: false
+            };
+        case 'CHANGE_TEAMS_LIST_DATE':
+            return {
+                ...state,
+                listDate: action.listDate
+            };
+        case 'CHANGE_TEAMS_LIST_SORT':
+            return {
+                ...state,
+                listSort: action.listSort,
+                listSortLabel: action.listSortLabel
+            };
+        case 'CHANGE_TEAMS_LIST_FILTER':
+            return {
+                ...state,
+                listFilter: action.listFilter,
+                listFilterValue: action.listFilterValue
             };
         case 'VIEW_TEAM_REQUEST':
             return {

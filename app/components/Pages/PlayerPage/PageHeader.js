@@ -21,12 +21,7 @@ export default class PageHeader extends Component {
                             }`}
                         </h3>
                         <span className="subtitle">
-                            Age{' '}
-                            {moment().diff(
-                                moment(this.props.player.birthday),
-                                'year'
-                            )}
-                            ,{' '}
+                            {`Age ${this.props.player.age}`},{' '}
                             {this.props.player.gender === 'male'
                                 ? 'Boy'
                                 : 'Girl'}

@@ -4,10 +4,10 @@ import host from '../constants/serverUrl';
 const root = '/api/players';
 
 export default class PlayersAPI {
-    static get(headers = {}) {
+    static get(headers = {}, listDate) {
         return axios({
             method: 'get',
-            url: `${host}${root}/index`,
+            url: `${host}${root}/index?list_date=${listDate}`,
             headers: {
                 ...headers
             }

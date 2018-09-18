@@ -8,14 +8,16 @@ import { PageTitle } from '../PageTitle';
 import Loader from '../Loader';
 import { getTeamsRequest, viewTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
+import getFilteredTeams from '../../selectors/teams';
 import defaultAvatar from '../../images/default_avatar.png';
 import challengesIcon from '../../images/challenges_icon.png';
 import playersIconWide from '../../images/players_icon_wide.png';
+import TopFilters from './TeamsPage/TopFilters';
 
 export class TeamsPage extends Component {
     componentWillMount() {
         this.props.showLoader();
-        this.props.getTeams();
+        this.props.getTeamsRequest(this.props.listDate);
     }
 
     handleView = id => {
@@ -26,6 +28,7 @@ export class TeamsPage extends Component {
 
     render() {
         const { teams, loading } = this.props;
+        console.log(teams);
         return (
             <div className="container container-with-title">
                 <Header
@@ -36,6 +39,7 @@ export class TeamsPage extends Component {
                 {!loading ? (
                     <div className="content">
                         <PageTitle title="Teams" />
+                        <TopFilters />
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>
@@ -105,44 +109,21 @@ export class TeamsPage extends Component {
                                                         : ''}
                                                 </span>
                                             </td>
-                                            {team.previous_steps -
-                                                team.current_steps !==
-                                            0 ? (
-                                                <td
-                                                    className={
-                                                        team.previous_steps >
-                                                        team.current_steps
-                                                            ? 'negative align-right'
-                                                            : 'positive align-right'
-                                                    }
-                                                >
-                                                    <span className="percentage-icon" />
-                                                    <span className="percentage">
-                                                        {team.previous_steps >
-                                                        team.current_steps
-                                                            ? (
-                                                                  ((team.previous_steps -
-                                                                      team.current_steps) /
-                                                                      team.previous_steps) *
-                                                                  100
-                                                              ).toFixed(2)
-                                                            : (
-                                                                  ((team.current_steps -
-                                                                      team.previous_steps) /
-                                                                      team.current_steps) *
-                                                                  100
-                                                              ).toFixed(2)}
-                                                        %
-                                                    </span>
-                                                </td>
-                                            ) : (
-                                                <td className="positive align-right">
-                                                    <span className="percentage-icon" />
-                                                    <span className="percentage">
-                                                        0%
-                                                    </span>
-                                                </td>
-                                            )}
+                                            <td
+                                                className={
+                                                    team.percentage < 0
+                                                        ? 'negative align-right'
+                                                        : 'positive align-right'
+                                                }
+                                            >
+                                                <span className="percentage-icon" />
+                                                <span className="percentage">
+                                                    {Math.abs(
+                                                        team.percentage
+                                                    ).toFixed(2)}
+                                                    %
+                                                </span>
+                                            </td>
                                             <td className="align-right">
                                                 <h1 className="title">
                                                     {team.current_steps}
@@ -177,12 +158,18 @@ export class TeamsPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    teams: state.teams.items,
+    teams: getFilteredTeams(state.teams.items, {
+        filterBy: state.teams.listFilter,
+        filterByValue: state.teams.listFilterValue,
+        sortBy: state.teams.listSort
+    }),
+    // teams: state.teams.items,
+    listDate: state.teams.listDate,
     loading: state.teams.loading
 });
 
 const mapDispatchToProps = dispatch => ({
-    getTeams: () => dispatch(getTeamsRequest()),
+    getTeamsRequest: listDate => dispatch(getTeamsRequest(listDate)),
     viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     showLoader: () => dispatch(showLoader())
 });

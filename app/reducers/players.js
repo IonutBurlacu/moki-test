@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default (
     state = {
         items: [],
@@ -10,6 +12,11 @@ export default (
         challenges: [],
         teams: [],
         chartType: 'today',
+        listDate: 'today',
+        listSort: 'most_steps',
+        listSortLabel: 'Most steps',
+        listFilter: '',
+        listFilterValue: '',
         loading: false
     },
     action
@@ -23,8 +30,45 @@ export default (
         case 'GET_PLAYERS':
             return {
                 ...state,
-                items: action.players,
+                items: action.players.map(player => ({
+                    ...player,
+                    percentage:
+                        player.previous_steps - player.current_steps !== 0
+                            ? player.previous_steps > player.current_steps
+                                ? -(
+                                      ((player.previous_steps -
+                                          player.current_steps) /
+                                          player.previous_steps) *
+                                      100
+                                  )
+                                : ((player.current_steps -
+                                      player.previous_steps) /
+                                      player.current_steps) *
+                                  100
+                            : 0,
+                    age: moment().diff(moment(player.birthday), 'year')
+                })),
+                grades: action.grades,
+                years: action.years,
+                listDate: action.listDate,
                 loading: false
+            };
+        case 'CHANGE_PLAYERS_LIST_DATE':
+            return {
+                ...state,
+                listDate: action.listDate
+            };
+        case 'CHANGE_PLAYERS_LIST_SORT':
+            return {
+                ...state,
+                listSort: action.listSort,
+                listSortLabel: action.listSortLabel
+            };
+        case 'CHANGE_PLAYERS_LIST_FILTER':
+            return {
+                ...state,
+                listFilter: action.listFilter,
+                listFilterValue: action.listFilterValue
             };
         case 'VIEW_PLAYER_REQUEST':
             return {

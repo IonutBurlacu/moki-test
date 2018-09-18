@@ -3,13 +3,18 @@ import { goBack } from 'react-router-redux';
 import { getToken } from '../selectors/auth';
 import TeamsAPI from '../apis/teams';
 
-export function* teamsFetchList() {
+export function* teamsFetchList(action) {
     const token = yield select(getToken);
-    const response = yield call(TeamsAPI.get, { Authorization: token });
+    const response = yield call(
+        TeamsAPI.get,
+        { Authorization: token },
+        action.listDate
+    );
 
     yield put({
         type: 'GET_TEAMS',
-        teams: response.data.teams
+        teams: response.data.teams,
+        listDate: action.listDate
     });
 
     yield put({

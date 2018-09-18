@@ -1,10 +1,31 @@
-export const getPlayersRequest = () => ({
-    type: 'GET_PLAYERS_REQUEST'
+export const getPlayersRequest = listDate => ({
+    type: 'GET_PLAYERS_REQUEST',
+    listDate
 });
 
-export const getPlayers = players => ({
+export const getPlayers = (players, grades, years, listDate) => ({
     type: 'GET_PLAYERS',
-    players
+    players,
+    grades,
+    years,
+    listDate
+});
+
+export const changePlayersListDate = listDate => ({
+    type: 'CHANGE_PLAYERS_LIST_DATE',
+    listDate
+});
+
+export const changePlayersListSort = (listSort, listSortLabel) => ({
+    type: 'CHANGE_PLAYERS_LIST_SORT',
+    listSort,
+    listSortLabel
+});
+
+export const changePlayersListFilter = (listFilter, listFilterValue) => ({
+    type: 'CHANGE_PLAYERS_LIST_FILTER',
+    listFilter,
+    listFilterValue
 });
 
 export const viewPlayerRequest = id => ({

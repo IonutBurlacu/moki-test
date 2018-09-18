@@ -30,3 +30,13 @@ export const addTeamToDataB = teamId => ({
     type: 'ADD_TEAM_TO_DATA_B',
     teamId
 });
+
+export const removeTeamFromDataA = teamId => ({
+    type: 'REMOVE_TEAM_FROM_DATA_A',
+    teamId
+});
+
+export const removeTeamFromDataB = teamId => ({
+    type: 'REMOVE_TEAM_FROM_DATA_B',
+    teamId
+});

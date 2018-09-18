@@ -8,15 +8,16 @@ import { PageTitle } from '../PageTitle';
 import Loader from '../Loader';
 import { getPlayersRequest, viewPlayerRequest } from '../../actions/players';
 import { showLoader } from '../../actions/loader';
+import getFilteredPlayers from '../../selectors/players';
 import defaultAvatar from '../../images/default_avatar.png';
 import challengesIcon from '../../images/challenges_icon.png';
 import teamsIcon from '../../images/teams_icon.png';
-import { TopFilters } from './PlayersPage/TopFilters';
+import TopFilters from './PlayersPage/TopFilters';
 
 export class PlayersPage extends Component {
     componentWillMount() {
         this.props.showLoader();
-        this.props.getPlayersRequest();
+        this.props.getPlayersRequest(this.props.listDate);
     }
 
     handleView = id => {
@@ -119,44 +120,21 @@ export class PlayersPage extends Component {
                                                         .slice(0, -2)}
                                                 </span>
                                             </td>
-                                            {player.previous_steps -
-                                                player.current_steps !==
-                                            0 ? (
-                                                <td
-                                                    className={
-                                                        player.previous_steps >
-                                                        player.current_steps
-                                                            ? 'negative align-right'
-                                                            : 'positive align-right'
-                                                    }
-                                                >
-                                                    <span className="percentage-icon" />
-                                                    <span className="percentage">
-                                                        {player.previous_steps >
-                                                        player.current_steps
-                                                            ? (
-                                                                  ((player.previous_steps -
-                                                                      player.current_steps) /
-                                                                      player.previous_steps) *
-                                                                  100
-                                                              ).toFixed(2)
-                                                            : (
-                                                                  ((player.current_steps -
-                                                                      player.previous_steps) /
-                                                                      player.current_steps) *
-                                                                  100
-                                                              ).toFixed(2)}
-                                                        %
-                                                    </span>
-                                                </td>
-                                            ) : (
-                                                <td className="positive align-right">
-                                                    <span className="percentage-icon" />
-                                                    <span className="percentage">
-                                                        0%
-                                                    </span>
-                                                </td>
-                                            )}
+                                            <td
+                                                className={
+                                                    player.percentage < 0
+                                                        ? 'negative align-right'
+                                                        : 'positive align-right'
+                                                }
+                                            >
+                                                <span className="percentage-icon" />
+                                                <span className="percentage">
+                                                    {Math.abs(
+                                                        player.percentage
+                                                    ).toFixed(2)}
+                                                    %
+                                                </span>
+                                            </td>
                                             <td className="align-right">
                                                 <h1 className="title">
                                                     {player.current_steps}
@@ -191,12 +169,17 @@ export class PlayersPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    players: state.players.items,
-    loading: state.players.loading
+    players: getFilteredPlayers(state.players.items, {
+        filterBy: state.players.listFilter,
+        filterByValue: state.players.listFilterValue,
+        sortBy: state.players.listSort
+    }),
+    loading: state.players.loading,
+    listDate: state.players.listDate
 });
 
 const mapDispatchToProps = dispatch => ({
-    getPlayersRequest: () => dispatch(getPlayersRequest()),
+    getPlayersRequest: listDate => dispatch(getPlayersRequest(listDate)),
     viewPlayerRequest: id => dispatch(viewPlayerRequest(id)),
     showLoader: () => dispatch(showLoader())
 });

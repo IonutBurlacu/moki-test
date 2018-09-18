@@ -47,6 +47,20 @@ export default (
                 ...state,
                 teamIdsB: [...state.teamIdsB, action.teamId]
             };
+        case 'REMOVE_TEAM_FROM_DATA_A':
+            return {
+                ...state,
+                teamIdsA: state.teamIdsA.filter(
+                    teamIdA => teamIdA !== action.teamId
+                )
+            };
+        case 'REMOVE_TEAM_FROM_DATA_B':
+            return {
+                ...state,
+                teamIdsB: state.teamIdsB.filter(
+                    teamIdB => teamIdB !== action.teamId
+                )
+            };
         default:
             return state;
     }
