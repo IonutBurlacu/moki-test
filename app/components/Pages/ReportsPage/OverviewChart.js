@@ -16,7 +16,9 @@ export class OverviewChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateSelectOpen: false
+            dateSelectOpen: false,
+            dataAVisible: true,
+            dataBVisible: true
         };
     }
 
@@ -35,13 +37,25 @@ export class OverviewChart extends Component {
         }
     };
 
+    toggleDataAVisibility = () => {
+        this.setState({ dataAVisible: !this.state.dataAVisible });
+    };
+
+    toggleDataBVisibility = () => {
+        this.setState({ dataBVisible: !this.state.dataBVisible });
+    };
+
     handleDateChange = type => {
         this.props.showLoader();
         this.setState({ dateSelectOpen: false });
         this.props.statsReportsTeamsRequest(
             this.props.teamIdsA,
             this.props.teamIdsB,
-            type
+            type,
+            this.props.filterByA,
+            this.props.filterByValueA,
+            this.props.filterByB,
+            this.props.filterByValueB
         );
     };
 
@@ -153,33 +167,93 @@ export class OverviewChart extends Component {
                                 />
                                 <YAxis stroke="#f6f6f7" />
                                 <Tooltip />
-                                <Line
-                                    type="monotone"
-                                    dataKey="total_steps_a"
-                                    name="Steps Data A"
-                                    stroke="#fe335e"
-                                    strokeWidth="2"
-                                    dot={{
-                                        stroke: '#fe335e',
-                                        strokeWidth: 5
-                                    }}
-                                />
-                                <Line
-                                    type="monotone"
-                                    dataKey="total_steps_b"
-                                    name="Steps Data B"
-                                    stroke="#27ffd4"
-                                    strokeWidth="2"
-                                    dot={{
-                                        stroke: '#27ffd4',
-                                        strokeWidth: 5
-                                    }}
-                                />
+                                {this.state.dataAVisible ? (
+                                    <Line
+                                        type="monotone"
+                                        dataKey="total_steps_a"
+                                        name="Steps Data A"
+                                        stroke="#fe335e"
+                                        strokeWidth="2"
+                                        dot={{
+                                            stroke: '#fe335e',
+                                            strokeWidth: 5
+                                        }}
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                                {this.state.dataBVisible ? (
+                                    <Line
+                                        type="monotone"
+                                        dataKey="total_steps_b"
+                                        name="Steps Data B"
+                                        stroke="#27ffd4"
+                                        strokeWidth="2"
+                                        dot={{
+                                            stroke: '#27ffd4',
+                                            strokeWidth: 5
+                                        }}
+                                    />
+                                ) : (
+                                    ''
+                                )}
                             </LineChart>
                         </ResponsiveContainer>
                     ) : (
                         ''
                     )}
+                </div>
+                <div className="chart-bottom">
+                    <div className="chart-bottom-line">
+                        <div className="left-side">
+                            <span className="red-square" />
+                            <span>Data A</span>
+                            <button
+                                type="button"
+                                className="toggle-chart-button"
+                                onClick={this.toggleDataAVisibility}
+                            >
+                                {this.state.dataAVisible ? 'Hide' : 'Show'}
+                            </button>
+                        </div>
+                        <div className="center-side">
+                            <span>Trend:</span>
+                            <span className="negative">
+                                <span className="percentage-icon" />
+                                <span className="percentage">25%</span>
+                            </span>
+                        </div>
+                        <div className="right-side">
+                            <span className="total">
+                                Total: {this.props.totalOverviewA}
+                            </span>
+                        </div>
+                    </div>
+                    <div className="chart-bottom-line">
+                        <div className="left-side">
+                            <span className="green-square" />
+                            <span>Data B</span>
+                            <button
+                                type="button"
+                                className="toggle-chart-button"
+                                onClick={this.toggleDataBVisibility}
+                            >
+                                {this.state.dataBVisible ? 'Hide' : 'Show'}
+                            </button>
+                        </div>
+                        <div className="center-side">
+                            <span>Trend:</span>
+                            <span className="positive">
+                                <span className="percentage-icon" />
+                                <span className="percentage">25%</span>
+                            </span>
+                        </div>
+                        <div className="right-side">
+                            <span className="total">
+                                Total: {this.props.totalOverviewB}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -190,12 +264,36 @@ const mapStateToProps = state => ({
     overview: state.reports.overview,
     teamIdsA: state.reports.teamIdsA,
     teamIdsB: state.reports.teamIdsB,
-    chartType: state.reports.chartType
+    chartType: state.reports.chartType,
+    filterByA: state.reports.filterByA,
+    filterByValueA: state.reports.filterByValueA,
+    filterByB: state.reports.filterByB,
+    filterByValueB: state.reports.filterByValueB,
+    totalOverviewA: state.reports.totalOverviewA,
+    totalOverviewB: state.reports.totalOverviewB
 });
 
 const mapDispatchToProps = dispatch => ({
-    statsReportsTeamsRequest: (teamIdsA, teamIdsB, type) =>
-        dispatch(statsReportsTeamsRequest(teamIdsA, teamIdsB, type)),
+    statsReportsTeamsRequest: (
+        teamIdsA,
+        teamIdsB,
+        type,
+        filterByA,
+        filterByValueA,
+        filterByB,
+        filterByValueB
+    ) =>
+        dispatch(
+            statsReportsTeamsRequest(
+                teamIdsA,
+                teamIdsB,
+                type,
+                filterByA,
+                filterByValueA,
+                filterByB,
+                filterByValueB
+            )
+        ),
     showLoader: () => dispatch(showLoader())
 });
 

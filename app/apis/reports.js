@@ -14,7 +14,16 @@ export default class ReportsAPI {
         });
     }
 
-    static stats(headers = {}, teamIdsA, teamIdsB, chartType) {
+    static stats(
+        headers = {},
+        teamIdsA,
+        teamIdsB,
+        chartType,
+        filterByA,
+        filterByValueA,
+        filterByB,
+        filterByValueB
+    ) {
         return axios({
             method: 'post',
             url: `${host}${root}/stats`,
@@ -24,6 +33,10 @@ export default class ReportsAPI {
             data: {
                 team_ids_a: teamIdsA,
                 team_ids_b: teamIdsB,
+                filter_by_a: filterByA,
+                filter_by_value_a: filterByValueA,
+                filter_by_b: filterByB,
+                filter_by_value_b: filterByValueB,
                 type: chartType
             }
         });

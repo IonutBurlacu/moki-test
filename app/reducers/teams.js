@@ -3,7 +3,9 @@ export default (
         items: [],
         team: {
             overview: [],
-            typical: []
+            typical: [],
+            totalOverview: 0,
+            totalTypical: 0
         },
         challenges: [],
         players: [],
@@ -70,7 +72,19 @@ export default (
         case 'VIEW_TEAM':
             return {
                 ...state,
-                team: action.team,
+                team: {
+                    ...action.team,
+                    totalOverview: action.team.overview.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps,
+                        0
+                    ),
+                    totalTypical: action.team.typical.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps,
+                        0
+                    )
+                },
                 loading: false
             };
         case 'STATS_TEAM_REQUEST':
@@ -84,7 +98,17 @@ export default (
                 team: {
                     ...state.team,
                     overview: action.overview,
-                    typical: action.typical
+                    typical: action.typical,
+                    totalOverview: action.overview.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps,
+                        0
+                    ),
+                    totalTypical: action.typical.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps,
+                        0
+                    )
                 },
                 chartType: action.chartType,
                 loading: false

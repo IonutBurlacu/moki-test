@@ -5,7 +5,9 @@ export default (
         items: [],
         player: {
             overview: [],
-            typical: []
+            typical: [],
+            totalOverview: 0,
+            totalTypical: 0
         },
         grades: [],
         years: [],
@@ -78,7 +80,19 @@ export default (
         case 'VIEW_PLAYER':
             return {
                 ...state,
-                player: action.player,
+                player: {
+                    ...action.player,
+                    totalOverview: action.player.overview.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps,
+                        0
+                    ),
+                    totalTypical: action.player.typical.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps,
+                        0
+                    )
+                },
                 loading: false
             };
         case 'STATS_PLAYER_REQUEST':
@@ -92,7 +106,17 @@ export default (
                 player: {
                     ...state.player,
                     overview: action.overview,
-                    typical: action.typical
+                    typical: action.typical,
+                    totalOverview: action.overview.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps,
+                        0
+                    ),
+                    totalTypical: action.typical.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps,
+                        0
+                    )
                 },
                 chartType: action.chartType,
                 loading: false

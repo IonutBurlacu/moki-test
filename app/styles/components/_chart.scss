@@ -5,7 +5,7 @@
         flex: 1;
 
         .chart-header {
-            margin: 4vmin 2vmin 4vmin 0;
+            margin: 3vmin 2vmin 3vmin 0;
             position: relative;
 
             h1 {
@@ -113,8 +113,115 @@
         }
 
         .chart {
-            height: 40vmin;
+            height: 37vmin;
             width: 100%;
+        }
+
+        .chart-bottom {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2vmin;
+            padding: 0 4vmin;
+
+            .chart-bottom-line {
+                display: flex;
+
+                .left-side,
+                .center-side,
+                .right-side {
+                    align-items: center;
+                    display: flex;
+                    flex: 1;
+                }
+
+                .left-side {
+                    color: white;
+                    font-size: 2.8vmin;
+
+                    .red-square {
+                        background: #fe335e;
+                        display: inline-block;
+                        height: 3vmin;
+                        margin-right: 1.5vmin;
+                        width: 3vmin;
+                    }
+
+                    .green-square {
+                        background: #23dec8;
+                        display: inline-block;
+                        height: 3vmin;
+                        margin-right: 1.5vmin;
+                        width: 3vmin;
+                    }
+
+                    .toggle-chart-button {
+                        background: transparent;
+                        border: none;
+                        color: #74ef5c;
+                        font-size: 2.7vmin;
+                        margin-left: 2vmin;
+                    }
+                }
+
+                .center-side {
+                    color: white;
+                    font-size: 2.8vmin;
+                    justify-content: center;
+
+                    .positive {
+                        color: #23dec8;
+
+                        .percentage-icon {
+                            border-color: transparent transparent #23dec8
+                                transparent;
+                            border-style: solid;
+                            border-width: 0 1vmin 1.8vmin 1vmin;
+                            display: inline-block;
+                            height: 0;
+                            margin-left: 2vmin;
+                            margin-right: 1vmin;
+                            vertical-align: middle;
+                            width: 0;
+                        }
+
+                        .percentage {
+                            font-size: 2.8vmin;
+                            vertical-align: middle;
+                        }
+                    }
+
+                    .negative {
+                        color: #fe335e;
+
+                        .percentage-icon {
+                            border-color: #fe335e transparent transparent
+                                transparent;
+                            border-style: solid;
+                            border-width: 1.8vmin 1vmin 0 1vmin;
+                            display: inline-block;
+                            height: 0;
+                            margin-left: 2vmin;
+                            margin-right: 1vmin;
+                            vertical-align: middle;
+                            width: 0;
+                        }
+
+                        .percentage {
+                            font-size: 2.8vmin;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+
+                .right-side {
+                    justify-content: flex-end;
+
+                    .total {
+                        color: #23dec8;
+                        font-size: 2.8vmin;
+                    }
+                }
+            }
         }
     }
 }

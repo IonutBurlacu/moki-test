@@ -10,7 +10,9 @@ export function* getReportsTeams() {
         type: 'GET_REPORTS_TEAMS',
         teams: response.data.teams,
         overview: response.data.overview,
-        typical: response.data.typical
+        typical: response.data.typical,
+        grades: response.data.grades,
+        years: response.data.years
     });
 
     yield put({
@@ -25,14 +27,22 @@ export function* statsReportsTeams(action) {
         { Authorization: token },
         action.teamIdsA,
         action.teamIdsB,
-        action.chartType
+        action.chartType,
+        action.filterByA,
+        action.filterByValueA,
+        action.filterByB,
+        action.filterByValueB
     );
 
     yield put({
         type: 'STATS_REPORTS_TEAMS',
         overview: response.data.overview,
         typical: response.data.typical,
-        chartType: action.chartType
+        chartType: action.chartType,
+        filterByA: action.filterByA,
+        filterByValueA: action.filterByValueA,
+        filterByB: action.filterByB,
+        filterByValueB: action.filterByValueB
     });
 
     yield put({
