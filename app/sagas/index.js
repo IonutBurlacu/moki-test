@@ -36,7 +36,8 @@ import {
     playerAttachToTeam,
     playerDetachFromTeam,
     playerAttachToChallenge,
-    playerDetachFromChallenge
+    playerDetachFromChallenge,
+    deleteDatabase
 } from './players';
 
 import { pairBand, syncBand } from './bands';
@@ -124,6 +125,7 @@ export default function* sagas() {
             takeLatest,
             'DETACH_PLAYER_FROM_CHALLENGE_REQUEST',
             playerDetachFromChallenge
-        )
+        ),
+        fork(takeLatest, 'DELETE_DATABASE_REQUEST', deleteDatabase)
     ];
 }

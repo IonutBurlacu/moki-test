@@ -8,6 +8,8 @@ import { PageTitle } from '../PageTitle';
 import Loader from '../Loader';
 import { logout } from '../../actions/auth';
 import host from '../../constants/serverUrl';
+import { showLoader } from '../../actions/loader';
+import { deleteDatabaseRequest } from '../../actions/players';
 
 export class SettingsPage extends Component {
     constructor(props) {
@@ -34,6 +36,11 @@ export class SettingsPage extends Component {
 
     handleReadBattery = () => {
         this.props.history.push('/bands/read');
+    };
+
+    handleDeleteDatabase = () => {
+        this.props.showLoader();
+        this.props.deleteDatabaseRequest();
     };
 
     handleDownloadTemplate = () => {
@@ -137,6 +144,7 @@ export class SettingsPage extends Component {
                                     <button
                                         className="setting-button"
                                         type="button"
+                                        onClick={this.handleDeleteDatabase}
                                     >
                                         Delete Database
                                     </button>
@@ -208,7 +216,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    showLoader: () => dispatch(showLoader()),
+    deleteDatabaseRequest: () => dispatch(deleteDatabaseRequest())
 });
 
 export default connect(

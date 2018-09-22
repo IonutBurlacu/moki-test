@@ -144,3 +144,7 @@ export const pairBandToPlayer = (id, band) => ({
     id,
     band
 });
+
+export const deleteDatabaseRequest = () => ({
+    type: 'DELETE_DATABASE_REQUEST'
+});

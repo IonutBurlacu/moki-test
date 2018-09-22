@@ -287,6 +287,10 @@ export default (
                 ]
             };
         }
+        case 'DELETE_DATABASE_REQUEST':
+            return {
+                ...state
+            };
         default:
             return state;
     }

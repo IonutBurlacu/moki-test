@@ -218,3 +218,19 @@ export function* playerDetachFromChallenge(action) {
         type: 'HIDE_LOADER'
     });
 }
+
+export function* deleteDatabase() {
+    const token = yield select(getToken);
+    const response = yield call(PlayersAPI.deleteDatabase, {
+        Authorization: token
+    });
+
+    yield put({
+        type: 'SHOW_ALERT',
+        message: response.data.message
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}

@@ -134,4 +134,14 @@ export default class PlayersAPI {
             }
         });
     }
+
+    static deleteDatabase(headers = {}) {
+        return axios({
+            method: 'get',
+            url: `${host}${root}/delete_database`,
+            headers: {
+                ...headers
+            }
+        });
+    }
 }
