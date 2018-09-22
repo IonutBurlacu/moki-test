@@ -4,7 +4,11 @@ import { NFC } from 'nfc-pcsc';
 import { push } from 'react-router-redux';
 import moment from 'moment';
 import { showAlert } from '../actions/alert';
-import { pairBandRequest, syncBandRequest } from '../actions/bands';
+import {
+    pairBandRequest,
+    syncBandRequest,
+    readBattery
+} from '../actions/bands';
 import { showLoader, hideLoader } from '../actions/loader';
 
 const MONDAY = 0x09;
@@ -46,6 +50,8 @@ export class NFCListener extends Component {
                             'Select a player from the list to pair a band.'
                         );
                     }
+                } else if (this.props.battery_reading) {
+                    this.readBatteryLevel(reader, card.uid);
                 } else {
                     this.props.showLoader();
                     this.setState({ uuid: card.uid });
@@ -226,6 +232,21 @@ export class NFCListener extends Component {
             });
     };
 
+    readBatteryLevel = (reader, uuid) => {
+        reader
+            .read(0xbf, 16, 16)
+            .then(response => {
+                const responseAsHex = Buffer.from(
+                    response.toString('hex').match(/.{1,2}/g)
+                );
+                this.props.readBattery(uuid, (responseAsHex[0] / 9) * 100);
+                return true;
+            })
+            .catch(error => {
+                console.log('Error while reading battery levels: ', error);
+            });
+    };
+
     resetSteps = (reader, setDate = true) => {
         const data = Buffer.from([0x89, 0x00, 0x00, 0x00]);
         reader
@@ -249,6 +270,7 @@ export class NFCListener extends Component {
 
 const mapStateToProps = state => ({
     pairing: state.bands.pairing,
+    battery_reading: state.bands.battery_reading,
     selectedPlayerId: state.bands.selectedPlayerId
 });
 
@@ -259,6 +281,7 @@ const mapDispatchToProps = dispatch => ({
     pairBandRequest: (id, uuid) => dispatch(pairBandRequest(id, uuid)),
     syncBandRequest: (id, totalSteps, steps) =>
         dispatch(syncBandRequest(id, totalSteps, steps)),
+    readBattery: (uuid, level) => dispatch(readBattery(uuid, level)),
     push: pathName => dispatch(push(pathName))
 });
 

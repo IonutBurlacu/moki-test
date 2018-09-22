@@ -14,6 +14,7 @@ import ReportsPage from './components/Pages/ReportsPage';
 import SettingsPage from './components/Pages/SettingsPage';
 import PairBandsPage from './components/Pages/PairBandsPage';
 import SyncBandsPage from './components/Pages/SyncBandsPage';
+import ReadBatteryPage from './components/Pages/ReadBatteryPage';
 import AddPlayerPage from './components/Pages/AddPlayerPage';
 import AddTeamPage from './components/Pages/AddTeamPage';
 import AddChallengePage from './components/Pages/AddChallengePage';
@@ -35,6 +36,7 @@ export default () => (
             <PrivateRoute path="/players/view/:id" component={PlayerPage} />
             <PrivateRoute path="/bands/pair" component={PairBandsPage} />
             <PrivateRoute path="/bands/sync" component={SyncBandsPage} />
+            <PrivateRoute path="/bands/read" component={ReadBatteryPage} />
             <PrivateRoute path="/teams" component={TeamsPage} exact />
             <PrivateRoute path="/teams/add" component={AddTeamPage} />
             <PrivateRoute path="/teams/edit/:id" component={EditTeamPage} />

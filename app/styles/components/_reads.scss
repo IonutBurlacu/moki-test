@@ -1,0 +1,25 @@
+.reads-wrapper {
+    list-style: none;
+    margin: 5vmin auto 0;
+    padding: 0;
+    width: 60vmin;
+
+    .separator {
+        background: #585861;
+        height: 1px;
+        margin: 3vmin auto;
+        width: 100%;
+    }
+
+    .band-uuid {
+        color: #74ef5c;
+        font-size: 3.5vmin;
+        margin: 0;
+    }
+
+    .battery-level {
+        color: white;
+        font-size: 3vmin;
+        margin: 0;
+    }
+}

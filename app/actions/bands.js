@@ -6,6 +6,20 @@ export const pairModeOff = () => ({
     type: 'PAIR_MODE_OFF'
 });
 
+export const batteryReadingModeOn = () => ({
+    type: 'BATTERY_READING_MODE_ON'
+});
+
+export const batteryReadingModeOff = () => ({
+    type: 'BATTERY_READING_MODE_OFF'
+});
+
+export const readBattery = (uuid, level) => ({
+    type: 'READ_BATTERY',
+    uuid,
+    level
+});
+
 export const playerSelected = id => ({
     type: 'PLAYER_SELECTED',
     id
@@ -32,4 +46,8 @@ export const syncBand = (player, totalSteps) => ({
     type: 'SYNC_BAND',
     player,
     totalSteps
+});
+
+export const syncBandFailed = () => ({
+    type: 'SYNC_BAND_FAILED'
 });

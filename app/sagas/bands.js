@@ -62,6 +62,10 @@ export function* syncBand(action) {
         });
     } else {
         yield put({
+            type: 'SYNC_BAND_FAILED',
+        });
+
+        yield put({
             type: 'SHOW_ALERT',
             message: response.data.message
         });

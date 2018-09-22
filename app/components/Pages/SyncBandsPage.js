@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
-import { list } from 'postcss';
 import { Header } from '../Header';
 import Footer from '../Footer';
 import Loader from '../Loader';

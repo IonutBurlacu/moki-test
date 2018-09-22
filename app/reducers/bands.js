@@ -1,8 +1,10 @@
 export default (
     state = {
         pairing: false,
+        battery_reading: false,
         selectedPlayerId: null,
         syncs: [],
+        reads: [],
         loading: false
     },
     action
@@ -17,6 +19,28 @@ export default (
             return {
                 ...state,
                 pairing: false
+            };
+        case 'BATTERY_READING_MODE_ON':
+            return {
+                ...state,
+                battery_reading: true,
+                reads: []
+            };
+        case 'BATTERY_READING_MODE_OFF':
+            return {
+                ...state,
+                battery_reading: false
+            };
+        case 'READ_BATTERY':
+            return {
+                ...state,
+                reads: [
+                    {
+                        uuid: action.uuid,
+                        level: action.level
+                    },
+                    ...state.reads
+                ]
             };
         case 'PLAYER_SELECTED': {
             return {
@@ -54,6 +78,11 @@ export default (
                 loading: false
             };
         }
+        case 'SYNC_BAND_FAILED':
+            return {
+                ...state,
+                loading: false
+            };
         default:
             return state;
     }

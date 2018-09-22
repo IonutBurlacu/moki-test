@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
+import axios from 'axios';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import Loader from '../Loader';
 import { logout } from '../../actions/auth';
+import host from '../../constants/serverUrl';
 
 export class SettingsPage extends Component {
     constructor(props) {
@@ -28,6 +30,35 @@ export class SettingsPage extends Component {
         this.setState({
             [event.target.name]: !previousState
         });
+    };
+
+    handleReadBattery = () => {
+        this.props.history.push('/bands/read');
+    };
+
+    handleDownloadTemplate = () => {
+        axios({
+            url: `${host}/api/players/download`,
+            method: 'GET',
+            responseType: 'blob',
+            headers: {
+                Authorization: this.props.token
+            }
+        })
+            .then(response => {
+                const url = window.URL.createObjectURL(
+                    new Blob([response.data])
+                );
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'players_template.csv');
+                document.body.appendChild(link);
+                link.click();
+                return true;
+            })
+            .catch(error => {
+                console.log(error);
+            });
     };
 
     render() {
@@ -94,6 +125,7 @@ export class SettingsPage extends Component {
                                     <button
                                         className="setting-button"
                                         type="button"
+                                        onClick={this.handleReadBattery}
                                     >
                                         Read Band Battery Levels
                                     </button>
@@ -106,7 +138,7 @@ export class SettingsPage extends Component {
                                         className="setting-button"
                                         type="button"
                                     >
-                                        Delete Band Battery Levels
+                                        Delete Database
                                     </button>
                                 </td>
                                 <td />
@@ -121,6 +153,7 @@ export class SettingsPage extends Component {
                                     <button
                                         className="green-button"
                                         type="button"
+                                        onClick={this.handleDownloadTemplate}
                                     >
                                         Download Template
                                     </button>
@@ -170,11 +203,15 @@ export class SettingsPage extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    token: state.auth.token
+});
+
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout())
 });
 
 export default connect(
-    undefined,
+    mapStateToProps,
     mapDispatchToProps
 )(SettingsPage);
