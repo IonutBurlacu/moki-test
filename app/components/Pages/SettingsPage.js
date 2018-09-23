@@ -11,6 +11,7 @@ import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import { deleteDatabaseRequest } from '../../actions/players';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
+import AccountModal from './SettingsPage/AccountModal';
 
 export class SettingsPage extends Component {
     constructor(props) {
@@ -19,7 +20,8 @@ export class SettingsPage extends Component {
         this.state = {
             hideTotalRecordSteps: false,
             ignoreWeekendData: false,
-            importModalIsOpen: false
+            importModalIsOpen: false,
+            accountModalIsOpen: false
         };
     }
 
@@ -29,6 +31,14 @@ export class SettingsPage extends Component {
 
     closeImportModal = () => {
         this.setState({ importModalIsOpen: false });
+    };
+
+    openAccountModal = () => {
+        this.setState({ accountModalIsOpen: true });
+    };
+
+    closeAccountModal = () => {
+        this.setState({ accountModalIsOpen: false });
     };
 
     logout = () => {
@@ -186,6 +196,7 @@ export class SettingsPage extends Component {
                                     <button
                                         className="setting-button"
                                         type="button"
+                                        onClick={this.openAccountModal}
                                     >
                                         Account
                                     </button>
@@ -221,6 +232,10 @@ export class SettingsPage extends Component {
                 <ImportDatabaseModal
                     modalIsOpen={this.state.importModalIsOpen}
                     closeModal={this.closeImportModal}
+                />
+                <AccountModal
+                    modalIsOpen={this.state.accountModalIsOpen}
+                    closeModal={this.closeAccountModal}
                 />
                 <Loader />
                 <Footer />

@@ -105,12 +105,68 @@
                 margin-left: 2vmin;
             }
         }
+
+        .account-row {
+            font-size: 3vmin;
+            margin: 1vmin 0;
+
+            .label {
+                display: inline-block;
+                width: 21vmin;
+            }
+
+            .value {
+                color: #74ef5c;
+            }
+        }
+
+        .input-row {
+            label {
+                color: white;
+                display: block;
+                font-size: 3.4vmin;
+                margin-bottom: 1.5vmin;
+            }
+
+            input {
+                background: transparent;
+                border: 2px solid white;
+                color: $greenText;
+                font-size: 3.4vmin;
+                padding: 5px 10px;
+                margin-bottom: 1.5vmin;
+                width: 100%;
+            }
+        }
     }
 }
 
 .modal-footer {
     border-top: 1px solid #4c4d5c;
     padding: 2vmin;
+
+    &.two-buttons {
+        display: flex;
+
+        .button {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            font-size: 3vmin;
+        }
+
+        button {
+            flex: 1;
+        }
+
+        button:first-child {
+            margin-right: 2vmin;
+        }
+
+        button:last-child {
+            margin-left: 2vmin;
+        }
+    }
 }
 
 .cancel-button {

@@ -1,73 +1,73 @@
 .login-form {
-  margin: 50px auto;
-  width: 64vmin;
+    margin: 50px auto;
+    width: 64vmin;
 }
 
 .login-form__title {
-  color: $greyTitle;
-  font-size: 3vmin;
-  font-weight: normal;
-  margin: 0;
+    color: $greyTitle;
+    font-size: 3vmin;
+    font-weight: normal;
+    margin: 0;
 }
 
 .login-form__separator {
-  background: $separatorBackground;
-  height: 1px;
-  margin: 25px 0;
-  width: 100%;
+    background: $separatorBackground;
+    height: 1px;
+    margin: 25px 0;
+    width: 100%;
 }
 
 .form-group {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    width: 100%;
 
-  .form-label {
-    color: white;
-    font-size: 3.4vmin;
-    width: 30%;
-  }
-
-  .form-input {
-    background: transparent;
-    border: 2px solid white;
-    color: $greenText;
-    font-size: 3.4vmin;
-    padding: 5px 10px;
-    width: 65%;
-  }
-
-  .form-label.required::after {
-    content: '*';
-    color: #23dec8;
-    margin-left: 0.7vmin;
-  }
-
-  .datepicker {
-    width: 65%;
-
-    input {
-      background: transparent;
-      border: 2px solid white;
-      color: $greenText;
-      font-size: 3.4vmin;
-      padding: 5px 10px;
-      width: 100%;
+    .form-label {
+        color: white;
+        font-size: 3.4vmin;
+        width: 30%;
     }
 
-    .cal-icon {
-      display: none;
+    .form-input {
+        background: transparent;
+        border: 2px solid white;
+        color: $greenText;
+        font-size: 3.4vmin;
+        padding: 5px 10px;
+        width: 65%;
     }
-  }
+
+    .form-label.required::after {
+        content: '*';
+        color: #23dec8;
+        margin-left: 0.7vmin;
+    }
+
+    .datepicker {
+        width: 65%;
+
+        input {
+            background: transparent;
+            border: 2px solid white;
+            color: $greenText;
+            font-size: 3.4vmin;
+            padding: 5px 10px;
+            width: 100%;
+        }
+
+        .cal-icon {
+            display: none;
+        }
+    }
 }
 
 .login-form__button {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  font-size: 3.4vmin;
-  text-align: center;
-  width: 30%;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 3.4vmin;
+    text-align: center;
+    width: 30%;
 }

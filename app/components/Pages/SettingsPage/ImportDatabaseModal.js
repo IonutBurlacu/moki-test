@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import axios, { post } from 'axios';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import host from '../../../constants/serverUrl';
 import { showLoader } from '../../../actions/loader';

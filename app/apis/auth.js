@@ -19,6 +19,7 @@ export default class AuthAPI {
             })
                 .then(response => {
                     resolve({ error: false, data: response.data });
+                    return true;
                 })
                 .catch(error => {
                     reject({
@@ -26,6 +27,30 @@ export default class AuthAPI {
                         message: error.response.data.message
                     });
                 });
+        });
+    }
+
+    static changePassword(headers = {}, oldPassword, newPassword) {
+        return axios({
+            method: 'post',
+            url: `${host}${root}/change_password`,
+            headers: {
+                ...headers
+            },
+            data: {
+                old_password: oldPassword,
+                new_password: newPassword
+            }
+        });
+    }
+
+    static deleteAccount(headers = {}) {
+        return axios({
+            method: 'post',
+            url: `${host}${root}/delete_account`,
+            headers: {
+                ...headers
+            }
         });
     }
 }
