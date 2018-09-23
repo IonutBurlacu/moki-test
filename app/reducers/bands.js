@@ -71,7 +71,8 @@ export default (
                 syncs: [
                     {
                         ...action.player,
-                        steps: action.totalSteps
+                        steps: action.totalSteps,
+                        batteryLevel: action.batteryLevel
                     },
                     ...state.syncs
                 ],

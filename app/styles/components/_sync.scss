@@ -87,4 +87,10 @@
     &:last-child:after {
         display: none;
     }
+
+    .battery-status {
+        color: white;
+        font-size: 1.8vmin;
+        text-align: center;
+    }
 }

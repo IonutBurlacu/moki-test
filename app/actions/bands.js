@@ -35,17 +35,19 @@ export const pairBand = () => ({
     type: 'PAIR_MODE_OFF'
 });
 
-export const syncBandRequest = (uuid, totalSteps, steps) => ({
+export const syncBandRequest = (uuid, totalSteps, steps, batteryLevel) => ({
     type: 'SYNC_BAND_REQUEST',
     uuid,
     totalSteps,
-    steps
+    steps,
+    batteryLevel
 });
 
-export const syncBand = (player, totalSteps) => ({
+export const syncBand = (player, totalSteps, batteryLevel) => ({
     type: 'SYNC_BAND',
     player,
-    totalSteps
+    totalSteps,
+    batteryLevel
 });
 
 export const syncBandFailed = () => ({

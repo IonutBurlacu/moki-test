@@ -218,13 +218,32 @@ export class NFCListener extends Component {
                         });
                     }
                 });
-                this.props.syncBandRequest(
-                    this.state.uuid,
-                    this.state.totalSteps,
-                    steps
-                );
-                console.log('Steps synced');
-                this.resetSteps(reader, false);
+
+                // Read battery level
+                reader
+                    .read(0xbf, 16, 16)
+                    .then(response => {
+                        const responseAsHex = Buffer.from(
+                            response.toString('hex').match(/.{1,2}/g)
+                        );
+
+                        // Send the steps to the server
+                        this.props.syncBandRequest(
+                            this.state.uuid,
+                            this.state.totalSteps,
+                            steps,
+                            (responseAsHex[0] / 9) * 100
+                        );
+                        console.log('Steps synced');
+                        this.resetSteps(reader, false);
+                        return true;
+                    })
+                    .catch(error => {
+                        console.log(
+                            'Error while reading battery levels: ',
+                            error
+                        );
+                    });
                 return true;
             })
             .catch(error => {
@@ -279,8 +298,8 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     hideLoader: () => dispatch(hideLoader()),
     pairBandRequest: (id, uuid) => dispatch(pairBandRequest(id, uuid)),
-    syncBandRequest: (id, totalSteps, steps) =>
-        dispatch(syncBandRequest(id, totalSteps, steps)),
+    syncBandRequest: (id, totalSteps, steps, batteryLevel) =>
+        dispatch(syncBandRequest(id, totalSteps, steps, batteryLevel)),
     readBattery: (uuid, level) => dispatch(readBattery(uuid, level)),
     push: pathName => dispatch(push(pathName))
 });

@@ -53,7 +53,8 @@ export function* syncBand(action) {
         yield put({
             type: 'SYNC_BAND',
             player: response.data.player,
-            totalSteps: response.data.steps
+            totalSteps: response.data.steps,
+            batteryLevel: action.batteryLevel
         });
 
         yield put({
@@ -62,7 +63,7 @@ export function* syncBand(action) {
         });
     } else {
         yield put({
-            type: 'SYNC_BAND_FAILED',
+            type: 'SYNC_BAND_FAILED'
         });
 
         yield put({
