@@ -148,3 +148,8 @@ export const pairBandToPlayer = (id, band) => ({
 export const deleteDatabaseRequest = () => ({
     type: 'DELETE_DATABASE_REQUEST'
 });
+
+export const importDatabaseRequest = file => ({
+    type: 'IMPORT_DATABASE_REQUEST',
+    file
+});

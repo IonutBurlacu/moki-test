@@ -234,3 +234,23 @@ export function* deleteDatabase() {
         type: 'HIDE_LOADER'
     });
 }
+
+export function* importDatabase(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        PlayersAPI.importDatabase,
+        {
+            Authorization: token
+        },
+        action.file
+    );
+
+    yield put({
+        type: 'SHOW_ALERT',
+        message: response.data.message
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}

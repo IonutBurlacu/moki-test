@@ -144,4 +144,15 @@ export default class PlayersAPI {
             }
         });
     }
+
+    static importDatabase(headers = {}, file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        return axios.post(`${host}${root}/import`, formData, {
+            headers: {
+                ...headers,
+                'content-type': 'multipart/form-data'
+            }
+        });
+    }
 }

@@ -10,6 +10,7 @@ import { logout } from '../../actions/auth';
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import { deleteDatabaseRequest } from '../../actions/players';
+import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
 
 export class SettingsPage extends Component {
     constructor(props) {
@@ -17,9 +18,18 @@ export class SettingsPage extends Component {
 
         this.state = {
             hideTotalRecordSteps: false,
-            ignoreWeekendData: false
+            ignoreWeekendData: false,
+            importModalIsOpen: false
         };
     }
+
+    openImportModal = () => {
+        this.setState({ importModalIsOpen: true });
+    };
+
+    closeImportModal = () => {
+        this.setState({ importModalIsOpen: false });
+    };
 
     logout = () => {
         this.props.logout();
@@ -153,9 +163,13 @@ export class SettingsPage extends Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <span className="setting-label">
+                                    <button
+                                        className="setting-button"
+                                        type="button"
+                                        onClick={this.openImportModal}
+                                    >
                                         Import Database
-                                    </span>
+                                    </button>
                                 </td>
                                 <td className="align-right">
                                     <button
@@ -204,6 +218,10 @@ export class SettingsPage extends Component {
                         </table>
                     </div>
                 </div>
+                <ImportDatabaseModal
+                    modalIsOpen={this.state.importModalIsOpen}
+                    closeModal={this.closeImportModal}
+                />
                 <Loader />
                 <Footer />
             </div>

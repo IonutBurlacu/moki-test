@@ -291,6 +291,10 @@ export default (
             return {
                 ...state
             };
+        case 'IMPORT_REQUEST':
+            return {
+                ...state
+            };
         default:
             return state;
     }
