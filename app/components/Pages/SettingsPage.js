@@ -6,7 +6,7 @@ import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import Loader from '../Loader';
-import { logout } from '../../actions/auth';
+import { logout, changeSettingRequest } from '../../actions/auth';
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import { deleteDatabaseRequest } from '../../actions/players';
@@ -18,8 +18,8 @@ export class SettingsPage extends Component {
         super(props);
 
         this.state = {
-            hideTotalRecordSteps: false,
-            ignoreWeekendData: false,
+            hide_totals: props.hide_totals,
+            ignore_weekend: props.ignore_weekend,
             importModalIsOpen: false,
             accountModalIsOpen: false
         };
@@ -52,6 +52,8 @@ export class SettingsPage extends Component {
         this.setState({
             [event.target.name]: !previousState
         });
+        this.props.showLoader();
+        this.props.changeSettingRequest(event.target.name);
     };
 
     handleReadBattery = () => {
@@ -113,11 +115,9 @@ export class SettingsPage extends Component {
                                     <label className="switch">
                                         <input
                                             type="checkbox"
-                                            checked={
-                                                this.state.hideTotalRecordSteps
-                                            }
+                                            checked={this.state.hide_totals}
                                             onChange={this.handleCheckboxChange}
-                                            name="hideTotalRecordSteps"
+                                            name="hide_totals"
                                         />
                                         <div className="slider" />
                                         <span className="label-on">ON</span>
@@ -135,11 +135,9 @@ export class SettingsPage extends Component {
                                     <label className="switch">
                                         <input
                                             type="checkbox"
-                                            checked={
-                                                this.state.ignoreWeekendData
-                                            }
+                                            checked={this.state.ignore_weekend}
                                             onChange={this.handleCheckboxChange}
-                                            name="ignoreWeekendData"
+                                            name="ignore_weekend"
                                         />
                                         <div className="slider" />
                                         <span className="label-on">ON</span>
@@ -245,12 +243,16 @@ export class SettingsPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    token: state.auth.token
+    token: state.auth.token,
+    hide_totals: state.auth.hide_totals,
+    ignore_weekend: state.auth.ignore_weekend
 });
 
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
     showLoader: () => dispatch(showLoader()),
+    changeSettingRequest: settingName =>
+        dispatch(changeSettingRequest(settingName)),
     deleteDatabaseRequest: () => dispatch(deleteDatabaseRequest())
 });
 

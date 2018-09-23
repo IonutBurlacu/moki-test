@@ -18,7 +18,9 @@ export function* login(action) {
             token: response.data.token,
             schoolName: response.data.school_name,
             fullName: response.data.full_name,
-            email: response.data.email
+            email: response.data.email,
+            hide_totals: response.data.hide_totals,
+            ignore_weekend: response.data.ignore_weekend
         });
 
         yield put(push('/players'));
@@ -96,4 +98,24 @@ export function* deleteAccount() {
     });
 
     yield put(push('/login'));
+}
+
+export function* changeSetting(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        AuthAPI.changeSetting,
+        {
+            Authorization: token
+        },
+        action.settingName
+    );
+
+    yield put({
+        type: 'CHANGE_SETTING',
+        [action.settingName]: ''
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
 }

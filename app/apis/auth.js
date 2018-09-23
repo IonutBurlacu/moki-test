@@ -53,4 +53,17 @@ export default class AuthAPI {
             }
         });
     }
+
+    static changeSetting(headers = {}, settingName) {
+        return axios({
+            method: 'post',
+            url: `${host}${root}/change_setting`,
+            headers: {
+                ...headers
+            },
+            data: {
+                [settingName]: true
+            }
+        });
+    }
 }

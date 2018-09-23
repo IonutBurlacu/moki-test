@@ -35,7 +35,9 @@ export class SyncBandsPage extends Component {
                                                 <span>added</span>
                                             </h1>
                                             <h3 className="subtitle">
-                                                {`${sync.steps} `}
+                                                {this.props.hide_totals
+                                                    ? '--- '
+                                                    : `${sync.steps} `}
                                                 <span>steps</span>
                                             </h3>
                                         </div>
@@ -108,7 +110,8 @@ export class SyncBandsPage extends Component {
 
 const mapStateToProps = state => ({
     syncs: state.bands.syncs,
-    loading: state.bands.loading
+    loading: state.bands.loading,
+    hide_totals: state.auth.hide_totals
 });
 
 export default connect(mapStateToProps)(SyncBandsPage);

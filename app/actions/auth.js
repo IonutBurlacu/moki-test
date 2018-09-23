@@ -4,12 +4,21 @@ export const loginRequest = (email, password) => ({
     password
 });
 
-export const login = (token, schoolName, fullName, email) => ({
+export const login = (
+    token,
+    schoolName,
+    fullName,
+    email,
+    hide_totals,
+    ignore_weekend
+) => ({
     type: 'LOGIN',
     token,
     schoolName,
     fullName,
-    email
+    email,
+    hide_totals,
+    ignore_weekend
 });
 
 export const logout = () => ({
@@ -28,4 +37,14 @@ export const deleteAccountRequest = () => ({
 
 export const deleteAccount = () => ({
     type: 'DELETE_ACCOUNT'
+});
+
+export const changeSettingRequest = settingName => ({
+    type: 'CHANGE_SETTING_REQUEST',
+    settingName
+});
+
+export const changeSetting = settingName => ({
+    type: 'CHANGE_SETTING',
+    settingName
 });
