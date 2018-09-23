@@ -8,6 +8,8 @@ export default (
         totalOverviewB: 0,
         totalTypicalA: 0,
         totalTypicalB: 0,
+        totalOverviewAPrevious: 0,
+        totalOverviewBPrevious: 0,
         percentageOverviewA: 0,
         percentageOverviewB: 0,
         percentageTypicalA: 0,
@@ -36,8 +38,12 @@ export default (
                 teams: action.teams,
                 grades: action.grades,
                 years: action.years,
-                overview: action.overview,
-                typical: action.typical,
+                overview: action.overview.current,
+                typical: action.typical.current,
+                totalOverviewAPrevious:
+                    action.overview.previous_total_a.previous_steps,
+                totalOverviewBPrevious:
+                    action.overview.previous_total_b.previous_steps,
                 teamIdsA: [],
                 teamIdsB: [],
                 loading: false
@@ -50,28 +56,32 @@ export default (
         case 'STATS_REPORTS_TEAMS':
             return {
                 ...state,
-                overview: action.overview,
-                typical: action.typical,
-                totalOverviewA: action.overview.reduce(
+                overview: action.overview.current,
+                typical: action.typical.current,
+                totalOverviewA: action.overview.current.reduce(
                     (accumulator, currentValue) =>
                         accumulator + currentValue.total_steps_a,
                     0
                 ),
-                totalOverviewB: action.overview.reduce(
+                totalOverviewB: action.overview.current.reduce(
                     (accumulator, currentValue) =>
                         accumulator + currentValue.total_steps_b,
                     0
                 ),
-                totalTypicalA: action.typical.reduce(
+                totalTypicalA: action.typical.current.reduce(
                     (accumulator, currentValue) =>
                         accumulator + currentValue.total_steps_a,
                     0
                 ),
-                totalTypicalB: action.typical.reduce(
+                totalTypicalB: action.typical.current.reduce(
                     (accumulator, currentValue) =>
                         accumulator + currentValue.total_steps_b,
                     0
                 ),
+                totalOverviewAPrevious:
+                    action.overview.previous_total_a.previous_steps,
+                totalOverviewBPrevious:
+                    action.overview.previous_total_b.previous_steps,
                 chartType: action.chartType,
                 filterByA: action.filterByA,
                 filterByValueA: action.filterByValueA,

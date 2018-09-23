@@ -7,7 +7,8 @@ export default (
             overview: [],
             typical: [],
             totalOverview: 0,
-            totalTypical: 0
+            totalTypical: 0,
+            totalOverviewPrevious: 0
         },
         grades: [],
         years: [],
@@ -86,16 +87,20 @@ export default (
                 ...state,
                 player: {
                     ...action.player,
-                    totalOverview: action.player.overview.reduce(
+                    overview: action.player.overview.current,
+                    typical: action.player.typical.current,
+                    totalOverview: action.player.overview.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps,
                         0
                     ),
-                    totalTypical: action.player.typical.reduce(
+                    totalTypical: action.player.typical.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps,
                         0
-                    )
+                    ),
+                    totalOverviewPrevious:
+                        action.player.overview.previous_total.previous_steps
                 },
                 loading: false
             };
@@ -109,18 +114,20 @@ export default (
                 ...state,
                 player: {
                     ...state.player,
-                    overview: action.overview,
-                    typical: action.typical,
-                    totalOverview: action.overview.reduce(
+                    overview: action.overview.current,
+                    typical: action.typical.current,
+                    totalOverview: action.overview.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps,
                         0
                     ),
-                    totalTypical: action.typical.reduce(
+                    totalTypical: action.typical.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps,
                         0
-                    )
+                    ),
+                    totalOverviewPrevious:
+                        action.overview.previous_total.previous_steps
                 },
                 chartType: action.chartType,
                 loading: false

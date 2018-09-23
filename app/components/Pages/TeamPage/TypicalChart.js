@@ -169,13 +169,7 @@ export class TypicalChart extends Component {
                 <div className="chart-bottom">
                     <div className="chart-bottom-line">
                         <div className="left-side" />
-                        <div className="center-side">
-                            <span>Trend:</span>
-                            <span className="negative">
-                                <span className="percentage-icon" />
-                                <span className="percentage">25%</span>
-                            </span>
-                        </div>
+                        <div className="center-side" />
                         <div className="right-side">
                             <span className="total">
                                 Total: {this.props.team.totalTypical}

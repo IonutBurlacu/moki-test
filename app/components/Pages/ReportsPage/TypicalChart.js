@@ -216,13 +216,7 @@ export class TypicalChart extends Component {
                                 {this.state.dataAVisible ? 'Hide' : 'Show'}
                             </button>
                         </div>
-                        <div className="center-side">
-                            <span>Trend:</span>
-                            <span className="negative">
-                                <span className="percentage-icon" />
-                                <span className="percentage">25%</span>
-                            </span>
-                        </div>
+                        <div className="center-side" />
                         <div className="right-side">
                             <span className="total">
                                 Total: {this.props.totalTypicalA}
@@ -241,13 +235,7 @@ export class TypicalChart extends Component {
                                 {this.state.dataBVisible ? 'Hide' : 'Show'}
                             </button>
                         </div>
-                        <div className="center-side">
-                            <span>Trend:</span>
-                            <span className="positive">
-                                <span className="percentage-icon" />
-                                <span className="percentage">25%</span>
-                            </span>
-                        </div>
+                        <div className="center-side" />
                         <div className="right-side">
                             <span className="total">
                                 Total: {this.props.totalTypicalB}

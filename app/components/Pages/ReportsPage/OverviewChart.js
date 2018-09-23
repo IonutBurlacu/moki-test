@@ -218,10 +218,47 @@ export class OverviewChart extends Component {
                         </div>
                         <div className="center-side">
                             <span>Trend:</span>
-                            <span className="negative">
-                                <span className="percentage-icon" />
-                                <span className="percentage">25%</span>
-                            </span>
+                            {this.props.totalOverviewA -
+                                this.props.totalOverviewAPrevious !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.totalOverviewA >
+                                        this.props.totalOverviewAPrevious
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">
+                                        {this.props.totalOverviewA >
+                                        this.props.totalOverviewAPrevious
+                                            ? (
+                                                  ((this.props.totalOverviewA -
+                                                      this.props
+                                                          .totalOverviewAPrevious) /
+                                                      this.props
+                                                          .totalOverviewA) *
+                                                  100
+                                              ).toFixed(2)
+                                            : (
+                                                  ((this.props
+                                                      .totalOverviewAPrevious -
+                                                      this.props
+                                                          .totalOverviewA) /
+                                                      this.props
+                                                          .totalOverviewAPrevious) *
+                                                  100
+                                              ).toFixed(2)}
+                                        %
+                                    </span>
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                         <div className="right-side">
                             <span className="total">
@@ -243,10 +280,47 @@ export class OverviewChart extends Component {
                         </div>
                         <div className="center-side">
                             <span>Trend:</span>
-                            <span className="positive">
-                                <span className="percentage-icon" />
-                                <span className="percentage">25%</span>
-                            </span>
+                            {this.props.totalOverviewB -
+                                this.props.totalOverviewBPrevious !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.totalOverviewB >
+                                        this.props.totalOverviewBPrevious
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">
+                                        {this.props.totalOverviewB >
+                                        this.props.totalOverviewBPrevious
+                                            ? (
+                                                  ((this.props.totalOverviewB -
+                                                      this.props
+                                                          .totalOverviewBPrevious) /
+                                                      this.props
+                                                          .totalOverviewB) *
+                                                  100
+                                              ).toFixed(2)
+                                            : (
+                                                  ((this.props
+                                                      .totalOverviewBPrevious -
+                                                      this.props
+                                                          .totalOverviewB) /
+                                                      this.props
+                                                          .totalOverviewBPrevious) *
+                                                  100
+                                              ).toFixed(2)}
+                                        %
+                                    </span>
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                         <div className="right-side">
                             <span className="total">
@@ -270,7 +344,9 @@ const mapStateToProps = state => ({
     filterByB: state.reports.filterByB,
     filterByValueB: state.reports.filterByValueB,
     totalOverviewA: state.reports.totalOverviewA,
-    totalOverviewB: state.reports.totalOverviewB
+    totalOverviewB: state.reports.totalOverviewB,
+    totalOverviewAPrevious: state.reports.totalOverviewAPrevious,
+    totalOverviewBPrevious: state.reports.totalOverviewBPrevious
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -7,7 +7,8 @@ export default (
             overview: [],
             typical: [],
             totalOverview: 0,
-            totalTypical: 0
+            totalTypical: 0,
+            totalOverviewPrevious: 0
         },
         challenges: [],
         players: [],
@@ -80,16 +81,20 @@ export default (
                 ...state,
                 team: {
                     ...action.team,
-                    totalOverview: action.team.overview.reduce(
+                    overview: action.team.overview.current,
+                    typical: action.team.typical.current,
+                    totalOverview: action.team.overview.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps,
                         0
                     ),
-                    totalTypical: action.team.typical.reduce(
+                    totalTypical: action.team.typical.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps,
                         0
-                    )
+                    ),
+                    totalOverviewPrevious:
+                        action.team.overview.previous_total.previous_steps
                 },
                 loading: false
             };
@@ -103,18 +108,20 @@ export default (
                 ...state,
                 team: {
                     ...state.team,
-                    overview: action.overview,
-                    typical: action.typical,
-                    totalOverview: action.overview.reduce(
+                    overview: action.overview.current,
+                    typical: action.typical.current,
+                    totalOverview: action.overview.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps,
                         0
                     ),
-                    totalTypical: action.typical.reduce(
+                    totalTypical: action.typical.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps,
                         0
-                    )
+                    ),
+                    totalOverviewPrevious:
+                        action.overview.previous_total.previous_steps
                 },
                 chartType: action.chartType,
                 loading: false

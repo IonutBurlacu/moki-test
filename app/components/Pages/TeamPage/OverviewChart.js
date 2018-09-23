@@ -171,10 +171,48 @@ export class OverviewChart extends Component {
                         <div className="left-side" />
                         <div className="center-side">
                             <span>Trend:</span>
-                            <span className="negative">
-                                <span className="percentage-icon" />
-                                <span className="percentage">25%</span>
-                            </span>
+                            {this.props.team.totalOverview -
+                                this.props.team.totalOverviewPrevious !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.team.totalOverview >
+                                        this.props.team.totalOverviewPrevious
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">
+                                        {this.props.team.totalOverview >
+                                        this.props.team.totalOverviewPrevious
+                                            ? (
+                                                  ((this.props.team
+                                                      .totalOverview -
+                                                      this.props.team
+                                                          .totalOverviewPrevious) /
+                                                      this.props.team
+                                                          .totalOverview) *
+                                                  100
+                                              ).toFixed(2)
+                                            : (
+                                                  ((this.props.team
+                                                      .totalOverviewPrevious -
+                                                      this.props.team
+                                                          .totalOverview) /
+                                                      this.props.team
+                                                          .totalOverviewPrevious) *
+                                                  100
+                                              ).toFixed(2)}
+                                        %
+                                    </span>
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                         <div className="right-side">
                             <span className="total">
