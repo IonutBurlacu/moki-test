@@ -1,6 +1,8 @@
-export const getChallengesRequest = listDate => ({
+export const getChallengesRequest = (listDate, listStartDate, listEndDate) => ({
     type: 'GET_CHALLENGES_REQUEST',
-    listDate
+    listDate,
+    listStartDate,
+    listEndDate
 });
 
 export const getChallenges = (challenges, listDate) => ({
@@ -9,9 +11,15 @@ export const getChallenges = (challenges, listDate) => ({
     listDate
 });
 
-export const changeChallengesListDate = listDate => ({
+export const changeChallengesListDate = (
+    listDate,
+    listStartDate,
+    listEndDate
+) => ({
     type: 'CHANGE_CHALLENGES_LIST_DATE',
-    listDate
+    listDate,
+    listStartDate,
+    listEndDate
 });
 
 export const changeChallengesListSort = (listSort, listSortLabel) => ({

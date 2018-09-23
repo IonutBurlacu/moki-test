@@ -1,6 +1,8 @@
-export const getPlayersRequest = listDate => ({
+export const getPlayersRequest = (listDate, listStartDate, listEndDate) => ({
     type: 'GET_PLAYERS_REQUEST',
-    listDate
+    listDate,
+    listStartDate,
+    listEndDate
 });
 
 export const getPlayers = (players, grades, years, listDate) => ({
@@ -11,9 +13,15 @@ export const getPlayers = (players, grades, years, listDate) => ({
     listDate
 });
 
-export const changePlayersListDate = listDate => ({
+export const changePlayersListDate = (
+    listDate,
+    listStartDate,
+    listEndDate
+) => ({
     type: 'CHANGE_PLAYERS_LIST_DATE',
-    listDate
+    listDate,
+    listStartDate,
+    listEndDate
 });
 
 export const changePlayersListSort = (listSort, listSortLabel) => ({

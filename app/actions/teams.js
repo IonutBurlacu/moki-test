@@ -1,6 +1,8 @@
-export const getTeamsRequest = listDate => ({
+export const getTeamsRequest = (listDate, listStartDate, listEndDate) => ({
     type: 'GET_TEAMS_REQUEST',
-    listDate
+    listDate,
+    listStartDate,
+    listEndDate
 });
 
 export const getTeams = (teams, listDate) => ({
@@ -9,9 +11,11 @@ export const getTeams = (teams, listDate) => ({
     listDate
 });
 
-export const changeTeamsListDate = listDate => ({
+export const changeTeamsListDate = (listDate, listStartDate, listEndDate) => ({
     type: 'CHANGE_TEAMS_LIST_DATE',
-    listDate
+    listDate,
+    listStartDate,
+    listEndDate
 });
 
 export const changeTeamsListSort = (listSort, listSortLabel) => ({

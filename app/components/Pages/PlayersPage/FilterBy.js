@@ -54,6 +54,7 @@ export class FilterBy extends Component {
                     <ul className="filter-select-list">
                         {this.props.grades.map(grade => (
                             <li
+                                key={grade.id}
                                 className={
                                     this.props.listFilter === 'grade_id' &&
                                     this.props.listFilterValue == grade.id
@@ -150,6 +151,7 @@ export class FilterBy extends Component {
                         </li>
                         {this.props.years.map(year => (
                             <li
+                                key={year.id}
                                 className={
                                     this.props.listFilter === 'year_id' &&
                                     this.props.listFilterValue === year.id

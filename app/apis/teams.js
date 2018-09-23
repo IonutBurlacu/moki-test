@@ -4,10 +4,10 @@ import host from '../constants/serverUrl';
 const root = '/api/teams';
 
 export default class TeamsAPI {
-    static get(headers = {}, listDate) {
+    static get(headers = {}, listDate, startDate, endDate) {
         return axios({
             method: 'get',
-            url: `${host}${root}/index?list_date=${listDate}`,
+            url: `${host}${root}/index?list_date=${listDate}&start_date=${startDate}&end_date=${endDate}`,
             headers: {
                 ...headers
             }

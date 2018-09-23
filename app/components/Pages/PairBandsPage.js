@@ -17,7 +17,7 @@ export class PairBandsPage extends Component {
     componentWillMount() {
         this.props.pairModeOn();
         this.props.showLoader();
-        this.props.getPlayersRequest();
+        this.props.getPlayersRequest('today');
     }
 
     componentWillUnmount() {
@@ -217,7 +217,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     pairModeOn: () => dispatch(pairModeOn()),
     pairModeOff: () => dispatch(pairModeOff()),
-    getPlayersRequest: () => dispatch(getPlayersRequest()),
+    getPlayersRequest: listDate => dispatch(getPlayersRequest(listDate)),
     playerSelected: id => dispatch(playerSelected(id)),
     showLoader: () => dispatch(showLoader())
 });

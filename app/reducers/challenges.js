@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default (
     state = {
         items: [],
@@ -5,6 +7,8 @@ export default (
         players: [],
         teams: [],
         listDate: 'today',
+        listStartDate: moment.utc().local(),
+        listEndDate: moment.utc().local(),
         listSort: 'most_steps',
         listSortLabel: 'Most steps',
         listFilter: '',
@@ -45,7 +49,9 @@ export default (
         case 'CHANGE_CHALLENGES_LIST_DATE':
             return {
                 ...state,
-                listDate: action.listDate
+                listDate: action.listDate,
+                listStartDate: action.listStartDate,
+                listEndDate: action.listEndDate
             };
         case 'CHANGE_CHALLENGES_LIST_SORT':
             return {

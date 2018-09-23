@@ -1,5 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
+import moment from 'moment';
 import { getToken } from '../selectors/auth';
 import PlayersAPI from '../apis/players';
 
@@ -8,7 +9,9 @@ export function* playersFetchList(action) {
     const response = yield call(
         PlayersAPI.get,
         { Authorization: token },
-        action.listDate
+        action.listDate,
+        moment(action.listStartDate).format('YYYY-MM-DD'),
+        moment(action.listEndDate).format('YYYY-MM-DD')
     );
 
     yield put({
@@ -16,7 +19,9 @@ export function* playersFetchList(action) {
         players: response.data.players,
         grades: response.data.grades,
         years: response.data.years,
-        listDate: action.listDate
+        listDate: action.listDate,
+        listStartDate: action.listStartDate,
+        listEndDate: action.listEndDate
     });
 
     yield put({

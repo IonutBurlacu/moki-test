@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { DateRange } from 'react-date-range';
+import enGb from 'react-date-range/dist/locale/en-GB';
+import moment from 'moment';
 import {
     changeChallengesListDate,
     getChallengesRequest
@@ -9,8 +12,11 @@ import { showLoader } from '../../../actions/loader';
 export class DateBy extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
-            dateSelectOpen: false
+            dateSelectOpen: false,
+            startDate: props.listStartDate,
+            endDate: props.listEndDate
         };
     }
 
@@ -24,6 +30,8 @@ export class DateBy extends Component {
                 return 'This Month';
             case 'year':
                 return 'This Year';
+            case 'interval':
+                return 'Interval';
             default:
                 return 'Date';
         }
@@ -41,6 +49,31 @@ export class DateBy extends Component {
         this.props.changeChallengesListDate(listDate);
         this.props.showLoader();
         this.props.getChallengesRequest(listDate);
+    };
+
+    handleDateRangeSelect = ranges => {
+        this.setState({
+            startDate: moment(ranges.range1.startDate),
+            endDate: moment(ranges.range1.endDate)
+        });
+    };
+
+    handleDateRangeFocus = ranges => {
+        setTimeout(() => {
+            if (ranges[1] === 0) {
+                this.props.changeChallengesListDate(
+                    'interval',
+                    this.state.startDate,
+                    this.state.endDate
+                );
+                this.props.showLoader();
+                this.props.getChallengesRequest(
+                    'interval',
+                    this.state.startDate,
+                    this.state.endDate
+                );
+            }
+        }, 1);
     };
 
     render() {
@@ -129,6 +162,29 @@ export class DateBy extends Component {
                                 This Year
                             </button>
                         </li>
+                        <li
+                            className={
+                                this.props.listDate === 'interval'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <DateRange
+                                ranges={[
+                                    {
+                                        startDate: this.state.startDate,
+                                        endDate: this.state.endDate
+                                    }
+                                ]}
+                                className="date-range-picker"
+                                direction="horizontal"
+                                showDateDisplay={false}
+                                rangeColors={['#66667b']}
+                                onChange={this.handleDateRangeSelect}
+                                locale={enGb}
+                                onRangeFocusChange={this.handleDateRangeFocus}
+                            />
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -137,14 +193,26 @@ export class DateBy extends Component {
 }
 
 const mapStateToProps = state => ({
-    listDate: state.challenges.listDate
+    listDate: state.challenges.listDate,
+    listStartDate: state.challenges.listStartDate,
+    listEndDate: state.challenges.listEndDate
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
-    changeChallengesListDate: listDate =>
-        dispatch(changeChallengesListDate(listDate)),
-    getChallengesRequest: listDate => dispatch(getChallengesRequest(listDate))
+    changeChallengesListDate: (
+        listDate,
+        listStartDate = moment.utc().local(),
+        listEndDate = moment.utc().local()
+    ) =>
+        dispatch(
+            changeChallengesListDate(listDate, listStartDate, listEndDate)
+        ),
+    getChallengesRequest: (
+        listDate,
+        listStartDate = moment.utc().local(),
+        listEndDate = moment.utc().local()
+    ) => dispatch(getChallengesRequest(listDate, listStartDate, listEndDate))
 });
 
 export default connect(
