@@ -162,7 +162,6 @@ export default (
                 loading: true
             };
         case 'UPDATE_TEAM':
-            console.log(action);
             return {
                 ...state,
                 team: {
@@ -199,7 +198,6 @@ export default (
                 loading: true
             };
         case 'DETACH_TEAM_FROM_PLAYER':
-            console.log(action);
             return {
                 ...state,
                 team: {

@@ -1,6 +1,4 @@
-const getFilteredTeams = (teams, { filterBy, filterByValue, sortBy }) => {
-    console.log(teams);
-    return teams
+const getFilteredTeams = (teams, { filterBy, filterByValue, sortBy }) => teams
         .filter(team => {
             const topTeamIds = getSortedTeamsBySteps(Array.from(teams), 'desc')
                 .filter(
@@ -27,7 +25,6 @@ const getFilteredTeams = (teams, { filterBy, filterByValue, sortBy }) => {
                         return topTeamIds.includes(team.id);
                 }
             } else {
-                console.log(team);
                 return true;
             }
         })
@@ -49,7 +46,6 @@ const getFilteredTeams = (teams, { filterBy, filterByValue, sortBy }) => {
                     return a.current_steps > b.current_steps ? 1 : -1;
             }
         });
-};
 
 const getSortedTeamsBySteps = (teams, type) =>
     teams.sort((a, b) => {

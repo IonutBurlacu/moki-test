@@ -1,9 +1,7 @@
 const getFilteredChallenges = (
     challenges,
     { filterBy, filterByValue, sortBy }
-) => {
-    console.log(challenges);
-    return challenges
+) => challenges
         .filter(challenge => {
             const topChallengeIds = getSortedChallengesBySteps(
                 Array.from(challenges),
@@ -33,7 +31,6 @@ const getFilteredChallenges = (
                         return topChallengeIds.includes(challenge.id);
                 }
             } else {
-                console.log(challenge);
                 return true;
             }
         })
@@ -55,7 +52,6 @@ const getFilteredChallenges = (
                     return a.current_steps > b.current_steps ? 1 : -1;
             }
         });
-};
 
 const getSortedChallengesBySteps = (challenges, type) =>
     challenges.sort((a, b) => {

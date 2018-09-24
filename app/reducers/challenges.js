@@ -96,7 +96,6 @@ export default (
                 player => player.id
             );
             const assignedTeams = state.challenge.teams.map(team => team.id);
-            console.log(action);
             return {
                 ...state,
                 teams: action.teams.filter(

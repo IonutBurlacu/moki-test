@@ -12,7 +12,6 @@ import { showLoader } from '../../../actions/loader';
 export class DateBy extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             dateSelectOpen: false,
             startDate: props.listStartDate,
