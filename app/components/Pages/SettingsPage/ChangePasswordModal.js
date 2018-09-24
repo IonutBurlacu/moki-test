@@ -52,6 +52,13 @@ export class ChangePasswordModal extends Component {
                 <div className="modal-wrapper">
                     <div className="modal-header">
                         <span>Change Password</span>
+                        <button
+                            type="button"
+                            onClick={this.props.closeModal}
+                            className="close-modal-button"
+                        >
+                            ✖
+                        </button>
                     </div>
                     <div className="modal-body">
                         <div className="modal-content">

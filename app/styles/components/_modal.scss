@@ -45,7 +45,19 @@
     color: white;
     font-size: 3vmin;
     padding: 1vmin;
+    position: relative;
     text-align: center;
+
+    .close-modal-button {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 4vmin;
+        position: absolute;
+        right: 1vmin;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
 
 .modal-body {
@@ -124,7 +136,7 @@
             label {
                 color: white;
                 display: block;
-                font-size: 3.4vmin;
+                font-size: 3vmin;
                 margin-bottom: 1.5vmin;
             }
 
@@ -132,7 +144,7 @@
                 background: transparent;
                 border: 2px solid white;
                 color: $greenText;
-                font-size: 3.4vmin;
+                font-size: 3vmin;
                 padding: 5px 10px;
                 margin-bottom: 1.5vmin;
                 width: 100%;

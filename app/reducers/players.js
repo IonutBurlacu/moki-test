@@ -87,6 +87,7 @@ export default (
                 ...state,
                 player: {
                     ...action.player,
+                    age: moment().diff(moment(action.player.birthday), 'year'),
                     overview: action.player.overview.current,
                     typical: action.player.typical.current,
                     totalOverview: action.player.overview.current.reduce(

@@ -38,6 +38,13 @@ export class AccountModal extends Component {
                 <div className="modal-wrapper">
                     <div className="modal-header">
                         <span>Account</span>
+                        <button
+                            type="button"
+                            onClick={this.props.closeModal}
+                            className="close-modal-button"
+                        >
+                            ✖
+                        </button>
                     </div>
                     <div className="modal-body">
                         <div className="modal-content">
