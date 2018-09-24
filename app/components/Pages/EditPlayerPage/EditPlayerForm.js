@@ -11,11 +11,16 @@ import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import defaultAvatar from '../../../images/default_avatar.png';
 
+const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export class EditPlayerForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...props.player
+            ...props.player,
+            file: null,
+            filePreview: ''
         };
     }
 
@@ -38,6 +43,21 @@ export class EditPlayerForm extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
+    };
+
+    handleFileChange = event => {
+        const file = event.target.files[0];
+        const extension = file.name
+            .substr(file.name.lastIndexOf('\\') + 1)
+            .split('.')[1];
+        if (!imageExtensions.includes(extension)) {
+            this.props.showAlert('Invalid image format.');
+        } else {
+            this.setState({
+                file,
+                filePreview: URL.createObjectURL(file)
+            });
+        }
     };
 
     onDateChange = date => {
@@ -69,14 +89,22 @@ export class EditPlayerForm extends Component {
                 <Header
                     leftButton={<Link to="/players">Cancel</Link>}
                     rightButton={
-                        <button onClick={this.editPlayer}>Save</button>
+                        <button type="button" onClick={this.editPlayer}>
+                            Save
+                        </button>
                     }
                 />
                 <div className="player-form">
                     <form action="">
                         <div className="left-side">
                             <img
-                                src={defaultAvatar}
+                                src={
+                                    this.state.filePreview
+                                        ? this.state.filePreview
+                                        : this.state.avatar
+                                            ? `${s3URL}${this.state.avatar}`
+                                            : defaultAvatar
+                                }
                                 className="avatar"
                                 alt="avatar"
                             />
@@ -90,6 +118,7 @@ export class EditPlayerForm extends Component {
                                 type="file"
                                 className="edit-photo-input"
                                 id="avatar"
+                                onChange={this.handleFileChange}
                             />
                         </div>
                         <div className="center-side">

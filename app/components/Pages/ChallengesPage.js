@@ -17,6 +17,8 @@ import playersIconWide from '../../images/players_icon_wide.png';
 import TopFilters from './ChallengesPage/TopFilters';
 import getFilteredChallenges from '../../selectors/challenges';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export class ChallengesPage extends Component {
     componentWillMount() {
         this.props.showLoader();
@@ -53,7 +55,13 @@ export class ChallengesPage extends Component {
                                         >
                                             <td>
                                                 <img
-                                                    src={defaultAvatar}
+                                                    src={
+                                                        challenge.avatar
+                                                            ? `${s3URL}${
+                                                                  challenge.avatar
+                                                              }`
+                                                            : defaultAvatar
+                                                    }
                                                     className="avatar"
                                                     alt="avatar"
                                                 />

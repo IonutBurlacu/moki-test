@@ -14,6 +14,8 @@ import challengesIcon from '../../images/challenges_icon.png';
 import playersIconWide from '../../images/players_icon_wide.png';
 import TopFilters from './TeamsPage/TopFilters';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export class TeamsPage extends Component {
     componentWillMount() {
         this.props.showLoader();
@@ -28,7 +30,6 @@ export class TeamsPage extends Component {
 
     render() {
         const { teams, loading } = this.props;
-        console.log(teams);
         return (
             <div className="container container-with-title">
                 <Header
@@ -52,7 +53,13 @@ export class TeamsPage extends Component {
                                         >
                                             <td>
                                                 <img
-                                                    src={defaultAvatar}
+                                                    src={
+                                                        team.avatar
+                                                            ? `${s3URL}${
+                                                                  team.avatar
+                                                              }`
+                                                            : defaultAvatar
+                                                    }
                                                     className="avatar"
                                                     alt="avatar"
                                                 />

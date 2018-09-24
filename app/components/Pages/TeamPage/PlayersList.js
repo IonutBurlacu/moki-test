@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import defaultAvatar from '../../../images/default_avatar.png';
 import playersListIcon from '../../../images/players_list_icon.png';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export class PlayersList extends Component {
     render() {
         return (
@@ -22,7 +24,11 @@ export class PlayersList extends Component {
                             <tr key={item.id}>
                                 <td>
                                     <img
-                                        src={defaultAvatar}
+                                        src={
+                                            item.avatar
+                                                ? `${s3URL}${item.avatar}`
+                                                : defaultAvatar
+                                        }
                                         className="avatar"
                                         alt="avatar"
                                     />

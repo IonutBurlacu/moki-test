@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
@@ -8,115 +8,159 @@ import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import defaultAvatar from '../../../images/default_avatar.png';
 
+const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
 export class AddChallengeForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      avatar: '',
-      name: '',
-      type: 'player',
-      target_steps: ''
-    };
-  }
-
-  insertChallenge = () => {
-    if (this.state.name === '' || this.state.target_steps === '') {
-      this.props.showAlert('All fields are required.');
-    } else {
-      this.props.showLoader();
-      this.props.insertChallengeRequest(this.state);
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            type: 'player',
+            target_steps: '',
+            file: null,
+            filePreview: ''
+        };
     }
-  };
 
-  handleInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+    insertChallenge = () => {
+        if (this.state.name === '' || this.state.target_steps === '') {
+            this.props.showAlert('All fields are required.');
+        } else {
+            this.props.showLoader();
+            this.props.insertChallengeRequest(this.state);
+        }
+    };
 
-  render() {
-    const options = [
-      { value: 'player', label: 'Player' },
-      { value: 'team', label: 'Team' }
-    ];
-    return (
-      <div>
-        <Header
-          leftButton={<Link to="/challenges">Cancel</Link>}
-          rightButton={<button onClick={this.insertChallenge}>Create</button>}
-        />
-        <div className="challenge-form">
-          <form action="">
-            <div className="left-side">
-              <img src={defaultAvatar} className="avatar" />
-              <label htmlFor="avatar" className="edit-photo-button">
-                Edit Photo
-              </label>
-              <input type="file" className="edit-photo-input" id="avatar" />
+    handleInputChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
+    handleFileChange = event => {
+        const file = event.target.files[0];
+        const extension = file.name
+            .substr(file.name.lastIndexOf('\\') + 1)
+            .split('.')[1];
+        if (!imageExtensions.includes(extension)) {
+            this.props.showAlert('Invalid image format.');
+        } else {
+            this.setState({
+                file,
+                filePreview: URL.createObjectURL(file)
+            });
+        }
+    };
+
+    render() {
+        const options = [
+            { value: 'player', label: 'Player' },
+            { value: 'team', label: 'Team' }
+        ];
+        return (
+            <div>
+                <Header
+                    leftButton={<Link to="/challenges">Cancel</Link>}
+                    rightButton={
+                        <button type="button" onClick={this.insertChallenge}>
+                            Create
+                        </button>
+                    }
+                />
+                <div className="challenge-form">
+                    <form action="">
+                        <div className="left-side">
+                            <img
+                                src={
+                                    this.state.filePreview
+                                        ? this.state.filePreview
+                                        : defaultAvatar
+                                }
+                                className="avatar"
+                                alt="avatar"
+                            />
+                            <label
+                                htmlFor="avatar"
+                                className="edit-photo-button"
+                            >
+                                Edit Photo
+                            </label>
+                            <input
+                                type="file"
+                                className="edit-photo-input"
+                                id="avatar"
+                                onChange={this.handleFileChange}
+                            />
+                        </div>
+                        <div className="right-side">
+                            <div className="form-group">
+                                <label
+                                    htmlFor="name"
+                                    className="form-label required"
+                                >
+                                    Name
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    id="name"
+                                    name="name"
+                                    autoComplete="off"
+                                    onChange={this.handleInputChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="Type" className="form-label">
+                                    Type
+                                </label>
+                                <Select
+                                    defaultValue={options[0]}
+                                    isClearable={false}
+                                    isSearchable={false}
+                                    options={options}
+                                    className="form-input-select"
+                                    classNamePrefix="form-select"
+                                    onChange={val => {
+                                        this.handleInputChange({
+                                            target: {
+                                                name: 'type',
+                                                value: val.value
+                                            }
+                                        });
+                                    }}
+                                    name="type"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label
+                                    htmlFor="targetSteps"
+                                    className="form-label required"
+                                >
+                                    Distance
+                                </label>
+                                <input
+                                    type="number"
+                                    className="form-input"
+                                    id="targetSteps"
+                                    name="target_steps"
+                                    autoComplete="off"
+                                    onChange={this.handleInputChange}
+                                />
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div className="right-side">
-              <div className="form-group">
-                <label htmlFor="name" className="form-label required">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  id="name"
-                  name="name"
-                  autoComplete="off"
-                  onChange={this.handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="Type" className="form-label">
-                  Type
-                </label>
-                <Select
-                  defaultValue={options[0]}
-                  isClearable={false}
-                  isSearchable={false}
-                  options={options}
-                  className="form-input-select"
-                  classNamePrefix="form-select"
-                  onChange={val => {
-                    this.handleInputChange({
-                      target: {
-                        name: 'type',
-                        value: val.value
-                      }
-                    });
-                  }}
-                  name="type"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="targetSteps" className="form-label required">
-                  Distance
-                </label>
-                <input
-                  type="number"
-                  className="form-input"
-                  id="targetSteps"
-                  name="target_steps"
-                  autoComplete="off"
-                  onChange={this.handleInputChange}
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 const mapDispatchToProps = dispatch => ({
-  insertChallengeRequest: challenge =>
-    dispatch(insertChallengeRequest(challenge)),
-  showLoader: () => dispatch(showLoader()),
-  showAlert: message => dispatch(showAlert(message))
+    insertChallengeRequest: challenge =>
+        dispatch(insertChallengeRequest(challenge)),
+    showLoader: () => dispatch(showLoader()),
+    showAlert: message => dispatch(showAlert(message))
 });
 
 export default connect(
-  undefined,
-  mapDispatchToProps
+    undefined,
+    mapDispatchToProps
 )(AddChallengeForm);

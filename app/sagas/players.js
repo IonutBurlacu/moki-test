@@ -1,5 +1,5 @@
 import { call, put, select } from 'redux-saga/effects';
-import { goBack } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import moment from 'moment';
 import { getToken } from '../selectors/auth';
 import PlayersAPI from '../apis/players';
@@ -102,7 +102,7 @@ export function* playerInsert(action) {
         type: 'HIDE_LOADER'
     });
 
-    yield put(goBack());
+    yield put(push('/players'));
 }
 
 export function* playerEdit(action) {
@@ -145,7 +145,7 @@ export function* playerUpdate(action) {
         type: 'HIDE_LOADER'
     });
 
-    yield put(goBack());
+    yield put(push('/players'));
 }
 
 export function* playerAttachToTeam(action) {

@@ -13,6 +13,8 @@ import challengesIcon from '../../images/challenges_icon.png';
 import teamsIcon from '../../images/teams_icon.png';
 import Loader from '../Loader';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export class PairBandsPage extends Component {
     componentWillMount() {
         this.props.pairModeOn();
@@ -57,7 +59,13 @@ export class PairBandsPage extends Component {
                                         >
                                             <td>
                                                 <img
-                                                    src={defaultAvatar}
+                                                    src={
+                                                        player.avatar
+                                                            ? `${s3URL}${
+                                                                  player.avatar
+                                                              }`
+                                                            : defaultAvatar
+                                                    }
                                                     className="avatar"
                                                     alt="avatar"
                                                 />

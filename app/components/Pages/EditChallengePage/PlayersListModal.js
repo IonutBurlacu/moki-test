@@ -6,6 +6,8 @@ import { showLoader } from '../../../actions/loader';
 import { attachChallengeToPlayerRequest } from '../../../actions/challenges';
 import defaultAvatar from '../../../images/default_avatar.png';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export class PlayersListModal extends Component {
     attachChallengeToPlayer = playerId => {
         this.props.showLoader();
@@ -32,11 +34,17 @@ export class PlayersListModal extends Component {
                                         <tr key={item.id}>
                                             <td
                                                 style={{
-                                                    width: '11vmin'
+                                                    width: '14vmin'
                                                 }}
                                             >
                                                 <img
-                                                    src={defaultAvatar}
+                                                    src={
+                                                        item.avatar
+                                                            ? `${s3URL}${
+                                                                  item.avatar
+                                                              }`
+                                                            : defaultAvatar
+                                                    }
                                                     className="avatar"
                                                     alt="avatar"
                                                 />
@@ -82,6 +90,7 @@ export class PlayersListModal extends Component {
                     </div>
                     <div className="modal-footer">
                         <button
+                            type="button"
                             onClick={this.props.closeModal}
                             className="cancel-button"
                         >

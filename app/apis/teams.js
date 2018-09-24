@@ -38,13 +38,16 @@ export default class TeamsAPI {
     }
 
     static insert(headers = {}, team) {
-        return axios({
-            method: 'post',
-            url: `${host}${root}/insert`,
+        const formData = new FormData();
+        if (team.file) {
+            formData.append('avatar', team.file);
+        }
+        formData.append('name', team.name);
+        return axios.post(`${host}${root}/insert`, formData, {
             headers: {
-                ...headers
-            },
-            data: team
+                ...headers,
+                'Content-Type': 'multipart/form-data'
+            }
         });
     }
 
@@ -59,13 +62,16 @@ export default class TeamsAPI {
     }
 
     static update(headers = {}, team, id) {
-        return axios({
-            method: 'post',
-            url: `${host}${root}/update/${id}`,
+        const formData = new FormData();
+        if (team.file) {
+            formData.append('avatar', team.file);
+        }
+        formData.append('name', team.name);
+        return axios.post(`${host}${root}/update/${id}`, formData, {
             headers: {
-                ...headers
-            },
-            data: team
+                ...headers,
+                'Content-Type': 'multipart/form-data'
+            }
         });
     }
 

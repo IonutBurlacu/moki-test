@@ -7,6 +7,8 @@ import Loader from '../Loader';
 import { PageTitle } from '../PageTitle';
 import defaultAvatar from '../../images/default_avatar.png';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export class SyncBandsPage extends Component {
     render() {
         return (
@@ -24,7 +26,13 @@ export class SyncBandsPage extends Component {
                                     <div className="top">
                                         <div className="left">
                                             <img
-                                                src={defaultAvatar}
+                                                src={
+                                                    sync.avatar
+                                                        ? `${s3URL}${
+                                                              sync.avatar
+                                                          }`
+                                                        : defaultAvatar
+                                                }
                                                 className="avatar"
                                                 alt="avatar"
                                             />

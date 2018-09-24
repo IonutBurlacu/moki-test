@@ -3,14 +3,18 @@ import moment from 'moment';
 import defaultAvatar from '../../../images/default_avatar.png';
 import teamsListIcon from '../../../images/teams_list_icon.png';
 
-export default class TeamsList extends Component {
-    handleEdit = id => {};
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
+export default class TeamsList extends Component {
     render() {
         return (
             <div className="table-wrapper">
                 <div className="table-header">
-                    <img src={teamsListIcon} className="table-header-icon" />
+                    <img
+                        src={teamsListIcon}
+                        className="table-header-icon"
+                        alt="table-header-icon"
+                    />
                     <h3 className="table-header-title">Teams</h3>
                 </div>
                 <table className="table">
@@ -22,9 +26,13 @@ export default class TeamsList extends Component {
                             >
                                 <td>
                                     <img
-                                        src={defaultAvatar}
-                                        className="avatar"
+                                        src={
+                                            item.avatar
+                                                ? `${s3URL}${item.avatar}`
+                                                : defaultAvatar
+                                        }
                                         alt="avatar"
+                                        className="avatar"
                                     />
                                 </td>
                                 <td>

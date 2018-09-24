@@ -3,6 +3,8 @@ import moment from 'moment';
 import defaultAvatar from '../../../images/default_avatar.png';
 import playersIconWide from '../../../images/players_icon_wide.png';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export default class PageHeader extends Component {
     render() {
         const { team } = this.props;
@@ -11,7 +13,11 @@ export default class PageHeader extends Component {
                 <div className="col left">
                     <div className="left-side">
                         <img
-                            src={defaultAvatar}
+                            src={
+                                team.avatar
+                                    ? `${s3URL}${team.avatar}`
+                                    : defaultAvatar
+                            }
                             className="avatar"
                             alt="avatar"
                         />

@@ -48,13 +48,23 @@ export default class PlayersAPI {
     }
 
     static insert(headers = {}, player) {
-        return axios({
-            method: 'post',
-            url: `${host}${root}/insert`,
+        const formData = new FormData();
+        if (player.file) {
+            formData.append('avatar', player.file);
+        }
+        formData.append('first_name', player.first_name);
+        formData.append('last_name', player.last_name);
+        formData.append('gender', player.gender);
+        formData.append('birthday', player.birthday);
+        formData.append('grade_id', player.grade_id);
+        formData.append('grade', player.grade);
+        formData.append('year_id', player.year_id);
+        formData.append('year', player.year);
+        return axios.post(`${host}${root}/insert`, formData, {
             headers: {
-                ...headers
-            },
-            data: player
+                ...headers,
+                'Content-Type': 'multipart/form-data'
+            }
         });
     }
 
@@ -69,13 +79,23 @@ export default class PlayersAPI {
     }
 
     static update(headers = {}, player, id) {
-        return axios({
-            method: 'post',
-            url: `${host}${root}/update/${id}`,
+        const formData = new FormData();
+        if (player.file) {
+            formData.append('avatar', player.file);
+        }
+        formData.append('first_name', player.first_name);
+        formData.append('last_name', player.last_name);
+        formData.append('gender', player.gender);
+        formData.append('birthday', player.birthday);
+        formData.append('grade_id', player.grade_id);
+        formData.append('grade', player.grade);
+        formData.append('year_id', player.year_id);
+        formData.append('year', player.year);
+        return axios.post(`${host}${root}/update/${id}`, formData, {
             headers: {
-                ...headers
-            },
-            data: player
+                ...headers,
+                'Content-Type': 'multipart/form-data'
+            }
         });
     }
 

@@ -4,13 +4,23 @@ import defaultAvatar from '../../../images/default_avatar.png';
 import teamsIcon from '../../../images/teams_icon.png';
 import playersIconWide from '../../../images/players_icon_wide.png';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export default class PageHeader extends Component {
     render() {
         return (
             <div className="page-header">
                 <div className="col left">
                     <div className="left-side">
-                        <img src={defaultAvatar} className="avatar" />
+                        <img
+                            src={
+                                this.props.challenge.avatar
+                                    ? `${s3URL}${this.props.challenge.avatar}`
+                                    : defaultAvatar
+                            }
+                            alt="avatar"
+                            className="avatar"
+                        />
                     </div>
                     <div className="right-side">
                         <h3 className="title">{this.props.challenge.name}</h3>

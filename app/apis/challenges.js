@@ -25,13 +25,18 @@ export default class ChallengesAPI {
     }
 
     static insert(headers = {}, challenge) {
-        return axios({
-            method: 'post',
-            url: `${host}${root}/insert`,
+        const formData = new FormData();
+        if (challenge.file) {
+            formData.append('avatar', challenge.file);
+        }
+        formData.append('name', challenge.name);
+        formData.append('type', challenge.type);
+        formData.append('target_steps', challenge.target_steps);
+        return axios.post(`${host}${root}/insert`, formData, {
             headers: {
-                ...headers
-            },
-            data: challenge
+                ...headers,
+                'Content-Type': 'multipart/form-data'
+            }
         });
     }
 
@@ -46,13 +51,18 @@ export default class ChallengesAPI {
     }
 
     static update(headers = {}, challenge, id) {
-        return axios({
-            method: 'post',
-            url: `${host}${root}/update/${id}`,
+        const formData = new FormData();
+        if (challenge.file) {
+            formData.append('avatar', challenge.file);
+        }
+        formData.append('name', challenge.name);
+        formData.append('type', challenge.type);
+        formData.append('target_steps', challenge.target_steps);
+        return axios.post(`${host}${root}/update/${id}`, formData, {
             headers: {
-                ...headers
-            },
-            data: challenge
+                ...headers,
+                'Content-Type': 'multipart/form-data'
+            }
         });
     }
 

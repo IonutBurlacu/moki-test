@@ -1,5 +1,5 @@
 import { call, put, select } from 'redux-saga/effects';
-import { goBack } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import moment from 'moment';
 import { getToken } from '../selectors/auth';
 import ChallengesAPI from '../apis/challenges';
@@ -44,10 +44,10 @@ export function* challengeInsert(action) {
         type: 'HIDE_LOADER'
     });
 
-    yield put(goBack());
+    yield put(push('/challenges'));
 }
 
-export function* challengeEdit(action) {
+export function* challengeEdit() {
     const token = yield select(getToken);
     const response = yield call(ChallengesAPI.edit, { Authorization: token });
 
@@ -80,7 +80,7 @@ export function* challengeUpdate(action) {
         type: 'HIDE_LOADER'
     });
 
-    yield put(goBack());
+    yield put(push('/challenges'));
 }
 
 export function* challengeView(action) {

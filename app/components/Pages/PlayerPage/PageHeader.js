@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import defaultAvatar from '../../../images/default_avatar.png';
 
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
+
 export default class PageHeader extends Component {
     render() {
         return (
@@ -9,7 +11,11 @@ export default class PageHeader extends Component {
                 <div className="col left">
                     <div className="left-side">
                         <img
-                            src={defaultAvatar}
+                            src={
+                                this.props.player.avatar
+                                    ? `${s3URL}${this.props.player.avatar}`
+                                    : defaultAvatar
+                            }
                             className="avatar"
                             alt="avatar"
                         />

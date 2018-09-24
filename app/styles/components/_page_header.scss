@@ -1,85 +1,87 @@
 .page-header {
-  align-items: center;
-  background: #1f1f42;
-  display: flex;
-  justify-content: center;
-  padding: 3vmin 5vmin;
-
-  .col {
     align-items: center;
+    background: #1f1f42;
     display: flex;
-    flex: 1;
     justify-content: center;
+    padding: 3vmin 5vmin;
 
-    .right-side {
-      align-items: flex-start;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-left: 2vmin;
+    .col {
+        align-items: center;
+        display: flex;
+        flex: 1;
+        justify-content: center;
 
-      .title {
-        color: white;
+        .right-side {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 2vmin;
+
+            .title {
+                color: white;
+                font-size: 6vmin;
+                font-weight: normal;
+                line-height: 1;
+                margin: 0;
+            }
+
+            .subtitle {
+                color: white;
+                font-size: 2.5vmin;
+            }
+        }
+    }
+
+    .column {
+        flex-direction: column;
+    }
+
+    .left {
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .right {
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        height: 13vmin;
+        width: 13vmin;
+    }
+
+    .steps {
+        color: #23dec8;
         font-size: 6vmin;
         font-weight: normal;
         line-height: 1;
         margin: 0;
-      }
 
-      .subtitle {
+        small {
+            font-size: 3vmin;
+            margin-left: 1vmin;
+        }
+    }
+
+    .average {
         color: white;
-        font-size: 2.5vmin;
-      }
-    }
-  }
-
-  .column {
-    flex-direction: column;
-  }
-
-  .left {
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  .right {
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-
-  .avatar {
-    width: 13vmin;
-  }
-
-  .steps {
-    color: #23dec8;
-    font-size: 6vmin;
-    font-weight: normal;
-    line-height: 1;
-    margin: 0;
-
-    small {
-      font-size: 3vmin;
-      margin-left: 1vmin;
-    }
-  }
-
-  .average {
-    color: white;
-    font-size: 2.7vmin;
-  }
-
-  .row {
-    span {
-      color: white;
-      font-size: 2.7vmin;
-      vertical-align: middle;
+        font-size: 2.7vmin;
     }
 
-    .small-icon {
-      height: 3vmin;
-      margin-right: 1.5vmin;
-      vertical-align: middle;
+    .row {
+        span {
+            color: white;
+            font-size: 2.7vmin;
+            vertical-align: middle;
+        }
+
+        .small-icon {
+            height: 3vmin;
+            margin-right: 1.5vmin;
+            vertical-align: middle;
+        }
     }
-  }
 }

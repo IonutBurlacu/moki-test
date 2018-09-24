@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
@@ -11,183 +11,242 @@ import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import defaultAvatar from '../../../images/default_avatar.png';
 
+const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
 export class AddPlayerForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      first_name: '',
-      last_name: '',
-      grade_id: '',
-      year_id: '',
-      gender: 'male',
-      birthday: moment().format('YYYY-MM-DD'),
-      grade: '',
-      year: ''
-    };
-  }
-
-  addPlayer = () => {
-    if (
-      this.state.first_name === '' ||
-      this.state.last_name === '' ||
-      this.state.grade === '' ||
-      this.state.year === '' ||
-      this.state.birthday === ''
-    ) {
-      this.props.showAlert('All fields are required.');
-    } else {
-      this.props.showLoader();
-      this.props.insertPlayerRequest(this.state);
+    constructor(props) {
+        super(props);
+        this.state = {
+            first_name: '',
+            last_name: '',
+            grade_id: '',
+            year_id: '',
+            gender: 'male',
+            birthday: moment().format('YYYY-MM-DD'),
+            grade: '',
+            year: '',
+            file: null,
+            filePreview: ''
+        };
     }
-  };
 
-  handleInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+    addPlayer = () => {
+        if (
+            this.state.first_name === '' ||
+            this.state.last_name === '' ||
+            this.state.grade === '' ||
+            this.state.year === '' ||
+            this.state.birthday === ''
+        ) {
+            this.props.showAlert('All fields are required.');
+        } else {
+            this.props.showLoader();
+            this.props.insertPlayerRequest(this.state);
+        }
+    };
 
-  onDateChange = date => {
-    this.setState({ birthday: moment(date).format('YYYY-MM-DD') });
-  };
+    handleInputChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
 
-  handleSuggestionInputChange = ({ name, id, value }) => {
-    this.setState({
-      [`${name  }_id`]: id,
-      [name]: value
-    });
-  };
+    handleFileChange = event => {
+        const file = event.target.files[0];
+        const extension = file.name
+            .substr(file.name.lastIndexOf('\\') + 1)
+            .split('.')[1];
+        if (!imageExtensions.includes(extension)) {
+            this.props.showAlert('Invalid image format.');
+        } else {
+            this.setState({
+                file,
+                filePreview: URL.createObjectURL(file)
+            });
+        }
+    };
 
-  render() {
-    const grades = this.props.grades.map(item => ({
-      value: item.id,
-      label: item.name
-    }));
-    const years = this.props.years.map(item => ({
-      value: item.id,
-      label: item.name
-    }));
-    const genderOptions = [
-      { value: 'male', label: 'Boy' },
-      { value: 'female', label: 'Girl' }
-    ];
-    return (
-      <div>
-        <Header
-          leftButton={<Link to="/players">Cancel</Link>}
-          rightButton={<button onClick={this.addPlayer}>Create</button>}
-        />
-        <div className="player-form">
-          <form action="">
-            <div className="left-side">
-              <img src={defaultAvatar} className="avatar" />
-              <label htmlFor="avatar" className="edit-photo-button">
-                Edit Photo
-              </label>
-              <input type="file" className="edit-photo-input" id="avatar" />
+    onDateChange = date => {
+        this.setState({ birthday: moment(date).format('YYYY-MM-DD') });
+    };
+
+    handleSuggestionInputChange = ({ name, id, value }) => {
+        this.setState({
+            [`${name}_id`]: id,
+            [name]: value
+        });
+    };
+
+    render() {
+        const grades = this.props.grades.map(item => ({
+            value: item.id,
+            label: item.name
+        }));
+        const years = this.props.years.map(item => ({
+            value: item.id,
+            label: item.name
+        }));
+        const genderOptions = [
+            { value: 'male', label: 'Boy' },
+            { value: 'female', label: 'Girl' }
+        ];
+        return (
+            <div>
+                <Header
+                    leftButton={<Link to="/players">Cancel</Link>}
+                    rightButton={
+                        <button onClick={this.addPlayer}>Create</button>
+                    }
+                />
+                <div className="player-form">
+                    <form action="">
+                        <div className="left-side">
+                            <img
+                                src={
+                                    this.state.filePreview
+                                        ? this.state.filePreview
+                                        : defaultAvatar
+                                }
+                                className="avatar"
+                                alt="avatar"
+                            />
+                            <label
+                                htmlFor="avatar"
+                                className="edit-photo-button"
+                            >
+                                Edit Photo
+                            </label>
+                            <input
+                                type="file"
+                                className="edit-photo-input"
+                                id="avatar"
+                                onChange={this.handleFileChange}
+                            />
+                        </div>
+                        <div className="center-side">
+                            <div className="form-group">
+                                <label
+                                    htmlFor="firstName"
+                                    className="form-label required"
+                                >
+                                    First Name
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    id="firstName"
+                                    name="first_name"
+                                    autoComplete="off"
+                                    onChange={this.handleInputChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label
+                                    htmlFor="lastName"
+                                    className="form-label required"
+                                >
+                                    Surname
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    id="lastName"
+                                    name="last_name"
+                                    autoComplete="off"
+                                    onChange={this.handleInputChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label
+                                    htmlFor="teamId"
+                                    className="form-label required"
+                                >
+                                    Class
+                                </label>
+                                <AutoSuggest
+                                    className="autosuggest"
+                                    handleChange={
+                                        this.handleSuggestionInputChange
+                                    }
+                                    items={grades}
+                                    name="grade"
+                                />
+                            </div>
+                        </div>
+                        <div className="right-side">
+                            <div className="form-group">
+                                <label
+                                    htmlFor="year"
+                                    className="form-label required"
+                                >
+                                    Year
+                                </label>
+                                <AutoSuggest
+                                    className="autosuggest"
+                                    handleChange={
+                                        this.handleSuggestionInputChange
+                                    }
+                                    items={years}
+                                    name="year"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label
+                                    htmlFor="teamId"
+                                    className="form-label required"
+                                >
+                                    Gender
+                                </label>
+                                <Select
+                                    defaultValue={genderOptions[0]}
+                                    isClearable={false}
+                                    isSearchable={false}
+                                    options={genderOptions}
+                                    className="form-input-select"
+                                    classNamePrefix="form-select"
+                                    name="gender"
+                                    onChange={val => {
+                                        this.handleInputChange({
+                                            target: {
+                                                name: 'gender',
+                                                value: val.value
+                                            }
+                                        });
+                                    }}
+                                />
+                            </div>
+                            <div className="form-group datepicker-form-group">
+                                <label
+                                    htmlFor="birthday"
+                                    className="form-label required"
+                                >
+                                    D.O.B.
+                                </label>
+                                <ReactDatez
+                                    handleChange={this.onDateChange}
+                                    value={this.state.birthday}
+                                    allowPast
+                                    className="datepicker"
+                                />
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div className="center-side">
-              <div className="form-group">
-                <label htmlFor="firstName" className="form-label required">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  id="firstName"
-                  name="first_name"
-                  autoComplete="off"
-                  onChange={this.handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="lastName" className="form-label required">
-                  Surname
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  id="lastName"
-                  name="last_name"
-                  autoComplete="off"
-                  onChange={this.handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="teamId" className="form-label required">
-                  Class
-                </label>
-                <AutoSuggest
-                  className="autosuggest"
-                  handleChange={this.handleSuggestionInputChange}
-                  items={grades}
-                  name="grade"
-                />
-              </div>
-            </div>
-            <div className="right-side">
-              <div className="form-group">
-                <label htmlFor="year" className="form-label required">
-                  Year
-                </label>
-                <AutoSuggest
-                  className="autosuggest"
-                  handleChange={this.handleSuggestionInputChange}
-                  items={years}
-                  name="year"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="teamId" className="form-label required">
-                  Gender
-                </label>
-                <Select
-                  defaultValue={genderOptions[0]}
-                  isClearable={false}
-                  isSearchable={false}
-                  options={genderOptions}
-                  className="form-input-select"
-                  classNamePrefix="form-select"
-                  name="gender"
-                  onChange={val => {
-                    this.handleInputChange({
-                      target: {
-                        name: 'gender',
-                        value: val.value
-                      }
-                    });
-                  }}
-                />
-              </div>
-              <div className="form-group datepicker-form-group">
-                <label htmlFor="birthday" className="form-label required">
-                  D.O.B.
-                </label>
-                <ReactDatez
-                  handleChange={this.onDateChange}
-                  value={this.state.birthday}
-                  allowPast
-                  className="datepicker"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 const mapStateToProps = state => ({
-  grades: state.players.grades,
-  years: state.players.years
+    grades: state.players.grades,
+    years: state.players.years
 });
 
 const mapDispatchToProps = dispatch => ({
-  insertPlayerRequest: player => dispatch(insertPlayerRequest(player)),
-  showLoader: () => dispatch(showLoader()),
-  showAlert: message => dispatch(showAlert(message))
+    insertPlayerRequest: player => dispatch(insertPlayerRequest(player)),
+    showLoader: () => dispatch(showLoader()),
+    showAlert: message => dispatch(showAlert(message))
 });
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(AddPlayerForm);

@@ -1,5 +1,5 @@
 import { call, put, select } from 'redux-saga/effects';
-import { goBack } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import moment from 'moment';
 import { getToken } from '../selectors/auth';
 import TeamsAPI from '../apis/teams';
@@ -65,7 +65,7 @@ export function* teamInsert(action) {
         type: 'HIDE_LOADER'
     });
 
-    yield put(goBack());
+    yield put(push('/teams'));
 }
 
 export function* teamEdit(action) {
@@ -106,7 +106,7 @@ export function* teamUpdate(action) {
         type: 'HIDE_LOADER'
     });
 
-    yield put(goBack());
+    yield put(push('/teams'));
 }
 
 export function* teamView(action) {
@@ -120,9 +120,6 @@ export function* teamView(action) {
     yield put({
         type: 'VIEW_TEAM',
         team: response.data.team
-        // player: response.data.player,
-        // grades: response.data.grades,
-        // years: response.data.years
     });
 
     yield put({
