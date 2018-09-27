@@ -56,11 +56,13 @@ export default (
                 grades: action.grades,
                 years: action.years,
                 listDate: action.listDate,
+                chartType: action.listDate,
                 loading: false
             };
         case 'CHANGE_PLAYERS_LIST_DATE':
             return {
                 ...state,
+                chartType: action.listDate,
                 listDate: action.listDate,
                 listStartDate: action.listStartDate,
                 listEndDate: action.listEndDate

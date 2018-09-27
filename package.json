@@ -1,6 +1,6 @@
 {
     "name": "MokiAppElectron",
-    "productName": "Moki",
+    "productName": "MokiApp",
     "version": "0.14.0",
     "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
     "scripts": {
@@ -45,7 +45,7 @@
         ]
     },
     "build": {
-        "productName": "ElectronReact",
+        "productName": "MokiApp",
         "appId": "org.develar.ElectronReact",
         "files": [
             "dist/",

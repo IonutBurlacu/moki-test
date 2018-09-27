@@ -20,8 +20,6 @@ export default (
         filterByValueA: '',
         filterByB: '',
         filterByValueB: '',
-        grades: [],
-        years: [],
         loading: false
     },
     action
@@ -36,8 +34,6 @@ export default (
             return {
                 ...state,
                 teams: action.teams,
-                grades: action.grades,
-                years: action.years,
                 overview: action.overview.current,
                 typical: action.typical.current,
                 totalOverviewAPrevious:

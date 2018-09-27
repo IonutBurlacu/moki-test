@@ -49,12 +49,14 @@ export default (
                                   100
                             : 0
                 })),
+                chartType: action.listDate,
                 listDate: action.listDate,
                 loading: false
             };
         case 'CHANGE_TEAMS_LIST_DATE':
             return {
                 ...state,
+                chartType: action.listDate,
                 listDate: action.listDate,
                 listStartDate: action.listStartDate,
                 listEndDate: action.listEndDate

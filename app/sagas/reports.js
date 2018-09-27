@@ -10,9 +10,7 @@ export function* getReportsTeams() {
         type: 'GET_REPORTS_TEAMS',
         teams: response.data.teams,
         overview: response.data.overview,
-        typical: response.data.typical,
-        grades: response.data.grades,
-        years: response.data.years
+        typical: response.data.typical
     });
 
     yield put({

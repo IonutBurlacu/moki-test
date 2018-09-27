@@ -2,11 +2,9 @@ export const getReportsTeamsRequest = () => ({
     type: 'GET_REPORTS_TEAMS_REQUEST'
 });
 
-export const getReportsTeams = (teams, years, grades) => ({
+export const getReportsTeams = teams => ({
     type: 'GET_REPORTS_TEAMS',
-    teams,
-    years,
-    grades
+    teams
 });
 
 export const statsReportsTeamsRequest = (

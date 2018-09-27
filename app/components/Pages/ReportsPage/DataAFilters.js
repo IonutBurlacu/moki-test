@@ -81,49 +81,6 @@ export class DataAFilters extends Component {
                         </button>
                     </div>
                     <ul className="filter-select-list">
-                        {this.props.grades.map(grade => (
-                            <li
-                                key={grade.id}
-                                className={
-                                    this.props.filterByA === 'grade_id' &&
-                                    this.props.filterByValueA == grade.id
-                                        ? 'selected'
-                                        : ''
-                                }
-                            >
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        this.handleApplyFilterDataA(
-                                            'grade_id',
-                                            grade.id
-                                        )
-                                    }
-                                >
-                                    {grade.name}
-                                </button>
-                            </li>
-                        ))}
-                        <li
-                            className={
-                                this.props.filterByA === 'gender' &&
-                                this.props.filterByValueA === 'female'
-                                    ? 'selected'
-                                    : ''
-                            }
-                        >
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    this.handleApplyFilterDataA(
-                                        'gender',
-                                        'female'
-                                    )
-                                }
-                            >
-                                Girls
-                            </button>
-                        </li>
                         <li
                             className={
                                 this.props.filterByA === 'gender' &&
@@ -142,6 +99,26 @@ export class DataAFilters extends Component {
                                 }
                             >
                                 Boys
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.filterByA === 'gender' &&
+                                this.props.filterByValueA === 'female'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleApplyFilterDataA(
+                                        'gender',
+                                        'female'
+                                    )
+                                }
+                            >
+                                Girls
                             </button>
                         </li>
                         <li
@@ -178,29 +155,6 @@ export class DataAFilters extends Component {
                                 Bottom 25%
                             </button>
                         </li>
-                        {this.props.years.map(year => (
-                            <li
-                                key={year.id}
-                                className={
-                                    this.props.filterByA === 'year_id' &&
-                                    this.props.filterByValueA === year.id
-                                        ? 'selected'
-                                        : ''
-                                }
-                            >
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        this.handleApplyFilterDataA(
-                                            'year_id',
-                                            year.id
-                                        )
-                                    }
-                                >
-                                    {year.name}
-                                </button>
-                            </li>
-                        ))}
                     </ul>
                 </div>
             </div>
@@ -210,8 +164,6 @@ export class DataAFilters extends Component {
 
 const mapStateToProps = state => ({
     teams: state.reports.teams,
-    grades: state.reports.grades,
-    years: state.reports.years,
     teamIdsA: state.reports.teamIdsA,
     teamIdsB: state.reports.teamIdsB,
     chartType: state.reports.chartType,
