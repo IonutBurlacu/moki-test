@@ -25,15 +25,15 @@ export class TypicalChart extends Component {
     getSelectedDateType = type => {
         switch (type) {
             case 'today':
-                return 'Today';
+                return 'Day';
             case 'week':
-                return 'This Week';
+                return 'Week';
             case 'month':
-                return 'This Month';
+                return 'Month';
             case 'year':
-                return 'This Year';
+                return 'Year';
             default:
-                return 'Date';
+                return 'Day';
         }
     };
 
@@ -106,7 +106,7 @@ export class TypicalChart extends Component {
                                                 this.handleDateChange('today')
                                             }
                                         >
-                                            Today
+                                            Day
                                         </button>
                                     </li>
                                     <li>
@@ -116,7 +116,7 @@ export class TypicalChart extends Component {
                                                 this.handleDateChange('week')
                                             }
                                         >
-                                            This Week
+                                            Week
                                         </button>
                                     </li>
                                     <li>
@@ -126,7 +126,7 @@ export class TypicalChart extends Component {
                                                 this.handleDateChange('month')
                                             }
                                         >
-                                            This Month
+                                            Month
                                         </button>
                                     </li>
                                     <li>
@@ -136,7 +136,7 @@ export class TypicalChart extends Component {
                                                 this.handleDateChange('year')
                                             }
                                         >
-                                            This Year
+                                            Year
                                         </button>
                                     </li>
                                 </ul>
