@@ -13,7 +13,6 @@ export class AddChallengePage extends Component {
                         handleInputChange={this.handleInputChange}
                     />
                 </div>
-                <Alert />
                 <Loader />
                 <Footer />
             </div>

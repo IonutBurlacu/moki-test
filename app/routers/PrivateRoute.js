@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Alert from '../components/Alert';
+import PairSound from '../components/PairSound';
+import FailSound from '../components/FailSound';
+import SyncSound from '../components/SyncSound';
 
 export const PrivateRoute = ({
     isAuthenticated,
@@ -16,6 +19,9 @@ export const PrivateRoute = ({
                 <div>
                     <Component {...props} />
                     <Alert />
+                    <PairSound />
+                    <FailSound />
+                    <SyncSound />
                 </div>
             ) : (
                 <Redirect to="/login" />

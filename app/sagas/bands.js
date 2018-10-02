@@ -22,12 +22,20 @@ export function* pairBand(action) {
         });
 
         yield put({
+            type: 'PLAY_PAIR_SOUND'
+        });
+
+        yield put({
             type: 'SHOW_ALERT',
             message: response.data.message
         });
     } else {
         yield put({
             type: 'PAIR_BAND'
+        });
+
+        yield put({
+            type: 'PLAY_FAIL_SOUND'
         });
 
         yield put({
@@ -58,12 +66,20 @@ export function* syncBand(action) {
         });
 
         yield put({
+            type: 'PLAY_SYNC_SOUND'
+        });
+
+        yield put({
             type: 'SHOW_ALERT',
             message: response.data.message
         });
     } else {
         yield put({
             type: 'SYNC_BAND_FAILED'
+        });
+
+        yield put({
+            type: 'PLAY_FAIL_SOUND'
         });
 
         yield put({

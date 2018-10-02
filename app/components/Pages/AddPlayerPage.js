@@ -30,7 +30,6 @@ export class AddPlayerPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Alert />
                 <Loader />
                 <Footer />
             </div>

@@ -7,6 +7,7 @@ import playersReducer from './players';
 import alertReducer from './alert';
 import bandsReducer from './bands';
 import reportsReducer from './reports';
+import soundsReducer from './sounds';
 
 export default combineReducers({
     auth: authReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     bands: bandsReducer,
     teams: teamsReducer,
     players: playersReducer,
-    reports: reportsReducer
+    reports: reportsReducer,
+    sounds: soundsReducer,
 });

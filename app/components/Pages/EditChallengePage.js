@@ -31,7 +31,6 @@ export class EditChallengePage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Alert />
                 <Loader />
                 <Footer />
             </div>

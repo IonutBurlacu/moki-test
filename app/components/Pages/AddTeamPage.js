@@ -11,7 +11,6 @@ export class AddTeamPage extends Component {
                 <div className="content">
                     <AddTeamForm handleInputChange={this.handleInputChange} />
                 </div>
-                <Alert />
                 <Loader />
                 <Footer />
             </div>

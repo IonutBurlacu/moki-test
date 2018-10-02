@@ -34,7 +34,6 @@ export class EditTeamPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Alert />
                 <Loader />
                 <Footer />
             </div>
