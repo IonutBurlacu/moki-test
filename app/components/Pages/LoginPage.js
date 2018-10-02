@@ -12,7 +12,7 @@ const LoginPage = ({ history }) => (
     <div className="container">
         <Header
             leftButton={<Link to="/contact-support">Contact Support</Link>}
-            rightButton={<Link to="/contact-support">Contact Support</Link>}
+            rightButton={<div />}
         />
         <div className="content">
             <PageTitle title="Login" />
