@@ -5,6 +5,11 @@ import { stopSyncSound } from '../actions/sound';
 import syncSound from '../sounds/Sync.wav';
 
 export class SyncSound extends Component {
+    constructor(props) {
+        super(props);
+        soundManager.setup({ debugMode: false });
+    }
+
     handleFinishedPlaying = () => {
         this.props.stopPlaying();
     };

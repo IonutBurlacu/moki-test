@@ -5,6 +5,11 @@ import { stopFailSound } from '../actions/sound';
 import failSound from '../sounds/Fail.wav';
 
 export class FailSound extends Component {
+    constructor(props) {
+        super(props);
+        soundManager.setup({ debugMode: false });
+    }
+
     handleFinishedPlaying = () => {
         this.props.stopPlaying();
     };

@@ -10,6 +10,7 @@ import {
     readBattery
 } from '../actions/bands';
 import { showLoader, hideLoader } from '../actions/loader';
+import { playSyncSound, playFailSound } from '../actions/sound';
 
 const MONDAY = 0x09;
 const TUESDAY = 0x23;
@@ -46,11 +47,13 @@ export class NFCListener extends Component {
                             card.uid
                         );
                     } else {
+                        this.props.playFailSound();
                         this.props.showAlert(
                             'Select a player from the list to pair a band.'
                         );
                     }
                 } else if (this.props.battery_reading) {
+                    this.props.playSyncSound();
                     this.readBatteryLevel(reader, card.uid);
                 } else {
                     this.props.showLoader();
@@ -164,6 +167,7 @@ export class NFCListener extends Component {
                 });
                 if (!dayFound) {
                     this.props.hideLoader();
+                    this.props.playSyncSound();
                     this.props.showAlert('No steps found on the band.');
                 }
                 return true;
@@ -301,7 +305,9 @@ const mapDispatchToProps = dispatch => ({
     syncBandRequest: (id, totalSteps, steps, batteryLevel) =>
         dispatch(syncBandRequest(id, totalSteps, steps, batteryLevel)),
     readBattery: (uuid, level) => dispatch(readBattery(uuid, level)),
-    push: pathName => dispatch(push(pathName))
+    push: pathName => dispatch(push(pathName)),
+    playSyncSound: () => dispatch(playSyncSound()),
+    playFailSound: () => dispatch(playFailSound())
 });
 
 export default connect(

@@ -5,6 +5,11 @@ import { stopPairSound } from '../actions/sound';
 import pairSound from '../sounds/Pair.wav';
 
 export class PairSound extends Component {
+    constructor(props) {
+        super(props);
+        soundManager.setup({ debugMode: false });
+    }
+
     handleFinishedPlaying = () => {
         this.props.stopPlaying();
     };
