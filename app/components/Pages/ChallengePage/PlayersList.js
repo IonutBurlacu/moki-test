@@ -34,7 +34,7 @@ export class PlayersList extends Component {
                                 key={item.id}
                                 onClick={() => this.handleView(item.id)}
                             >
-                                <td>
+                                <td style={{ width: '14vmin' }}>
                                     <img
                                         src={
                                             item.avatar
@@ -45,7 +45,7 @@ export class PlayersList extends Component {
                                         alt="avatar"
                                     />
                                 </td>
-                                <td>
+                                <td style={{ width: '53.76vmin' }}>
                                     <h1 className="title">
                                         {`${item.first_name} ${item.last_name}`}
                                     </h1>
@@ -61,24 +61,26 @@ export class PlayersList extends Component {
                                                   )}
                                     </span>
                                 </td>
-                                <td className="align-right">
+                                <td style={{ width: '67.76vmin' }}>
                                     <div className="progress-bar">
                                         <div
-                                            className="filler"
+                                            className={
+                                                item.percentage < 20
+                                                    ? 'filler red'
+                                                    : item.percentage < 70
+                                                        ? 'filler cyan'
+                                                        : 'filler green'
+                                            }
                                             style={{
-                                                width: `${
-                                                    item.progress <=
-                                                    this.props.targetSteps
-                                                        ? (item.progress *
-                                                              100) /
-                                                          this.props.targetSteps
-                                                        : 100
-                                                }%`
+                                                width: `${item.percentage}%`
                                             }}
                                         />
                                     </div>
                                 </td>
-                                <td className="align-right">
+                                <td
+                                    style={{ width: '67.76vmin' }}
+                                    className="align-right"
+                                >
                                     <h1 className="title">
                                         {item.progress <= this.props.targetSteps
                                             ? this.props.targetSteps -

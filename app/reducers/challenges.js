@@ -74,7 +74,25 @@ export default (
         case 'VIEW_CHALLENGE':
             return {
                 ...state,
-                challenge: action.challenge,
+                challenge: {
+                    ...action.challenge,
+                    teams: action.challenge.teams.map(team => ({
+                        ...team,
+                        percentage:
+                            team.progress <= action.challenge.target_steps
+                                ? (team.progress * 100) /
+                                  action.challenge.target_steps
+                                : 100
+                    })),
+                    players: action.challenge.players.map(player => ({
+                        ...player,
+                        percentage:
+                            player.progress <= action.challenge.target_steps
+                                ? (player.progress * 100) /
+                                  action.challenge.target_steps
+                                : 100
+                    }))
+                },
                 loading: false
             };
         case 'DELETE_CHALLENGE_REQUEST':

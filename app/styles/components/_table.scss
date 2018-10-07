@@ -144,12 +144,24 @@
         border: 1px solid #979797;
         border-radius: 50px;
         height: 2.5vmin;
+        margin: 0 auto;
         width: 40vmin;
 
         .filler {
-            background: #74ef5c;
             border-radius: inherit;
             height: 100%;
+        }
+
+        .green {
+            background: #74ef5c;
+        }
+
+        .cyan {
+            background: #23dec8;
+        }
+
+        .red {
+            background: #fe335e;
         }
     }
 
