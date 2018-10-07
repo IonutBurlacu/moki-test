@@ -53,6 +53,16 @@ export const statsTeam = (overview, typical, chartType) => ({
     chartType
 });
 
+export const deleteTeamRequest = id => ({
+    type: 'DELETE_TEAM_REQUEST',
+    id
+});
+
+export const deleteTeam = id => ({
+    type: 'DELETE_TEAM',
+    id
+});
+
 export const insertTeamRequest = team => ({
     type: 'INSERT_TEAM_REQUEST',
     team

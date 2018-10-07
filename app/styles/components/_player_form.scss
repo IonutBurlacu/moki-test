@@ -1,8 +1,17 @@
 .player-form {
+    align-items: center;
     background: #1f1f42;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 3vmin 0;
+
+    .delete-button {
+        background: transparent;
+        border: none;
+        color: #6ee05d;
+        font-size: 3vmin;
+    }
 
     form {
         display: flex;

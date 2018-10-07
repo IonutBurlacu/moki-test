@@ -6,6 +6,7 @@ import {
     challengeEdit,
     challengeUpdate,
     challengeView,
+    challengeDelete,
     challengeAttachToPlayer,
     challengeDetachFromPlayer,
     challengeAttachToTeam,
@@ -18,6 +19,7 @@ import {
     teamEdit,
     teamUpdate,
     teamView,
+    teamDelete,
     teamStats,
     teamAttachToPlayer,
     teamDetachFromPlayer,
@@ -32,6 +34,7 @@ import {
     playerEdit,
     playerUpdate,
     playerView,
+    playerDelete,
     playerStats,
     playerAttachToTeam,
     playerDetachFromTeam,
@@ -63,6 +66,7 @@ export default function* sagas() {
         fork(takeLatest, 'EDIT_CHALLENGE_REQUEST', challengeEdit),
         fork(takeLatest, 'UPDATE_CHALLENGE_REQUEST', challengeUpdate),
         fork(takeLatest, 'VIEW_CHALLENGE_REQUEST', challengeView),
+        fork(takeLatest, 'DELETE_CHALLENGE_REQUEST', challengeDelete),
         fork(
             takeLatest,
             'ATTACH_CHALLENGE_TO_PLAYER_REQUEST',
@@ -89,6 +93,7 @@ export default function* sagas() {
         fork(takeLatest, 'EDIT_TEAM_REQUEST', teamEdit),
         fork(takeLatest, 'UPDATE_TEAM_REQUEST', teamUpdate),
         fork(takeLatest, 'VIEW_TEAM_REQUEST', teamView),
+        fork(takeLatest, 'DELETE_TEAM_REQUEST', teamDelete),
         fork(takeLatest, 'STATS_TEAM_REQUEST', teamStats),
         fork(takeLatest, 'ATTACH_TEAM_TO_PLAYER_REQUEST', teamAttachToPlayer),
         fork(
@@ -113,6 +118,7 @@ export default function* sagas() {
         fork(takeLatest, 'EDIT_PLAYER_REQUEST', playerEdit),
         fork(takeLatest, 'UPDATE_PLAYER_REQUEST', playerUpdate),
         fork(takeLatest, 'VIEW_PLAYER_REQUEST', playerView),
+        fork(takeLatest, 'DELETE_PLAYER_REQUEST', playerDelete),
         fork(takeLatest, 'STATS_PLAYER_REQUEST', playerStats),
         fork(takeLatest, 'ATTACH_PLAYER_TO_TEAM_REQUEST', playerAttachToTeam),
         fork(

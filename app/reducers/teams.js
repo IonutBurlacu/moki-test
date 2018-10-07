@@ -100,6 +100,16 @@ export default (
                 },
                 loading: false
             };
+        case 'DELETE_TEAM_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'DELETE_TEAM':
+            return {
+                ...state,
+                loading: false
+            };
         case 'STATS_TEAM_REQUEST':
             return {
                 ...state,

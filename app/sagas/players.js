@@ -48,6 +48,26 @@ export function* playerView(action) {
     });
 }
 
+export function* playerDelete(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        PlayersAPI.delete,
+        { Authorization: token },
+        action.id
+    );
+
+    yield put({
+        type: 'DELETE_PLAYER',
+        id: action.id
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+
+    yield put(push('/players'));
+}
+
 export function* playerStats(action) {
     const token = yield select(getToken);
     const response = yield call(

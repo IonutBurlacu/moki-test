@@ -24,6 +24,16 @@ export default class PlayersAPI {
         });
     }
 
+    static delete(headers = {}, id) {
+        return axios({
+            method: 'post',
+            url: `${host}${root}/delete/${id}`,
+            headers: {
+                ...headers
+            }
+        });
+    }
+
     static stats(headers = {}, id, chartType) {
         return axios({
             method: 'post',

@@ -6,7 +6,10 @@ import { ReactDatez } from 'react-datez';
 import moment from 'moment';
 import AutoSuggest from '../../Autosuggest';
 import { Header } from '../../Header';
-import { updatePlayerRequest } from '../../../actions/players';
+import {
+    updatePlayerRequest,
+    deletePlayerRequest
+} from '../../../actions/players';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import defaultAvatar from '../../../images/default_avatar.png';
@@ -69,6 +72,11 @@ export class EditPlayerForm extends Component {
             [`${name}_id`]: id,
             [name]: value
         });
+    };
+
+    handleDelete = () => {
+        this.props.showLoader();
+        this.props.deletePlayerRequest(this.props.id);
     };
 
     render() {
@@ -238,6 +246,13 @@ export class EditPlayerForm extends Component {
                             </div>
                         </div>
                     </form>
+                    <button
+                        type="button"
+                        className="delete-button"
+                        onClick={() => this.handleDelete()}
+                    >
+                        Delete
+                    </button>
                 </div>
             </div>
         );
@@ -253,6 +268,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     updatePlayerRequest: (player, id) =>
         dispatch(updatePlayerRequest(player, id)),
+    deletePlayerRequest: id => dispatch(deletePlayerRequest(id)),
     showLoader: () => dispatch(showLoader()),
     showAlert: message => dispatch(showAlert(message))
 });

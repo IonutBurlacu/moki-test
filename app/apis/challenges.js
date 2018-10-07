@@ -24,6 +24,16 @@ export default class ChallengesAPI {
         });
     }
 
+    static delete(headers = {}, id) {
+        return axios({
+            method: 'post',
+            url: `${host}${root}/delete/${id}`,
+            headers: {
+                ...headers
+            }
+        });
+    }
+
     static insert(headers = {}, challenge) {
         const formData = new FormData();
         if (challenge.file) {

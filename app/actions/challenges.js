@@ -44,6 +44,16 @@ export const viewChallenge = challenge => ({
     challenge
 });
 
+export const deleteChallengeRequest = id => ({
+    type: 'DELETE_CHALLENGE_REQUEST',
+    id
+});
+
+export const deleteChallenge = id => ({
+    type: 'DELETE_CHALLENGE',
+    id
+});
+
 export const insertChallengeRequest = challenge => ({
     type: 'INSERT_CHALLENGE_REQUEST',
     challenge

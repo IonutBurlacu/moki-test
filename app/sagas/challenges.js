@@ -102,6 +102,26 @@ export function* challengeView(action) {
     });
 }
 
+export function* challengeDelete(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        ChallengesAPI.delete,
+        { Authorization: token },
+        action.id
+    );
+
+    yield put({
+        type: 'DELETE_CHALLENGE',
+        id: action.id
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+
+    yield put(push('/challenges'));
+}
+
 export function* challengeAttachToTeam(action) {
     const token = yield select(getToken);
     const response = yield call(

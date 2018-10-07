@@ -77,6 +77,16 @@ export default (
                 challenge: action.challenge,
                 loading: false
             };
+        case 'DELETE_CHALLENGE_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'DELETE_CHALLENGE':
+            return {
+                ...state,
+                loading: false
+            };
         case 'INSERT_CHALLENGE_REQUEST':
             return {
                 ...state,

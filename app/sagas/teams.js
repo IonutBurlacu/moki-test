@@ -127,6 +127,26 @@ export function* teamView(action) {
     });
 }
 
+export function* teamDelete(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        TeamsAPI.delete,
+        { Authorization: token },
+        action.id
+    );
+
+    yield put({
+        type: 'DELETE_TEAM',
+        id: action.id
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+
+    yield put(push('/teams'));
+}
+
 export function* teamAttachToPlayer(action) {
     const token = yield select(getToken);
     const response = yield call(

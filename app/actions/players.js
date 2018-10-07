@@ -59,6 +59,16 @@ export const statsPlayer = (overview, typical, chartType) => ({
     chartType
 });
 
+export const deletePlayerRequest = id => ({
+    type: 'DELETE_PLAYER_REQUEST',
+    id
+});
+
+export const deletePlayer = id => ({
+    type: 'DELETE_PLAYER',
+    id
+});
+
 export const createPlayerRequest = () => ({
     type: 'CREATE_PLAYER_REQUEST'
 });

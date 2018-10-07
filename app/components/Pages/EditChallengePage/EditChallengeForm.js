@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import { Header } from '../../Header';
-import { updateChallengeRequest } from '../../../actions/challenges';
+import {
+    updateChallengeRequest,
+    deleteChallengeRequest
+} from '../../../actions/challenges';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import defaultAvatar from '../../../images/default_avatar.png';
@@ -49,6 +52,11 @@ export class EditChallengeForm extends Component {
                 filePreview: URL.createObjectURL(file)
             });
         }
+    };
+
+    handleDelete = () => {
+        this.props.showLoader();
+        this.props.deleteChallengeRequest(this.props.id);
     };
 
     render() {
@@ -125,6 +133,13 @@ export class EditChallengeForm extends Component {
                             </div>
                         </div>
                     </form>
+                    <button
+                        type="button"
+                        className="delete-button"
+                        onClick={() => this.handleDelete()}
+                    >
+                        Delete
+                    </button>
                 </div>
             </div>
         );
@@ -138,6 +153,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     updateChallengeRequest: (challenge, id) =>
         dispatch(updateChallengeRequest(challenge, id)),
+    deleteChallengeRequest: id => dispatch(deleteChallengeRequest(id)),
     showLoader: () => dispatch(showLoader()),
     showAlert: message => dispatch(showAlert(message))
 });

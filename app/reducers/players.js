@@ -106,6 +106,16 @@ export default (
                 },
                 loading: false
             };
+        case 'DELETE_PLAYER_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'DELETE_PLAYER':
+            return {
+                ...state,
+                loading: false
+            };
         case 'STATS_PLAYER_REQUEST':
             return {
                 ...state,
