@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { viewChallengeRequest } from '../../../actions/challenges';
+import { showLoader } from '../../../actions/loader';
 import defaultAvatar from '../../../images/default_avatar.png';
 import challengesListIcon from '../../../images/challenges_list_icon.png';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class ChallengesList extends Component {
+    handleView = id => {
+        this.props.viewChallengeRequest(id);
+        this.props.showLoader();
+        this.props.push(`/challenges/view/${id}`);
+    };
+
     render() {
         return (
             <div className="table-wrapper">
@@ -21,7 +30,10 @@ export class ChallengesList extends Component {
                 <table className="table">
                     <tbody>
                         {this.props.items.map(item => (
-                            <tr key={item.id}>
+                            <tr
+                                key={item.id}
+                                onClick={() => this.handleView(item.id)}
+                            >
                                 <td>
                                     <img
                                         src={
@@ -67,4 +79,13 @@ export class ChallengesList extends Component {
     }
 }
 
-export default connect(undefined)(ChallengesList);
+const mapDispatchToProps = dispatch => ({
+    viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
+    showLoader: () => dispatch(showLoader()),
+    push: path => dispatch(push(path))
+});
+
+export default connect(
+    undefined,
+    mapDispatchToProps
+)(ChallengesList);
