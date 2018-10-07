@@ -10,6 +10,7 @@ import {
     getChallengesRequest,
     viewChallengeRequest
 } from '../../actions/challenges';
+import { viewTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
 import defaultAvatar from '../../images/default_avatar.png';
 import teamsIcon from '../../images/teams_icon.png';
@@ -31,6 +32,12 @@ export class ChallengesPage extends Component {
         this.props.history.push(`/challenges/view/${id}`);
     };
 
+    handleTeamView = id => {
+        this.props.viewTeamRequest(id);
+        this.props.showLoader();
+        this.props.history.push(`/teams/view/${id}`);
+    };
+
     render() {
         const { challenges, loading } = this.props;
         return (
@@ -47,12 +54,7 @@ export class ChallengesPage extends Component {
                             <table className="table">
                                 <tbody>
                                     {challenges.map(challenge => (
-                                        <tr
-                                            onClick={() =>
-                                                this.handleView(challenge.id)
-                                            }
-                                            key={challenge.id}
-                                        >
+                                        <tr key={challenge.id}>
                                             <td>
                                                 <img
                                                     src={
@@ -66,7 +68,13 @@ export class ChallengesPage extends Component {
                                                     alt="avatar"
                                                 />
                                             </td>
-                                            <td>
+                                            <td
+                                                onClick={() =>
+                                                    this.handleView(
+                                                        challenge.id
+                                                    )
+                                                }
+                                            >
                                                 <h1 className="title">
                                                     {challenge.name}
                                                 </h1>
@@ -113,17 +121,22 @@ export class ChallengesPage extends Component {
                                                             alt="icon"
                                                         />
                                                         <span className="icon-label">
-                                                            {challenge.teams
-                                                                .reduce(
-                                                                    (
-                                                                        string,
-                                                                        item
-                                                                    ) =>
-                                                                        `${string +
-                                                                            item.name}, `,
-                                                                    ''
+                                                            {challenge.teams.map(
+                                                                item => (
+                                                                    <span
+                                                                        onClick={() =>
+                                                                            this.handleTeamView(
+                                                                                item.id
+                                                                            )
+                                                                        }
+                                                                        className="table-link"
+                                                                    >
+                                                                        {
+                                                                            item.name
+                                                                        }
+                                                                    </span>
                                                                 )
-                                                                .slice(0, -2)}
+                                                            )}
                                                         </span>
                                                     </div>
                                                 )}
@@ -189,6 +202,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getChallengesRequest: listDate => dispatch(getChallengesRequest(listDate)),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
+    viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     showLoader: () => dispatch(showLoader())
 });
 

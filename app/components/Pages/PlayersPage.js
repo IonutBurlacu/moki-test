@@ -7,6 +7,8 @@ import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import Loader from '../Loader';
 import { getPlayersRequest, viewPlayerRequest } from '../../actions/players';
+import { viewTeamRequest } from '../../actions/teams';
+import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
 import getFilteredPlayers from '../../selectors/players';
 import defaultAvatar from '../../images/default_avatar.png';
@@ -28,6 +30,18 @@ export class PlayersPage extends Component {
         this.props.history.push(`/players/view/${id}`);
     };
 
+    handleTeamView = id => {
+        this.props.viewTeamRequest(id);
+        this.props.showLoader();
+        this.props.history.push(`/teams/view/${id}`);
+    };
+
+    handleChallengeView = id => {
+        this.props.viewChallengeRequest(id);
+        this.props.showLoader();
+        this.props.history.push(`/challenges/view/${id}`);
+    };
+
     render() {
         const { players, loading } = this.props;
         return (
@@ -44,12 +58,7 @@ export class PlayersPage extends Component {
                             <table className="table">
                                 <tbody>
                                     {players.map(player => (
-                                        <tr
-                                            onClick={() =>
-                                                this.handleView(player.id)
-                                            }
-                                            key={player.id}
-                                        >
+                                        <tr key={player.id}>
                                             <td>
                                                 <img
                                                     src={
@@ -63,7 +72,11 @@ export class PlayersPage extends Component {
                                                     alt="avatar"
                                                 />
                                             </td>
-                                            <td>
+                                            <td
+                                                onClick={() =>
+                                                    this.handleView(player.id)
+                                                }
+                                            >
                                                 <h1 className="title">
                                                     {`${player.first_name} ${
                                                         player.last_name
@@ -96,14 +109,20 @@ export class PlayersPage extends Component {
                                                     ''
                                                 )}
                                                 <span className="icon-label">
-                                                    {player.challenges
-                                                        .reduce(
-                                                            (string, item) =>
-                                                                `${string +
-                                                                    item.name}, `,
-                                                            ''
+                                                    {player.challenges.map(
+                                                        item => (
+                                                            <span
+                                                                onClick={() =>
+                                                                    this.handleChallengeView(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                                className="table-link"
+                                                            >
+                                                                {item.name}
+                                                            </span>
                                                         )
-                                                        .slice(0, -2)}
+                                                    )}
                                                 </span>
                                             </td>
                                             <td className="align-right">
@@ -118,14 +137,18 @@ export class PlayersPage extends Component {
                                                 )}
 
                                                 <span className="icon-label">
-                                                    {player.teams
-                                                        .reduce(
-                                                            (string, item) =>
-                                                                `${string +
-                                                                    item.name}, `,
-                                                            ''
-                                                        )
-                                                        .slice(0, -2)}
+                                                    {player.teams.map(item => (
+                                                        <span
+                                                            onClick={() =>
+                                                                this.handleTeamView(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="table-link"
+                                                        >
+                                                            {item.name}
+                                                        </span>
+                                                    ))}
                                                 </span>
                                             </td>
                                             <td
@@ -189,6 +212,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getPlayersRequest: listDate => dispatch(getPlayersRequest(listDate)),
     viewPlayerRequest: id => dispatch(viewPlayerRequest(id)),
+    viewTeamRequest: id => dispatch(viewTeamRequest(id)),
+    viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     showLoader: () => dispatch(showLoader())
 });
 

@@ -88,6 +88,18 @@
         vertical-align: middle;
     }
 
+    .table-link::after {
+        content: ', ';
+    }
+
+    .table-link:last-child::after {
+        content: '';
+    }
+
+    .table-link:hover {
+        color: #74ef5c;
+    }
+
     .positive {
         color: #23dec8;
 

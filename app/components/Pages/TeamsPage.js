@@ -7,6 +7,7 @@ import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import Loader from '../Loader';
 import { getTeamsRequest, viewTeamRequest } from '../../actions/teams';
+import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
 import getFilteredTeams from '../../selectors/teams';
 import defaultAvatar from '../../images/default_avatar.png';
@@ -28,6 +29,12 @@ export class TeamsPage extends Component {
         this.props.history.push(`/teams/view/${id}`);
     };
 
+    handleChallengeView = id => {
+        this.props.viewChallengeRequest(id);
+        this.props.showLoader();
+        this.props.history.push(`/challenges/view/${id}`);
+    };
+
     render() {
         const { teams, loading } = this.props;
         return (
@@ -45,12 +52,7 @@ export class TeamsPage extends Component {
                             <table className="table">
                                 <tbody>
                                     {teams.map(team => (
-                                        <tr
-                                            onClick={() =>
-                                                this.handleView(team.id)
-                                            }
-                                            key={team.id}
-                                        >
+                                        <tr key={team.id}>
                                             <td>
                                                 <img
                                                     src={
@@ -64,7 +66,11 @@ export class TeamsPage extends Component {
                                                     alt="avatar"
                                                 />
                                             </td>
-                                            <td>
+                                            <td
+                                                onClick={() =>
+                                                    this.handleView(team.id)
+                                                }
+                                            >
                                                 <h1 className="title">
                                                     {team.name}
                                                 </h1>
@@ -93,14 +99,20 @@ export class TeamsPage extends Component {
                                                     ''
                                                 )}
                                                 <span className="icon-label">
-                                                    {team.challenges
-                                                        .reduce(
-                                                            (string, item) =>
-                                                                `${string +
-                                                                    item.name}, `,
-                                                            ''
+                                                    {team.challenges.map(
+                                                        item => (
+                                                            <span
+                                                                onClick={() =>
+                                                                    this.handleChallengeView(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                                className="table-link"
+                                                            >
+                                                                {item.name}
+                                                            </span>
                                                         )
-                                                        .slice(0, -2)}
+                                                    )}
                                                 </span>
                                             </td>
                                             <td className="align-right">
@@ -177,6 +189,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getTeamsRequest: listDate => dispatch(getTeamsRequest(listDate)),
     viewTeamRequest: id => dispatch(viewTeamRequest(id)),
+    viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     showLoader: () => dispatch(showLoader())
 });
 
