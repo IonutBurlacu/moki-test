@@ -17,6 +17,7 @@ export function* challengesFetchList(action) {
     yield put({
         type: 'GET_CHALLENGES',
         challenges: response.data.challenges,
+        teams: response.data.teams,
         listDate: action.listDate,
         listStartDate: action.listStartDate,
         listEndDate: action.listEndDate

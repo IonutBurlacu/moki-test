@@ -52,12 +52,12 @@ export class FilterBy extends Component {
                         </button>
                     </div>
                     <ul className="filter-select-list">
-                        {this.props.grades.map(grade => (
+                        {this.props.teams.map(team => (
                             <li
-                                key={grade.id}
+                                key={team.id}
                                 className={
-                                    this.props.listFilter === 'grade_id' &&
-                                    this.props.listFilterValue == grade.id
+                                    this.props.listFilter === 'team_id' &&
+                                    this.props.listFilterValue === team.id
                                         ? 'selected'
                                         : ''
                                 }
@@ -66,109 +66,12 @@ export class FilterBy extends Component {
                                     type="button"
                                     onClick={() =>
                                         this.handleFilterSelectChange(
-                                            'grade_id',
-                                            grade.id
+                                            'team_id',
+                                            team.id
                                         )
                                     }
                                 >
-                                    {grade.name}
-                                </button>
-                            </li>
-                        ))}
-                        <li
-                            className={
-                                this.props.listFilter === 'gender' &&
-                                this.props.listFilterValue === 'female'
-                                    ? 'selected'
-                                    : ''
-                            }
-                        >
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    this.handleFilterSelectChange(
-                                        'gender',
-                                        'female'
-                                    )
-                                }
-                            >
-                                Girls
-                            </button>
-                        </li>
-                        <li
-                            className={
-                                this.props.listFilter === 'gender' &&
-                                this.props.listFilterValue === 'male'
-                                    ? 'selected'
-                                    : ''
-                            }
-                        >
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    this.handleFilterSelectChange(
-                                        'gender',
-                                        'male'
-                                    )
-                                }
-                            >
-                                Boys
-                            </button>
-                        </li>
-                        <li
-                            className={
-                                this.props.listFilter === 'top' &&
-                                this.props.listFilterValue === ''
-                                    ? 'selected'
-                                    : ''
-                            }
-                        >
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    this.handleFilterSelectChange('top', '')
-                                }
-                            >
-                                Top 25%
-                            </button>
-                        </li>
-                        <li
-                            className={
-                                this.props.listFilter === 'bottom' &&
-                                this.props.listFilterValue === ''
-                                    ? 'selected'
-                                    : ''
-                            }
-                        >
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    this.handleFilterSelectChange('bottom', '')
-                                }
-                            >
-                                Bottom 25%
-                            </button>
-                        </li>
-                        {this.props.years.map(year => (
-                            <li
-                                key={year.id}
-                                className={
-                                    this.props.listFilter === 'year_id' &&
-                                    this.props.listFilterValue === year.id
-                                        ? 'selected'
-                                        : ''
-                                }
-                            >
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        this.handleFilterSelectChange(
-                                            'year_id',
-                                            year.id
-                                        )
-                                    }
-                                >
-                                    {year.name}
+                                    {team.name}
                                 </button>
                             </li>
                         ))}
@@ -182,8 +85,7 @@ export class FilterBy extends Component {
 const mapStateToProps = state => ({
     listFilter: state.players.listFilter,
     listFilterValue: state.players.listFilterValue,
-    years: state.players.years,
-    grades: state.players.grades
+    teams: state.players.teams
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -53,8 +53,7 @@ export default (
                             : 0,
                     age: moment().diff(moment(player.birthday), 'year')
                 })),
-                grades: action.grades,
-                years: action.years,
+                teams: action.teams,
                 listDate: action.listDate,
                 chartType: action.listDate,
                 loading: false

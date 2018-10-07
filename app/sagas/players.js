@@ -17,8 +17,7 @@ export function* playersFetchList(action) {
     yield put({
         type: 'GET_PLAYERS',
         players: response.data.players,
-        grades: response.data.grades,
-        years: response.data.years,
+        teams: response.data.teams,
         listDate: action.listDate,
         listStartDate: action.listStartDate,
         listEndDate: action.listEndDate

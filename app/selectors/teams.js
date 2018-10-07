@@ -1,28 +1,12 @@
-const getFilteredTeams = (teams, { filterBy, filterByValue, sortBy }) => teams
+const getFilteredTeams = (teams, { filterBy, filterByValue, sortBy }) =>
+    teams
         .filter(team => {
-            const topTeamIds = getSortedTeamsBySteps(Array.from(teams), 'desc')
-                .filter(
-                    (filteredTeam, key2) =>
-                        key2 <= parseInt(teams.length / 4, 10)
-                )
-                .map(mappedTeam => mappedTeam.id);
-            const bottomTeamIds = getSortedTeamsBySteps(
-                Array.from(teams),
-                'asc'
-            )
-                .filter(
-                    (filteredTeam, key2) =>
-                        key2 <= parseInt(teams.length / 4, 10)
-                )
-                .map(mappedTeam => mappedTeam.id);
             if (filterBy !== '') {
                 switch (filterBy) {
-                    case 'top':
-                        return topTeamIds.includes(team.id);
-                    case 'bottom':
-                        return bottomTeamIds.includes(team.id);
+                    case 'team_id':
+                        return team.id === filterByValue;
                     default:
-                        return topTeamIds.includes(team.id);
+                        return true;
                 }
             } else {
                 return true;
@@ -46,13 +30,5 @@ const getFilteredTeams = (teams, { filterBy, filterByValue, sortBy }) => teams
                     return a.current_steps > b.current_steps ? 1 : -1;
             }
         });
-
-const getSortedTeamsBySteps = (teams, type) =>
-    teams.sort((a, b) => {
-        if (type === 'asc') {
-            return a.current_steps > b.current_steps ? 1 : -1;
-        }
-        return a.current_steps < b.current_steps ? 1 : -1;
-    });
 
 export default getFilteredTeams;

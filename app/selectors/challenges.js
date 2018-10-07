@@ -1,34 +1,16 @@
 const getFilteredChallenges = (
     challenges,
     { filterBy, filterByValue, sortBy }
-) => challenges
+) =>
+    challenges
         .filter(challenge => {
-            const topChallengeIds = getSortedChallengesBySteps(
-                Array.from(challenges),
-                'desc'
-            )
-                .filter(
-                    (filteredChallenge, key2) =>
-                        key2 <= parseInt(challenges.length / 4, 10)
-                )
-                .map(mappedChallenge => mappedChallenge.id);
-            const bottomChallengeIds = getSortedChallengesBySteps(
-                Array.from(challenges),
-                'asc'
-            )
-                .filter(
-                    (filteredChallenge, key2) =>
-                        key2 <= parseInt(challenges.length / 4, 10)
-                )
-                .map(mappedChallenge => mappedChallenge.id);
             if (filterBy !== '') {
                 switch (filterBy) {
-                    case 'top':
-                        return topChallengeIds.includes(challenge.id);
-                    case 'bottom':
-                        return bottomChallengeIds.includes(challenge.id);
+                    case 'team_id':
+                        const teamIds = challenge.teams.map(team => team.id);
+                        return teamIds.includes(filterByValue);
                     default:
-                        return topChallengeIds.includes(challenge.id);
+                        return true;
                 }
             } else {
                 return true;
@@ -52,13 +34,5 @@ const getFilteredChallenges = (
                     return a.current_steps > b.current_steps ? 1 : -1;
             }
         });
-
-const getSortedChallengesBySteps = (challenges, type) =>
-    challenges.sort((a, b) => {
-        if (type === 'asc') {
-            return a.current_steps > b.current_steps ? 1 : -1;
-        }
-        return a.current_steps < b.current_steps ? 1 : -1;
-    });
 
 export default getFilteredChallenges;

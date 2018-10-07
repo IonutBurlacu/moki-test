@@ -43,6 +43,7 @@ export default (
                                   100
                             : 0
                 })),
+                teams: action.teams,
                 listDate: action.listDate,
                 loading: false
             };
