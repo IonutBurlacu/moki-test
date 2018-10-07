@@ -31,6 +31,24 @@ export class PairBandsPage extends Component {
     };
 
     render() {
+        console.log(
+            moment()
+                .utc()
+                .local()
+                .unix()
+        );
+        console.log(
+            moment
+                .utc('2018-10-07 08:34:14')
+                .local()
+                .unix()
+        );
+        console.log(
+            moment()
+                .utc()
+                .local()
+                .diff(moment.utc('2018-10-07 08:34:14').local())
+        );
         const { loading, players } = this.props;
         return (
             <div className="container">
@@ -78,7 +96,7 @@ export class PairBandsPage extends Component {
                                                 </h1>
                                                 {this.props.selectedPlayerId ===
                                                 player.id ? (
-                                                    <span className="subtitle green">
+                                                    <span className="subtitle cyan">
                                                         Tap Band on Reader to
                                                         Pair
                                                     </span>
@@ -86,7 +104,18 @@ export class PairBandsPage extends Component {
                                                     <span className="subtitle red">
                                                         Last Paired: Never
                                                     </span>
-                                                ) : (
+                                                ) : moment()
+                                                    .utc()
+                                                    .local()
+                                                    .unix() -
+                                                    moment
+                                                        .utc(
+                                                            player.band
+                                                                .created_at
+                                                        )
+                                                        .local()
+                                                        .unix() >
+                                                60 ? (
                                                     <span className="subtitle red">
                                                         Last Paired:{' '}
                                                         {moment
@@ -98,6 +127,10 @@ export class PairBandsPage extends Component {
                                                             .format(
                                                                 'DD/MM/YYYY \\at HH.mma'
                                                             )}
+                                                    </span>
+                                                ) : (
+                                                    <span className="subtitle green">
+                                                        Last Paired: Just Now
                                                     </span>
                                                 )}
                                             </td>

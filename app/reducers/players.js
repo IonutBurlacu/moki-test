@@ -303,9 +303,14 @@ export default (
             return {
                 ...state,
                 items: [
-                    ...state.items.filter(
-                        player => player.id !== currentPlayer.id
-                    ),
+                    ...state.items
+                        .filter(player => player.id !== currentPlayer.id)
+                        .map(
+                            player =>
+                                player.band && player.band.id === action.band.id
+                                    ? { ...player, band: null }
+                                    : player
+                        ),
                     currentPlayer
                 ]
             };

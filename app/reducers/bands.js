@@ -45,7 +45,8 @@ export default (
         case 'PLAYER_SELECTED': {
             return {
                 ...state,
-                selectedPlayerId: action.id
+                selectedPlayerId:
+                    action.id === state.selectedPlayerId ? null : action.id
             };
         }
         case 'PAIR_BAND_REQUEST': {
