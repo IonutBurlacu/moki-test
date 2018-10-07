@@ -38,6 +38,8 @@ export default class ChallengesAPI {
         const formData = new FormData();
         if (challenge.file) {
             formData.append('avatar', challenge.file);
+        } else {
+            formData.append('default_avatar', challenge.default_avatar);
         }
         formData.append('name', challenge.name);
         formData.append('type', challenge.type);

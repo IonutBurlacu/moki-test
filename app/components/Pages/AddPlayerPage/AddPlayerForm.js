@@ -9,13 +9,46 @@ import { Header } from '../../Header';
 import { insertPlayerRequest } from '../../../actions/players';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
-import defaultAvatar from '../../../images/default_avatar.png';
+
+import avatar1 from '../../../images/player_01.jpg';
+import avatar2 from '../../../images/player_02.jpg';
+import avatar3 from '../../../images/player_03.jpg';
+import avatar4 from '../../../images/player_04.jpg';
+import avatar5 from '../../../images/player_05.jpg';
 
 const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+const defaultAvatars = [
+    {
+        name: 'player_01.jpg',
+        file: avatar1
+    },
+    {
+        name: 'player_02.jpg',
+        file: avatar2
+    },
+    {
+        name: 'player_03.jpg',
+        file: avatar3
+    },
+    {
+        name: 'player_04.jpg',
+        file: avatar4
+    },
+    {
+        name: 'player_05.jpg',
+        file: avatar5
+    }
+];
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 
 export class AddPlayerForm extends Component {
     constructor(props) {
         super(props);
+        const defaultAvatar = defaultAvatars[getRandomInt(5)];
         this.state = {
             first_name: '',
             last_name: '',
@@ -26,7 +59,9 @@ export class AddPlayerForm extends Component {
             grade: '',
             year: '',
             file: null,
-            filePreview: ''
+            filePreview: '',
+            defaultAvatar,
+            default_avatar: defaultAvatar.name
         };
     }
 
@@ -103,7 +138,7 @@ export class AddPlayerForm extends Component {
                                 src={
                                     this.state.filePreview
                                         ? this.state.filePreview
-                                        : defaultAvatar
+                                        : this.state.defaultAvatar.file
                                 }
                                 className="avatar"
                                 alt="avatar"

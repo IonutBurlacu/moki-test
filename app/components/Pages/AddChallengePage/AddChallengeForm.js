@@ -6,19 +6,54 @@ import { Header } from '../../Header';
 import { insertChallengeRequest } from '../../../actions/challenges';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
-import defaultAvatar from '../../../images/default_avatar.png';
+
+import avatar1 from '../../../images/challenge_01.jpg';
+import avatar2 from '../../../images/challenge_02.jpg';
+import avatar3 from '../../../images/challenge_03.jpg';
+import avatar4 from '../../../images/challenge_04.jpg';
+import avatar5 from '../../../images/challenge_05.jpg';
 
 const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+const defaultAvatars = [
+    {
+        name: 'challenge_01.jpg',
+        file: avatar1
+    },
+    {
+        name: 'challenge_02.jpg',
+        file: avatar2
+    },
+    {
+        name: 'challenge_03.jpg',
+        file: avatar3
+    },
+    {
+        name: 'challenge_04.jpg',
+        file: avatar4
+    },
+    {
+        name: 'challenge_05.jpg',
+        file: avatar5
+    }
+];
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 
 export class AddChallengeForm extends Component {
     constructor(props) {
         super(props);
+        const defaultAvatar = defaultAvatars[getRandomInt(5)];
         this.state = {
             name: '',
             type: 'player',
             target_steps: '',
             file: null,
-            filePreview: ''
+            filePreview: '',
+            defaultAvatar,
+            default_avatar: defaultAvatar.name
         };
     }
 
@@ -72,7 +107,7 @@ export class AddChallengeForm extends Component {
                                 src={
                                     this.state.filePreview
                                         ? this.state.filePreview
-                                        : defaultAvatar
+                                        : this.state.defaultAvatar.file
                                 }
                                 className="avatar"
                                 alt="avatar"

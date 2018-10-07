@@ -63,6 +63,8 @@ export default class PlayersAPI {
         const formData = new FormData();
         if (player.file) {
             formData.append('avatar', player.file);
+        } else {
+            formData.append('default_avatar', player.default_avatar);
         }
         formData.append('first_name', player.first_name);
         formData.append('last_name', player.last_name);

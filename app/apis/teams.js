@@ -53,6 +53,8 @@ export default class TeamsAPI {
         const formData = new FormData();
         if (team.file) {
             formData.append('avatar', team.file);
+        } else {
+            formData.append('default_avatar', team.default_avatar);
         }
         formData.append('name', team.name);
         return axios.post(`${host}${root}/insert`, formData, {
