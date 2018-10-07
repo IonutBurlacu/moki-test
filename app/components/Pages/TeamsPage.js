@@ -5,7 +5,6 @@ import moment from 'moment';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
-import Loader from '../Loader';
 import { getTeamsRequest, viewTeamRequest } from '../../actions/teams';
 import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
@@ -169,7 +168,6 @@ export class TeamsPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

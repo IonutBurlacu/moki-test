@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
-import Loader from '../Loader';
 import OverviewChart from './ReportsPage/OverviewChart';
 import TypicalChart from './ReportsPage/TypicalChart';
 import TopFilters from './ReportsPage/TopFilters';
@@ -40,7 +39,6 @@ export class ReportsPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

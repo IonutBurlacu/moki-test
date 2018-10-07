@@ -5,7 +5,6 @@ import axios from 'axios';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
-import Loader from '../Loader';
 import { logout, changeSettingRequest } from '../../actions/auth';
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
@@ -235,7 +234,6 @@ export class SettingsPage extends Component {
                     modalIsOpen={this.state.accountModalIsOpen}
                     closeModal={this.closeAccountModal}
                 />
-                <Loader />
                 <Footer />
             </div>
         );

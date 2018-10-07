@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import Footer from '../Footer';
 import { Header } from '../Header';
-import Loader from '../Loader';
 import { editChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
 import PlayersList from './ChallengePage/PlayersList';
@@ -51,7 +50,6 @@ export class ChallengePage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

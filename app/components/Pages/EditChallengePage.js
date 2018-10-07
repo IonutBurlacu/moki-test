@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
-import Loader from '../Loader';
 import EditChallengeForm from './EditChallengePage/EditChallengeForm';
 import TeamsList from './EditChallengePage/TeamsList';
 import PlayersList from './EditChallengePage/PlayersList';
@@ -31,7 +30,6 @@ export class EditChallengePage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

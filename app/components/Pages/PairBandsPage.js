@@ -11,7 +11,6 @@ import { PageTitle } from '../PageTitle';
 import defaultAvatar from '../../images/default_avatar.png';
 import challengesIcon from '../../images/challenges_icon.png';
 import teamsIcon from '../../images/teams_icon.png';
-import Loader from '../Loader';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -242,7 +241,6 @@ export class PairBandsPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

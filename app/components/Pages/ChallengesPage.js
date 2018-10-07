@@ -5,7 +5,6 @@ import moment from 'moment';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
-import Loader from '../Loader';
 import {
     getChallengesRequest,
     viewChallengeRequest
@@ -182,7 +181,6 @@ export class ChallengesPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

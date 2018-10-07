@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import { Header } from '../Header';
 import Footer from '../Footer';
-import Loader from '../Loader';
 import { PageTitle } from '../PageTitle';
 import {
     batteryReadingModeOn,
@@ -47,7 +46,6 @@ export class ReadBatteryPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

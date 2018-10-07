@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import { Header } from '../Header';
 import Footer from '../Footer';
-import Loader from '../Loader';
 import { PageTitle } from '../PageTitle';
 import defaultAvatar from '../../images/default_avatar.png';
 
@@ -109,7 +108,6 @@ export class SyncBandsPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

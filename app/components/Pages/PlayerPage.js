@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import Footer from '../Footer';
 import { Header } from '../Header';
-import Loader from '../Loader';
 import { editPlayerRequest } from '../../actions/players';
 import { showLoader } from '../../actions/loader';
 import PageHeader from './PlayerPage/PageHeader';
@@ -62,7 +61,6 @@ export class PlayerPage extends Component {
                 ) : (
                     <div className="content" />
                 )}
-                <Loader />
                 <Footer />
             </div>
         );

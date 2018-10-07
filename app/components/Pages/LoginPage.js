@@ -5,7 +5,6 @@ import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import LoginForm from './LoginPage/LoginForm';
-import Loader from '../Loader';
 import Alert from '../Alert';
 
 const LoginPage = ({ history }) => (
@@ -19,7 +18,6 @@ const LoginPage = ({ history }) => (
             <LoginForm history={history} />
         </div>
         <Alert />
-        <Loader />
         <Footer />
     </div>
 );
