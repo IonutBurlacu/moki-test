@@ -55,7 +55,11 @@ export class DataBTeams extends Component {
             <div className="filter-wrapper">
                 <button
                     type="button"
-                    className="filter-button filter-with-tick"
+                    className={
+                        this.state.dataBSelectOpen
+                            ? 'filter-button filter-with-tick active'
+                            : 'filter-button filter-with-tick'
+                    }
                     onClick={this.handleDataBSelectMenu}
                 >
                     Data B: {this.props.teamIdsB.length} Selected

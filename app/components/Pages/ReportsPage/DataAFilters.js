@@ -60,7 +60,11 @@ export class DataAFilters extends Component {
             <div className="filter-wrapper">
                 <button
                     type="button"
-                    className="filter-button filter-with-tick"
+                    className={
+                        this.state.filterASelectOpen
+                            ? 'filter-button filter-with-tick active'
+                            : 'filter-button filter-with-tick'
+                    }
                     onClick={this.handleFilterASelectMenu}
                 >
                     Filter

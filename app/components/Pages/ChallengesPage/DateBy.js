@@ -80,7 +80,11 @@ export class DateBy extends Component {
             <div className="filter-wrapper">
                 <button
                     type="button"
-                    className="filter-button filter-with-tick"
+                    className={
+                        this.state.dateSelectOpen
+                            ? 'filter-button filter-with-tick active'
+                            : 'filter-button filter-with-tick'
+                    }
                     onClick={this.handleDateSelectMenu}
                 >
                     {this.getSelectedDateType(this.props.listDate)}

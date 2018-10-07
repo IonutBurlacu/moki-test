@@ -28,7 +28,11 @@ export class SortBy extends Component {
             <div className="filter-wrapper sort-filter">
                 <button
                     type="button"
-                    className="filter-button filter-with-tick"
+                    className={
+                        this.state.sortSelectOpen
+                            ? 'filter-button filter-with-tick active'
+                            : 'filter-button filter-with-tick'
+                    }
                     onClick={this.handleSortSelectMenu}
                 >
                     Sort by: {this.props.listSortLabel}
