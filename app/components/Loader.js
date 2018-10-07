@@ -19,7 +19,7 @@ export class Loader extends Component {
             waitTimeout = setTimeout(() => {
                 this.props.showAlert('There was an error. Please try again.');
                 this.props.hideLoader();
-            }, 10000);
+            }, this.props.timeout);
         }
     }
 
@@ -51,7 +51,8 @@ export class Loader extends Component {
 }
 
 const mapStateToProps = state => ({
-    loading: state.loader.loading
+    loading: state.loader.loading,
+    timeout: state.loader.timeout
 });
 
 const mapDispatchToProps = dispatch => ({

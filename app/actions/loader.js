@@ -1,7 +1,8 @@
-export const showLoader = () => ({
-	type: 'SHOW_LOADER'
+export const showLoader = timeout => ({
+    type: 'SHOW_LOADER',
+    timeout
 });
 
 export const hideLoader = () => ({
-	type: 'HIDE_LOADER'
+    type: 'HIDE_LOADER'
 });

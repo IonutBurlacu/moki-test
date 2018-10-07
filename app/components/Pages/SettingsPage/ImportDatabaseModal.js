@@ -8,7 +8,7 @@ import { importDatabaseRequest } from '../../../actions/players';
 
 export class ImportDatabaseModal extends Component {
     handleUploadFile = file => {
-        this.props.showLoader();
+        this.props.showLoader(60000);
         this.props.importDatabaseRequest(file);
     };
 
