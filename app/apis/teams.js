@@ -34,7 +34,7 @@ export default class TeamsAPI {
         });
     }
 
-    static stats(headers = {}, id, chartType) {
+    static stats(headers = {}, id, chartType, chartStartDate, chartEndDate) {
         return axios({
             method: 'post',
             url: `${host}${root}/stats/${id}`,
@@ -42,7 +42,9 @@ export default class TeamsAPI {
                 ...headers
             },
             data: {
-                type: chartType
+                type: chartType,
+                start_date: chartStartDate,
+                end_date: chartEndDate
             }
         });
     }

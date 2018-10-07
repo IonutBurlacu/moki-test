@@ -15,6 +15,8 @@ export default (
         challenges: [],
         teams: [],
         chartType: 'today',
+        chartStartDate: moment.utc().local(),
+        chartEndDate: moment.utc().local(),
         listDate: 'today',
         listStartDate: moment.utc().local(),
         listEndDate: moment.utc().local(),
@@ -142,6 +144,8 @@ export default (
                         action.overview.previous_total.previous_steps
                 },
                 chartType: action.chartType,
+                chartStartDate: action.chartStartDate,
+                chartEndDate: action.chartEndDate,
                 loading: false
             };
         case 'CREATE_PLAYER_REQUEST':

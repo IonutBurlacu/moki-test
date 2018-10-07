@@ -46,17 +46,32 @@ export const viewPlayer = player => ({
     player
 });
 
-export const statsPlayerRequest = (id, chartType) => ({
+export const statsPlayerRequest = (
+    id,
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
     type: 'STATS_PLAYER_REQUEST',
     id,
-    chartType
+    chartType,
+    chartStartDate,
+    chartEndDate
 });
 
-export const statsPlayer = (overview, typical, chartType) => ({
+export const statsPlayer = (
+    overview,
+    typical,
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
     type: 'STATS_PLAYER',
     overview,
     typical,
-    chartType
+    chartType,
+    chartStartDate,
+    chartEndDate
 });
 
 export const deletePlayerRequest = id => ({

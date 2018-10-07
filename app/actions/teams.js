@@ -40,17 +40,32 @@ export const viewTeam = team => ({
     team
 });
 
-export const statsTeamRequest = (id, chartType) => ({
+export const statsTeamRequest = (
+    id,
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
     type: 'STATS_TEAM_REQUEST',
     id,
-    chartType
+    chartType,
+    chartStartDate,
+    chartEndDate
 });
 
-export const statsTeam = (overview, typical, chartType) => ({
+export const statsTeam = (
+    overview,
+    typical,
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
     type: 'STATS_TEAM',
     overview,
     typical,
-    chartType
+    chartType,
+    chartStartDate,
+    chartEndDate
 });
 
 export const deleteTeamRequest = id => ({

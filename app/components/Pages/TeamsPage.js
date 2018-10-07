@@ -101,6 +101,7 @@ export class TeamsPage extends Component {
                                                     {team.challenges.map(
                                                         item => (
                                                             <span
+                                                                key={item.id}
                                                                 onClick={() =>
                                                                     this.handleChallengeView(
                                                                         item.id

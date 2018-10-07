@@ -19,6 +19,8 @@ export default class ReportsAPI {
         teamIdsA,
         teamIdsB,
         chartType,
+        chartStartDate,
+        chartEndDate,
         filterByA,
         filterByValueA,
         filterByB,
@@ -37,7 +39,9 @@ export default class ReportsAPI {
                 filter_by_value_a: filterByValueA,
                 filter_by_b: filterByB,
                 filter_by_value_b: filterByValueB,
-                type: chartType
+                type: chartType,
+                start_date: chartStartDate,
+                end_date: chartEndDate
             }
         });
     }

@@ -9,6 +9,9 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
+import { DateRange } from 'react-date-range';
+import enGb from 'react-date-range/dist/locale/en-GB';
+import moment from 'moment';
 import { statsReportsTeamsRequest } from '../../../actions/reports';
 import { showLoader } from '../../../actions/loader';
 
@@ -17,6 +20,8 @@ export class TypicalChart extends Component {
         super(props);
         this.state = {
             dateSelectOpen: false,
+            startDate: props.chartStartDate,
+            endDate: props.chartEndDate,
             dataAVisible: true,
             dataBVisible: true
         };
@@ -32,6 +37,8 @@ export class TypicalChart extends Component {
                 return 'Month';
             case 'year':
                 return 'Year';
+            case 'interval':
+                return 'Interval';
             default:
                 return 'Day';
         }
@@ -52,6 +59,8 @@ export class TypicalChart extends Component {
             this.props.teamIdsA,
             this.props.teamIdsB,
             type,
+            this.props.chartStartDate,
+            this.props.chartEndDate,
             this.props.filterByA,
             this.props.filterByValueA,
             this.props.filterByB,
@@ -65,6 +74,33 @@ export class TypicalChart extends Component {
 
     handleCloseDateSelectMenu = () => {
         this.setState({ dateSelectOpen: false });
+    };
+
+    handleDateRangeSelect = ranges => {
+        this.setState({
+            startDate: moment(ranges.range1.startDate),
+            endDate: moment(ranges.range1.endDate)
+        });
+    };
+
+    handleDateRangeFocus = ranges => {
+        setTimeout(() => {
+            if (ranges[1] === 0) {
+                this.props.showLoader();
+                this.setState({ dateSelectOpen: false });
+                this.props.statsReportsTeamsRequest(
+                    this.props.teamIdsA,
+                    this.props.teamIdsB,
+                    'interval',
+                    this.state.startDate,
+                    this.state.endDate,
+                    this.props.filterByA,
+                    this.props.filterByValueA,
+                    this.props.filterByB,
+                    this.props.filterByValueB
+                );
+            }
+        }, 1);
     };
 
     render() {
@@ -138,6 +174,34 @@ export class TypicalChart extends Component {
                                         >
                                             Year
                                         </button>
+                                    </li>
+                                    <li
+                                        className={
+                                            this.props.listDate === 'interval'
+                                                ? 'selected'
+                                                : ''
+                                        }
+                                    >
+                                        <DateRange
+                                            ranges={[
+                                                {
+                                                    startDate: this.state
+                                                        .startDate,
+                                                    endDate: this.state.endDate
+                                                }
+                                            ]}
+                                            className="date-range-picker"
+                                            direction="horizontal"
+                                            showDateDisplay={false}
+                                            rangeColors={['#66667b']}
+                                            onChange={
+                                                this.handleDateRangeSelect
+                                            }
+                                            locale={enGb}
+                                            onRangeFocusChange={
+                                                this.handleDateRangeFocus
+                                            }
+                                        />
                                     </li>
                                 </ul>
                             </div>
@@ -253,6 +317,8 @@ const mapStateToProps = state => ({
     teamIdsA: state.reports.teamIdsA,
     teamIdsB: state.reports.teamIdsB,
     chartType: state.reports.chartType,
+    chartStartDate: state.reports.chartStartDate,
+    chartEndDate: state.reports.chartEndDate,
     filterByA: state.reports.filterByA,
     filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
@@ -266,6 +332,8 @@ const mapDispatchToProps = dispatch => ({
         teamIdsA,
         teamIdsB,
         type,
+        startDate,
+        endDate,
         filterByA,
         filterByValueA,
         filterByB,
@@ -276,6 +344,8 @@ const mapDispatchToProps = dispatch => ({
                 teamIdsA,
                 teamIdsB,
                 type,
+                startDate,
+                endDate,
                 filterByA,
                 filterByValueA,
                 filterByB,

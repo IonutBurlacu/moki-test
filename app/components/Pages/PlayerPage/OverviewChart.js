@@ -9,6 +9,9 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
+import { DateRange } from 'react-date-range';
+import enGb from 'react-date-range/dist/locale/en-GB';
+import moment from 'moment';
 import { statsPlayerRequest } from '../../../actions/players';
 import { showLoader } from '../../../actions/loader';
 
@@ -16,7 +19,9 @@ export class OverviewChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateSelectOpen: false
+            dateSelectOpen: false,
+            startDate: props.chartStartDate,
+            endDate: props.chartEndDate
         };
     }
 
@@ -30,6 +35,8 @@ export class OverviewChart extends Component {
                 return 'This Month';
             case 'year':
                 return 'This Year';
+            case 'interval':
+                return 'Interval';
             default:
                 return 'Date';
         }
@@ -38,7 +45,12 @@ export class OverviewChart extends Component {
     handleDateChange = type => {
         this.props.showLoader();
         this.setState({ dateSelectOpen: false });
-        this.props.statsPlayerRequest(this.props.player.id, type);
+        this.props.statsPlayerRequest(
+            this.props.player.id,
+            type,
+            this.props.chartStartDate,
+            this.props.chartEndDate
+        );
     };
 
     handleDateSelectMenu = () => {
@@ -47,6 +59,28 @@ export class OverviewChart extends Component {
 
     handleCloseDateSelectMenu = () => {
         this.setState({ dateSelectOpen: false });
+    };
+
+    handleDateRangeSelect = ranges => {
+        this.setState({
+            startDate: moment(ranges.range1.startDate),
+            endDate: moment(ranges.range1.endDate)
+        });
+    };
+
+    handleDateRangeFocus = ranges => {
+        setTimeout(() => {
+            if (ranges[1] === 0) {
+                this.props.showLoader();
+                this.setState({ dateSelectOpen: false });
+                this.props.statsPlayerRequest(
+                    this.props.player.id,
+                    'interval',
+                    this.state.startDate,
+                    this.state.endDate
+                );
+            }
+        }, 1);
     };
 
     render() {
@@ -81,7 +115,13 @@ export class OverviewChart extends Component {
                                     </button>
                                 </div>
                                 <ul className="chart-select-list">
-                                    <li>
+                                    <li
+                                        className={
+                                            this.props.chartType === 'today'
+                                                ? 'selected'
+                                                : ''
+                                        }
+                                    >
                                         <button
                                             type="button"
                                             onClick={() =>
@@ -91,7 +131,13 @@ export class OverviewChart extends Component {
                                             Today
                                         </button>
                                     </li>
-                                    <li>
+                                    <li
+                                        className={
+                                            this.props.chartType === 'week'
+                                                ? 'selected'
+                                                : ''
+                                        }
+                                    >
                                         <button
                                             type="button"
                                             onClick={() =>
@@ -101,7 +147,13 @@ export class OverviewChart extends Component {
                                             This Week
                                         </button>
                                     </li>
-                                    <li>
+                                    <li
+                                        className={
+                                            this.props.chartType === 'month'
+                                                ? 'selected'
+                                                : ''
+                                        }
+                                    >
                                         <button
                                             type="button"
                                             onClick={() =>
@@ -111,7 +163,13 @@ export class OverviewChart extends Component {
                                             This Month
                                         </button>
                                     </li>
-                                    <li>
+                                    <li
+                                        className={
+                                            this.props.chartType === 'year'
+                                                ? 'selected'
+                                                : ''
+                                        }
+                                    >
                                         <button
                                             type="button"
                                             onClick={() =>
@@ -120,6 +178,34 @@ export class OverviewChart extends Component {
                                         >
                                             This Year
                                         </button>
+                                    </li>
+                                    <li
+                                        className={
+                                            this.props.listDate === 'interval'
+                                                ? 'selected'
+                                                : ''
+                                        }
+                                    >
+                                        <DateRange
+                                            ranges={[
+                                                {
+                                                    startDate: this.state
+                                                        .startDate,
+                                                    endDate: this.state.endDate
+                                                }
+                                            ]}
+                                            className="date-range-picker"
+                                            direction="horizontal"
+                                            showDateDisplay={false}
+                                            rangeColors={['#66667b']}
+                                            onChange={
+                                                this.handleDateRangeSelect
+                                            }
+                                            locale={enGb}
+                                            onRangeFocusChange={
+                                                this.handleDateRangeFocus
+                                            }
+                                        />
                                     </li>
                                 </ul>
                             </div>
@@ -228,11 +314,14 @@ export class OverviewChart extends Component {
 
 const mapStateToProps = state => ({
     player: state.players.player,
-    chartType: state.players.chartType
+    chartType: state.players.chartType,
+    chartStartDate: state.players.chartStartDate,
+    chartEndDate: state.players.chartEndDate
 });
 
 const mapDispatchToProps = dispatch => ({
-    statsPlayerRequest: (id, type) => dispatch(statsPlayerRequest(id, type)),
+    statsPlayerRequest: (id, type, startDate, endDate) =>
+        dispatch(statsPlayerRequest(id, type, startDate, endDate)),
     showLoader: () => dispatch(showLoader())
 });
 

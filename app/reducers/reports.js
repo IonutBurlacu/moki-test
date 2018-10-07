@@ -1,7 +1,11 @@
+import moment from 'moment';
+
 export default (
     state = {
         teams: [],
         chartType: 'today',
+        chartStartDate: moment.utc().local(),
+        chartEndDate: moment.utc().local(),
         overview: [],
         typical: [],
         totalOverviewA: 0,
@@ -79,6 +83,8 @@ export default (
                 totalOverviewBPrevious:
                     action.overview.previous_total_b.previous_steps,
                 chartType: action.chartType,
+                chartStartDate: action.chartStartDate,
+                chartEndDate: action.chartEndDate,
                 filterByA: action.filterByA,
                 filterByValueA: action.filterByValueA,
                 filterByB: action.filterByB,

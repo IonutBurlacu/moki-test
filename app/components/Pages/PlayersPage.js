@@ -111,6 +111,7 @@ export class PlayersPage extends Component {
                                                     {player.challenges.map(
                                                         item => (
                                                             <span
+                                                                key={item.id}
                                                                 onClick={() =>
                                                                     this.handleChallengeView(
                                                                         item.id
@@ -138,6 +139,7 @@ export class PlayersPage extends Component {
                                                 <span className="icon-label">
                                                     {player.teams.map(item => (
                                                         <span
+                                                            key={item.id}
                                                             onClick={() =>
                                                                 this.handleTeamView(
                                                                     item.id

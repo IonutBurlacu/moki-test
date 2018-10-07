@@ -74,14 +74,18 @@ export function* playerStats(action) {
         PlayersAPI.stats,
         { Authorization: token },
         action.id,
-        action.chartType
+        action.chartType,
+        moment(action.chartStartDate).format('YYYY-MM-DD'),
+        moment(action.chartEndDate).format('YYYY-MM-DD')
     );
 
     yield put({
         type: 'STATS_PLAYER',
         overview: response.data.overview,
         typical: response.data.typical,
-        chartType: action.chartType
+        chartType: action.chartType,
+        chartStartDate: action.chartStartDate,
+        chartEndDate: action.chartEndDate
     });
 
     yield put({
