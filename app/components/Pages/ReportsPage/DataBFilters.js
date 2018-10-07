@@ -65,13 +65,13 @@ export class DataBFilters extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.filterBSelectOpen
+                        this.state.filterBSelectOpen || this.props.filterByB
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
                     onClick={this.handleFilterBSelectMenu}
                 >
-                    Filter
+                    {this.props.filterByB ? 'Filters On' : 'Filter'}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
