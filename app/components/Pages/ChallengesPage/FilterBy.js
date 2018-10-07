@@ -32,13 +32,13 @@ export class FilterBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.filterSelectOpen
+                        this.state.filterSelectOpen || this.props.listFilter
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
                     onClick={this.handleFilterSelectMenu}
                 >
-                    Filter
+                    {this.props.listFilter ? 'Filters On' : 'Filter'}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
