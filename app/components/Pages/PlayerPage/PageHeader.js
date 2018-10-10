@@ -36,11 +36,16 @@ export default class PageHeader extends Component {
                 </div>
                 <div className="col column">
                     <h1 className="steps">
-                        {this.props.player.total_steps}
+                        {this.props.player.total_steps.toLocaleString()}
                         <small>steps</small>
                     </h1>
                     <span className="average">
-                        Average {this.props.player.avg_steps} per day
+                        Average{' '}
+                        {parseInt(
+                            this.props.player.avg_steps,
+                            10
+                        ).toLocaleString()}{' '}
+                        per day
                     </span>
                 </div>
                 <div className="col column right">

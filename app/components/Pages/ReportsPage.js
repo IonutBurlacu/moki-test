@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'react-router-dom/Link';
+import { shell } from 'electron';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
@@ -16,16 +17,23 @@ export class ReportsPage extends Component {
         this.props.getReportsTeamsRequest();
     }
 
+    handleContactSupport = () => {
+        shell.openExternal('https://moki.technology/pages/contact-us');
+    };
+
     render() {
         return (
             <div className="container container-with-title">
                 <Header
                     leftButton={
-                        <Link to="/contact-support">Contact Support</Link>
+                        <button
+                            type="button"
+                            onClick={this.handleContactSupport}
+                        >
+                            Contact Support
+                        </button>
                     }
-                    rightButton={
-                        <Link to="/contact-support">Contact Support</Link>
-                    }
+                    rightButton={<div />}
                 />
                 {!this.props.loading ? (
                     <div className="content">

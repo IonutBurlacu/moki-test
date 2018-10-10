@@ -33,7 +33,7 @@ export default class PageHeader extends Component {
                 </div>
                 <div className="col">
                     <h1 className="steps">
-                        {this.props.challenge.target_steps}
+                        {this.props.challenge.target_steps.toLocaleString()}
                         <small>steps</small>
                     </h1>
                 </div>

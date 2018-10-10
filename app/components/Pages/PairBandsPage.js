@@ -197,13 +197,13 @@ export class PairBandsPage extends Component {
                                                                       player.current_steps) /
                                                                       player.previous_steps) *
                                                                   100
-                                                              ).toFixed(2)
+                                                              ).toFixed(0)
                                                             : (
                                                                   ((player.current_steps -
                                                                       player.previous_steps) /
                                                                       player.current_steps) *
                                                                   100
-                                                              ).toFixed(2)}
+                                                              ).toFixed(0)}
                                                         %
                                                     </span>
                                                 </td>
@@ -217,7 +217,7 @@ export class PairBandsPage extends Component {
                                             )}
                                             <td className="align-right">
                                                 <h1 className="title">
-                                                    {player.current_steps}
+                                                    {player.current_steps.toLocaleString()}
                                                     <small>steps</small>
                                                 </h1>
                                             </td>

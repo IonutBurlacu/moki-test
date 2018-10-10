@@ -258,7 +258,8 @@ export class TypicalChart extends Component {
                         <div className="center-side" />
                         <div className="right-side">
                             <span className="total">
-                                Total: {this.props.team.totalTypical}
+                                Total:{' '}
+                                {this.props.team.totalTypical.toLocaleString()}
                             </span>
                         </div>
                     </div>

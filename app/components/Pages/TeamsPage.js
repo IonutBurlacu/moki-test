@@ -139,13 +139,13 @@ export class TeamsPage extends Component {
                                                 <span className="percentage">
                                                     {Math.abs(
                                                         team.percentage
-                                                    ).toFixed(2)}
+                                                    ).toFixed(0)}
                                                     %
                                                 </span>
                                             </td>
                                             <td className="align-right">
                                                 <h1 className="title">
-                                                    {team.current_steps}
+                                                    {team.current_steps.toLocaleString()}
                                                     <small>steps</small>
                                                 </h1>
                                             </td>

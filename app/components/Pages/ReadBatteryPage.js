@@ -36,7 +36,7 @@ export class ReadBatteryPage extends Component {
                                         {`Band <${read.uuid}>`}
                                     </p>
                                     <p className="battery-level">
-                                        Battery level: {read.level.toFixed(2)}%
+                                        Battery level: {read.level.toFixed(0)}%
                                     </p>
                                     <div className="separator" />
                                 </li>

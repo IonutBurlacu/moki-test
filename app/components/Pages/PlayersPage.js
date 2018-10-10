@@ -163,13 +163,13 @@ export class PlayersPage extends Component {
                                                 <span className="percentage">
                                                     {Math.abs(
                                                         player.percentage
-                                                    ).toFixed(2)}
+                                                    ).toFixed(0)}
                                                     %
                                                 </span>
                                             </td>
                                             <td className="align-right">
                                                 <h1 className="title">
-                                                    {player.current_steps}
+                                                    {player.current_steps.toLocaleString()}
                                                     <small>steps</small>
                                                 </h1>
                                             </td>

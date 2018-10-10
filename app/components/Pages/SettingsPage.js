@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
+import { shell } from 'electron';
 import axios from 'axios';
 import Footer from '../Footer';
 import { Header } from '../Header';
@@ -89,16 +90,23 @@ export class SettingsPage extends Component {
             });
     };
 
+    handleContactSupport = () => {
+        shell.openExternal('https://moki.technology/pages/contact-us');
+    };
+
     render() {
         return (
             <div className="container container-with-title">
                 <Header
                     leftButton={
-                        <Link to="/contact-support">Contact Support</Link>
+                        <button
+                            type="button"
+                            onClick={this.handleContactSupport}
+                        >
+                            Contact Support
+                        </button>
                     }
-                    rightButton={
-                        <Link to="/contact-support">Contact Support</Link>
-                    }
+                    rightButton={<div />}
                 />
                 <div className="content">
                     <PageTitle title="Settings" />
@@ -217,6 +225,7 @@ export class SettingsPage extends Component {
                                     <button
                                         className="setting-button"
                                         type="button"
+                                        onClick={this.handleContactSupport}
                                     >
                                         Contact Support
                                     </button>

@@ -83,8 +83,11 @@ export class PlayersList extends Component {
                                 >
                                     <h1 className="title">
                                         {item.progress <= this.props.targetSteps
-                                            ? this.props.targetSteps -
-                                              item.progress
+                                            ? parseInt(
+                                                  this.props.targetSteps -
+                                                      item.progress,
+                                                  10
+                                              ).toLocaleString()
                                             : 0}
                                         <small>steps</small>
                                         <span>to go</span>

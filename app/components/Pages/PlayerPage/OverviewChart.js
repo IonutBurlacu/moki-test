@@ -280,7 +280,7 @@ export class OverviewChart extends Component {
                                                       this.props.player
                                                           .totalOverview) *
                                                   100
-                                              ).toFixed(2)
+                                              ).toFixed(0)
                                             : (
                                                   ((this.props.player
                                                       .totalOverviewPrevious -
@@ -289,7 +289,7 @@ export class OverviewChart extends Component {
                                                       this.props.player
                                                           .totalOverviewPrevious) *
                                                   100
-                                              ).toFixed(2)}
+                                              ).toFixed(0)}
                                         %
                                     </span>
                                 </span>
@@ -302,7 +302,8 @@ export class OverviewChart extends Component {
                         </div>
                         <div className="right-side">
                             <span className="total">
-                                Total: {this.props.player.totalOverview}
+                                Total:{' '}
+                                {this.props.player.totalOverview.toLocaleString()}
                             </span>
                         </div>
                     </div>
