@@ -17,6 +17,10 @@
         &:last-child {
             // border-bottom: none;
         }
+
+        &:hover {
+            background: #292e6b;
+        }
     }
 
     td {
@@ -82,7 +86,7 @@
     }
 
     .icon {
-        height: 3.5vmin;
+        height: 4vmin;
         margin-right: 1vmin;
         vertical-align: middle;
     }

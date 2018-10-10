@@ -12,7 +12,7 @@ import {
 import { viewTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
 import defaultAvatar from '../../images/default_avatar.png';
-import teamsIcon from '../../images/teams_icon.png';
+import teamsIconWide from '../../images/teams_icon_wide.png';
 import playersIconWide from '../../images/players_icon_wide.png';
 import TopFilters from './ChallengesPage/TopFilters';
 import getFilteredChallenges from '../../selectors/challenges';
@@ -115,7 +115,7 @@ export class ChallengesPage extends Component {
                                                 ) : (
                                                     <div>
                                                         <img
-                                                            src={teamsIcon}
+                                                            src={teamsIconWide}
                                                             className="icon"
                                                             alt="icon"
                                                         />

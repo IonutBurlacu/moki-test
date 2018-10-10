@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import defaultAvatar from '../../../images/default_avatar.png';
-import teamsIcon from '../../../images/teams_icon.png';
+import teamsIconWide from '../../../images/teams_icon_wide.png';
 import playersIconWide from '../../../images/players_icon_wide.png';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
@@ -52,7 +52,7 @@ export default class PageHeader extends Component {
                         </div>
                     ) : (
                         <div className="row">
-                            <img src={teamsIcon} className="small-icon" />
+                            <img src={teamsIconWide} className="small-icon" />
                             <span>
                                 {`${this.props.challenge.teams.length} Team`}
                                 {this.props.challenge.teams.length > 1

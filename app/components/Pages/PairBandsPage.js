@@ -9,8 +9,8 @@ import { showLoader } from '../../actions/loader';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import defaultAvatar from '../../images/default_avatar.png';
-import challengesIcon from '../../images/challenges_icon.png';
-import teamsIcon from '../../images/teams_icon.png';
+import challengesIconWide from '../../images/challenges_icon_wide.png';
+import teamsIconWide from '../../images/teams_icon_wide.png';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -137,7 +137,7 @@ export class PairBandsPage extends Component {
                                                 {player.challenges.length >
                                                 0 ? (
                                                     <img
-                                                        src={challengesIcon}
+                                                        src={challengesIconWide}
                                                         className="icon"
                                                         alt="icon"
                                                     />
@@ -158,7 +158,7 @@ export class PairBandsPage extends Component {
                                             <td className="align-right">
                                                 {player.teams.length > 0 ? (
                                                     <img
-                                                        src={teamsIcon}
+                                                        src={teamsIconWide}
                                                         className="icon"
                                                         alt="icon"
                                                     />

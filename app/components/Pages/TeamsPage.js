@@ -10,7 +10,7 @@ import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
 import getFilteredTeams from '../../selectors/teams';
 import defaultAvatar from '../../images/default_avatar.png';
-import challengesIcon from '../../images/challenges_icon.png';
+import challengesIconWide from '../../images/challenges_icon_wide.png';
 import playersIconWide from '../../images/players_icon_wide.png';
 import TopFilters from './TeamsPage/TopFilters';
 
@@ -90,7 +90,7 @@ export class TeamsPage extends Component {
                                             <td>
                                                 {team.challenges.length > 0 ? (
                                                     <img
-                                                        src={challengesIcon}
+                                                        src={challengesIconWide}
                                                         className="icon"
                                                         alt="icon"
                                                     />
