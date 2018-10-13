@@ -21,10 +21,11 @@ export class DataBFilters extends Component {
 
     handleCloseFilterBSelectMenu = () => {
         this.setState({ filterBSelectOpen: false });
-        if (this.props.filterByB) {
-            this.props.removeFilterFromDataB();
-            this.handleRemoveFilterFromDataB();
-        }
+    };
+
+    handleClearFilterBSelectMenu = () => {
+        this.props.removeFilterFromDataB();
+        this.handleRemoveFilterFromDataB();
     };
 
     handleApplyFilterDataB = (filterBy, filterByValue) => {
@@ -81,6 +82,17 @@ export class DataBFilters extends Component {
                 >
                     <div className="filter-select-list-header">
                         Select Filter
+                        {this.props.filterByB ? (
+                            <button
+                                type="button"
+                                className="clear"
+                                onClick={this.handleClearFilterBSelectMenu}
+                            >
+                                Clear
+                            </button>
+                        ) : (
+                            ''
+                        )}
                         <button
                             type="button"
                             onClick={this.handleCloseFilterBSelectMenu}

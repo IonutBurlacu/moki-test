@@ -14,16 +14,18 @@ export class FilterBy extends Component {
         this.setState({ filterSelectOpen: !this.state.filterSelectOpen });
     };
 
-    handleCloseFilterSelectMenu = (setEmpty = true) => {
+    handleCloseFilterSelectMenu = () => {
         this.setState({ filterSelectOpen: false });
-        if (setEmpty) {
-            this.props.changePlayersListFilter('', '');
-        }
+    };
+
+    handleClearFilterSelectMenu = () => {
+        this.props.changePlayersListFilter('', '');
+        this.handleCloseFilterSelectMenu();
     };
 
     handleFilterSelectChange = (listFilter, listFilterValue) => {
         this.props.changePlayersListFilter(listFilter, listFilterValue);
-        this.handleCloseFilterSelectMenu(false);
+        this.handleCloseFilterSelectMenu();
     };
 
     render() {
@@ -48,6 +50,17 @@ export class FilterBy extends Component {
                 >
                     <div className="filter-select-list-header">
                         Filter By
+                        {this.props.listFilter ? (
+                            <button
+                                type="button"
+                                className="clear"
+                                onClick={this.handleClearFilterSelectMenu}
+                            >
+                                Clear
+                            </button>
+                        ) : (
+                            ''
+                        )}
                         <button
                             type="button"
                             onClick={this.handleCloseFilterSelectMenu}
