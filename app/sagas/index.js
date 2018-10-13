@@ -2,6 +2,7 @@ import { fork, takeLatest } from 'redux-saga/effects';
 import { login, changePassword, deleteAccount, changeSetting } from './auth';
 import {
     challengesFetchList,
+    challengeCreate,
     challengeInsert,
     challengeEdit,
     challengeUpdate,
@@ -62,6 +63,7 @@ export default function* sagas() {
         fork(takeLatest, 'STATS_REPORTS_TEAMS_REQUEST', statsReportsTeams),
 
         fork(takeLatest, 'GET_CHALLENGES_REQUEST', challengesFetchList),
+        fork(takeLatest, 'CREATE_CHALLENGE_REQUEST', challengeCreate),
         fork(takeLatest, 'INSERT_CHALLENGE_REQUEST', challengeInsert),
         fork(takeLatest, 'EDIT_CHALLENGE_REQUEST', challengeEdit),
         fork(takeLatest, 'UPDATE_CHALLENGE_REQUEST', challengeUpdate),

@@ -6,6 +6,8 @@ import { Header } from '../../Header';
 import { insertChallengeRequest } from '../../../actions/challenges';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
+import TeamsList from './TeamsList';
+import PlayersList from './PlayersList';
 
 import avatar1 from '../../../images/challenge_01.jpg';
 import avatar2 from '../../../images/challenge_02.jpg';
@@ -62,7 +64,11 @@ export class AddChallengeForm extends Component {
             this.props.showAlert('All fields are required.');
         } else {
             this.props.showLoader();
-            this.props.insertChallengeRequest(this.state);
+            this.props.insertChallengeRequest({
+                ...this.state,
+                players: this.props.new.players,
+                teams: this.props.new.teams
+            });
         }
     };
 
@@ -183,10 +189,27 @@ export class AddChallengeForm extends Component {
                         </div>
                     </form>
                 </div>
+                {this.state.type === 'player' ? (
+                    <PlayersList
+                        items={this.props.new.players}
+                        players={this.props.players}
+                    />
+                ) : (
+                    <TeamsList
+                        items={this.props.new.teams}
+                        teams={this.props.teams}
+                    />
+                )}
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    players: state.challenges.players,
+    teams: state.challenges.teams,
+    new: state.challenges.new
+});
 
 const mapDispatchToProps = dispatch => ({
     insertChallengeRequest: challenge =>
@@ -196,6 +219,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    undefined,
+    mapStateToProps,
     mapDispatchToProps
 )(AddChallengeForm);

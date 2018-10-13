@@ -54,6 +54,16 @@ export const deleteChallenge = id => ({
     id
 });
 
+export const createChallengeRequest = () => ({
+    type: 'CREATE_CHALLENGE_REQUEST'
+});
+
+export const createChallenge = (players, teams) => ({
+    type: 'CREATE_CHALLENGE',
+    players,
+    teams
+});
+
 export const insertChallengeRequest = challenge => ({
     type: 'INSERT_CHALLENGE_REQUEST',
     challenge
@@ -127,5 +137,25 @@ export const detachChallengeFromPlayerRequest = (playerId, challengeId) => ({
 
 export const detachChallengeFromPlayer = playerId => ({
     type: 'DETACH_CHALLENGE_FROM_PLAYER',
+    playerId
+});
+
+export const attachNewChallengeToTeam = teamId => ({
+    type: 'ATTACH_NEW_CHALLENGE_TO_TEAM',
+    teamId
+});
+
+export const detachNewChallengeFromTeam = teamId => ({
+    type: 'DETACH_NEW_CHALLENGE_FROM_TEAM',
+    teamId
+});
+
+export const attachNewChallengeToPlayer = playerId => ({
+    type: 'ATTACH_NEW_CHALLENGE_TO_PLAYER',
+    playerId
+});
+
+export const detachNewChallengeFromPlayer = playerId => ({
+    type: 'DETACH_NEW_CHALLENGE_FROM_PLAYER',
     playerId
 });

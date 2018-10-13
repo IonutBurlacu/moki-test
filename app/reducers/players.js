@@ -156,7 +156,6 @@ export default (
         case 'CREATE_PLAYER':
             return {
                 ...state,
-                items: [],
                 grades: action.grades,
                 years: action.years,
                 loading: false

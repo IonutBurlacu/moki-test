@@ -28,6 +28,21 @@ export function* challengesFetchList(action) {
     });
 }
 
+export function* challengeCreate() {
+    const token = yield select(getToken);
+    const response = yield call(ChallengesAPI.create, { Authorization: token });
+
+    yield put({
+        type: 'CREATE_CHALLENGE',
+        players: response.data.players,
+        teams: response.data.teams
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
 export function* challengeInsert(action) {
     const token = yield select(getToken);
     const response = yield call(

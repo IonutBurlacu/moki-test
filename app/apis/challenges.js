@@ -34,6 +34,16 @@ export default class ChallengesAPI {
         });
     }
 
+    static create(headers = {}) {
+        return axios({
+            method: 'get',
+            url: `${host}${root}/create`,
+            headers: {
+                ...headers
+            }
+        });
+    }
+
     static insert(headers = {}, challenge) {
         const formData = new FormData();
         if (challenge.file) {
@@ -44,6 +54,8 @@ export default class ChallengesAPI {
         formData.append('name', challenge.name);
         formData.append('type', challenge.type);
         formData.append('target_steps', challenge.target_steps);
+        formData.append('players', challenge.players.map(player => player.id));
+        formData.append('teams', challenge.teams.map(team => team.id));
         return axios.post(`${host}${root}/insert`, formData, {
             headers: {
                 ...headers,

@@ -4,6 +4,7 @@ export default (
     state = {
         items: [],
         challenge: { players: [], teams: [] },
+        new: { teams: [], players: [] },
         players: [],
         teams: [],
         listDate: 'today',
@@ -105,6 +106,18 @@ export default (
                 ...state,
                 loading: false
             };
+        case 'CREATE_CHALLENGE_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'CREATE_CHALLENGE':
+            return {
+                ...state,
+                players: action.players,
+                teams: action.teams,
+                loading: false
+            };
         case 'INSERT_CHALLENGE_REQUEST':
             return {
                 ...state,
@@ -113,6 +126,7 @@ export default (
         case 'INSERT_CHALLENGE':
             return {
                 ...state,
+                new: { teams: [], players: [] },
                 loading: false
             };
         case 'EDIT_CHALLENGE_REQUEST':
@@ -230,6 +244,64 @@ export default (
                     state.challenge.teams.find(team => team.id == action.teamId)
                 ],
                 loading: false
+            };
+        case 'ATTACH_NEW_CHALLENGE_TO_PLAYER':
+            return {
+                ...state,
+                new: {
+                    ...state.new,
+                    players: [
+                        ...state.new.players,
+                        state.players.find(
+                            player => player.id === action.playerId
+                        )
+                    ]
+                },
+                players: state.players.filter(
+                    player => player.id !== action.playerId
+                )
+            };
+        case 'DETACH_NEW_CHALLENGE_FROM_PLAYER':
+            return {
+                ...state,
+                new: {
+                    ...state.new,
+                    players: state.new.players.filter(
+                        player => player.id !== action.playerId
+                    )
+                },
+                players: [
+                    ...state.players,
+                    state.new.players.find(
+                        player => player.id === action.playerId
+                    )
+                ]
+            };
+        case 'ATTACH_NEW_CHALLENGE_TO_TEAM':
+            return {
+                ...state,
+                new: {
+                    ...state.new,
+                    teams: [
+                        ...state.new.teams,
+                        state.teams.find(team => team.id === action.teamId)
+                    ]
+                },
+                teams: state.teams.filter(team => team.id !== action.teamId)
+            };
+        case 'DETACH_NEW_CHALLENGE_FROM_TEAM':
+            return {
+                ...state,
+                new: {
+                    ...state.new,
+                    teams: state.new.teams.filter(
+                        team => team.id !== action.teamId
+                    )
+                },
+                teams: [
+                    ...state.teams,
+                    state.new.teams.find(team => team.id === action.teamId)
+                ]
             };
         default:
             return state;
