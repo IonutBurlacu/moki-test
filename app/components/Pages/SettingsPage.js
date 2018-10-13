@@ -9,7 +9,6 @@ import { PageTitle } from '../PageTitle';
 import { logout, changeSettingRequest } from '../../actions/auth';
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
-import { deleteDatabaseRequest } from '../../actions/players';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
 import ConfirmDeleteModal from './SettingsPage/ConfirmDeleteModal';
 import AccountModal from './SettingsPage/AccountModal';

@@ -54,6 +54,9 @@ export default (
                 percentageOverviewB: 0,
                 percentageTypicalA: 0,
                 percentageTypicalB: 0,
+                chartType: 'today',
+                chartStartDate: moment.utc().local(),
+                chartEndDate: moment.utc().local(),
                 loading: false
             };
         case 'STATS_REPORTS_TEAMS_REQUEST':
