@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import host from '../constants/serverUrl';
 
 const root = '/api/players';
@@ -69,7 +70,10 @@ export default class PlayersAPI {
         formData.append('first_name', player.first_name);
         formData.append('last_name', player.last_name);
         formData.append('gender', player.gender);
-        formData.append('birthday', player.birthday);
+        formData.append(
+            'birthday',
+            moment(player.birthday).format('YYYY-MM-DD')
+        );
         formData.append('grade_id', player.grade_id);
         formData.append('grade', player.grade);
         formData.append('year_id', player.year_id);
@@ -100,7 +104,10 @@ export default class PlayersAPI {
         formData.append('first_name', player.first_name);
         formData.append('last_name', player.last_name);
         formData.append('gender', player.gender);
-        formData.append('birthday', player.birthday);
+        formData.append(
+            'birthday',
+            moment(player.birthday).format('YYYY-MM-DD')
+        );
         formData.append('grade_id', player.grade_id);
         formData.append('grade', player.grade);
         formData.append('year_id', player.year_id);

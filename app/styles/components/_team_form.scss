@@ -52,3 +52,14 @@
         flex: 1;
     }
 }
+
+.datepicker-form-group {
+    position: relative;
+}
+
+.player-date-picker {
+    background: #797993 !important;
+    position: absolute;
+    top: 6vmin;
+    z-index: 999;
+}

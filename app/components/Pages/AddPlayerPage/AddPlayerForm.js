@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
-import { ReactDatez } from 'react-datez';
+import { Calendar } from 'react-date-range';
 import moment from 'moment';
 import AutoSuggest from '../../Autosuggest';
 import { Header } from '../../Header';
@@ -55,13 +55,14 @@ export class AddPlayerForm extends Component {
             grade_id: '',
             year_id: '',
             gender: 'male',
-            birthday: moment().format('YYYY-MM-DD'),
+            birthday: moment(),
             grade: '',
             year: '',
             file: null,
             filePreview: '',
             defaultAvatar,
-            default_avatar: defaultAvatar.name
+            default_avatar: defaultAvatar.name,
+            calendar_show: false
         };
     }
 
@@ -78,6 +79,10 @@ export class AddPlayerForm extends Component {
             this.props.showLoader();
             this.props.insertPlayerRequest(this.state);
         }
+    };
+
+    toggleCalendar = () => {
+        this.setState({ calendar_show: !this.state.calendar_show });
     };
 
     handleInputChange = event => {
@@ -100,7 +105,7 @@ export class AddPlayerForm extends Component {
     };
 
     onDateChange = date => {
-        this.setState({ birthday: moment(date).format('YYYY-MM-DD') });
+        this.setState({ birthday: date, calendar_show: false });
     };
 
     handleSuggestionInputChange = ({ name, id, value }) => {
@@ -255,12 +260,30 @@ export class AddPlayerForm extends Component {
                                 >
                                     D.O.B.
                                 </label>
-                                <ReactDatez
-                                    handleChange={this.onDateChange}
-                                    value={this.state.birthday}
-                                    allowPast
-                                    className="datepicker"
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    id="firstName"
+                                    name="first_name"
+                                    autoComplete="off"
+                                    readOnly="true"
+                                    onClick={this.toggleCalendar}
+                                    value={moment(this.state.birthday).format(
+                                        'YYYY-MM-DD'
+                                    )}
                                 />
+                                {this.state.calendar_show ? (
+                                    <Calendar
+                                        onChange={this.onDateChange}
+                                        className="date-range-picker player-date-picker"
+                                        direction="horizontal"
+                                        showDateDisplay={false}
+                                        rangeColors={['#66667b']}
+                                        date={this.state.birthday}
+                                    />
+                                ) : (
+                                    ''
+                                )}
                             </div>
                         </div>
                     </form>
