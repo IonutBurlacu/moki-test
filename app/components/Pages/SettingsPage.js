@@ -11,6 +11,7 @@ import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import { deleteDatabaseRequest } from '../../actions/players';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
+import ConfirmDeleteModal from './SettingsPage/ConfirmDeleteModal';
 import AccountModal from './SettingsPage/AccountModal';
 
 export class SettingsPage extends Component {
@@ -21,7 +22,8 @@ export class SettingsPage extends Component {
             hide_totals: props.hide_totals,
             ignore_weekend: props.ignore_weekend,
             importModalIsOpen: false,
-            accountModalIsOpen: false
+            accountModalIsOpen: false,
+            confirmModalIsOpen: false
         };
     }
 
@@ -39,6 +41,14 @@ export class SettingsPage extends Component {
 
     closeAccountModal = () => {
         this.setState({ accountModalIsOpen: false });
+    };
+
+    openConfirmModal = () => {
+        this.setState({ confirmModalIsOpen: true });
+    };
+
+    closeConfirmModal = () => {
+        this.setState({ confirmModalIsOpen: false });
     };
 
     logout = () => {
@@ -61,8 +71,7 @@ export class SettingsPage extends Component {
     };
 
     handleDeleteDatabase = () => {
-        this.props.showLoader();
-        this.props.deleteDatabaseRequest();
+        this.openConfirmModal();
     };
 
     handleDownloadTemplate = () => {
@@ -242,6 +251,10 @@ export class SettingsPage extends Component {
                 <AccountModal
                     modalIsOpen={this.state.accountModalIsOpen}
                     closeModal={this.closeAccountModal}
+                />
+                <ConfirmDeleteModal
+                    modalIsOpen={this.state.confirmModalIsOpen}
+                    closeModal={this.closeConfirmModal}
                 />
                 <Footer />
             </div>

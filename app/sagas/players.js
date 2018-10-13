@@ -247,11 +247,11 @@ export function* playerDetachFromChallenge(action) {
     });
 }
 
-export function* deleteDatabase() {
+export function* deleteDatabase(action) {
     const token = yield select(getToken);
     const response = yield call(PlayersAPI.deleteDatabase, {
         Authorization: token
-    });
+    }, action.password);
 
     yield put({
         type: 'SHOW_ALERT',

@@ -24,17 +24,7 @@ export class ReportsPage extends Component {
     render() {
         return (
             <div className="container container-with-title">
-                <Header
-                    leftButton={
-                        <button
-                            type="button"
-                            onClick={this.handleContactSupport}
-                        >
-                            Contact Support
-                        </button>
-                    }
-                    rightButton={<div />}
-                />
+                <Header leftButton={<div />} rightButton={<div />} />
                 {!this.props.loading ? (
                     <div className="content">
                         <PageTitle title="Reports" />

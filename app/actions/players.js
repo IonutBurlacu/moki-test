@@ -178,8 +178,9 @@ export const pairBandToPlayer = (id, band) => ({
     band
 });
 
-export const deleteDatabaseRequest = () => ({
-    type: 'DELETE_DATABASE_REQUEST'
+export const deleteDatabaseRequest = password => ({
+    type: 'DELETE_DATABASE_REQUEST',
+    password
 });
 
 export const importDatabaseRequest = file => ({

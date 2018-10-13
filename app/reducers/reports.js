@@ -46,6 +46,14 @@ export default (
                     action.overview.previous_total_b.previous_steps,
                 teamIdsA: [],
                 teamIdsB: [],
+                totalOverviewA: 0,
+                totalOverviewB: 0,
+                totalTypicalA: 0,
+                totalTypicalB: 0,
+                percentageOverviewA: 0,
+                percentageOverviewB: 0,
+                percentageTypicalA: 0,
+                percentageTypicalB: 0,
                 loading: false
             };
         case 'STATS_REPORTS_TEAMS_REQUEST':

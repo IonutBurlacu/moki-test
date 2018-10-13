@@ -169,12 +169,15 @@ export default class PlayersAPI {
         });
     }
 
-    static deleteDatabase(headers = {}) {
+    static deleteDatabase(headers = {}, password) {
         return axios({
-            method: 'get',
+            method: 'post',
             url: `${host}${root}/delete_database`,
             headers: {
                 ...headers
+            },
+            data: {
+                password
             }
         });
     }
