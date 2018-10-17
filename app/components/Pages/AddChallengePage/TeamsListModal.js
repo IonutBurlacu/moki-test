@@ -90,7 +90,7 @@ export class TeamsListModal extends Component {
                             onClick={this.props.closeModal}
                             className="cancel-button"
                         >
-                            Cancel
+                            Done
                         </button>
                     </div>
                 </div>

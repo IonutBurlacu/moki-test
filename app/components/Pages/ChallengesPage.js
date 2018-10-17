@@ -92,7 +92,7 @@ export class ChallengesPage extends Component {
                                                               )}
                                                 </span>
                                             </td>
-                                            <td className="align-right">
+                                            <td>
                                                 {challenge.type === 'player' ? (
                                                     <div>
                                                         <img
@@ -192,8 +192,7 @@ export class ChallengesPage extends Component {
 
 const mapStateToProps = state => ({
     challenges: getFilteredChallenges(state.challenges.items, {
-        filterBy: state.challenges.listFilter,
-        filterByValue: state.challenges.listFilterValue,
+        filterByValues: state.challenges.listFilterValues,
         sortBy: state.challenges.listSort
     }),
     loading: state.challenges.loading,

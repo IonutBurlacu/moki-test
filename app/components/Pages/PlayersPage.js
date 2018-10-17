@@ -125,7 +125,7 @@ export class PlayersPage extends Component {
                                                     )}
                                                 </span>
                                             </td>
-                                            <td className="align-right">
+                                            <td>
                                                 {player.teams.length > 0 ? (
                                                     <img
                                                         src={teamsIconWide}
@@ -201,8 +201,7 @@ export class PlayersPage extends Component {
 
 const mapStateToProps = state => ({
     players: getFilteredPlayers(state.players.items, {
-        filterBy: state.players.listFilter,
-        filterByValue: state.players.listFilterValue,
+        filterByValues: state.players.listFilterValues,
         sortBy: state.players.listSort
     }),
     loading: state.players.loading,

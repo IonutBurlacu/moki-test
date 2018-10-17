@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeTeamsListFilter } from '../../../actions/teams';
+import {
+    addTeamsListFilter,
+    removeTeamsListFilter,
+    clearTeamsListFilter
+} from '../../../actions/teams';
 
 export class FilterBy extends Component {
     constructor(props) {
@@ -18,13 +22,17 @@ export class FilterBy extends Component {
         this.setState({ filterSelectOpen: false });
     };
 
-    handleClearFilterSelectMenu = () => {
-        this.props.changeTeamsListFilter('', '');
+    handleFiltersSelectMenu = filterValue => {
+        if (this.props.listFilterValues.includes(filterValue)) {
+            this.props.removeTeamsListFilter(filterValue);
+        } else {
+            this.props.addTeamsListFilter(filterValue);
+        }
         this.handleCloseFilterSelectMenu();
     };
 
-    handleFilterSelectChange = (listFilter, listFilterValue) => {
-        this.props.changeTeamsListFilter(listFilter, listFilterValue);
+    handleClearFilterSelectMenu = () => {
+        this.props.clearTeamsListFilter();
         this.handleCloseFilterSelectMenu();
     };
 
@@ -34,13 +42,16 @@ export class FilterBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.filterSelectOpen || this.props.listFilter
+                        this.state.filterSelectOpen ||
+                        this.props.listFilterValues.length
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
                     onClick={this.handleFilterSelectMenu}
                 >
-                    {this.props.listFilter ? 'Filters On' : 'Filter'}
+                    {this.props.listFilterValues.length
+                        ? 'Filters On'
+                        : 'Filter'}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
@@ -50,7 +61,7 @@ export class FilterBy extends Component {
                 >
                     <div className="filter-select-list-header">
                         Filter By
-                        {this.props.listFilter ? (
+                        {this.props.listFilterValues.length ? (
                             <button
                                 type="button"
                                 className="clear"
@@ -73,8 +84,9 @@ export class FilterBy extends Component {
                             <li
                                 key={team.id}
                                 className={
-                                    this.props.listFilter === 'team_id' &&
-                                    this.props.listFilterValue === team.id
+                                    this.props.listFilterValues.includes(
+                                        team.id
+                                    )
                                         ? 'selected'
                                         : ''
                                 }
@@ -82,10 +94,7 @@ export class FilterBy extends Component {
                                 <button
                                     type="button"
                                     onClick={() =>
-                                        this.handleFilterSelectChange(
-                                            'team_id',
-                                            team.id
-                                        )
+                                        this.handleFiltersSelectMenu(team.id)
                                     }
                                 >
                                     {team.name}
@@ -100,14 +109,16 @@ export class FilterBy extends Component {
 }
 
 const mapStateToProps = state => ({
-    listFilter: state.teams.listFilter,
-    listFilterValue: state.teams.listFilterValue,
+    listFilterValues: state.teams.listFilterValues,
     teams: state.teams.items
 });
 
 const mapDispatchToProps = dispatch => ({
-    changeTeamsListFilter: (listFilter, listFilterValue) =>
-        dispatch(changeTeamsListFilter(listFilter, listFilterValue))
+    addTeamsListFilter: filterValue =>
+        dispatch(addTeamsListFilter(filterValue)),
+    removeTeamsListFilter: filterValue =>
+        dispatch(removeTeamsListFilter(filterValue)),
+    clearTeamsListFilter: () => dispatch(clearTeamsListFilter())
 });
 
 export default connect(

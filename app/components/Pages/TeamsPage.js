@@ -115,7 +115,7 @@ export class TeamsPage extends Component {
                                                     )}
                                                 </span>
                                             </td>
-                                            <td className="align-right">
+                                            <td>
                                                 <img
                                                     src={playersIconWide}
                                                     className="icon"
@@ -177,8 +177,7 @@ export class TeamsPage extends Component {
 
 const mapStateToProps = state => ({
     teams: getFilteredTeams(state.teams.items, {
-        filterBy: state.teams.listFilter,
-        filterByValue: state.teams.listFilterValue,
+        filterByValues: state.teams.listFilterValues,
         sortBy: state.teams.listSort
     }),
     listDate: state.teams.listDate,

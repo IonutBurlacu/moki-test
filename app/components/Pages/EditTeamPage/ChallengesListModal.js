@@ -88,10 +88,11 @@ export class ChallengesListModal extends Component {
                     </div>
                     <div className="modal-footer">
                         <button
+                            type="button"
                             onClick={this.props.closeModal}
                             className="cancel-button"
                         >
-                            Cancel
+                            Done
                         </button>
                     </div>
                 </div>

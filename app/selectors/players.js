@@ -1,17 +1,14 @@
-const getFilteredPlayers = (players, { filterBy, filterByValue, sortBy }) =>
+const getFilteredPlayers = (players, { filterByValues, sortBy }) =>
     players
         .filter(player => {
-            if (filterBy !== '') {
-                switch (filterBy) {
-                    case 'team_id':
-                        const teamIds = player.teams.map(team => team.id);
-                        return teamIds.includes(filterByValue);
-                    default:
-                        return true;
-                }
-            } else {
-                return true;
+            if (filterByValues.length) {
+                const teamIds = player.teams.map(team => team.id);
+                return (
+                    filterByValues.filter(teamId => teamIds.includes(teamId))
+                        .length === filterByValues.length
+                );
             }
+            return true;
         })
         .sort((a, b) => {
             switch (sortBy) {

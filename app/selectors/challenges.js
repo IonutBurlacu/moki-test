@@ -1,20 +1,14 @@
-const getFilteredChallenges = (
-    challenges,
-    { filterBy, filterByValue, sortBy }
-) =>
+const getFilteredChallenges = (challenges, { filterByValues, sortBy }) =>
     challenges
         .filter(challenge => {
-            if (filterBy !== '') {
-                switch (filterBy) {
-                    case 'team_id':
-                        const teamIds = challenge.teams.map(team => team.id);
-                        return teamIds.includes(filterByValue);
-                    default:
-                        return true;
-                }
-            } else {
-                return true;
+            if (filterByValues.length) {
+                const teamIds = challenge.teams.map(team => team.id);
+                return (
+                    filterByValues.filter(teamId => teamIds.includes(teamId))
+                        .length === filterByValues.length
+                );
             }
+            return true;
         })
         .sort((a, b) => {
             switch (sortBy) {

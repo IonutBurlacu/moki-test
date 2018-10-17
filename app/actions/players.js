@@ -30,10 +30,18 @@ export const changePlayersListSort = (listSort, listSortLabel) => ({
     listSortLabel
 });
 
-export const changePlayersListFilter = (listFilter, listFilterValue) => ({
-    type: 'CHANGE_PLAYERS_LIST_FILTER',
-    listFilter,
+export const addPlayersListFilter = listFilterValue => ({
+    type: 'ADD_PLAYERS_LIST_FILTER',
     listFilterValue
+});
+
+export const removePlayersListFilter = listFilterValue => ({
+    type: 'REMOVE_PLAYERS_LIST_FILTER',
+    listFilterValue
+});
+
+export const clearPlayersListFilter = () => ({
+    type: 'CLEAR_PLAYERS_LIST_FILTER'
 });
 
 export const viewPlayerRequest = id => ({

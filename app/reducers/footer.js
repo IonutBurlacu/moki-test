@@ -1,4 +1,4 @@
-export default (state = { active: 'players' }, action) => {
+export default (state = { active: '' }, action) => {
     switch (action.type) {
         case 'SET_ACTIVE_MENU':
             return {

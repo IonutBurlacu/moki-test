@@ -23,6 +23,11 @@ export function* login(action) {
             ignore_weekend: response.data.ignore_weekend
         });
 
+        yield put({
+            type: 'SET_ACTIVE_MENU',
+            menu: 'players'
+        });
+
         yield put(push('/players'));
     } catch (error) {
         yield put({

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeChallengesListFilter } from '../../../actions/challenges';
+import {
+    addChallengesListFilter,
+    removeChallengesListFilter,
+    clearChallengesListFilter
+} from '../../../actions/challenges';
 
 export class FilterBy extends Component {
     constructor(props) {
@@ -14,16 +18,22 @@ export class FilterBy extends Component {
         this.setState({ filterSelectOpen: !this.state.filterSelectOpen });
     };
 
-    handleCloseFilterSelectMenu = (setEmpty = true) => {
+    handleCloseFilterSelectMenu = () => {
         this.setState({ filterSelectOpen: false });
-        if (setEmpty) {
-            this.props.changeChallengesListFilter('', '');
-        }
     };
 
-    handleFilterSelectChange = (listFilter, listFilterValue) => {
-        this.props.changeChallengesListFilter(listFilter, listFilterValue);
-        this.handleCloseFilterSelectMenu(false);
+    handleFiltersSelectMenu = filterValue => {
+        if (this.props.listFilterValues.includes(filterValue)) {
+            this.props.removeChallengesListFilter(filterValue);
+        } else {
+            this.props.addChallengesListFilter(filterValue);
+        }
+        this.handleCloseFilterSelectMenu();
+    };
+
+    handleClearFilterSelectMenu = () => {
+        this.props.clearChallengesListFilter();
+        this.handleCloseFilterSelectMenu();
     };
 
     render() {
@@ -32,13 +42,16 @@ export class FilterBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.filterSelectOpen || this.props.listFilter
+                        this.state.filterSelectOpen ||
+                        this.props.listFilterValues.length
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
                     onClick={this.handleFilterSelectMenu}
                 >
-                    {this.props.listFilter ? 'Filters On' : 'Filter'}
+                    {this.props.listFilterValues.length
+                        ? 'Filters On'
+                        : 'Filter'}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
@@ -48,6 +61,17 @@ export class FilterBy extends Component {
                 >
                     <div className="filter-select-list-header">
                         Filter By
+                        {this.props.listFilterValues.length ? (
+                            <button
+                                type="button"
+                                className="clear"
+                                onClick={this.handleClearFilterSelectMenu}
+                            >
+                                Clear
+                            </button>
+                        ) : (
+                            ''
+                        )}
                         <button
                             type="button"
                             onClick={this.handleCloseFilterSelectMenu}
@@ -60,8 +84,9 @@ export class FilterBy extends Component {
                             <li
                                 key={team.id}
                                 className={
-                                    this.props.listFilter === 'team_id' &&
-                                    this.props.listFilterValue === team.id
+                                    this.props.listFilterValues.includes(
+                                        team.id
+                                    )
                                         ? 'selected'
                                         : ''
                                 }
@@ -69,10 +94,7 @@ export class FilterBy extends Component {
                                 <button
                                     type="button"
                                     onClick={() =>
-                                        this.handleFilterSelectChange(
-                                            'team_id',
-                                            team.id
-                                        )
+                                        this.handleFiltersSelectMenu(team.id)
                                     }
                                 >
                                     {team.name}
@@ -87,14 +109,16 @@ export class FilterBy extends Component {
 }
 
 const mapStateToProps = state => ({
-    listFilter: state.challenges.listFilter,
-    listFilterValue: state.challenges.listFilterValue,
+    listFilterValues: state.challenges.listFilterValues,
     teams: state.challenges.teams
 });
 
 const mapDispatchToProps = dispatch => ({
-    changeChallengesListFilter: (listFilter, listFilterValue) =>
-        dispatch(changeChallengesListFilter(listFilter, listFilterValue))
+    addChallengesListFilter: filterValue =>
+        dispatch(addChallengesListFilter(filterValue)),
+    removeChallengesListFilter: filterValue =>
+        dispatch(removeChallengesListFilter(filterValue)),
+    clearChallengesListFilter: () => dispatch(clearChallengesListFilter())
 });
 
 export default connect(

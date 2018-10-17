@@ -24,10 +24,18 @@ export const changeTeamsListSort = (listSort, listSortLabel) => ({
     listSortLabel
 });
 
-export const changeTeamsListFilter = (listFilter, listFilterValue) => ({
-    type: 'CHANGE_TEAMS_LIST_FILTER',
-    listFilter,
+export const addTeamsListFilter = listFilterValue => ({
+    type: 'ADD_TEAMS_LIST_FILTER',
     listFilterValue
+});
+
+export const removeTeamsListFilter = listFilterValue => ({
+    type: 'REMOVE_TEAMS_LIST_FILTER',
+    listFilterValue
+});
+
+export const clearTeamsListFilter = () => ({
+    type: 'CLEAR_TEAMS_LIST_FILTER'
 });
 
 export const viewTeamRequest = id => ({

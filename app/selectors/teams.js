@@ -1,16 +1,10 @@
-const getFilteredTeams = (teams, { filterBy, filterByValue, sortBy }) =>
+const getFilteredTeams = (teams, { filterByValues, sortBy }) =>
     teams
         .filter(team => {
-            if (filterBy !== '') {
-                switch (filterBy) {
-                    case 'team_id':
-                        return team.id === filterByValue;
-                    default:
-                        return true;
-                }
-            } else {
-                return true;
+            if (filterByValues.length) {
+                return filterByValues.includes(team.id);
             }
+            return true;
         })
         .sort((a, b) => {
             switch (sortBy) {

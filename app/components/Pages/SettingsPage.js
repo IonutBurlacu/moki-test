@@ -12,6 +12,7 @@ import { showLoader } from '../../actions/loader';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
 import ConfirmDeleteModal from './SettingsPage/ConfirmDeleteModal';
 import AccountModal from './SettingsPage/AccountModal';
+import { setActiveMenu } from '../../actions/footer';
 
 export class SettingsPage extends Component {
     constructor(props) {
@@ -53,6 +54,7 @@ export class SettingsPage extends Component {
     logout = () => {
         this.props.logout();
         sessionStorage.removeItem('Authorization');
+        this.props.setActiveMenu('');
         this.props.history.push('/');
     };
 
@@ -270,6 +272,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
     showLoader: () => dispatch(showLoader()),
+    setActiveMenu: menu => dispatch(setActiveMenu(menu)),
     changeSettingRequest: settingName =>
         dispatch(changeSettingRequest(settingName)),
     deleteDatabaseRequest: () => dispatch(deleteDatabaseRequest())

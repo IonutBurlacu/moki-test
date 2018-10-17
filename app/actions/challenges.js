@@ -28,10 +28,18 @@ export const changeChallengesListSort = (listSort, listSortLabel) => ({
     listSortLabel
 });
 
-export const changeChallengesListFilter = (listFilter, listFilterValue) => ({
-    type: 'CHANGE_CHALLENGES_LIST_FILTER',
-    listFilter,
+export const addChallengesListFilter = listFilterValue => ({
+    type: 'ADD_CHALLENGES_LIST_FILTER',
     listFilterValue
+});
+
+export const removeChallengesListFilter = listFilterValue => ({
+    type: 'REMOVE_CHALLENGES_LIST_FILTER',
+    listFilterValue
+});
+
+export const clearChallengesListFilter = () => ({
+    type: 'CLEAR_CHALLENGES_LIST_FILTER'
 });
 
 export const viewChallengeRequest = id => ({

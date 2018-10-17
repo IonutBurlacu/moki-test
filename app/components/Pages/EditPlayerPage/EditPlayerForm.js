@@ -263,6 +263,7 @@ export class EditPlayerForm extends Component {
                                         showDateDisplay={false}
                                         rangeColors={['#66667b']}
                                         date={this.state.birthday}
+                                        maxDate={new Date()}
                                     />
                                 ) : (
                                     ''

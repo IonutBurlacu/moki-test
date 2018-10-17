@@ -22,8 +22,7 @@ export default (
         listEndDate: moment.utc().local(),
         listSort: 'most_steps',
         listSortLabel: 'Most steps',
-        listFilter: '',
-        listFilterValue: '',
+        listFilterValues: [],
         loading: false
     },
     action
@@ -74,11 +73,25 @@ export default (
                 listSort: action.listSort,
                 listSortLabel: action.listSortLabel
             };
-        case 'CHANGE_PLAYERS_LIST_FILTER':
+        case 'ADD_PLAYERS_LIST_FILTER':
             return {
                 ...state,
-                listFilter: action.listFilter,
-                listFilterValue: action.listFilterValue
+                listFilterValues: [
+                    ...state.listFilterValues,
+                    action.listFilterValue
+                ]
+            };
+        case 'REMOVE_PLAYERS_LIST_FILTER':
+            return {
+                ...state,
+                listFilterValues: state.listFilterValues.filter(
+                    element => element !== action.listFilterValue
+                )
+            };
+        case 'CLEAR_PLAYERS_LIST_FILTER':
+            return {
+                ...state,
+                listFilterValues: []
             };
         case 'VIEW_PLAYER_REQUEST':
             return {
