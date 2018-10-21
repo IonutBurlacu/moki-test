@@ -1,5 +1,11 @@
 import { fork, takeLatest } from 'redux-saga/effects';
-import { login, changePassword, deleteAccount, changeSetting } from './auth';
+import {
+    login,
+    changePassword,
+    deleteAccount,
+    changeSetting,
+    getSettings
+} from './auth';
 import {
     challengesFetchList,
     challengeCreate,
@@ -55,6 +61,7 @@ export default function* sagas() {
         fork(takeLatest, 'CHANGE_PASSWORD_REQUEST', changePassword),
         fork(takeLatest, 'DELETE_ACCOUNT_REQUEST', deleteAccount),
         fork(takeLatest, 'CHANGE_SETTING_REQUEST', changeSetting),
+        fork(takeLatest, 'GET_SETTINGS_REQUEST', getSettings),
 
         fork(takeLatest, 'PAIR_BAND_REQUEST', pairBand),
         fork(takeLatest, 'SYNC_BAND_REQUEST', syncBand),

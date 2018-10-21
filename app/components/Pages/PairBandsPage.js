@@ -30,24 +30,6 @@ export class PairBandsPage extends Component {
     };
 
     render() {
-        console.log(
-            moment()
-                .utc()
-                .local()
-                .unix()
-        );
-        console.log(
-            moment
-                .utc('2018-10-07 08:34:14')
-                .local()
-                .unix()
-        );
-        console.log(
-            moment()
-                .utc()
-                .local()
-                .diff(moment.utc('2018-10-07 08:34:14').local())
-        );
         const { loading, players } = this.props;
         return (
             <div className="container">

@@ -4,21 +4,12 @@ export const loginRequest = (email, password) => ({
     password
 });
 
-export const login = (
-    token,
-    schoolName,
-    fullName,
-    email,
-    hide_totals,
-    ignore_weekend
-) => ({
+export const login = (token, schoolName, fullName, email) => ({
     type: 'LOGIN',
     token,
     schoolName,
     fullName,
-    email,
-    hide_totals,
-    ignore_weekend
+    email
 });
 
 export const logout = () => ({
@@ -47,4 +38,14 @@ export const changeSettingRequest = settingName => ({
 export const changeSetting = settingName => ({
     type: 'CHANGE_SETTING',
     settingName
+});
+
+export const getSettingsRequest = () => ({
+    type: 'GET_SETTINGS_REQUEST'
+});
+
+export const getSettings = (ignoreWeekend, hideTotals) => ({
+    type: 'GET_SETTINGS',
+    ignoreWeekend,
+    hideTotals
 });

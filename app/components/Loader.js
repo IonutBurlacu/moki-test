@@ -24,7 +24,6 @@ export class Loader extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if (nextProps.loading === false) {
             clearTimeout(waitTimeout);
         }

@@ -66,4 +66,14 @@ export default class AuthAPI {
             }
         });
     }
+
+    static getSettings(headers = {}) {
+        return axios({
+            method: 'get',
+            url: `${host}${root}/get_settings`,
+            headers: {
+                ...headers
+            }
+        });
+    }
 }

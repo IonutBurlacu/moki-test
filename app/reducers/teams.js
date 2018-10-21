@@ -113,6 +113,9 @@ export default (
                     totalOverviewPrevious:
                         action.team.overview.previous_total.previous_steps
                 },
+                chartType: 'today',
+                chartStartDate: moment.utc().local(),
+                chartEndDate: moment.utc().local(),
                 loading: false
             };
         case 'DELETE_TEAM_REQUEST':

@@ -77,7 +77,6 @@ export class OverviewChart extends Component {
     };
 
     handleDateRangeSelect = ranges => {
-        console.log(ranges);
         this.setState({
             startDate: moment(ranges.range1.startDate),
             endDate: moment(ranges.range1.endDate)

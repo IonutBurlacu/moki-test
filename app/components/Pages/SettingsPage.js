@@ -6,13 +6,19 @@ import axios from 'axios';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
-import { logout, changeSettingRequest } from '../../actions/auth';
+import {
+    logout,
+    changeSettingRequest,
+    getSettingsRequest
+} from '../../actions/auth';
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
 import ConfirmDeleteModal from './SettingsPage/ConfirmDeleteModal';
 import AccountModal from './SettingsPage/AccountModal';
 import { setActiveMenu } from '../../actions/footer';
+import HideTotalCheckbox from './SettingsPage/HideTotalCheckbox';
+import IgnoreWeekendCheckbox from './SettingsPage/IgnoreWeekendCheckbox';
 
 export class SettingsPage extends Component {
     constructor(props) {
@@ -25,6 +31,11 @@ export class SettingsPage extends Component {
             accountModalIsOpen: false,
             confirmModalIsOpen: false
         };
+    }
+
+    componentWillMount() {
+        this.props.showLoader();
+        this.props.getSettingsRequest();
     }
 
     openImportModal = () => {
@@ -118,133 +129,119 @@ export class SettingsPage extends Component {
                     }
                     rightButton={<div />}
                 />
-                <div className="content">
-                    <PageTitle title="Settings" />
-                    <div className="table-wrapper settings-table-wrapper">
-                        <table className="table settings-table">
-                            <tr>
-                                <td>
-                                    <span className="setting-label">
-                                        Hide Totals at Record Steps
-                                    </span>
-                                </td>
-                                <td className="align-right switch-column">
-                                    <label className="switch">
-                                        <input
-                                            type="checkbox"
-                                            checked={this.state.hide_totals}
-                                            onChange={this.handleCheckboxChange}
-                                            name="hide_totals"
-                                        />
-                                        <div className="slider" />
-                                        <span className="label-on">ON</span>
-                                        <span className="label-off">OFF</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span className="setting-label">
-                                        Ignore Weekend Data
-                                    </span>
-                                </td>
-                                <td className="align-right switch-column">
-                                    <label className="switch">
-                                        <input
-                                            type="checkbox"
-                                            checked={this.state.ignore_weekend}
-                                            onChange={this.handleCheckboxChange}
-                                            name="ignore_weekend"
-                                        />
-                                        <div className="slider" />
-                                        <span className="label-on">ON</span>
-                                        <span className="label-off">OFF</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button
-                                        className="setting-button"
-                                        type="button"
-                                        onClick={this.handleReadBattery}
-                                    >
-                                        Read Band Battery Levels
-                                    </button>
-                                </td>
-                                <td />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button
-                                        className="setting-button"
-                                        type="button"
-                                        onClick={this.handleDeleteDatabase}
-                                    >
-                                        Delete Database
-                                    </button>
-                                </td>
-                                <td />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button
-                                        className="setting-button"
-                                        type="button"
-                                        onClick={this.openImportModal}
-                                    >
-                                        Import Database
-                                    </button>
-                                </td>
-                                <td className="align-right">
-                                    <button
-                                        className="green-button"
-                                        type="button"
-                                        onClick={this.handleDownloadTemplate}
-                                    >
-                                        Download Template
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button
-                                        className="setting-button"
-                                        type="button"
-                                        onClick={this.openAccountModal}
-                                    >
-                                        Account
-                                    </button>
-                                </td>
-                                <td />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button
-                                        type="button"
-                                        className="setting-button"
-                                        onClick={this.logout}
-                                    >
-                                        Log Out
-                                    </button>
-                                </td>
-                                <td />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button
-                                        className="setting-button"
-                                        type="button"
-                                        onClick={this.handleContactSupport}
-                                    >
-                                        Contact Support
-                                    </button>
-                                </td>
-                                <td />
-                            </tr>
-                        </table>
+                {!this.props.loading ? (
+                    <div className="content">
+                        <PageTitle title="Settings" />
+                        <div className="table-wrapper settings-table-wrapper">
+                            <table className="table settings-table">
+                                <tr>
+                                    <td>
+                                        <span className="setting-label">
+                                            Hide Totals at Record Steps
+                                        </span>
+                                    </td>
+                                    <td className="align-right switch-column">
+                                        <HideTotalCheckbox />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span className="setting-label">
+                                            Ignore Weekend Data
+                                        </span>
+                                    </td>
+                                    <td className="align-right switch-column">
+                                        <IgnoreWeekendCheckbox />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button
+                                            className="setting-button"
+                                            type="button"
+                                            onClick={this.handleReadBattery}
+                                        >
+                                            Read Band Battery Levels
+                                        </button>
+                                    </td>
+                                    <td />
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button
+                                            className="setting-button"
+                                            type="button"
+                                            onClick={this.handleDeleteDatabase}
+                                        >
+                                            Delete Database
+                                        </button>
+                                    </td>
+                                    <td />
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button
+                                            className="setting-button"
+                                            type="button"
+                                            onClick={this.openImportModal}
+                                        >
+                                            Import Database
+                                        </button>
+                                    </td>
+                                    <td className="align-right">
+                                        <button
+                                            className="green-button"
+                                            type="button"
+                                            onClick={
+                                                this.handleDownloadTemplate
+                                            }
+                                        >
+                                            Download Template
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button
+                                            className="setting-button"
+                                            type="button"
+                                            onClick={this.openAccountModal}
+                                        >
+                                            Account
+                                        </button>
+                                    </td>
+                                    <td />
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button
+                                            type="button"
+                                            className="setting-button"
+                                            onClick={this.logout}
+                                        >
+                                            Log Out
+                                        </button>
+                                    </td>
+                                    <td />
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button
+                                            className="setting-button"
+                                            type="button"
+                                            onClick={this.handleContactSupport}
+                                        >
+                                            Contact Support
+                                        </button>
+                                    </td>
+                                    <td />
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <div className="content" />
+                )}
                 <ImportDatabaseModal
                     modalIsOpen={this.state.importModalIsOpen}
                     closeModal={this.closeImportModal}
@@ -265,6 +262,7 @@ export class SettingsPage extends Component {
 
 const mapStateToProps = state => ({
     token: state.auth.token,
+    loading: state.auth.loading,
     hide_totals: state.auth.hide_totals,
     ignore_weekend: state.auth.ignore_weekend
 });
@@ -275,7 +273,7 @@ const mapDispatchToProps = dispatch => ({
     setActiveMenu: menu => dispatch(setActiveMenu(menu)),
     changeSettingRequest: settingName =>
         dispatch(changeSettingRequest(settingName)),
-    deleteDatabaseRequest: () => dispatch(deleteDatabaseRequest())
+    getSettingsRequest: () => dispatch(getSettingsRequest())
 });
 
 export default connect(

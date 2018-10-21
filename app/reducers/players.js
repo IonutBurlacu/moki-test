@@ -119,6 +119,9 @@ export default (
                     totalOverviewPrevious:
                         action.player.overview.previous_total.previous_steps
                 },
+                chartType: 'today',
+                chartStartDate: moment.utc().local(),
+                chartEndDate: moment.utc().local(),
                 loading: false
             };
         case 'DELETE_PLAYER_REQUEST':

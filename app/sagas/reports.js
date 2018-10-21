@@ -21,7 +21,6 @@ export function* getReportsTeams() {
 
 export function* statsReportsTeams(action) {
     const token = yield select(getToken);
-    console.log(action);
     const response = yield call(
         ReportsAPI.stats,
         { Authorization: token },
@@ -36,7 +35,6 @@ export function* statsReportsTeams(action) {
         action.filterByValueB
     );
 
-    console.log(action);
     yield put({
         type: 'STATS_REPORTS_TEAMS',
         overview: response.data.overview,

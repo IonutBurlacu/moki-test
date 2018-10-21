@@ -18,9 +18,7 @@ export function* login(action) {
             token: response.data.token,
             schoolName: response.data.school_name,
             fullName: response.data.full_name,
-            email: response.data.email,
-            hide_totals: response.data.hide_totals,
-            ignore_weekend: response.data.ignore_weekend
+            email: response.data.email
         });
 
         yield put({
@@ -118,6 +116,23 @@ export function* changeSetting(action) {
     yield put({
         type: 'CHANGE_SETTING',
         [action.settingName]: ''
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
+export function* getSettings() {
+    const token = yield select(getToken);
+    const response = yield call(AuthAPI.getSettings, {
+        Authorization: token
+    });
+
+    yield put({
+        type: 'GET_SETTINGS',
+        ignoreWeekend: !!response.data.ignore_weekend,
+        hideTotals: !!response.data.hide_totals
     });
 
     yield put({
