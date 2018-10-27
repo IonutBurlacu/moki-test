@@ -1,6 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import moment from 'moment';
+import decrypt from '../utils/decrypt';
 import { getToken } from '../selectors/auth';
 import TeamsAPI from '../apis/teams';
 
@@ -14,9 +15,11 @@ export function* teamsFetchList(action) {
         moment(action.listEndDate).format('YYYY-MM-DD')
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'GET_TEAMS',
-        teams: response.data.teams,
+        teams: decoded.teams,
         listDate: action.listDate,
         listStartDate: action.listStartDate,
         listEndDate: action.listEndDate
@@ -38,10 +41,12 @@ export function* teamStats(action) {
         moment(action.chartEndDate).format('YYYY-MM-DD')
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'STATS_TEAM',
-        overview: response.data.overview,
-        typical: response.data.typical,
+        overview: decoded.overview,
+        typical: decoded.typical,
         chartType: action.chartType,
         chartStartDate: action.chartStartDate,
         chartEndDate: action.chartEndDate
@@ -60,9 +65,11 @@ export function* teamInsert(action) {
         action.team
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'INSERT_TEAM',
-        team: { ...action.team, id: response.data.team.id }
+        team: { ...action.team, id: decoded.team.id }
     });
 
     yield put({
@@ -80,11 +87,13 @@ export function* teamEdit(action) {
         action.id
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'EDIT_TEAM',
-        team: response.data.team,
-        challenges: response.data.challenges,
-        players: response.data.players
+        team: decoded.team,
+        challenges: decoded.challenges,
+        players: decoded.players
     });
 
     yield put({
@@ -94,7 +103,7 @@ export function* teamEdit(action) {
 
 export function* teamUpdate(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         TeamsAPI.update,
         { Authorization: token },
         action.team,
@@ -121,9 +130,11 @@ export function* teamView(action) {
         action.id
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'VIEW_TEAM',
-        team: response.data.team
+        team: decoded.team
     });
 
     yield put({
@@ -133,11 +144,7 @@ export function* teamView(action) {
 
 export function* teamDelete(action) {
     const token = yield select(getToken);
-    const response = yield call(
-        TeamsAPI.delete,
-        { Authorization: token },
-        action.id
-    );
+    yield call(TeamsAPI.delete, { Authorization: token }, action.id);
 
     yield put({
         type: 'DELETE_TEAM',
@@ -153,7 +160,7 @@ export function* teamDelete(action) {
 
 export function* teamAttachToPlayer(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         TeamsAPI.attachToPlayer,
         { Authorization: token },
         action.playerId,
@@ -172,7 +179,7 @@ export function* teamAttachToPlayer(action) {
 
 export function* teamDetachFromPlayer(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         TeamsAPI.detachFromPlayer,
         { Authorization: token },
         action.playerId,
@@ -191,7 +198,7 @@ export function* teamDetachFromPlayer(action) {
 
 export function* teamAttachToChallenge(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         TeamsAPI.attachToChallenge,
         { Authorization: token },
         action.challengeId,
@@ -210,7 +217,7 @@ export function* teamAttachToChallenge(action) {
 
 export function* teamDetachFromChallenge(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         TeamsAPI.detachFromChallenge,
         { Authorization: token },
         action.challengeId,

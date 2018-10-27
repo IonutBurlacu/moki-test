@@ -1,6 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import moment from 'moment';
+import decrypt from '../utils/decrypt';
 import { getToken } from '../selectors/auth';
 import ChallengesAPI from '../apis/challenges';
 
@@ -14,10 +15,12 @@ export function* challengesFetchList(action) {
         moment(action.listEndDate).format('YYYY-MM-DD')
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'GET_CHALLENGES',
-        challenges: response.data.challenges,
-        teams: response.data.teams,
+        challenges: decoded.challenges,
+        teams: decoded.teams,
         listDate: action.listDate,
         listStartDate: action.listStartDate,
         listEndDate: action.listEndDate
@@ -32,10 +35,12 @@ export function* challengeCreate() {
     const token = yield select(getToken);
     const response = yield call(ChallengesAPI.create, { Authorization: token });
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'CREATE_CHALLENGE',
-        players: response.data.players,
-        teams: response.data.teams
+        players: decoded.players,
+        teams: decoded.teams
     });
 
     yield put({
@@ -51,9 +56,11 @@ export function* challengeInsert(action) {
         action.challenge
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'INSERT_CHALLENGE',
-        challenge: { ...action.challenge, id: response.data.challenge.id }
+        challenge: { ...action.challenge, id: decoded.challenge.id }
     });
 
     yield put({
@@ -67,10 +74,12 @@ export function* challengeEdit() {
     const token = yield select(getToken);
     const response = yield call(ChallengesAPI.edit, { Authorization: token });
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'EDIT_CHALLENGE',
-        teams: response.data.teams,
-        players: response.data.players
+        teams: decoded.teams,
+        players: decoded.players
     });
 
     yield put({
@@ -80,7 +89,7 @@ export function* challengeEdit() {
 
 export function* challengeUpdate(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         ChallengesAPI.update,
         { Authorization: token },
         action.challenge,
@@ -107,9 +116,11 @@ export function* challengeView(action) {
         action.id
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'VIEW_CHALLENGE',
-        challenge: response.data.challenge
+        challenge: decoded.challenge
     });
 
     yield put({
@@ -119,11 +130,7 @@ export function* challengeView(action) {
 
 export function* challengeDelete(action) {
     const token = yield select(getToken);
-    const response = yield call(
-        ChallengesAPI.delete,
-        { Authorization: token },
-        action.id
-    );
+    yield call(ChallengesAPI.delete, { Authorization: token }, action.id);
 
     yield put({
         type: 'DELETE_CHALLENGE',
@@ -139,7 +146,7 @@ export function* challengeDelete(action) {
 
 export function* challengeAttachToTeam(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         ChallengesAPI.attachToTeam,
         { Authorization: token },
         action.teamId,
@@ -158,7 +165,7 @@ export function* challengeAttachToTeam(action) {
 
 export function* challengeDetachFromTeam(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         ChallengesAPI.detachFromTeam,
         { Authorization: token },
         action.teamId,
@@ -177,7 +184,7 @@ export function* challengeDetachFromTeam(action) {
 
 export function* challengeAttachToPlayer(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         ChallengesAPI.attachToPlayer,
         { Authorization: token },
         action.playerId,
@@ -196,7 +203,7 @@ export function* challengeAttachToPlayer(action) {
 
 export function* challengeDetachFromPlayer(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         ChallengesAPI.detachFromPlayer,
         { Authorization: token },
         action.playerId,

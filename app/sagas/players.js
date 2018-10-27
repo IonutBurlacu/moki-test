@@ -1,6 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import moment from 'moment';
+import decrypt from '../utils/decrypt';
 import { getToken } from '../selectors/auth';
 import PlayersAPI from '../apis/players';
 
@@ -14,10 +15,12 @@ export function* playersFetchList(action) {
         moment(action.listEndDate).format('YYYY-MM-DD')
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'GET_PLAYERS',
-        players: response.data.players,
-        teams: response.data.teams,
+        players: decoded.players,
+        teams: decoded.teams,
         listDate: action.listDate,
         listStartDate: action.listStartDate,
         listEndDate: action.listEndDate
@@ -36,11 +39,13 @@ export function* playerView(action) {
         action.id
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'VIEW_PLAYER',
-        player: response.data.player,
-        grades: response.data.grades,
-        years: response.data.years
+        player: decoded.player,
+        grades: decoded.grades,
+        years: decoded.years
     });
 
     yield put({
@@ -79,10 +84,12 @@ export function* playerStats(action) {
         moment(action.chartEndDate).format('YYYY-MM-DD')
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'STATS_PLAYER',
-        overview: response.data.overview,
-        typical: response.data.typical,
+        overview: decoded.overview,
+        typical: decoded.typical,
         chartType: action.chartType,
         chartStartDate: action.chartStartDate,
         chartEndDate: action.chartEndDate
@@ -97,10 +104,12 @@ export function* playerCreate() {
     const token = yield select(getToken);
     const response = yield call(PlayersAPI.create, { Authorization: token });
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'CREATE_PLAYER',
-        grades: response.data.grades,
-        years: response.data.years
+        grades: decoded.grades,
+        years: decoded.years
     });
 
     yield put({
@@ -116,9 +125,11 @@ export function* playerInsert(action) {
         action.player
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'INSERT_PLAYER',
-        player: { ...action.player, id: response.data.player.id }
+        player: { ...action.player, id: decoded.player.id }
     });
 
     yield put({
@@ -136,13 +147,15 @@ export function* playerEdit(action) {
         action.id
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'EDIT_PLAYER',
-        player: response.data.player,
-        grades: response.data.grades,
-        years: response.data.years,
-        challenges: response.data.challenges,
-        teams: response.data.teams
+        player: decoded.player,
+        grades: decoded.grades,
+        years: decoded.years,
+        challenges: decoded.challenges,
+        teams: decoded.teams
     });
 
     yield put({
@@ -249,13 +262,19 @@ export function* playerDetachFromChallenge(action) {
 
 export function* deleteDatabase(action) {
     const token = yield select(getToken);
-    const response = yield call(PlayersAPI.deleteDatabase, {
-        Authorization: token
-    }, action.password);
+    const response = yield call(
+        PlayersAPI.deleteDatabase,
+        {
+            Authorization: token
+        },
+        action.password
+    );
+
+    const decoded = decrypt(response.data);
 
     yield put({
         type: 'SHOW_ALERT',
-        message: response.data.message
+        message: decoded.message
     });
 
     yield put({
@@ -273,9 +292,11 @@ export function* importDatabase(action) {
         action.file
     );
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'SHOW_ALERT',
-        message: response.data.message
+        message: decoded.message
     });
 
     yield put({

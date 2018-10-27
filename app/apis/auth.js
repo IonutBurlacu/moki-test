@@ -1,10 +1,15 @@
 import axios from 'axios';
 import host from '../constants/serverUrl';
+import encrypt from '../utils/encrypt';
 
 const root = '/api/auth';
 
 export default class AuthAPI {
     static login(headers = {}, email, password) {
+        const encrypted = encrypt({
+            email,
+            password
+        });
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -13,8 +18,7 @@ export default class AuthAPI {
                     ...headers
                 },
                 data: {
-                    email,
-                    password
+                    encrypted
                 }
             })
                 .then(response => {
@@ -24,13 +28,17 @@ export default class AuthAPI {
                 .catch(error => {
                     reject({
                         error: true,
-                        message: error.response.data.message
+                        message: error.response.data
                     });
                 });
         });
     }
 
     static changePassword(headers = {}, oldPassword, newPassword) {
+        const encrypted = encrypt({
+            old_password: oldPassword,
+            new_password: newPassword
+        });
         return axios({
             method: 'post',
             url: `${host}${root}/change_password`,
@@ -38,8 +46,7 @@ export default class AuthAPI {
                 ...headers
             },
             data: {
-                old_password: oldPassword,
-                new_password: newPassword
+                encrypted
             }
         });
     }
@@ -55,6 +62,9 @@ export default class AuthAPI {
     }
 
     static changeSetting(headers = {}, settingName) {
+        const encrypted = encrypt({
+            [settingName]: true
+        });
         return axios({
             method: 'post',
             url: `${host}${root}/change_setting`,
@@ -62,7 +72,7 @@ export default class AuthAPI {
                 ...headers
             },
             data: {
-                [settingName]: true
+                encrypted
             }
         });
     }

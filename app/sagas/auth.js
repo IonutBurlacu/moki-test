@@ -1,6 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { getToken } from '../selectors/auth';
+import decrypt from '../utils/decrypt';
 import AuthAPI from '../apis/auth';
 
 export function* login(action) {
@@ -12,13 +13,16 @@ export function* login(action) {
             action.password
         );
 
-        sessionStorage.setItem('Authorization', response.data.token);
+        const decoded = decrypt(response.data);
+
+        sessionStorage.setItem('Authorization', decoded.token);
+
         yield put({
             type: 'LOGIN',
-            token: response.data.token,
-            schoolName: response.data.school_name,
-            fullName: response.data.full_name,
-            email: response.data.email
+            token: decoded.token,
+            schoolName: decoded.school_name,
+            fullName: decoded.full_name,
+            email: decoded.email
         });
 
         yield put({
@@ -28,9 +32,10 @@ export function* login(action) {
 
         yield put(push('/players'));
     } catch (error) {
+        const decoded = decrypt(error.message);
         yield put({
             type: 'SHOW_ALERT',
-            message: error.message
+            message: decoded.message
         });
 
         yield put({
@@ -50,12 +55,14 @@ export function* changePassword(action) {
         action.newPassword
     );
 
-    if (response.data.success) {
+    const decoded = decrypt(response.data);
+
+    if (decoded.success) {
         sessionStorage.setItem('Authorization', null);
 
         yield put({
             type: 'SHOW_ALERT',
-            message: response.data.message
+            message: decoded.message
         });
 
         yield put({
@@ -70,7 +77,7 @@ export function* changePassword(action) {
     } else {
         yield put({
             type: 'SHOW_ALERT',
-            message: response.data.message
+            message: decoded.message
         });
 
         yield put({
@@ -87,9 +94,11 @@ export function* deleteAccount() {
 
     sessionStorage.setItem('Authorization', null);
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'SHOW_ALERT',
-        message: response.data.message
+        message: decoded.message
     });
 
     yield put({
@@ -105,7 +114,7 @@ export function* deleteAccount() {
 
 export function* changeSetting(action) {
     const token = yield select(getToken);
-    const response = yield call(
+    yield call(
         AuthAPI.changeSetting,
         {
             Authorization: token
@@ -129,10 +138,12 @@ export function* getSettings() {
         Authorization: token
     });
 
+    const decoded = decrypt(response.data);
+
     yield put({
         type: 'GET_SETTINGS',
-        ignoreWeekend: !!response.data.ignore_weekend,
-        hideTotals: !!response.data.hide_totals
+        ignoreWeekend: !!decoded.ignore_weekend,
+        hideTotals: !!decoded.hide_totals
     });
 
     yield put({

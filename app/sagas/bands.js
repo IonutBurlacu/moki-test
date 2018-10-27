@@ -1,5 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
 import { getToken } from '../selectors/auth';
+import decrypt from '../utils/decrypt';
 import BandsAPI from '../apis/bands';
 
 export function* pairBand(action) {
@@ -10,11 +11,13 @@ export function* pairBand(action) {
         action
     );
 
-    if (response.data.status) {
+    const decoded = decrypt(response.data);
+
+    if (decoded.status) {
         yield put({
             type: 'PAIR_BAND_TO_PLAYER',
             id: action.id,
-            band: response.data.band
+            band: decoded.band
         });
 
         yield put({
@@ -27,7 +30,7 @@ export function* pairBand(action) {
 
         yield put({
             type: 'SHOW_ALERT',
-            message: response.data.message
+            message: decoded.message
         });
     } else {
         yield put({
@@ -40,7 +43,7 @@ export function* pairBand(action) {
 
         yield put({
             type: 'SHOW_ALERT',
-            message: response.data.message
+            message: decoded.message
         });
     }
 
@@ -57,11 +60,13 @@ export function* syncBand(action) {
         action
     );
 
-    if (response.data.status) {
+    const decoded = decrypt(response.data);
+
+    if (decoded.status) {
         yield put({
             type: 'SYNC_BAND',
-            player: response.data.player,
-            totalSteps: response.data.steps,
+            player: decoded.player,
+            totalSteps: decoded.steps,
             batteryLevel: action.batteryLevel
         });
 
@@ -71,7 +76,7 @@ export function* syncBand(action) {
 
         yield put({
             type: 'SHOW_ALERT',
-            message: response.data.message
+            message: decoded.message
         });
     } else {
         yield put({
@@ -84,7 +89,7 @@ export function* syncBand(action) {
 
         yield put({
             type: 'SHOW_ALERT',
-            message: response.data.message
+            message: decoded.message
         });
     }
 

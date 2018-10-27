@@ -1,5 +1,6 @@
 import axios from 'axios';
 import host from '../constants/serverUrl';
+import encrypt from '../utils/encrypt';
 
 const root = '/api/teams';
 
@@ -35,6 +36,11 @@ export default class TeamsAPI {
     }
 
     static stats(headers = {}, id, chartType, chartStartDate, chartEndDate) {
+        const encrypted = encrypt({
+            type: chartType,
+            start_date: chartStartDate,
+            end_date: chartEndDate
+        });
         return axios({
             method: 'post',
             url: `${host}${root}/stats/${id}`,
@@ -42,9 +48,7 @@ export default class TeamsAPI {
                 ...headers
             },
             data: {
-                type: chartType,
-                start_date: chartStartDate,
-                end_date: chartEndDate
+                encrypted
             }
         });
     }
@@ -56,7 +60,10 @@ export default class TeamsAPI {
         } else {
             formData.append('default_avatar', team.default_avatar);
         }
-        formData.append('name', team.name);
+        const encrypted = encrypt({
+            name: team.name
+        });
+        formData.append('encrypted', encrypted);
         return axios.post(`${host}${root}/insert`, formData, {
             headers: {
                 ...headers,
@@ -80,7 +87,10 @@ export default class TeamsAPI {
         if (team.file) {
             formData.append('avatar', team.file);
         }
-        formData.append('name', team.name);
+        const encrypted = encrypt({
+            name: team.name
+        });
+        formData.append('encrypted', encrypted);
         return axios.post(`${host}${root}/update/${id}`, formData, {
             headers: {
                 ...headers,
@@ -90,6 +100,10 @@ export default class TeamsAPI {
     }
 
     static attachToPlayer(headers = {}, playerId, teamId) {
+        const encrypted = encrypt({
+            player_id: playerId,
+            team_id: teamId
+        });
         return axios({
             method: 'post',
             url: `${host}${root}/attach_to_player`,
@@ -97,13 +111,16 @@ export default class TeamsAPI {
                 ...headers
             },
             data: {
-                player_id: playerId,
-                team_id: teamId
+                encrypted
             }
         });
     }
 
     static detachFromPlayer(headers = {}, playerId, teamId) {
+        const encrypted = encrypt({
+            player_id: playerId,
+            team_id: teamId
+        });
         return axios({
             method: 'post',
             url: `${host}${root}/detach_from_player`,
@@ -111,13 +128,16 @@ export default class TeamsAPI {
                 ...headers
             },
             data: {
-                player_id: playerId,
-                team_id: teamId
+                encrypted
             }
         });
     }
 
     static attachToChallenge(headers = {}, challengeId, teamId) {
+        const encrypted = encrypt({
+            challenge_id: challengeId,
+            team_id: teamId
+        });
         return axios({
             method: 'post',
             url: `${host}${root}/attach_to_challenge`,
@@ -125,13 +145,16 @@ export default class TeamsAPI {
                 ...headers
             },
             data: {
-                challenge_id: challengeId,
-                team_id: teamId
+                encrypted
             }
         });
     }
 
     static detachFromChallenge(headers = {}, challengeId, teamId) {
+        const encrypted = encrypt({
+            challenge_id: challengeId,
+            team_id: teamId
+        });
         return axios({
             method: 'post',
             url: `${host}${root}/detach_from_challenge`,
@@ -139,8 +162,7 @@ export default class TeamsAPI {
                 ...headers
             },
             data: {
-                challenge_id: challengeId,
-                team_id: teamId
+                encrypted
             }
         });
     }
