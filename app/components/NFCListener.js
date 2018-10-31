@@ -188,37 +188,13 @@ export class NFCListener extends Component {
         ])
             .then(responses => {
                 const steps = [];
+                console.log(responses);
                 responses.forEach((response, key) => {
-                    const stepsFirstSlot =
-                        response.readInt16LE(0) + response.readInt16LE(2);
-                    if (stepsFirstSlot > 0) {
+                    for (let j = 0; j < 8; j++) {
+                        const stepsForHour = response.readInt16LE(j * 2);
                         steps.push({
-                            hour_id: key * 4,
-                            steps: stepsFirstSlot
-                        });
-                    }
-                    const stepsSecondSlot =
-                        response.readInt16LE(4) + response.readInt16LE(6);
-                    if (stepsSecondSlot > 0) {
-                        steps.push({
-                            hour_id: key * 4 + 1,
-                            steps: stepsSecondSlot
-                        });
-                    }
-                    const stepsThirdSlot =
-                        response.readInt16LE(8) + response.readInt16LE(10);
-                    if (stepsThirdSlot > 0) {
-                        steps.push({
-                            hour_id: key * 4 + 2,
-                            steps: stepsThirdSlot
-                        });
-                    }
-                    const stepsFourthSlot =
-                        response.readInt16LE(12) + response.readInt16LE(14);
-                    if (stepsFourthSlot > 0) {
-                        steps.push({
-                            hour_id: key * 4 + 3,
-                            steps: stepsFourthSlot
+                            hour_id: key * 8 + j,
+                            steps: stepsForHour
                         });
                     }
                 });
@@ -235,10 +211,13 @@ export class NFCListener extends Component {
                         this.props.syncBandRequest(
                             this.state.uuid,
                             this.state.totalSteps,
-                            steps,
+                            this.removeAlreadySyncedSteps(
+                                steps,
+                                this.state.totalSteps
+                            ),
                             (responseAsHex[0] / 9) * 100
                         );
-                        console.log('Steps synced');
+
                         this.resetSteps(reader, false);
                         return true;
                     })
@@ -253,6 +232,45 @@ export class NFCListener extends Component {
             .catch(error => {
                 console.log(`error`, error);
             });
+    };
+
+    removeAlreadySyncedSteps = (steps, totalSteps) => {
+        /**
+         * We use this method because the bands have some kind of bug that does this:
+         * If you sync the band and then reset the steps, sometimes the total steps counter is resetted,
+         * but the steps per hour is not. That's why we need to do the dirty stuff below.
+         */
+        let tempSum = 0;
+        steps.reverse();
+        const newSteps = [];
+        for (let i = 0; i < steps.length; i += 2) {
+            if (tempSum < totalSteps) {
+                const hour = {
+                    hour_id: parseInt(steps[i].hour_id / 2, 10),
+                    steps: 0
+                };
+                if (steps[i].steps + tempSum <= totalSteps) {
+                    hour.steps += steps[i].steps;
+                    tempSum += steps[i].steps;
+                    if (tempSum < totalSteps) {
+                        if (steps[i + 1].steps + tempSum <= totalSteps) {
+                            hour.steps += steps[i + 1].steps;
+                            tempSum += steps[i + 1].steps;
+                        } else {
+                            hour.steps += totalSteps - tempSum;
+                            tempSum = totalSteps;
+                        }
+                    }
+                } else {
+                    hour.steps += totalSteps - tempSum;
+                    tempSum = totalSteps;
+                }
+                if (hour.steps > 0) {
+                    newSteps.push(hour);
+                }
+            }
+        }
+        return newSteps.reverse();
     };
 
     readBatteryLevel = (reader, uuid) => {
