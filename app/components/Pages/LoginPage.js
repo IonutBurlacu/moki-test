@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import { shell } from 'electron';
 import Footer from '../Footer';
+import Loader from '../Loader';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import LoginForm from './LoginPage/LoginForm';
@@ -32,6 +33,7 @@ class LoginPage extends Component {
                     <LoginForm history={this.props.history} />
                 </div>
                 <Alert />
+                <Loader />
                 <Footer />
             </div>
         );

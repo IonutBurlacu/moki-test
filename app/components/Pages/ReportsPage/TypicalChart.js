@@ -201,6 +201,7 @@ export class TypicalChart extends Component {
                                             onRangeFocusChange={
                                                 this.handleDateRangeFocus
                                             }
+                                            maxDate={new Date()}
                                         />
                                     </li>
                                 </ul>

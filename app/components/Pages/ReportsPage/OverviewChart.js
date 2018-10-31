@@ -201,6 +201,7 @@ export class OverviewChart extends Component {
                                             onRangeFocusChange={
                                                 this.handleDateRangeFocus
                                             }
+                                            maxDate={new Date()}
                                         />
                                     </li>
                                 </ul>
@@ -326,7 +327,8 @@ export class OverviewChart extends Component {
                         </div>
                         <div className="right-side">
                             <span className="total">
-                                Total: {this.props.totalOverviewA.toLocaleString()}
+                                Total:{' '}
+                                {this.props.totalOverviewA.toLocaleString()}
                             </span>
                         </div>
                     </div>
@@ -388,7 +390,8 @@ export class OverviewChart extends Component {
                         </div>
                         <div className="right-side">
                             <span className="total">
-                                Total: {this.props.totalOverviewB.toLocaleString()}
+                                Total:{' '}
+                                {this.props.totalOverviewB.toLocaleString()}
                             </span>
                         </div>
                     </div>

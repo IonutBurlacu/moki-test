@@ -186,6 +186,7 @@ export class DateBy extends Component {
                                 onChange={this.handleDateRangeSelect}
                                 locale={enGb}
                                 onRangeFocusChange={this.handleDateRangeFocus}
+                                maxDate={new Date()}
                             />
                         </li>
                     </ul>
