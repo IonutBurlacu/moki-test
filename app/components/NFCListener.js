@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NFC } from 'nfc-pcsc';
+import _ from 'lodash';
 import { push } from 'react-router-redux';
 import moment from 'moment';
 import { showAlert } from '../actions/alert';
@@ -29,7 +30,7 @@ export class NFCListener extends Component {
         this.nfc = new NFC();
 
         this.state = {
-            totalSteps: 0,
+            allSteps: [],
             uuid: ''
         };
 
@@ -41,7 +42,6 @@ export class NFCListener extends Component {
                 if (this.props.pairing) {
                     if (this.props.selectedPlayerId !== null) {
                         this.props.showLoader();
-                        this.resetSteps(reader);
                         this.props.pairBandRequest(
                             this.props.selectedPlayerId,
                             card.uid
@@ -58,7 +58,7 @@ export class NFCListener extends Component {
                 } else {
                     this.props.showLoader();
                     this.setState({ uuid: card.uid });
-                    this.findCurrentDay(reader);
+                    this.readDays(reader);
                     this.props.push('/bands/sync');
                 }
             });
@@ -130,7 +130,7 @@ export class NFCListener extends Component {
             });
     };
 
-    findCurrentDay = reader => {
+    readDays = reader => {
         Promise.all([
             reader.read(MONDAY, 16, 16),
             reader.read(TUESDAY, 16, 16),
@@ -141,8 +141,36 @@ export class NFCListener extends Component {
             reader.read(SUNDAY, 16, 16)
         ])
             .then(responses => {
-                // console.log(responses);
-                let dayFound = false;
+                const done = _.after(7, () => {
+                    // Read battery level
+                    reader
+                        .read(0xbf, 16, 16)
+                        .then(response => {
+                            const responseAsHex = Buffer.from(
+                                response.toString('hex').match(/.{1,2}/g)
+                            );
+
+                            // Send the steps to the server
+                            this.props.syncBandRequest(
+                                this.state.uuid,
+                                this.state.allSteps.sort(
+                                    (a, b) => (a.date > b.date ? 1 : -1)
+                                ),
+                                (responseAsHex[0] / 9) * 100
+                            );
+
+                            this.setState({ allSteps: [] });
+
+                            return true;
+                        })
+                        .catch(error => {
+                            console.log(
+                                'Error while reading battery levels: ',
+                                error
+                            );
+                        });
+                });
+
                 responses.forEach((response, index) => {
                     /* 
                     We do this because the date is stored on bands as decimal and when the data is read,
@@ -156,20 +184,15 @@ export class NFCListener extends Component {
                         `20${responseAsHex[0]}`,
                         responseAsHex[1] - 1, // Months start from  0
                         responseAsHex[2]
-                    ]);
-                    // If day is today and there are some steps
-                    const stepsInt = response.readInt32LE(4);
-                    if (moment().diff(date, 'days') === 0 && stepsInt > 0) {
-                        dayFound = true;
-                        this.setState({ totalSteps: stepsInt });
-                        this.readDay(reader, DAYS[index]);
-                    }
+                    ]).format('YYYY-MM-DD');
+                    this.readDay(reader, DAYS[index], date, done);
                 });
-                if (!dayFound) {
-                    this.props.hideLoader();
-                    this.props.playSyncSound();
-                    this.props.showAlert('No steps found on the band.');
-                }
+                // if (!dayFound) {
+                //     this.props.hideLoader();
+                //     this.props.playSyncSound();
+                //     this.props.showAlert('No steps found on the band.');
+                // }
+
                 return true;
             })
             .catch(error => {
@@ -177,7 +200,7 @@ export class NFCListener extends Component {
             });
     };
 
-    readDay = (reader, day) => {
+    readDay = (reader, day, date, done) => {
         Promise.all([
             reader.read(day + 2, 16, 16),
             reader.read(day + 6, 16, 16),
@@ -187,90 +210,41 @@ export class NFCListener extends Component {
             reader.read(day + 22, 16, 16)
         ])
             .then(responses => {
-                const steps = [];
-                console.log(responses);
+                const stepsForDay = {
+                    date,
+                    steps: [],
+                    totalSteps: 0
+                };
                 responses.forEach((response, key) => {
-                    for (let j = 0; j < 8; j++) {
-                        const stepsForHour = response.readInt16LE(j * 2);
-                        steps.push({
-                            hour_id: key * 8 + j,
-                            steps: stepsForHour
-                        });
+                    for (let j = 0; j < 4; j++) {
+                        const stepsForHour =
+                            response.readInt16LE(j * 4) +
+                            response.readInt16LE(j * 4 + 2);
+                        if (stepsForHour > 0) {
+                            stepsForDay.steps.push({
+                                hour_id: key * 4 + j,
+                                steps: stepsForHour
+                            });
+                        }
                     }
                 });
 
-                // Read battery level
-                reader
-                    .read(0xbf, 16, 16)
-                    .then(response => {
-                        const responseAsHex = Buffer.from(
-                            response.toString('hex').match(/.{1,2}/g)
-                        );
+                stepsForDay.totalSteps = stepsForDay.steps.reduce(
+                    (sum, stepsForHour) => sum + stepsForHour.steps,
+                    0
+                );
 
-                        // Send the steps to the server
-                        this.props.syncBandRequest(
-                            this.state.uuid,
-                            this.state.totalSteps,
-                            this.removeAlreadySyncedSteps(
-                                steps,
-                                this.state.totalSteps
-                            ),
-                            (responseAsHex[0] / 9) * 100
-                        );
+                this.setState({
+                    allSteps: [...this.state.allSteps, stepsForDay]
+                });
 
-                        this.resetSteps(reader, false);
-                        return true;
-                    })
-                    .catch(error => {
-                        console.log(
-                            'Error while reading battery levels: ',
-                            error
-                        );
-                    });
+                done();
+
                 return true;
             })
             .catch(error => {
                 console.log(`error`, error);
             });
-    };
-
-    removeAlreadySyncedSteps = (steps, totalSteps) => {
-        /**
-         * We use this method because the bands have some kind of bug that does this:
-         * If you sync the band and then reset the steps, sometimes the total steps counter is resetted,
-         * but the steps per hour is not. That's why we need to do the dirty stuff below.
-         */
-        let tempSum = 0;
-        steps.reverse();
-        const newSteps = [];
-        for (let i = 0; i < steps.length; i += 2) {
-            if (tempSum < totalSteps) {
-                const hour = {
-                    hour_id: parseInt(steps[i].hour_id / 2, 10),
-                    steps: 0
-                };
-                if (steps[i].steps + tempSum <= totalSteps) {
-                    hour.steps += steps[i].steps;
-                    tempSum += steps[i].steps;
-                    if (tempSum < totalSteps) {
-                        if (steps[i + 1].steps + tempSum <= totalSteps) {
-                            hour.steps += steps[i + 1].steps;
-                            tempSum += steps[i + 1].steps;
-                        } else {
-                            hour.steps += totalSteps - tempSum;
-                            tempSum = totalSteps;
-                        }
-                    }
-                } else {
-                    hour.steps += totalSteps - tempSum;
-                    tempSum = totalSteps;
-                }
-                if (hour.steps > 0) {
-                    newSteps.push(hour);
-                }
-            }
-        }
-        return newSteps.reverse();
     };
 
     readBatteryLevel = (reader, uuid) => {
@@ -320,8 +294,8 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     hideLoader: () => dispatch(hideLoader()),
     pairBandRequest: (id, uuid) => dispatch(pairBandRequest(id, uuid)),
-    syncBandRequest: (id, totalSteps, steps, batteryLevel) =>
-        dispatch(syncBandRequest(id, totalSteps, steps, batteryLevel)),
+    syncBandRequest: (id, allSteps, batteryLevel) =>
+        dispatch(syncBandRequest(id, allSteps, batteryLevel)),
     readBattery: (uuid, level) => dispatch(readBattery(uuid, level)),
     push: pathName => dispatch(push(pathName)),
     playSyncSound: () => dispatch(playSyncSound()),

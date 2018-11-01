@@ -66,7 +66,7 @@ export function* syncBand(action) {
         yield put({
             type: 'SYNC_BAND',
             player: decoded.player,
-            totalSteps: decoded.steps,
+            totalSteps: decoded.totalSteps,
             batteryLevel: action.batteryLevel
         });
 

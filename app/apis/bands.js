@@ -24,9 +24,9 @@ export default class BandsAPI {
     static sync(headers = {}, action) {
         const encrypted = encrypt({
             uuid: action.uuid,
-            total_steps: action.totalSteps,
-            steps: action.steps
+            all_steps: action.allSteps
         });
+        console.log(action.allSteps);
         return axios({
             method: 'post',
             url: `${host}${root}/sync`,
