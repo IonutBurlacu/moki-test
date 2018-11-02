@@ -3,23 +3,22 @@ import { connect } from 'react-redux';
 import {
     addChallengesListFilter,
     removeChallengesListFilter,
-    clearChallengesListFilter
+    clearChallengesListFilter,
+    openChallengesMenu,
+    closeChallengesMenu
 } from '../../../actions/challenges';
 
 export class FilterBy extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filterSelectOpen: false
-        };
-    }
-
     handleFilterSelectMenu = () => {
-        this.setState({ filterSelectOpen: !this.state.filterSelectOpen });
+        if (this.props.filterSelectOpen) {
+            this.props.closeChallengesMenu('filterSelectOpen');
+        } else {
+            this.props.openChallengesMenu('filterSelectOpen');
+        }
     };
 
     handleCloseFilterSelectMenu = () => {
-        this.setState({ filterSelectOpen: false });
+        this.props.closeChallengesMenu('filterSelectOpen');
     };
 
     handleFiltersSelectMenu = filterValue => {
@@ -42,7 +41,7 @@ export class FilterBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.filterSelectOpen ||
+                        this.props.filterSelectOpen ||
                         this.props.listFilterValues.length
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
@@ -56,7 +55,7 @@ export class FilterBy extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.filterSelectOpen ? 'block' : 'none'
+                        display: this.props.filterSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -110,10 +109,13 @@ export class FilterBy extends Component {
 
 const mapStateToProps = state => ({
     listFilterValues: state.challenges.listFilterValues,
-    teams: state.challenges.teams
+    teams: state.challenges.teams,
+    filterSelectOpen: state.challenges.filterSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
+    openChallengesMenu: menu => dispatch(openChallengesMenu(menu)),
+    closeChallengesMenu: menu => dispatch(closeChallengesMenu(menu)),
     addChallengesListFilter: filterValue =>
         dispatch(addChallengesListFilter(filterValue)),
     removeChallengesListFilter: filterValue =>

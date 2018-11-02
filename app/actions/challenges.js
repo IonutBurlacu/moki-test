@@ -167,3 +167,13 @@ export const detachNewChallengeFromPlayer = playerId => ({
     type: 'DETACH_NEW_CHALLENGE_FROM_PLAYER',
     playerId
 });
+
+export const openChallengesMenu = menu => ({
+    type: 'OPEN_CHALLENGES_MENU',
+    menu
+});
+
+export const closeChallengesMenu = menu => ({
+    type: 'CLOSE_CHALLENGES_MENU',
+    menu
+});

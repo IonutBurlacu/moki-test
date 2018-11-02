@@ -5,7 +5,9 @@ import enGb from 'react-date-range/dist/locale/en-GB';
 import moment from 'moment';
 import {
     changePlayersListDate,
-    getPlayersRequest
+    getPlayersRequest,
+    openPlayersMenu,
+    closePlayersMenu
 } from '../../../actions/players';
 import { showLoader } from '../../../actions/loader';
 
@@ -13,7 +15,6 @@ export class DateBy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateSelectOpen: false,
             startDate: props.listStartDate,
             endDate: props.listEndDate
         };
@@ -37,14 +38,19 @@ export class DateBy extends Component {
     };
 
     handleDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: !this.state.dateSelectOpen });
+        if (this.props.dateSelectOpen) {
+            this.props.closePlayersMenu('dateSelectOpen');
+        } else {
+            this.props.openPlayersMenu('dateSelectOpen');
+        }
     };
 
     handleCloseDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: false });
+        this.props.closePlayersMenu('dateSelectOpen');
     };
 
     handleDateSelectChange = listDate => {
+        this.props.closePlayersMenu('dateSelectOpen');
         this.props.changePlayersListDate(listDate);
         this.props.showLoader();
         this.props.getPlayersRequest(listDate);
@@ -60,6 +66,7 @@ export class DateBy extends Component {
     handleDateRangeFocus = ranges => {
         setTimeout(() => {
             if (ranges[1] === 0) {
+                this.props.closePlayersMenu('dateSelectOpen');
                 this.props.changePlayersListDate(
                     'interval',
                     this.state.startDate,
@@ -81,7 +88,7 @@ export class DateBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.dateSelectOpen
+                        this.props.dateSelectOpen
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
@@ -92,7 +99,7 @@ export class DateBy extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.dateSelectOpen ? 'block' : 'none'
+                        display: this.props.dateSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -199,11 +206,14 @@ export class DateBy extends Component {
 const mapStateToProps = state => ({
     listDate: state.players.listDate,
     listStartDate: state.players.listStartDate,
-    listEndDate: state.players.listEndDate
+    listEndDate: state.players.listEndDate,
+    dateSelectOpen: state.players.dateSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
+    openPlayersMenu: menu => dispatch(openPlayersMenu(menu)),
+    closePlayersMenu: menu => dispatch(closePlayersMenu(menu)),
     changePlayersListDate: (
         listDate,
         listStartDate = moment.utc().local(),

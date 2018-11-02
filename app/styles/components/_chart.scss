@@ -39,6 +39,10 @@
                 right: 0;
                 width: 25vmin;
 
+                &.active {
+                    background: #fe335e;
+                }
+
                 &:before {
                     border-color: #fff transparent transparent transparent;
                     border-style: solid;

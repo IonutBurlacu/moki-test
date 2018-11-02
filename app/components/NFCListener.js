@@ -42,6 +42,7 @@ export class NFCListener extends Component {
                 if (this.props.pairing) {
                     if (this.props.selectedPlayerId !== null) {
                         this.props.showLoader();
+                        this.writeCurrentDate(reader);
                         this.props.pairBandRequest(
                             this.props.selectedPlayerId,
                             card.uid

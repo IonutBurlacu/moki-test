@@ -4,7 +4,9 @@ import { showLoader } from '../../../actions/loader';
 import {
     statsReportsTeamsRequest,
     addTeamToDataB,
-    removeTeamFromDataB
+    removeTeamFromDataB,
+    openReportsMenu,
+    closeReportsMenu
 } from '../../../actions/reports';
 
 export class DataBTeams extends Component {
@@ -16,11 +18,15 @@ export class DataBTeams extends Component {
     }
 
     handleDataBSelectMenu = () => {
-        this.setState({ dataBSelectOpen: !this.state.dataBSelectOpen });
+        if (this.props.dataBSelectOpen) {
+            this.props.closeReportsMenu('dataBSelectOpen');
+        } else {
+            this.props.openReportsMenu('dataBSelectOpen');
+        }
     };
 
     handleCloseDataBSelectMenu = () => {
-        this.setState({ dataBSelectOpen: false });
+        this.props.closeReportsMenu('dataBSelectOpen');
     };
 
     handleTeamModifyToDataB = teamId => {
@@ -60,7 +66,7 @@ export class DataBTeams extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.dataBSelectOpen
+                        this.props.dataBSelectOpen
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
@@ -71,7 +77,7 @@ export class DataBTeams extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.dataBSelectOpen ? 'block' : 'none'
+                        display: this.props.dataBSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -120,7 +126,8 @@ const mapStateToProps = state => ({
     filterByA: state.reports.filterByA,
     filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB
+    filterByValueB: state.reports.filterByValueB,
+    dataBSelectOpen: state.reports.dataBSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -150,6 +157,8 @@ const mapDispatchToProps = dispatch => ({
         ),
     addTeamToDataB: teamId => dispatch(addTeamToDataB(teamId)),
     removeTeamFromDataB: teamId => dispatch(removeTeamFromDataB(teamId)),
+    openReportsMenu: menu => dispatch(openReportsMenu(menu)),
+    closeReportsMenu: menu => dispatch(closeReportsMenu(menu)),
     showLoader: () => dispatch(showLoader())
 });
 

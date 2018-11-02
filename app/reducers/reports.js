@@ -24,6 +24,12 @@ export default (
         filterByValueA: '',
         filterByB: '',
         filterByValueB: '',
+        filterASelectOpen: false,
+        filterBSelectOpen: false,
+        dataASelectOpen: false,
+        dataBSelectOpen: false,
+        dateSelectOverviewOpen: false,
+        dateSelectTypicalOpen: false,
         loading: false
     },
     action
@@ -149,6 +155,22 @@ export default (
                 ...state,
                 filterByB: '',
                 filterByValueB: ''
+            };
+        case 'OPEN_REPORTS_MENU':
+            return {
+                ...state,
+                filterASelectOpen: false,
+                filterBSelectOpen: false,
+                dataASelectOpen: false,
+                dataBSelectOpen: false,
+                dateSelectOverviewOpen: false,
+                dateSelectTypicalOpen: false,
+                [action.menu]: true
+            };
+        case 'CLOSE_REPORTS_MENU':
+            return {
+                ...state,
+                [action.menu]: false
             };
         default:
             return state;

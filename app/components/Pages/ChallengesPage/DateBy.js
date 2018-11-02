@@ -5,7 +5,9 @@ import enGb from 'react-date-range/dist/locale/en-GB';
 import moment from 'moment';
 import {
     changeChallengesListDate,
-    getChallengesRequest
+    getChallengesRequest,
+    openChallengesMenu,
+    closeChallengesMenu
 } from '../../../actions/challenges';
 import { showLoader } from '../../../actions/loader';
 
@@ -13,7 +15,6 @@ export class DateBy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateSelectOpen: false,
             startDate: props.listStartDate,
             endDate: props.listEndDate
         };
@@ -37,14 +38,19 @@ export class DateBy extends Component {
     };
 
     handleDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: !this.state.dateSelectOpen });
+        if (this.props.dateSelectOpen) {
+            this.props.closeChallengesMenu('dateSelectOpen');
+        } else {
+            this.props.openChallengesMenu('dateSelectOpen');
+        }
     };
 
     handleCloseDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: false });
+        this.props.closeChallengesMenu('dateSelectOpen');
     };
 
     handleDateSelectChange = listDate => {
+        this.props.closeChallengesMenu('dateSelectOpen');
         this.props.changeChallengesListDate(listDate);
         this.props.showLoader();
         this.props.getChallengesRequest(listDate);
@@ -60,6 +66,7 @@ export class DateBy extends Component {
     handleDateRangeFocus = ranges => {
         setTimeout(() => {
             if (ranges[1] === 0) {
+                this.props.closeChallengesMenu('dateSelectOpen');
                 this.props.changeChallengesListDate(
                     'interval',
                     this.state.startDate,
@@ -81,7 +88,7 @@ export class DateBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.dateSelectOpen
+                        this.props.dateSelectOpen
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
@@ -92,7 +99,7 @@ export class DateBy extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.dateSelectOpen ? 'block' : 'none'
+                        display: this.props.dateSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -199,11 +206,14 @@ export class DateBy extends Component {
 const mapStateToProps = state => ({
     listDate: state.challenges.listDate,
     listStartDate: state.challenges.listStartDate,
-    listEndDate: state.challenges.listEndDate
+    listEndDate: state.challenges.listEndDate,
+    dateSelectOpen: state.challenges.dateSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
+    openChallengesMenu: menu => dispatch(openChallengesMenu(menu)),
+    closeChallengesMenu: menu => dispatch(closeChallengesMenu(menu)),
     changeChallengesListDate: (
         listDate,
         listStartDate = moment.utc().local(),

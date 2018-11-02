@@ -21,6 +21,11 @@ export default (
         listSort: 'most_steps',
         listSortLabel: 'Most steps',
         listFilterValues: [],
+        dateSelectOpen: false,
+        filterSelectOpen: false,
+        sortSelectOpen: false,
+        dateSelectOverviewOpen: false,
+        dateSelectTypicalOpen: false,
         loading: false
     },
     action
@@ -289,6 +294,21 @@ export default (
                     )
                 ],
                 loading: false
+            };
+        case 'OPEN_TEAMS_MENU':
+            return {
+                ...state,
+                dateSelectOpen: false,
+                filterSelectOpen: false,
+                sortSelectOpen: false,
+                dateSelectOverviewOpen: false,
+                dateSelectTypicalOpen: false,
+                [action.menu]: true
+            };
+        case 'CLOSE_TEAMS_MENU':
+            return {
+                ...state,
+                [action.menu]: false
             };
         default:
             return state;

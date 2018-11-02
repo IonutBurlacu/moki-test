@@ -4,23 +4,22 @@ import { showLoader } from '../../../actions/loader';
 import {
     statsReportsTeamsRequest,
     addTeamToDataA,
-    removeTeamFromDataA
+    removeTeamFromDataA,
+    openReportsMenu,
+    closeReportsMenu
 } from '../../../actions/reports';
 
 export class DataATeams extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataASelectOpen: false
-        };
-    }
-
     handleDataASelectMenu = () => {
-        this.setState({ dataASelectOpen: !this.state.dataASelectOpen });
+        if (this.props.dataASelectOpen) {
+            this.props.closeReportsMenu('dataASelectOpen');
+        } else {
+            this.props.openReportsMenu('dataASelectOpen');
+        }
     };
 
     handleCloseDataASelectMenu = () => {
-        this.setState({ dataASelectOpen: false });
+        this.props.closeReportsMenu('dataASelectOpen');
     };
 
     handleTeamModifyToDataA = teamId => {
@@ -60,7 +59,7 @@ export class DataATeams extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.dataASelectOpen
+                        this.props.dataASelectOpen
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
@@ -71,7 +70,7 @@ export class DataATeams extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.dataASelectOpen ? 'block' : 'none'
+                        display: this.props.dataASelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -120,7 +119,8 @@ const mapStateToProps = state => ({
     filterByA: state.reports.filterByA,
     filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB
+    filterByValueB: state.reports.filterByValueB,
+    dataASelectOpen: state.reports.dataASelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -150,6 +150,8 @@ const mapDispatchToProps = dispatch => ({
         ),
     addTeamToDataA: teamId => dispatch(addTeamToDataA(teamId)),
     removeTeamFromDataA: teamId => dispatch(removeTeamFromDataA(teamId)),
+    openReportsMenu: menu => dispatch(openReportsMenu(menu)),
+    closeReportsMenu: menu => dispatch(closeReportsMenu(menu)),
     showLoader: () => dispatch(showLoader())
 });
 

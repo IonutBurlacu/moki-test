@@ -4,23 +4,22 @@ import { showLoader } from '../../../actions/loader';
 import {
     statsReportsTeamsRequest,
     applyFilterToDataB,
-    removeFilterFromDataB
+    removeFilterFromDataB,
+    openReportsMenu,
+    closeReportsMenu
 } from '../../../actions/reports';
 
 export class DataBFilters extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filterBSelectOpen: false
-        };
-    }
-
     handleFilterBSelectMenu = () => {
-        this.setState({ filterBSelectOpen: !this.state.filterBSelectOpen });
+        if (this.props.filterBSelectOpen) {
+            this.props.closeReportsMenu('filterBSelectOpen');
+        } else {
+            this.props.openReportsMenu('filterBSelectOpen');
+        }
     };
 
     handleCloseFilterBSelectMenu = () => {
-        this.setState({ filterBSelectOpen: false });
+        this.props.closeReportsMenu('filterBSelectOpen');
     };
 
     handleClearFilterBSelectMenu = () => {
@@ -66,7 +65,7 @@ export class DataBFilters extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.filterBSelectOpen || this.props.filterByB
+                        this.props.filterBSelectOpen || this.props.filterByB
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
@@ -77,7 +76,7 @@ export class DataBFilters extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.filterBSelectOpen ? 'block' : 'none'
+                        display: this.props.filterBSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -192,7 +191,8 @@ const mapStateToProps = state => ({
     filterByA: state.reports.filterByA,
     filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB
+    filterByValueB: state.reports.filterByValueB,
+    filterBSelectOpen: state.reports.filterBSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -223,6 +223,8 @@ const mapDispatchToProps = dispatch => ({
     applyFilterToDataB: (filterBy, filterByValue) =>
         dispatch(applyFilterToDataB(filterBy, filterByValue)),
     removeFilterFromDataB: () => dispatch(removeFilterFromDataB()),
+    openReportsMenu: menu => dispatch(openReportsMenu(menu)),
+    closeReportsMenu: menu => dispatch(closeReportsMenu(menu)),
     showLoader: () => dispatch(showLoader())
 });
 

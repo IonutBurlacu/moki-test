@@ -3,14 +3,18 @@ import { connect } from 'react-redux';
 import { DateRange } from 'react-date-range';
 import enGb from 'react-date-range/dist/locale/en-GB';
 import moment from 'moment';
-import { changeTeamsListDate, getTeamsRequest } from '../../../actions/teams';
+import {
+    changeTeamsListDate,
+    getTeamsRequest,
+    openTeamsMenu,
+    closeTeamsMenu
+} from '../../../actions/teams';
 import { showLoader } from '../../../actions/loader';
 
 export class DateBy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateSelectOpen: false,
             startDate: props.listStartDate,
             endDate: props.listEndDate
         };
@@ -34,14 +38,19 @@ export class DateBy extends Component {
     };
 
     handleDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: !this.state.dateSelectOpen });
+        if (this.props.dateSelectOpen) {
+            this.props.closeTeamsMenu('dateSelectOpen');
+        } else {
+            this.props.openTeamsMenu('dateSelectOpen');
+        }
     };
 
     handleCloseDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: false });
+        this.props.closeTeamsMenu('dateSelectOpen');
     };
 
     handleDateSelectChange = listDate => {
+        this.props.closeTeamsMenu('dateSelectOpen');
         this.props.changeTeamsListDate(listDate);
         this.props.showLoader();
         this.props.getTeamsRequest(listDate);
@@ -57,6 +66,7 @@ export class DateBy extends Component {
     handleDateRangeFocus = ranges => {
         setTimeout(() => {
             if (ranges[1] === 0) {
+                this.props.closeTeamsMenu('dateSelectOpen');
                 this.props.changeTeamsListDate(
                     'interval',
                     this.state.startDate,
@@ -78,7 +88,7 @@ export class DateBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.dateSelectOpen
+                        this.props.dateSelectOpen
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
@@ -89,7 +99,7 @@ export class DateBy extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.dateSelectOpen ? 'block' : 'none'
+                        display: this.props.dateSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -196,11 +206,14 @@ export class DateBy extends Component {
 const mapStateToProps = state => ({
     listDate: state.teams.listDate,
     listStartDate: state.teams.listStartDate,
-    listEndDate: state.teams.listEndDate
+    listEndDate: state.teams.listEndDate,
+    dateSelectOpen: state.teams.dateSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
+    openTeamsMenu: menu => dispatch(openTeamsMenu(menu)),
+    closeTeamsMenu: menu => dispatch(closeTeamsMenu(menu)),
     changeTeamsListDate: (
         listDate,
         listStartDate = moment.utc().local(),

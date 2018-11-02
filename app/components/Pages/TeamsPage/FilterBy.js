@@ -3,23 +3,22 @@ import { connect } from 'react-redux';
 import {
     addTeamsListFilter,
     removeTeamsListFilter,
-    clearTeamsListFilter
+    clearTeamsListFilter,
+    openTeamsMenu,
+    closeTeamsMenu
 } from '../../../actions/teams';
 
 export class FilterBy extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filterSelectOpen: false
-        };
-    }
-
     handleFilterSelectMenu = () => {
-        this.setState({ filterSelectOpen: !this.state.filterSelectOpen });
+        if (this.props.filterSelectOpen) {
+            this.props.closeTeamsMenu('filterSelectOpen');
+        } else {
+            this.props.openTeamsMenu('filterSelectOpen');
+        }
     };
 
     handleCloseFilterSelectMenu = () => {
-        this.setState({ filterSelectOpen: false });
+        this.props.closeTeamsMenu('filterSelectOpen');
     };
 
     handleFiltersSelectMenu = filterValue => {
@@ -42,7 +41,7 @@ export class FilterBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.filterSelectOpen ||
+                        this.props.filterSelectOpen ||
                         this.props.listFilterValues.length
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
@@ -56,7 +55,7 @@ export class FilterBy extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.filterSelectOpen ? 'block' : 'none'
+                        display: this.props.filterSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -110,10 +109,13 @@ export class FilterBy extends Component {
 
 const mapStateToProps = state => ({
     listFilterValues: state.teams.listFilterValues,
-    teams: state.teams.items
+    teams: state.teams.items,
+    filterSelectOpen: state.teams.filterSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
+    openTeamsMenu: menu => dispatch(openTeamsMenu(menu)),
+    closeTeamsMenu: menu => dispatch(closeTeamsMenu(menu)),
     addTeamsListFilter: filterValue =>
         dispatch(addTeamsListFilter(filterValue)),
     removeTeamsListFilter: filterValue =>

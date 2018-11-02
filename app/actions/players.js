@@ -195,3 +195,13 @@ export const importDatabaseRequest = file => ({
     type: 'IMPORT_DATABASE_REQUEST',
     file
 });
+
+export const openPlayersMenu = menu => ({
+    type: 'OPEN_PLAYERS_MENU',
+    menu
+});
+
+export const closePlayersMenu = menu => ({
+    type: 'CLOSE_PLAYERS_MENU',
+    menu
+});

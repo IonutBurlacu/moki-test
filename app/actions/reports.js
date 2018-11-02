@@ -92,3 +92,13 @@ export const removeFilterFromDataA = () => ({
 export const removeFilterFromDataB = () => ({
     type: 'REMOVE_FILTER_FROM_DATA_B'
 });
+
+export const openReportsMenu = menu => ({
+    type: 'OPEN_REPORTS_MENU',
+    menu
+});
+
+export const closeReportsMenu = menu => ({
+    type: 'CLOSE_REPORTS_MENU',
+    menu
+});

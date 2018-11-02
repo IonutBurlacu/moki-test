@@ -12,14 +12,17 @@ import { connect } from 'react-redux';
 import { DateRange } from 'react-date-range';
 import enGb from 'react-date-range/dist/locale/en-GB';
 import moment from 'moment';
-import { statsTeamRequest } from '../../../actions/teams';
+import {
+    statsTeamRequest,
+    openTeamsMenu,
+    closeTeamsMenu
+} from '../../../actions/teams';
 import { showLoader } from '../../../actions/loader';
 
 export class OverviewChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateSelectOpen: false,
             startDate: props.chartStartDate,
             endDate: props.chartEndDate
         };
@@ -44,7 +47,7 @@ export class OverviewChart extends Component {
 
     handleDateChange = type => {
         this.props.showLoader();
-        this.setState({ dateSelectOpen: false });
+        this.props.closeTeamsMenu('dateSelectOverviewOpen');
         this.props.statsTeamRequest(
             this.props.team.id,
             type,
@@ -54,11 +57,15 @@ export class OverviewChart extends Component {
     };
 
     handleDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: !this.state.dateSelectOpen });
+        if (this.props.dateSelectOverviewOpen) {
+            this.props.closeTeamsMenu('dateSelectOverviewOpen');
+        } else {
+            this.props.openTeamsMenu('dateSelectOverviewOpen');
+        }
     };
 
     handleCloseDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: false });
+        this.props.closeTeamsMenu('dateSelectOverviewOpen');
     };
 
     handleDateRangeSelect = ranges => {
@@ -72,7 +79,7 @@ export class OverviewChart extends Component {
         setTimeout(() => {
             if (ranges[1] === 0) {
                 this.props.showLoader();
-                this.setState({ dateSelectOpen: false });
+                this.props.closeTeamsMenu('dateSelectOverviewOpen');
                 this.props.statsTeamRequest(
                     this.props.team.id,
                     'interval',
@@ -92,7 +99,11 @@ export class OverviewChart extends Component {
                         <div className="chart-select">
                             <button
                                 type="button"
-                                className="chart-select-button"
+                                className={
+                                    this.props.dateSelectOverviewOpen
+                                        ? 'chart-select-button active'
+                                        : 'chart-select-button'
+                                }
                                 onClick={this.handleDateSelectMenu}
                             >
                                 {this.getSelectedDateType(this.props.chartType)}
@@ -100,7 +111,7 @@ export class OverviewChart extends Component {
                             <div
                                 className="chart-select-list-wrapper"
                                 style={{
-                                    display: this.state.dateSelectOpen
+                                    display: this.props.dateSelectOverviewOpen
                                         ? 'block'
                                         : 'none'
                                 }}
@@ -318,12 +329,15 @@ const mapStateToProps = state => ({
     team: state.teams.team,
     chartType: state.teams.chartType,
     chartStartDate: state.teams.chartStartDate,
-    chartEndDate: state.teams.chartEndDate
+    chartEndDate: state.teams.chartEndDate,
+    dateSelectOverviewOpen: state.teams.dateSelectOverviewOpen
 });
 
 const mapDispatchToProps = dispatch => ({
     statsTeamRequest: (id, type, startDate, endDate) =>
         dispatch(statsTeamRequest(id, type, startDate, endDate)),
+    openTeamsMenu: menu => dispatch(openTeamsMenu(menu)),
+    closeTeamsMenu: menu => dispatch(closeTeamsMenu(menu)),
     showLoader: () => dispatch(showLoader())
 });
 

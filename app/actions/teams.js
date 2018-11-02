@@ -161,3 +161,13 @@ export const detachTeamFromChallenge = challengeId => ({
     type: 'DETACH_TEAM_FROM_CHALLENGE',
     challengeId
 });
+
+export const openTeamsMenu = menu => ({
+    type: 'OPEN_TEAMS_MENU',
+    menu
+});
+
+export const closeTeamsMenu = menu => ({
+    type: 'CLOSE_TEAMS_MENU',
+    menu
+});

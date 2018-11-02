@@ -12,14 +12,18 @@ import { connect } from 'react-redux';
 import { DateRange } from 'react-date-range';
 import enGb from 'react-date-range/dist/locale/en-GB';
 import moment from 'moment';
-import { statsReportsTeamsRequest } from '../../../actions/reports';
+import {
+    statsReportsTeamsRequest,
+    openReportsMenu,
+    closeReportsMenu
+} from '../../../actions/reports';
 import { showLoader } from '../../../actions/loader';
 
 export class OverviewChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateSelectOpen: false,
+            dateSelectOverviewOpen: false,
             startDate: props.chartStartDate,
             endDate: props.chartEndDate,
             dataAVisible: true,
@@ -54,7 +58,7 @@ export class OverviewChart extends Component {
 
     handleDateChange = type => {
         this.props.showLoader();
-        this.setState({ dateSelectOpen: false });
+        this.props.closeReportsMenu('dateSelectOverviewOpen');
         this.props.statsReportsTeamsRequest(
             this.props.teamIdsA,
             this.props.teamIdsB,
@@ -69,11 +73,15 @@ export class OverviewChart extends Component {
     };
 
     handleDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: !this.state.dateSelectOpen });
+        if (this.props.dateSelectOverviewOpen) {
+            this.props.closeReportsMenu('dateSelectOverviewOpen');
+        } else {
+            this.props.openReportsMenu('dateSelectOverviewOpen');
+        }
     };
 
     handleCloseDateSelectMenu = () => {
-        this.setState({ dateSelectOpen: false });
+        this.props.closeReportsMenu('dateSelectOverviewOpen');
     };
 
     handleDateRangeSelect = ranges => {
@@ -87,7 +95,7 @@ export class OverviewChart extends Component {
         setTimeout(() => {
             if (ranges[1] === 0) {
                 this.props.showLoader();
-                this.setState({ dateSelectOpen: false });
+                this.props.closeReportsMenu('dateSelectOverviewOpen');
                 this.props.statsReportsTeamsRequest(
                     this.props.teamIdsA,
                     this.props.teamIdsB,
@@ -112,7 +120,11 @@ export class OverviewChart extends Component {
                         <div className="chart-select">
                             <button
                                 type="button"
-                                className="chart-select-button"
+                                className={
+                                    this.props.dateSelectOverviewOpen
+                                        ? 'chart-select-button active'
+                                        : 'chart-select-button'
+                                }
                                 onClick={this.handleDateSelectMenu}
                             >
                                 {this.getSelectedDateType(this.props.chartType)}
@@ -120,7 +132,7 @@ export class OverviewChart extends Component {
                             <div
                                 className="chart-select-list-wrapper"
                                 style={{
-                                    display: this.state.dateSelectOpen
+                                    display: this.props.dateSelectOverviewOpen
                                         ? 'block'
                                         : 'none'
                                 }}
@@ -415,7 +427,8 @@ const mapStateToProps = state => ({
     totalOverviewA: state.reports.totalOverviewA,
     totalOverviewB: state.reports.totalOverviewB,
     totalOverviewAPrevious: state.reports.totalOverviewAPrevious,
-    totalOverviewBPrevious: state.reports.totalOverviewBPrevious
+    totalOverviewBPrevious: state.reports.totalOverviewBPrevious,
+    dateSelectOverviewOpen: state.reports.dateSelectOverviewOpen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -443,6 +456,8 @@ const mapDispatchToProps = dispatch => ({
                 filterByValueB
             )
         ),
+    openReportsMenu: menu => dispatch(openReportsMenu(menu)),
+    closeReportsMenu: menu => dispatch(closeReportsMenu(menu)),
     showLoader: () => dispatch(showLoader())
 });
 

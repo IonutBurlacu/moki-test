@@ -13,6 +13,9 @@ export default (
         listSort: 'most_steps',
         listSortLabel: 'Most steps',
         listFilterValues: [],
+        dateSelectOpen: false,
+        filterSelectOpen: false,
+        sortSelectOpen: false,
         loading: false
     },
     action
@@ -315,6 +318,19 @@ export default (
                     ...state.teams,
                     state.new.teams.find(team => team.id === action.teamId)
                 ]
+            };
+        case 'OPEN_CHALLENGES_MENU':
+            return {
+                ...state,
+                dateSelectOpen: false,
+                filterSelectOpen: false,
+                sortSelectOpen: false,
+                [action.menu]: true
+            };
+        case 'CLOSE_CHALLENGES_MENU':
+            return {
+                ...state,
+                [action.menu]: false
             };
         default:
             return state;

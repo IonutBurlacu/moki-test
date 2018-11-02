@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changePlayersListSort } from '../../../actions/players';
+import {
+    changePlayersListSort,
+    openPlayersMenu,
+    closePlayersMenu
+} from '../../../actions/players';
 
 export class SortBy extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            sortSelectOpen: false
-        };
-    }
-
     handleSortSelectMenu = () => {
-        this.setState({ sortSelectOpen: !this.state.sortSelectOpen });
+        if (this.props.sortSelectOpen) {
+            this.props.closePlayersMenu('sortSelectOpen');
+        } else {
+            this.props.openPlayersMenu('sortSelectOpen');
+        }
     };
 
     handleCloseSortSelectMenu = () => {
-        this.setState({ sortSelectOpen: false });
+        this.props.closePlayersMenu('sortSelectOpen');
     };
 
     handleSortSelectChange = (listSort, listSortLabel) => {
@@ -29,7 +30,7 @@ export class SortBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.state.sortSelectOpen
+                        this.props.sortSelectOpen
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
@@ -40,7 +41,7 @@ export class SortBy extends Component {
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.state.sortSelectOpen ? 'block' : 'none'
+                        display: this.props.sortSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -214,10 +215,13 @@ export class SortBy extends Component {
 
 const mapStateToProps = state => ({
     listSort: state.players.listSort,
-    listSortLabel: state.players.listSortLabel
+    listSortLabel: state.players.listSortLabel,
+    sortSelectOpen: state.players.sortSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
+    openPlayersMenu: menu => dispatch(openPlayersMenu(menu)),
+    closePlayersMenu: menu => dispatch(closePlayersMenu(menu)),
     changePlayersListSort: (listSort, listSortLabel) =>
         dispatch(changePlayersListSort(listSort, listSortLabel))
 });
