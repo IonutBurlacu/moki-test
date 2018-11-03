@@ -175,7 +175,7 @@ export class ChallengesPage extends Component {
                                             </td>
                                         </tr>
                                     ) : (
-                                        ''
+                                        <tr />
                                     )}
                                 </tbody>
                             </table>

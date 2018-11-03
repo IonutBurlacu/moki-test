@@ -32,13 +32,18 @@
 
             .title {
                 color: white;
+                cursor: pointer;
                 font-size: 4vmin;
                 font-weight: normal;
                 line-height: 1;
                 margin: 0 0 0.5vmin 0;
 
-                span {
+                .added {
                     font-size: 3.2vmin;
+                }
+
+                .name:hover {
+                    color: #74ef5c;
                 }
             }
 

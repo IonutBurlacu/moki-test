@@ -214,7 +214,7 @@ export class PairBandsPage extends Component {
                                             </td>
                                         </tr>
                                     ) : (
-                                        ''
+                                        <tr />
                                     )}
                                 </tbody>
                             </table>

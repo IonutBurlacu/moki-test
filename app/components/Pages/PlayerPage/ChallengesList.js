@@ -70,7 +70,7 @@ export class ChallengesList extends Component {
                                 </td>
                             </tr>
                         ) : (
-                            ''
+                            <tr />
                         )}
                     </tbody>
                 </table>

@@ -100,7 +100,7 @@ export class TeamsList extends Component {
                                 </td>
                             </tr>
                         ) : (
-                            ''
+                            <tr />
                         )}
                     </tbody>
                 </table>

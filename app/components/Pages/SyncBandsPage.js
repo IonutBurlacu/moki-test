@@ -3,12 +3,20 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import { Header } from '../Header';
 import Footer from '../Footer';
+import { viewPlayerRequest } from '../../actions/players';
+import { showLoader } from '../../actions/loader';
 import { PageTitle } from '../PageTitle';
 import defaultAvatar from '../../images/default_avatar.png';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class SyncBandsPage extends Component {
+    handleView = id => {
+        this.props.viewPlayerRequest(id);
+        this.props.showLoader();
+        this.props.history.push(`/players/view/${id}`);
+    };
+
     render() {
         return (
             <div className="container">
@@ -38,8 +46,15 @@ export class SyncBandsPage extends Component {
                                         </div>
                                         <div className="right">
                                             <h1 className="title">
-                                                {`${sync.first_name} `}
-                                                <span>added</span>
+                                                <span
+                                                    className="name"
+                                                    onClick={() =>
+                                                        this.handleView(sync.id)
+                                                    }
+                                                >{`${sync.first_name} `}</span>
+                                                <span className="added">
+                                                    added
+                                                </span>
                                             </h1>
                                             <h3 className="subtitle">
                                                 {this.props.hide_totals
@@ -50,7 +65,13 @@ export class SyncBandsPage extends Component {
                                         </div>
                                     </div>
                                     <div className="separator" />
-                                    {sync.challenges.length > 0 ? (
+                                    {sync.steps === 0 ? (
+                                        <ul className="challenges-list">
+                                            <li>
+                                                No steps found on this band.
+                                            </li>
+                                        </ul>
+                                    ) : sync.challenges.length > 0 ? (
                                         <ul className="challenges-list">
                                             {sync.challenges.map(challenge => (
                                                 <li
@@ -120,4 +141,12 @@ const mapStateToProps = state => ({
     hide_totals: state.auth.hide_totals
 });
 
-export default connect(mapStateToProps)(SyncBandsPage);
+const mapDispatchToProps = dispatch => ({
+    showLoader: () => dispatch(showLoader()),
+    viewPlayerRequest: id => dispatch(viewPlayerRequest(id))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SyncBandsPage);
