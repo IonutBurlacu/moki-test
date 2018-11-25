@@ -73,11 +73,6 @@ export function* syncBand(action) {
         yield put({
             type: 'PLAY_SYNC_SOUND'
         });
-
-        yield put({
-            type: 'SHOW_ALERT',
-            message: decoded.message
-        });
     } else {
         yield put({
             type: 'SYNC_BAND_FAILED'

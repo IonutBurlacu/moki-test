@@ -27,7 +27,6 @@ export class FilterBy extends Component {
         } else {
             this.props.addPlayersListFilter(filterValue);
         }
-        this.handleCloseFilterSelectMenu();
     };
 
     handleClearFilterSelectMenu = () => {

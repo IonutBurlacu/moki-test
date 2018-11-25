@@ -59,7 +59,10 @@ export class SyncBandsPage extends Component {
                                             <h3 className="subtitle">
                                                 {this.props.hide_totals
                                                     ? '--- '
-                                                    : `${sync.steps} `}
+                                                    : `${parseInt(
+                                                          sync.steps,
+                                                          10
+                                                      ).toLocaleString()} `}
                                                 <span>steps</span>
                                             </h3>
                                         </div>
