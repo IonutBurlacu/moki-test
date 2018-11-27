@@ -43,10 +43,26 @@ export class NFCListener extends Component {
                     if (this.props.selectedPlayerId !== null) {
                         this.props.showLoader();
                         this.writeCurrentDate(reader);
-                        this.props.pairBandRequest(
-                            this.props.selectedPlayerId,
-                            card.uid
-                        );
+                        // Read the battery level.
+                        reader
+                            .read(0xbf, 16, 16)
+                            .then(response => {
+                                const responseAsHex = Buffer.from(
+                                    response.toString('hex').match(/.{1,2}/g)
+                                );
+                                this.props.pairBandRequest(
+                                    this.props.selectedPlayerId,
+                                    card.uid,
+                                    (responseAsHex[0] / 9) * 100
+                                );
+                                return true;
+                            })
+                            .catch(error => {
+                                console.log(
+                                    'Error while reading battery levels: ',
+                                    error
+                                );
+                            });
                     } else {
                         this.props.playFailSound();
                         this.props.showAlert(
@@ -294,7 +310,8 @@ const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message)),
     showLoader: () => dispatch(showLoader()),
     hideLoader: () => dispatch(hideLoader()),
-    pairBandRequest: (id, uuid) => dispatch(pairBandRequest(id, uuid)),
+    pairBandRequest: (id, uuid, batteryLevel) =>
+        dispatch(pairBandRequest(id, uuid, batteryLevel)),
     syncBandRequest: (id, allSteps, batteryLevel) =>
         dispatch(syncBandRequest(id, allSteps, batteryLevel)),
     readBattery: (uuid, level) => dispatch(readBattery(uuid, level)),

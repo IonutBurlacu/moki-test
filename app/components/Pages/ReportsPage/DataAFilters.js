@@ -10,6 +10,11 @@ import {
 } from '../../../actions/reports';
 
 export class DataAFilters extends Component {
+    componentWillUnmount() {
+        // We do this to close all the dropdowns on screen change.
+        this.props.openReportsMenu();
+    }
+
     handleFilterASelectMenu = () => {
         if (this.props.filterASelectOpen) {
             this.props.closeReportsMenu('filterASelectOpen');

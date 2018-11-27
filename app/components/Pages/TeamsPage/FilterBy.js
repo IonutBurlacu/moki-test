@@ -9,6 +9,11 @@ import {
 } from '../../../actions/teams';
 
 export class FilterBy extends Component {
+    componentWillUnmount() {
+        // We do this to close all the dropdowns on screen change.
+        this.props.openTeamsMenu();
+    }
+
     handleFilterSelectMenu = () => {
         if (this.props.filterSelectOpen) {
             this.props.closeTeamsMenu('filterSelectOpen');

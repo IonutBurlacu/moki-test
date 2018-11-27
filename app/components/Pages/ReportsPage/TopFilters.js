@@ -7,9 +7,21 @@ import DataBTeams from './DataBTeams';
 import DataATeams from './DataATeams';
 import DataAFilters from './DataAFilters';
 import DataBFilters from './DataBFilters';
+import encrypt from '../../../utils/encrypt';
 
 export class TopFilters extends Component {
     handleExport = () => {
+        const encrypted = encrypt({
+            team_ids_a: this.props.teamIdsA,
+            team_ids_b: this.props.teamIdsB,
+            filter_by_a: this.props.filterByA,
+            filter_by_value_a: this.props.filterByValueA,
+            filter_by_b: this.props.filterByB,
+            filter_by_value_b: this.props.filterByValueB,
+            type: this.props.chartType,
+            start_date: this.props.chartStartDate,
+            end_date: this.props.chartEndDate
+        });
         axios({
             url: `${host}/api/reports/export`,
             method: 'POST',
@@ -18,15 +30,7 @@ export class TopFilters extends Component {
                 Authorization: this.props.token
             },
             data: {
-                team_ids_a: this.props.teamIdsA,
-                team_ids_b: this.props.teamIdsB,
-                filter_by_a: this.props.filterByA,
-                filter_by_value_a: this.props.filterByValueA,
-                filter_by_b: this.props.filterByB,
-                filter_by_value_b: this.props.filterByValueB,
-                type: this.props.chartType,
-                start_date: this.props.chartStartDate,
-                end_date: this.props.chartEndDate
+                encrypted
             }
         })
             .then(response => {

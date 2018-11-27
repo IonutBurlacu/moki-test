@@ -7,7 +7,8 @@ const root = '/api/bands';
 export default class BandsAPI {
     static pair(headers = {}, action) {
         const encrypted = encrypt({
-            uuid: action.uuid
+            uuid: action.uuid,
+            batteryLevel: action.batteryLevel
         });
         return axios({
             method: 'post',
@@ -24,9 +25,9 @@ export default class BandsAPI {
     static sync(headers = {}, action) {
         const encrypted = encrypt({
             uuid: action.uuid,
-            all_steps: action.allSteps
+            all_steps: action.allSteps,
+            batteryLevel: action.batteryLevel
         });
-        console.log(action.allSteps);
         return axios({
             method: 'post',
             url: `${host}${root}/sync`,

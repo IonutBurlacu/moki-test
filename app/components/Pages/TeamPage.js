@@ -24,14 +24,18 @@ export class TeamPage extends Component {
                 <Header
                     leftButton={<Link to="/bands/pair">Pair Bands</Link>}
                     rightButton={
-                        <button
-                            type="button"
-                            onClick={() =>
-                                this.handleEdit(this.props.match.params.id)
-                            }
-                        >
-                            Edit
-                        </button>
+                        this.props.team.locked ? (
+                            ''
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleEdit(this.props.match.params.id)
+                                }
+                            >
+                                Edit
+                            </button>
+                        )
                     }
                 />
                 {!this.props.loading ? (

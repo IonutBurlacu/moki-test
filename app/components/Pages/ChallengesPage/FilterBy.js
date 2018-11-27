@@ -9,6 +9,11 @@ import {
 } from '../../../actions/challenges';
 
 export class FilterBy extends Component {
+    componentWillUnmount() {
+        // We do this to close all the dropdowns on screen change.
+        this.props.openChallengesMenu();
+    }
+
     handleFilterSelectMenu = () => {
         if (this.props.filterSelectOpen) {
             this.props.closeChallengesMenu('filterSelectOpen');

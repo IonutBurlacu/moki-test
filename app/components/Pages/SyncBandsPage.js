@@ -116,7 +116,7 @@ export class SyncBandsPage extends Component {
                                             </li>
                                         </ul>
                                     )}
-                                    {sync.batteryLevel < 15 ? (
+                                    {sync.batteryLevel <= 33 ? (
                                         <p className="battery-status">
                                             Band battery may need to be replaced
                                             soon

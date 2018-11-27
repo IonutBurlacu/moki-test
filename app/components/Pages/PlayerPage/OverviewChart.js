@@ -28,6 +28,11 @@ export class OverviewChart extends Component {
         };
     }
 
+    componentWillUnmount() {
+        // We do this to close all the dropdowns on screen change.
+        this.props.openPlayersMenu();
+    }
+
     getSelectedDateType = type => {
         switch (type) {
             case 'today':

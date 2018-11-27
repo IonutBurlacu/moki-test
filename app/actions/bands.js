@@ -25,10 +25,11 @@ export const playerSelected = id => ({
     id
 });
 
-export const pairBandRequest = (id, uuid) => ({
+export const pairBandRequest = (id, uuid, batteryLevel) => ({
     type: 'PAIR_BAND_REQUEST',
     id,
-    uuid
+    uuid,
+    batteryLevel
 });
 
 export const pairBand = () => ({
