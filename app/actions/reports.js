@@ -14,9 +14,7 @@ export const statsReportsTeamsRequest = (
     chartStartDate,
     chartEndDate,
     filterByA,
-    filterByValueA,
-    filterByB,
-    filterByValueB
+    filterByB
 ) => ({
     type: 'STATS_REPORTS_TEAMS_REQUEST',
     teamIdsA,
@@ -25,9 +23,7 @@ export const statsReportsTeamsRequest = (
     chartStartDate,
     chartEndDate,
     filterByA,
-    filterByValueA,
-    filterByB,
-    filterByValueB
+    filterByB
 });
 
 export const statsReportsTeams = (
@@ -37,9 +33,7 @@ export const statsReportsTeams = (
     chartStateDate,
     chartEndDate,
     filterByA,
-    filterByValueA,
-    filterByB,
-    filterByValueB
+    filterByB
 ) => ({
     type: 'STATS_REPORTS_TEAMS',
     overview,
@@ -48,9 +42,7 @@ export const statsReportsTeams = (
     chartStateDate,
     chartEndDate,
     filterByA,
-    filterByValueA,
-    filterByB,
-    filterByValueB
+    filterByB
 });
 
 export const addTeamToDataA = teamId => ({
@@ -73,24 +65,32 @@ export const removeTeamFromDataB = teamId => ({
     teamId
 });
 
-export const applyFilterToDataA = (filterBy, filterByValue) => ({
+export const applyFilterToDataA = filterBy => ({
     type: 'APPLY_FILTER_TO_DATA_A',
-    filterBy,
-    filterByValue
+    filterBy
 });
 
-export const applyFilterToDataB = (filterBy, filterByValue) => ({
+export const applyFilterToDataB = filterBy => ({
     type: 'APPLY_FILTER_TO_DATA_B',
-    filterBy,
-    filterByValue
+    filterBy
 });
 
-export const removeFilterFromDataA = () => ({
-    type: 'REMOVE_FILTER_FROM_DATA_A'
+export const removeFilterFromDataA = filterBy => ({
+    type: 'REMOVE_FILTER_FROM_DATA_A',
+    filterBy
 });
 
-export const removeFilterFromDataB = () => ({
-    type: 'REMOVE_FILTER_FROM_DATA_B'
+export const removeFilterFromDataB = filterBy => ({
+    type: 'REMOVE_FILTER_FROM_DATA_B',
+    filterBy
+});
+
+export const clearFilterFromDataA = () => ({
+    type: 'CLEAR_FILTER_FROM_DATA_A'
+});
+
+export const clearFilterFromDataB = () => ({
+    type: 'CLEAR_FILTER_FROM_DATA_B'
 });
 
 export const openReportsMenu = menu => ({

@@ -33,9 +33,7 @@ export function* statsReportsTeams(action) {
         moment(action.chartStartDate).format('YYYY-MM-DD'),
         moment(action.chartEndDate).format('YYYY-MM-DD'),
         action.filterByA,
-        action.filterByValueA,
-        action.filterByB,
-        action.filterByValueB
+        action.filterByB
     );
 
     const decoded = decrypt(response.data);
@@ -48,9 +46,7 @@ export function* statsReportsTeams(action) {
         chartStartDate: action.chartStartDate,
         chartEndDate: action.chartEndDate,
         filterByA: action.filterByA,
-        filterByValueA: action.filterByValueA,
-        filterByB: action.filterByB,
-        filterByValueB: action.filterByValueB
+        filterByB: action.filterByB
     });
 
     yield put({

@@ -5,6 +5,7 @@ import {
     statsReportsTeamsRequest,
     applyFilterToDataB,
     removeFilterFromDataB,
+    clearFilterFromDataB,
     openReportsMenu,
     closeReportsMenu
 } from '../../../actions/reports';
@@ -23,13 +24,7 @@ export class DataBFilters extends Component {
     };
 
     handleClearFilterBSelectMenu = () => {
-        this.props.removeFilterFromDataB();
-        this.handleRemoveFilterFromDataB();
-    };
-
-    handleApplyFilterDataB = (filterBy, filterByValue) => {
-        this.props.showLoader();
-        this.props.applyFilterToDataB(filterBy, filterByValue);
+        this.props.clearFilterFromDataB();
         this.props.statsReportsTeamsRequest(
             this.props.teamIdsA,
             this.props.teamIdsB,
@@ -37,26 +32,35 @@ export class DataBFilters extends Component {
             this.props.chartStartDate,
             this.props.chartEndDate,
             this.props.filterByA,
-            this.props.filterByValueA,
-            filterBy,
-            filterByValue
+            []
         );
     };
 
-    handleRemoveFilterFromDataB = () => {
+    handleApplyFilterDataB = filterBy => {
         this.props.showLoader();
-        this.props.removeFilterFromDataB();
-        this.props.statsReportsTeamsRequest(
-            this.props.teamIdsA,
-            this.props.teamIdsB,
-            this.props.chartType,
-            this.props.chartStartDate,
-            this.props.chartEndDate,
-            this.props.filterByA,
-            this.props.filterByValueA,
-            '',
-            ''
-        );
+        if (this.props.filterByB.includes(filterBy)) {
+            this.props.removeFilterFromDataB(filterBy);
+            this.props.statsReportsTeamsRequest(
+                this.props.teamIdsA,
+                this.props.teamIdsB,
+                this.props.chartType,
+                this.props.chartStartDate,
+                this.props.chartEndDate,
+                this.props.filterByA,
+                this.props.filterByB.filter(value => value !== filterBy)
+            );
+        } else {
+            this.props.applyFilterToDataB(filterBy);
+            this.props.statsReportsTeamsRequest(
+                this.props.teamIdsA,
+                this.props.teamIdsB,
+                this.props.chartType,
+                this.props.chartStartDate,
+                this.props.chartEndDate,
+                this.props.filterByA,
+                [...this.props.filterByB, filterBy]
+            );
+        }
     };
 
     render() {
@@ -65,13 +69,14 @@ export class DataBFilters extends Component {
                 <button
                     type="button"
                     className={
-                        this.props.filterBSelectOpen || this.props.filterByB
+                        this.props.filterBSelectOpen ||
+                        this.props.filterByB.length
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
                     onClick={this.handleFilterBSelectMenu}
                 >
-                    {this.props.filterByB ? 'Filters On' : 'Filter'}
+                    {this.props.filterByB.length ? 'Filters On' : 'Filter'}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
@@ -81,7 +86,7 @@ export class DataBFilters extends Component {
                 >
                     <div className="filter-select-list-header">
                         Select Filter
-                        {this.props.filterByB ? (
+                        {this.props.filterByB.length ? (
                             <button
                                 type="button"
                                 className="clear"
@@ -102,8 +107,7 @@ export class DataBFilters extends Component {
                     <ul className="filter-select-list">
                         <li
                             className={
-                                this.props.filterByB === 'gender' &&
-                                this.props.filterByValueB === 'male'
+                                this.props.filterByB.includes('male')
                                     ? 'selected'
                                     : ''
                             }
@@ -111,10 +115,7 @@ export class DataBFilters extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleApplyFilterDataB(
-                                        'gender',
-                                        'male'
-                                    )
+                                    this.handleApplyFilterDataB('male')
                                 }
                             >
                                 Boys
@@ -122,8 +123,7 @@ export class DataBFilters extends Component {
                         </li>
                         <li
                             className={
-                                this.props.filterByB === 'gender' &&
-                                this.props.filterByValueB === 'female'
+                                this.props.filterByB.includes('female')
                                     ? 'selected'
                                     : ''
                             }
@@ -131,10 +131,7 @@ export class DataBFilters extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleApplyFilterDataB(
-                                        'gender',
-                                        'female'
-                                    )
+                                    this.handleApplyFilterDataB('female')
                                 }
                             >
                                 Girls
@@ -142,8 +139,7 @@ export class DataBFilters extends Component {
                         </li>
                         <li
                             className={
-                                this.props.filterByB === 'top' &&
-                                this.props.filterByValueB === ''
+                                this.props.filterByB.includes('top')
                                     ? 'selected'
                                     : ''
                             }
@@ -151,7 +147,7 @@ export class DataBFilters extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleApplyFilterDataB('top', '')
+                                    this.handleApplyFilterDataB('top')
                                 }
                             >
                                 Top 25%
@@ -159,8 +155,7 @@ export class DataBFilters extends Component {
                         </li>
                         <li
                             className={
-                                this.props.filterByB === 'bottom' &&
-                                this.props.filterByValueB === ''
+                                this.props.filterByB.includes('bottom')
                                     ? 'selected'
                                     : ''
                             }
@@ -168,7 +163,7 @@ export class DataBFilters extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleApplyFilterDataB('bottom', '')
+                                    this.handleApplyFilterDataB('bottom')
                                 }
                             >
                                 Bottom 25%
@@ -189,9 +184,7 @@ const mapStateToProps = state => ({
     chartStartDate: state.reports.chartStartDate,
     chartEndDate: state.reports.chartEndDate,
     filterByA: state.reports.filterByA,
-    filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB,
     filterBSelectOpen: state.reports.filterBSelectOpen
 });
 
@@ -203,9 +196,7 @@ const mapDispatchToProps = dispatch => ({
         startDate,
         endDate,
         filterByA,
-        filterByValueA,
-        filterByB,
-        filterByValueB
+        filterByB
     ) =>
         dispatch(
             statsReportsTeamsRequest(
@@ -215,14 +206,13 @@ const mapDispatchToProps = dispatch => ({
                 startDate,
                 endDate,
                 filterByA,
-                filterByValueA,
-                filterByB,
-                filterByValueB
+                filterByB
             )
         ),
-    applyFilterToDataB: (filterBy, filterByValue) =>
-        dispatch(applyFilterToDataB(filterBy, filterByValue)),
-    removeFilterFromDataB: () => dispatch(removeFilterFromDataB()),
+    applyFilterToDataB: filterBy => dispatch(applyFilterToDataB(filterBy)),
+    removeFilterFromDataB: filterBy =>
+        dispatch(removeFilterFromDataB(filterBy)),
+    clearFilterFromDataB: () => dispatch(clearFilterFromDataB()),
     openReportsMenu: menu => dispatch(openReportsMenu(menu)),
     closeReportsMenu: menu => dispatch(closeReportsMenu(menu)),
     showLoader: () => dispatch(showLoader())

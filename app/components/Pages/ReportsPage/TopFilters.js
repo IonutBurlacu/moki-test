@@ -14,10 +14,12 @@ export class TopFilters extends Component {
         const encrypted = encrypt({
             team_ids_a: this.props.teamIdsA,
             team_ids_b: this.props.teamIdsB,
-            filter_by_a: this.props.filterByA,
-            filter_by_value_a: this.props.filterByValueA,
-            filter_by_b: this.props.filterByB,
-            filter_by_value_b: this.props.filterByValueB,
+            filter_by_a: this.props.filterByA.length
+                ? this.props.filterByA.join(',')
+                : '',
+            filter_by_b: this.props.filterByB.length
+                ? this.props.filterByB.join(',')
+                : '',
             type: this.props.chartType,
             start_date: this.props.chartStartDate,
             end_date: this.props.chartEndDate
@@ -84,9 +86,7 @@ const mapStateToProps = state => ({
     chartStartDate: state.reports.chartStartDate,
     chartEndDate: state.reports.chartEndDate,
     filterByA: state.reports.filterByA,
-    filterByValueA: state.reports.filterByValueA,
-    filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB
+    filterByB: state.reports.filterByB
 });
 
 export default connect(

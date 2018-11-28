@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { filter } from 'bluebird-lst';
 import { showLoader } from '../../../actions/loader';
 import {
     statsReportsTeamsRequest,
     applyFilterToDataA,
     removeFilterFromDataA,
+    clearFilterFromDataA,
     openReportsMenu,
     closeReportsMenu
 } from '../../../actions/reports';
@@ -28,40 +30,43 @@ export class DataAFilters extends Component {
     };
 
     handleClearFilterASelectMenu = () => {
-        this.props.removeFilterFromDataA();
-        this.handleRemoveFilterFromDataA();
-    };
-
-    handleApplyFilterDataA = (filterBy, filterByValue) => {
-        this.props.showLoader();
-        this.props.applyFilterToDataA(filterBy, filterByValue);
+        this.props.clearFilterFromDataA();
         this.props.statsReportsTeamsRequest(
             this.props.teamIdsA,
             this.props.teamIdsB,
             this.props.chartType,
             this.props.chartStartDate,
             this.props.chartEndDate,
-            filterBy,
-            filterByValue,
-            this.props.filterByB,
-            this.props.filterByValueB
+            [],
+            this.props.filterByB
         );
     };
 
-    handleRemoveFilterFromDataA = () => {
+    handleApplyFilterDataA = filterBy => {
         this.props.showLoader();
-        this.props.removeFilterFromDataA();
-        this.props.statsReportsTeamsRequest(
-            this.props.teamIdsA,
-            this.props.teamIdsB,
-            this.props.chartType,
-            this.props.chartStartDate,
-            this.props.chartEndDate,
-            '',
-            '',
-            this.props.filterByB,
-            this.props.filterByValueB
-        );
+        if (this.props.filterByA.includes(filterBy)) {
+            this.props.removeFilterFromDataA(filterBy);
+            this.props.statsReportsTeamsRequest(
+                this.props.teamIdsA,
+                this.props.teamIdsB,
+                this.props.chartType,
+                this.props.chartStartDate,
+                this.props.chartEndDate,
+                this.props.filterByA.filter(value => value !== filterBy),
+                this.props.filterByB
+            );
+        } else {
+            this.props.applyFilterToDataA(filterBy);
+            this.props.statsReportsTeamsRequest(
+                this.props.teamIdsA,
+                this.props.teamIdsB,
+                this.props.chartType,
+                this.props.chartStartDate,
+                this.props.chartEndDate,
+                [...this.props.filterByA, filterBy],
+                this.props.filterByB
+            );
+        }
     };
 
     render() {
@@ -70,13 +75,14 @@ export class DataAFilters extends Component {
                 <button
                     type="button"
                     className={
-                        this.props.filterASelectOpen || this.props.filterByA
+                        this.props.filterASelectOpen ||
+                        this.props.filterByA.length
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
                     onClick={this.handleFilterASelectMenu}
                 >
-                    {this.props.filterByA ? 'Filters On' : 'Filter'}
+                    {this.props.filterByA.length ? 'Filters On' : 'Filter'}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
@@ -86,7 +92,7 @@ export class DataAFilters extends Component {
                 >
                     <div className="filter-select-list-header">
                         Select Filter
-                        {this.props.filterByA ? (
+                        {this.props.filterByA.length ? (
                             <button
                                 type="button"
                                 className="clear"
@@ -107,8 +113,7 @@ export class DataAFilters extends Component {
                     <ul className="filter-select-list">
                         <li
                             className={
-                                this.props.filterByA === 'gender' &&
-                                this.props.filterByValueA === 'male'
+                                this.props.filterByA.includes('male')
                                     ? 'selected'
                                     : ''
                             }
@@ -116,10 +121,7 @@ export class DataAFilters extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleApplyFilterDataA(
-                                        'gender',
-                                        'male'
-                                    )
+                                    this.handleApplyFilterDataA('male')
                                 }
                             >
                                 Boys
@@ -127,8 +129,7 @@ export class DataAFilters extends Component {
                         </li>
                         <li
                             className={
-                                this.props.filterByA === 'gender' &&
-                                this.props.filterByValueA === 'female'
+                                this.props.filterByA.includes('female')
                                     ? 'selected'
                                     : ''
                             }
@@ -136,10 +137,7 @@ export class DataAFilters extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleApplyFilterDataA(
-                                        'gender',
-                                        'female'
-                                    )
+                                    this.handleApplyFilterDataA('female')
                                 }
                             >
                                 Girls
@@ -147,8 +145,7 @@ export class DataAFilters extends Component {
                         </li>
                         <li
                             className={
-                                this.props.filterByA === 'top' &&
-                                this.props.filterByValueA === ''
+                                this.props.filterByA.includes('top')
                                     ? 'selected'
                                     : ''
                             }
@@ -156,7 +153,7 @@ export class DataAFilters extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleApplyFilterDataA('top', '')
+                                    this.handleApplyFilterDataA('top')
                                 }
                             >
                                 Top 25%
@@ -164,8 +161,7 @@ export class DataAFilters extends Component {
                         </li>
                         <li
                             className={
-                                this.props.filterByA === 'bottom' &&
-                                this.props.filterByValueA === ''
+                                this.props.filterByA.includes('bottom')
                                     ? 'selected'
                                     : ''
                             }
@@ -173,7 +169,7 @@ export class DataAFilters extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleApplyFilterDataA('bottom', '')
+                                    this.handleApplyFilterDataA('bottom')
                                 }
                             >
                                 Bottom 25%
@@ -194,9 +190,7 @@ const mapStateToProps = state => ({
     chartStartDate: state.reports.chartStartDate,
     chartEndDate: state.reports.chartEndDate,
     filterByA: state.reports.filterByA,
-    filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB,
     filterASelectOpen: state.reports.filterASelectOpen
 });
 
@@ -208,9 +202,7 @@ const mapDispatchToProps = dispatch => ({
         startDate,
         endDate,
         filterByA,
-        filterByValueA,
-        filterByB,
-        filterByValueB
+        filterByB
     ) =>
         dispatch(
             statsReportsTeamsRequest(
@@ -220,14 +212,13 @@ const mapDispatchToProps = dispatch => ({
                 startDate,
                 endDate,
                 filterByA,
-                filterByValueA,
-                filterByB,
-                filterByValueB
+                filterByB
             )
         ),
-    applyFilterToDataA: (filterBy, filterByValue) =>
-        dispatch(applyFilterToDataA(filterBy, filterByValue)),
-    removeFilterFromDataA: () => dispatch(removeFilterFromDataA()),
+    applyFilterToDataA: filterBy => dispatch(applyFilterToDataA(filterBy)),
+    removeFilterFromDataA: filterBy =>
+        dispatch(removeFilterFromDataA(filterBy)),
+    clearFilterFromDataA: () => dispatch(clearFilterFromDataA()),
     openReportsMenu: menu => dispatch(openReportsMenu(menu)),
     closeReportsMenu: menu => dispatch(closeReportsMenu(menu)),
     showLoader: () => dispatch(showLoader())

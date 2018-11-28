@@ -20,10 +20,8 @@ export default (
         percentageTypicalB: 0,
         teamIdsA: [],
         teamIdsB: [],
-        filterByA: '',
-        filterByValueA: '',
-        filterByB: '',
-        filterByValueB: '',
+        filterByA: [],
+        filterByB: [],
         filterASelectOpen: false,
         filterBSelectOpen: false,
         dataASelectOpen: false,
@@ -61,6 +59,8 @@ export default (
                 percentageTypicalA: 0,
                 percentageTypicalB: 0,
                 chartType: 'today',
+                filterByA: [],
+                filterByB: [],
                 chartStartDate: moment.utc().local(),
                 chartEndDate: moment.utc().local(),
                 loading: false
@@ -103,9 +103,7 @@ export default (
                 chartStartDate: action.chartStartDate,
                 chartEndDate: action.chartEndDate,
                 filterByA: action.filterByA,
-                filterByValueA: action.filterByValueA,
                 filterByB: action.filterByB,
-                filterByValueB: action.filterByValueB,
                 loading: false
             };
         case 'ADD_TEAM_TO_DATA_A':
@@ -135,26 +133,36 @@ export default (
         case 'APPLY_FILTER_TO_DATA_A':
             return {
                 ...state,
-                filterByA: action.filterBy,
-                filterByValueA: action.filterByValue
+                filterByA: [...state.filterByA, action.filterBy]
             };
         case 'APPLY_FILTER_TO_DATA_B':
             return {
                 ...state,
-                filterByB: action.filterBy,
-                filterByValueB: action.filterByValue
+                filterByB: [...state.filterByB, action.filterBy]
             };
         case 'REMOVE_FILTER_FROM_DATA_A':
             return {
                 ...state,
-                filterByA: '',
-                filterByValueA: ''
+                filterByA: state.filterByA.filter(
+                    filter => filter !== action.filterBy
+                )
             };
         case 'REMOVE_FILTER_FROM_DATA_B':
             return {
                 ...state,
-                filterByB: '',
-                filterByValueB: ''
+                filterByB: state.filterByB.filter(
+                    filter => filter !== action.filterBy
+                )
+            };
+        case 'CLEAR_FILTER_FROM_DATA_A':
+            return {
+                ...state,
+                filterByA: []
+            };
+        case 'CLEAR_FILTER_FROM_DATA_B':
+            return {
+                ...state,
+                filterByB: []
             };
         case 'OPEN_REPORTS_MENU':
             return {

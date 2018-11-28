@@ -66,9 +66,7 @@ export class OverviewChart extends Component {
             this.props.chartStartDate,
             this.props.chartEndDate,
             this.props.filterByA,
-            this.props.filterByValueA,
-            this.props.filterByB,
-            this.props.filterByValueB
+            this.props.filterByB
         );
     };
 
@@ -103,9 +101,7 @@ export class OverviewChart extends Component {
                     this.state.startDate,
                     this.state.endDate,
                     this.props.filterByA,
-                    this.props.filterByValueA,
-                    this.props.filterByB,
-                    this.props.filterByValueB
+                    this.props.filterByB
                 );
             }
         }, 1);
@@ -421,9 +417,7 @@ const mapStateToProps = state => ({
     chartStartDate: state.reports.chartStartDate,
     chartEndDate: state.reports.chartEndDate,
     filterByA: state.reports.filterByA,
-    filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB,
     totalOverviewA: state.reports.totalOverviewA,
     totalOverviewB: state.reports.totalOverviewB,
     totalOverviewAPrevious: state.reports.totalOverviewAPrevious,
@@ -439,9 +433,7 @@ const mapDispatchToProps = dispatch => ({
         startDate,
         endDate,
         filterByA,
-        filterByValueA,
-        filterByB,
-        filterByValueB
+        filterByB
     ) =>
         dispatch(
             statsReportsTeamsRequest(
@@ -451,9 +443,7 @@ const mapDispatchToProps = dispatch => ({
                 startDate,
                 endDate,
                 filterByA,
-                filterByValueA,
-                filterByB,
-                filterByValueB
+                filterByB
             )
         ),
     openReportsMenu: menu => dispatch(openReportsMenu(menu)),

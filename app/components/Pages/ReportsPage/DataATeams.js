@@ -33,9 +33,7 @@ export class DataATeams extends Component {
                 this.props.chartStartDate,
                 this.props.chartEndDate,
                 this.props.filterByA,
-                this.props.filterByValueA,
-                this.props.filterByB,
-                this.props.filterByValueB
+                this.props.filterByB
             );
         } else {
             this.props.addTeamToDataA(teamId);
@@ -46,9 +44,7 @@ export class DataATeams extends Component {
                 this.props.chartStartDate,
                 this.props.chartEndDate,
                 this.props.filterByA,
-                this.props.filterByValueA,
-                this.props.filterByB,
-                this.props.filterByValueB
+                this.props.filterByB
             );
         }
     };
@@ -117,9 +113,7 @@ const mapStateToProps = state => ({
     chartStartDate: state.reports.chartStartDate,
     chartEndDate: state.reports.chartEndDate,
     filterByA: state.reports.filterByA,
-    filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB,
     dataASelectOpen: state.reports.dataASelectOpen
 });
 
@@ -131,9 +125,7 @@ const mapDispatchToProps = dispatch => ({
         startDate,
         endDate,
         filterByA,
-        filterByValueA,
-        filterByB,
-        filterByValueB
+        filterByB
     ) =>
         dispatch(
             statsReportsTeamsRequest(
@@ -143,9 +135,7 @@ const mapDispatchToProps = dispatch => ({
                 startDate,
                 endDate,
                 filterByA,
-                filterByValueA,
-                filterByB,
-                filterByValueB
+                filterByB
             )
         ),
     addTeamToDataA: teamId => dispatch(addTeamToDataA(teamId)),

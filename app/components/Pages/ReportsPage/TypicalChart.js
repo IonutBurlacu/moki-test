@@ -66,9 +66,7 @@ export class TypicalChart extends Component {
             this.props.chartStartDate,
             this.props.chartEndDate,
             this.props.filterByA,
-            this.props.filterByValueA,
-            this.props.filterByB,
-            this.props.filterByValueB
+            this.props.filterByB
         );
     };
 
@@ -103,9 +101,7 @@ export class TypicalChart extends Component {
                     this.state.startDate,
                     this.state.endDate,
                     this.props.filterByA,
-                    this.props.filterByValueA,
-                    this.props.filterByB,
-                    this.props.filterByValueB
+                    this.props.filterByB
                 );
             }
         }, 1);
@@ -335,9 +331,7 @@ const mapStateToProps = state => ({
     chartStartDate: state.reports.chartStartDate,
     chartEndDate: state.reports.chartEndDate,
     filterByA: state.reports.filterByA,
-    filterByValueA: state.reports.filterByValueA,
     filterByB: state.reports.filterByB,
-    filterByValueB: state.reports.filterByValueB,
     totalTypicalA: state.reports.totalTypicalA,
     totalTypicalB: state.reports.totalTypicalB,
     dateSelectTypicalOpen: state.reports.dateSelectTypicalOpen
@@ -351,9 +345,7 @@ const mapDispatchToProps = dispatch => ({
         startDate,
         endDate,
         filterByA,
-        filterByValueA,
-        filterByB,
-        filterByValueB
+        filterByB
     ) =>
         dispatch(
             statsReportsTeamsRequest(
@@ -363,9 +355,7 @@ const mapDispatchToProps = dispatch => ({
                 startDate,
                 endDate,
                 filterByA,
-                filterByValueA,
-                filterByB,
-                filterByValueB
+                filterByB
             )
         ),
     openReportsMenu: menu => dispatch(openReportsMenu(menu)),
