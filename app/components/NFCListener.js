@@ -233,15 +233,13 @@ export class NFCListener extends Component {
                     totalSteps: 0
                 };
                 responses.forEach((response, key) => {
-                    for (let j = 0; j < 4; j++) {
-                        const stepsForHour =
-                            response.readInt16LE(j * 4) +
-                            response.readInt16LE(j * 4 + 2);
+                    for (let j = 0; j < 8; j++) {
+                        const stepsForHour = response.readInt16LE(j * 2);
                         if (stepsForHour > 0) {
                             stepsForDay.steps.push({
-                                hour_id: key * 4 + j,
+                                hour_id: key * 8 + j,
                                 steps: stepsForHour
-                            });
+                            })
                         }
                     }
                 });
