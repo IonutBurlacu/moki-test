@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import { Calendar } from 'react-date-range';
 import moment from 'moment';
-import AutoSuggest from '../../Autosuggest';
+import AutoSuggestInput from '../../AutoSuggestInput';
+import AutoSuggestTags from '../../AutoSuggestTags';
 import { Header } from '../../Header';
 import { insertPlayerRequest } from '../../../actions/players';
 import { showLoader } from '../../../actions/loader';
@@ -61,6 +62,7 @@ export class AddPlayerForm extends Component {
             free_school_meals: false,
             pupil_premium: false,
             sen: false,
+            tags: [],
             file: null,
             filePreview: '',
             defaultAvatar,
@@ -122,12 +124,22 @@ export class AddPlayerForm extends Component {
         });
     };
 
+    handleSuggestionTagsChange = tags => {
+        this.setState({
+            tags
+        });
+    };
+
     render() {
         const grades = this.props.grades.map(item => ({
             value: item.id,
             label: item.name
         }));
         const years = this.props.years.map(item => ({
+            value: item.id,
+            label: item.name
+        }));
+        const tags = this.props.tags.map(item => ({
             value: item.id,
             label: item.name
         }));
@@ -209,7 +221,7 @@ export class AddPlayerForm extends Component {
                                     >
                                         Class
                                     </label>
-                                    <AutoSuggest
+                                    <AutoSuggestInput
                                         className="autosuggest"
                                         handleChange={
                                             this.handleSuggestionInputChange
@@ -227,7 +239,7 @@ export class AddPlayerForm extends Component {
                                     >
                                         Year
                                     </label>
-                                    <AutoSuggest
+                                    <AutoSuggestInput
                                         className="autosuggest"
                                         handleChange={
                                             this.handleSuggestionInputChange
@@ -343,13 +355,13 @@ export class AddPlayerForm extends Component {
                                 </label>
                             </div>
                             <div className="form-group tags-form-group">
-                                <input
-                                    type="text"
-                                    className="form-input"
-                                    id="tags"
-                                    name="tags"
-                                    autoComplete="off"
-                                    onChange={this.handleInputChange}
+                                <AutoSuggestTags
+                                    className="autosuggest-tags"
+                                    handleChange={
+                                        this.handleSuggestionTagsChange
+                                    }
+                                    items={tags}
+                                    name="tag"
                                 />
                             </div>
                         </div>
@@ -362,7 +374,8 @@ export class AddPlayerForm extends Component {
 
 const mapStateToProps = state => ({
     grades: state.players.grades,
-    years: state.players.years
+    years: state.players.years,
+    tags: state.players.tags
 });
 
 const mapDispatchToProps = dispatch => ({

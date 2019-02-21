@@ -82,7 +82,8 @@ export default class PlayersAPI {
             year: player.year,
             free_school_meals: player.free_school_meals,
             pupil_premium: player.pupil_premium,
-            sen: player.sen
+            sen: player.sen,
+            tags: player.tags
         });
         formData.append('encrypted', encrypted);
         return axios.post(`${host}${root}/insert`, formData, {
@@ -119,7 +120,8 @@ export default class PlayersAPI {
             year: player.year,
             free_school_meals: player.free_school_meals,
             pupil_premium: player.pupil_premium,
-            sen: player.sen
+            sen: player.sen,
+            tags: player.tags
         });
         formData.append('encrypted', encrypted);
         return axios.post(`${host}${root}/update/${id}`, formData, {

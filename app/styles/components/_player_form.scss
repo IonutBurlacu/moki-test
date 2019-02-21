@@ -23,6 +23,10 @@
         }
     }
 
+    .top-side {
+        align-items: flex-start;
+    }
+
     .left-side,
     .center-side,
     .right-side {
@@ -33,6 +37,7 @@
     }
 
     .bottom-side {
+        align-items: flex-start;
         justify-content: space-between;
         margin-left: 22vmin;
 
@@ -40,7 +45,7 @@
             width: auto;
         }
 
-        .tags-form-group .form-input {
+        .tags-form-group .react-autosuggest__container {
             width: 43.5vmin;
         }
     }
@@ -53,6 +58,7 @@
     .form-group-checkbox {
         // To invert the order of label and input
         direction: rtl;
+        padding-top: 0.9vmin;
 
         input {
             opacity: 0;
@@ -91,6 +97,33 @@
             top: 1.9vmin;
             transform: rotate(45deg);
             width: 0.3vmin;
+        }
+    }
+
+    .tags-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 2vmin 0 0 0;
+        padding: 0;
+        width: 43.5vmin;
+
+        .tag-item {
+            background: #171729;
+            border-radius: 0.7vmin;
+            color: white;
+            margin-bottom: 1vmin;
+            margin-right: 1vmin;
+            padding: 0.3vmin 0.8vmin;
+        }
+
+        .tag-remove {
+            background: none;
+            border: none;
+            color: #fe335e;
+            margin-left: 1vmin;
+            padding: 0;
         }
     }
 

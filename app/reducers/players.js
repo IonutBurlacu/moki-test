@@ -12,6 +12,7 @@ export default (
         },
         grades: [],
         years: [],
+        tags: [],
         challenges: [],
         teams: [],
         chartType: 'today',
@@ -179,6 +180,7 @@ export default (
                 ...state,
                 grades: action.grades,
                 years: action.years,
+                tags: action.tags,
                 loading: false
             };
         case 'INSERT_PLAYER_REQUEST':
@@ -215,6 +217,7 @@ export default (
                 },
                 grades: action.grades,
                 years: action.years,
+                tags: action.tags,
                 challenges: action.challenges.filter(
                     challenge => !assignedChallenges.includes(challenge.id)
                 ),

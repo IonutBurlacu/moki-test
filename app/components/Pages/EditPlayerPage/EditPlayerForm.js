@@ -4,7 +4,8 @@ import Select from 'react-select';
 import Link from 'react-router-dom/Link';
 import { Calendar } from 'react-date-range';
 import moment from 'moment';
-import AutoSuggest from '../../Autosuggest';
+import AutoSuggestInput from '../../AutoSuggestInput';
+import AutoSuggestTags from '../../AutoSuggestTags';
 import { Header } from '../../Header';
 import {
     updatePlayerRequest,
@@ -82,6 +83,12 @@ export class EditPlayerForm extends Component {
         });
     };
 
+    handleSuggestionTagsChange = tags => {
+        this.setState({
+            tags
+        });
+    };
+
     handleDelete = () => {
         this.props.showLoader();
         this.props.deletePlayerRequest(this.props.id);
@@ -93,6 +100,10 @@ export class EditPlayerForm extends Component {
             label: item.name
         }));
         const years = this.props.years.map(item => ({
+            value: item.id,
+            label: item.name
+        }));
+        const tags = this.props.tags.map(item => ({
             value: item.id,
             label: item.name
         }));
@@ -180,7 +191,7 @@ export class EditPlayerForm extends Component {
                                     >
                                         Class
                                     </label>
-                                    <AutoSuggest
+                                    <AutoSuggestInput
                                         className="autosuggest"
                                         handleChange={
                                             this.handleSuggestionInputChange
@@ -200,7 +211,7 @@ export class EditPlayerForm extends Component {
                                     >
                                         Year
                                     </label>
-                                    <AutoSuggest
+                                    <AutoSuggestInput
                                         className="autosuggest"
                                         handleChange={
                                             this.handleSuggestionInputChange
@@ -325,13 +336,14 @@ export class EditPlayerForm extends Component {
                                 </label>
                             </div>
                             <div className="form-group tags-form-group">
-                                <input
-                                    type="text"
-                                    className="form-input"
-                                    id="tags"
-                                    name="tags"
-                                    autoComplete="off"
-                                    onChange={this.handleInputChange}
+                                <AutoSuggestTags
+                                    className="autosuggest-tags"
+                                    handleChange={
+                                        this.handleSuggestionTagsChange
+                                    }
+                                    items={tags}
+                                    tags={this.state.tags}
+                                    name="tag"
                                 />
                             </div>
                         </div>
@@ -352,7 +364,8 @@ export class EditPlayerForm extends Component {
 const mapStateToProps = state => ({
     player: state.players.player,
     grades: state.players.grades,
-    years: state.players.years
+    years: state.players.years,
+    tags: state.players.tags
 });
 
 const mapDispatchToProps = dispatch => ({

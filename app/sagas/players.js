@@ -109,7 +109,8 @@ export function* playerCreate() {
     yield put({
         type: 'CREATE_PLAYER',
         grades: decoded.grades,
-        years: decoded.years
+        years: decoded.years,
+        tags: decoded.tags
     });
 
     yield put({
@@ -155,7 +156,8 @@ export function* playerEdit(action) {
         grades: decoded.grades,
         years: decoded.years,
         challenges: decoded.challenges,
-        teams: decoded.teams
+        teams: decoded.teams,
+        tags: decoded.tags
     });
 
     yield put({
