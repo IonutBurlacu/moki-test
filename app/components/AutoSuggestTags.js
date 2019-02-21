@@ -70,7 +70,7 @@ export default class AutoSuggestTags extends Component {
     onKeyPress = event => {
         if (event.key === 'Enter') {
             if (this.state.tags.find(tag => tag.name === this.state.label)) {
-                // If the tag already exists in the list below.
+                // If the tag already exists in the list below, don't do anything.
                 this.setState(() => ({
                     label: '',
                     suggestions: []
