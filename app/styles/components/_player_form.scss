@@ -14,9 +14,13 @@
     }
 
     form {
-        display: flex;
-        flex-direction: row;
         width: 160vmin;
+
+        .top-side,
+        .bottom-side {
+            display: flex;
+            flex-direction: row;
+        }
     }
 
     .left-side,
@@ -26,6 +30,68 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    .bottom-side {
+        justify-content: space-between;
+        margin-left: 22vmin;
+
+        .form-group {
+            width: auto;
+        }
+
+        .tags-form-group .form-input {
+            width: 43.5vmin;
+        }
+    }
+
+    .form-label-checkbox {
+        font-size: 2.4vmin;
+        width: auto;
+    }
+
+    .form-group-checkbox {
+        // To invert the order of label and input
+        direction: rtl;
+
+        input {
+            opacity: 0;
+            position: absolute;
+        }
+
+        label {
+            position: relative;
+            cursor: pointer;
+        }
+
+        label:before {
+            border: 1px solid white;
+            border-radius: 2px;
+            content: '';
+            display: inline-block;
+            height: 3.2vmin;
+            margin-left: 1vmin;
+            vertical-align: text-top;
+            width: 3.2vmin;
+        }
+
+        input:checked + label:before {
+            border-color: #6ee05a;
+        }
+
+        input:checked + label:after {
+            background: #6ee05a;
+            box-shadow: 0.3vmin 0 0 #6ee05a, 0.6vmin 0 0 #6ee05a,
+                0.6vmin -0.3vmin 0 #6ee05a, 0.6vmin -0.6vmin 0 #6ee05a,
+                0.6vmin -0.9vmin 0 #6ee05a, 0.6vmin -1.2vmin 0 #6ee05a;
+            content: '';
+            height: 0.3vmin;
+            right: 2.2vmin;
+            position: absolute;
+            top: 1.9vmin;
+            transform: rotate(45deg);
+            width: 0.3vmin;
+        }
     }
 
     .edit-photo-input {

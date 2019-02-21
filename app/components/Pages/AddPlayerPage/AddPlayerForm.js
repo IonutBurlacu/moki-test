@@ -58,6 +58,9 @@ export class AddPlayerForm extends Component {
             birthday: moment(),
             grade: '',
             year: '',
+            free_school_meals: false,
+            pupil_premium: false,
+            sen: false,
             file: null,
             filePreview: '',
             defaultAvatar,
@@ -86,7 +89,11 @@ export class AddPlayerForm extends Component {
     };
 
     handleInputChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        if (event.target.type === 'checkbox') {
+            this.setState({ [event.target.name]: event.target.checked });
+        } else {
+            this.setState({ [event.target.name]: event.target.value });
+        }
     };
 
     handleFileChange = event => {
@@ -138,153 +145,212 @@ export class AddPlayerForm extends Component {
                 />
                 <div className="player-form">
                     <form action="">
-                        <div className="left-side">
-                            <img
-                                src={
-                                    this.state.filePreview
-                                        ? this.state.filePreview
-                                        : this.state.defaultAvatar.file
-                                }
-                                className="avatar"
-                                alt="avatar"
-                            />
-                            <label
-                                htmlFor="avatar"
-                                className="edit-photo-button"
-                            >
-                                Edit Photo
-                            </label>
-                            <input
-                                type="file"
-                                className="edit-photo-input"
-                                id="avatar"
-                                onChange={this.handleFileChange}
-                            />
-                        </div>
-                        <div className="center-side">
-                            <div className="form-group">
-                                <label
-                                    htmlFor="firstName"
-                                    className="form-label required"
-                                >
-                                    First Name
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-input"
-                                    id="firstName"
-                                    name="first_name"
-                                    autoComplete="off"
-                                    onChange={this.handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label
-                                    htmlFor="lastName"
-                                    className="form-label required"
-                                >
-                                    Surname
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-input"
-                                    id="lastName"
-                                    name="last_name"
-                                    autoComplete="off"
-                                    onChange={this.handleInputChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label
-                                    htmlFor="teamId"
-                                    className="form-label required"
-                                >
-                                    Class
-                                </label>
-                                <AutoSuggest
-                                    className="autosuggest"
-                                    handleChange={
-                                        this.handleSuggestionInputChange
+                        <div className="top-side">
+                            <div className="left-side">
+                                <img
+                                    src={
+                                        this.state.filePreview
+                                            ? this.state.filePreview
+                                            : this.state.defaultAvatar.file
                                     }
-                                    items={grades}
-                                    name="grade"
+                                    className="avatar"
+                                    alt="avatar"
                                 />
-                            </div>
-                        </div>
-                        <div className="right-side">
-                            <div className="form-group">
                                 <label
-                                    htmlFor="year"
-                                    className="form-label required"
+                                    htmlFor="avatar"
+                                    className="edit-photo-button"
                                 >
-                                    Year
-                                </label>
-                                <AutoSuggest
-                                    className="autosuggest"
-                                    handleChange={
-                                        this.handleSuggestionInputChange
-                                    }
-                                    items={years}
-                                    name="year"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label
-                                    htmlFor="teamId"
-                                    className="form-label required"
-                                >
-                                    Gender
-                                </label>
-                                <Select
-                                    defaultValue={genderOptions[0]}
-                                    isClearable={false}
-                                    isSearchable={false}
-                                    options={genderOptions}
-                                    className="form-input-select"
-                                    classNamePrefix="form-select"
-                                    name="gender"
-                                    onChange={val => {
-                                        this.handleInputChange({
-                                            target: {
-                                                name: 'gender',
-                                                value: val.value
-                                            }
-                                        });
-                                    }}
-                                />
-                            </div>
-                            <div className="form-group datepicker-form-group">
-                                <label
-                                    htmlFor="birthday"
-                                    className="form-label required"
-                                >
-                                    D.O.B.
+                                    Edit Photo
                                 </label>
                                 <input
-                                    type="text"
-                                    className="form-input"
-                                    id="firstName"
-                                    name="first_name"
-                                    autoComplete="off"
-                                    readOnly="true"
-                                    onClick={this.toggleCalendar}
-                                    value={moment(this.state.birthday).format(
-                                        'YYYY-MM-DD'
-                                    )}
+                                    type="file"
+                                    className="edit-photo-input"
+                                    id="avatar"
+                                    onChange={this.handleFileChange}
                                 />
-                                {this.state.calendar_show ? (
-                                    <Calendar
-                                        onChange={this.onDateChange}
-                                        className="date-range-picker player-date-picker"
-                                        direction="horizontal"
-                                        showDateDisplay={false}
-                                        rangeColors={['#66667b']}
-                                        date={this.state.birthday}
-                                        maxDate={new Date()}
+                            </div>
+                            <div className="center-side">
+                                <div className="form-group">
+                                    <label
+                                        htmlFor="firstName"
+                                        className="form-label required"
+                                    >
+                                        First Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        id="firstName"
+                                        name="first_name"
+                                        autoComplete="off"
+                                        onChange={this.handleInputChange}
                                     />
-                                ) : (
-                                    ''
-                                )}
+                                </div>
+                                <div className="form-group">
+                                    <label
+                                        htmlFor="lastName"
+                                        className="form-label required"
+                                    >
+                                        Surname
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        id="lastName"
+                                        name="last_name"
+                                        autoComplete="off"
+                                        onChange={this.handleInputChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label
+                                        htmlFor="teamId"
+                                        className="form-label required"
+                                    >
+                                        Class
+                                    </label>
+                                    <AutoSuggest
+                                        className="autosuggest"
+                                        handleChange={
+                                            this.handleSuggestionInputChange
+                                        }
+                                        items={grades}
+                                        name="grade"
+                                    />
+                                </div>
+                            </div>
+                            <div className="right-side">
+                                <div className="form-group">
+                                    <label
+                                        htmlFor="year"
+                                        className="form-label required"
+                                    >
+                                        Year
+                                    </label>
+                                    <AutoSuggest
+                                        className="autosuggest"
+                                        handleChange={
+                                            this.handleSuggestionInputChange
+                                        }
+                                        items={years}
+                                        name="year"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label
+                                        htmlFor="teamId"
+                                        className="form-label required"
+                                    >
+                                        Gender
+                                    </label>
+                                    <Select
+                                        defaultValue={genderOptions[0]}
+                                        isClearable={false}
+                                        isSearchable={false}
+                                        options={genderOptions}
+                                        className="form-input-select"
+                                        classNamePrefix="form-select"
+                                        name="gender"
+                                        onChange={val => {
+                                            this.handleInputChange({
+                                                target: {
+                                                    name: 'gender',
+                                                    value: val.value
+                                                }
+                                            });
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group datepicker-form-group">
+                                    <label
+                                        htmlFor="birthday"
+                                        className="form-label required"
+                                    >
+                                        D.O.B.
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        id="firstName"
+                                        name="first_name"
+                                        autoComplete="off"
+                                        readOnly="true"
+                                        onClick={this.toggleCalendar}
+                                        value={moment(
+                                            this.state.birthday
+                                        ).format('YYYY-MM-DD')}
+                                    />
+                                    {this.state.calendar_show ? (
+                                        <Calendar
+                                            onChange={this.onDateChange}
+                                            className="date-range-picker player-date-picker"
+                                            direction="horizontal"
+                                            showDateDisplay={false}
+                                            rangeColors={['#66667b']}
+                                            date={this.state.birthday}
+                                            maxDate={new Date()}
+                                        />
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="bottom-side">
+                            <div className="form-group form-group-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox"
+                                    id="free_school_meals"
+                                    name="free_school_meals"
+                                    onChange={this.handleInputChange}
+                                />
+                                <label
+                                    className="form-label form-label-checkbox"
+                                    htmlFor="free_school_meals"
+                                >
+                                    Free School Meals
+                                </label>
+                            </div>
+                            <div className="form-group form-group-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox"
+                                    id="pupil_premium"
+                                    name="pupil_premium"
+                                    onChange={this.handleInputChange}
+                                />
+                                <label
+                                    className="form-label form-label-checkbox"
+                                    htmlFor="pupil_premium"
+                                >
+                                    Pupil Premium
+                                </label>
+                            </div>
+                            <div className="form-group form-group-checkbox">
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox"
+                                    id="sen"
+                                    name="sen"
+                                    onChange={this.handleInputChange}
+                                />
+                                <label
+                                    className="form-label form-label-checkbox"
+                                    htmlFor="sen"
+                                >
+                                    SEN
+                                </label>
+                            </div>
+                            <div className="form-group tags-form-group">
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    id="tags"
+                                    name="tags"
+                                    autoComplete="off"
+                                    onChange={this.handleInputChange}
+                                />
                             </div>
                         </div>
                     </form>

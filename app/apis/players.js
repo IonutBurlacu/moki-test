@@ -79,7 +79,10 @@ export default class PlayersAPI {
             grade_id: player.grade_id,
             grade: player.grade,
             year_id: player.year_id,
-            year: player.year
+            year: player.year,
+            free_school_meals: player.free_school_meals,
+            pupil_premium: player.pupil_premium,
+            sen: player.sen
         });
         formData.append('encrypted', encrypted);
         return axios.post(`${host}${root}/insert`, formData, {
@@ -113,7 +116,10 @@ export default class PlayersAPI {
             grade_id: player.grade_id,
             grade: player.grade,
             year_id: player.year_id,
-            year: player.year
+            year: player.year,
+            free_school_meals: player.free_school_meals,
+            pupil_premium: player.pupil_premium,
+            sen: player.sen
         });
         formData.append('encrypted', encrypted);
         return axios.post(`${host}${root}/update/${id}`, formData, {
