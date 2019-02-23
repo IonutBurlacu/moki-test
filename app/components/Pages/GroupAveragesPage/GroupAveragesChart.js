@@ -83,7 +83,25 @@ export class GroupAveragesChart extends Component {
                         >
                             <CartesianGrid stroke="#53535d" vertical={false} />
                             <XAxis dataKey="tag_name" stroke="#f6f6f7" />
-                            <YAxis stroke="#f6f6f7" />
+                            <YAxis
+                                stroke="#f6f6f7"
+                                tickFormatter={number => {
+                                    if (number > 1000000000) {
+                                        return `${(
+                                            number / 1000000000
+                                        ).toString()}B`;
+                                    }
+                                    if (number > 1000000) {
+                                        return `${(
+                                            number / 1000000
+                                        ).toString()}M`;
+                                    }
+                                    if (number > 1000) {
+                                        return `${(number / 1000).toString()}K`;
+                                    }
+                                    return number.toString();
+                                }}
+                            />
                             <Tooltip cursor={false} />
                             <Bar
                                 dataKey="avg_steps"
