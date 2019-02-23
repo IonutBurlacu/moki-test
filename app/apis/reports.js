@@ -70,4 +70,29 @@ export default class ReportsAPI {
             }
         });
     }
+
+    static groupAverages(
+        headers = {},
+        teamId,
+        chartType,
+        chartStartDate,
+        chartEndDate
+    ) {
+        const encrypted = encrypt({
+            team_id: teamId,
+            type: chartType,
+            start_date: chartStartDate,
+            end_date: chartEndDate
+        });
+        return axios({
+            method: 'post',
+            url: `${host}${root}/group_averages`,
+            headers: {
+                ...headers
+            },
+            data: {
+                encrypted
+            }
+        });
+    }
 }

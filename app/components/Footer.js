@@ -89,7 +89,7 @@ export class Footer extends Component {
                 </li>
                 <li>
                     <Link
-                        to="/reports/player_variation"
+                        to="/reports/group_averages"
                         className={
                             this.props.active === 'reports'
                                 ? 'footer__menu-item active'

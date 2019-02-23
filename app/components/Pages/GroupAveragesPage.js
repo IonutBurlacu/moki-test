@@ -3,21 +3,21 @@ import Link from 'react-router-dom/Link';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
-import PageTitle from './PlayerVariationPage/PageTitle';
+import PageTitle from './GroupAveragesPage/PageTitle';
 import { showLoader } from '../../actions/loader';
-import { getPlayerVariationRequest } from '../../actions/reports';
-import PlayerVariationChart from './PlayerVariationPage/PlayerVariationChart';
-import { TopFilters } from './PlayerVariationPage/TopFilters';
-import { ChartScale } from './PlayerVariationPage/ChartScale';
+import { getGroupAveragesRequest } from '../../actions/reports';
+import GroupAveragesChart from './GroupAveragesPage/GroupAveragesChart';
+import { TopFilters } from './GroupAveragesPage/TopFilters';
+import { ChartScale } from './GroupAveragesPage/ChartScale';
 
-export class PlayerVariationPage extends Component {
+export class GroupAveragesPage extends Component {
     componentWillMount() {
         this.props.showLoader();
-        this.props.getPlayerVariationRequest(
-            this.props.playerVariation.teamId,
-            this.props.playerVariation.chartType,
-            this.props.playerVariation.chartStateDate,
-            this.props.playerVariation.chartEndDate
+        this.props.getGroupAveragesRequest(
+            this.props.groupAverages.teamId,
+            this.props.groupAverages.chartType,
+            this.props.groupAverages.chartStateDate,
+            this.props.groupAverages.chartEndDate
         );
     }
 
@@ -31,12 +31,11 @@ export class PlayerVariationPage extends Component {
                 {!this.props.loading ? (
                     <div className="content">
                         <TopFilters />
-                        <PageTitle title="Player Variation" />
+                        <PageTitle title="Group Averages" />
                         <div className="chart-with-scale">
-                            <PlayerVariationChart />
+                            <GroupAveragesChart />
                             <ChartScale />
                         </div>
-                        <p className="below-chart">PLAYERS</p>
                     </div>
                 ) : (
                     <div className="content" />
@@ -49,19 +48,19 @@ export class PlayerVariationPage extends Component {
 
 const mapStateToProps = state => ({
     loading: state.reports.loading,
-    playerVariation: state.reports.playerVariation
+    groupAverages: state.reports.groupAverages
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
-    getPlayerVariationRequest: (
+    getGroupAveragesRequest: (
         teamId,
         chartType,
         chartStartDate,
         chartEndDate
     ) =>
         dispatch(
-            getPlayerVariationRequest(
+            getGroupAveragesRequest(
                 teamId,
                 chartType,
                 chartStartDate,
@@ -73,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PlayerVariationPage);
+)(GroupAveragesPage);

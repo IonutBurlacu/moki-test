@@ -36,6 +36,14 @@ export default (
             chartEndDate: moment.utc().local(),
             teamSelectOpen: false
         },
+        groupAverages: {
+            data: [],
+            teamId: null,
+            chartType: 'today',
+            chartStartDate: moment.utc().local(),
+            chartEndDate: moment.utc().local(),
+            teamSelectOpen: false
+        },
         loading: false
     },
     action
@@ -185,8 +193,8 @@ export default (
                     teamId: action.teamId,
                     data: action.data,
                     chartType: action.chartType,
-                    chartStartDate: action.chartStartDate,
-                    chartEndDate: action.chartEndDate
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
                 },
                 teams: action.teams,
                 loading: false
@@ -206,6 +214,43 @@ export default (
                 ...state,
                 playerVariation: {
                     ...state.playerVariation,
+                    [action.menu]: false
+                }
+            };
+        case 'GET_GROUP_AVERAGES_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_GROUP_AVERAGES':
+            return {
+                ...state,
+                groupAverages: {
+                    ...state.groupAverages,
+                    teamId: action.teamId,
+                    data: action.data,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                teams: action.teams,
+                loading: false
+            };
+        case 'OPEN_GROUP_AVERAGES_MENU':
+            return {
+                ...state,
+                groupAverages: {
+                    ...state.groupAverages,
+                    teamSelectOpen: false,
+                    dateSelectOpen: false,
+                    [action.menu]: true
+                }
+            };
+        case 'CLOSE_GROUP_AVERAGES_MENU':
+            return {
+                ...state,
+                groupAverages: {
+                    ...state.groupAverages,
                     [action.menu]: false
                 }
             };

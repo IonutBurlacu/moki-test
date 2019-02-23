@@ -131,6 +131,44 @@ export const closePlayerVariationMenu = menu => ({
     menu
 });
 
+export const getGroupAveragesRequest = (
+    teamId,
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
+    type: 'GET_GROUP_AVERAGES_REQUEST',
+    teamId,
+    chartType,
+    chartStartDate,
+    chartEndDate
+});
+
+export const getGroupAverages = (
+    teamId,
+    data,
+    chartType,
+    chartStateDate,
+    chartEndDate
+) => ({
+    type: 'GET_GROUP_AVERAGES',
+    teamId,
+    data,
+    chartType,
+    chartStateDate,
+    chartEndDate
+});
+
+export const openGroupAveragesMenu = menu => ({
+    type: 'OPEN_GROUP_AVERAGES_MENU',
+    menu
+});
+
+export const closeGroupAveragesMenu = menu => ({
+    type: 'CLOSE_GROUP_AVERAGES_MENU',
+    menu
+});
+
 export const openReportsMenu = menu => ({
     type: 'OPEN_REPORTS_MENU',
     menu
