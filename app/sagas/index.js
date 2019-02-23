@@ -53,7 +53,11 @@ import {
 
 import { pairBand, syncBand } from './bands';
 
-import { getReportsTeams, statsReportsTeams } from './reports';
+import {
+    getReportsTeams,
+    statsReportsTeams,
+    getPlayerVariation
+} from './reports';
 
 export default function* sagas() {
     yield [
@@ -68,6 +72,7 @@ export default function* sagas() {
 
         fork(takeLatest, 'GET_REPORTS_TEAMS_REQUEST', getReportsTeams),
         fork(takeLatest, 'STATS_REPORTS_TEAMS_REQUEST', statsReportsTeams),
+        fork(takeLatest, 'GET_PLAYER_VARIATION_REQUEST', getPlayerVariation),
 
         fork(takeLatest, 'GET_CHALLENGES_REQUEST', challengesFetchList),
         fork(takeLatest, 'CREATE_CHALLENGE_REQUEST', challengeCreate),

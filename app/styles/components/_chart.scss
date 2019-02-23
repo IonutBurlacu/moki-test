@@ -238,3 +238,99 @@
         }
     }
 }
+
+.chart-with-scale {
+    align-items: flex-end;
+    display: flex;
+
+    .chart-container {
+        flex: 1;
+
+        .legend {
+            padding: 3vmin 0 1vmin 10vmin;
+
+            .team {
+                color: white;
+                font-size: 3.5vmin;
+                line-height: 1.4;
+                margin: 0;
+            }
+
+            .date {
+                color: white;
+                font-size: 2.5vmin;
+                margin: 0;
+            }
+        }
+
+        .chart {
+            height: 42vmin;
+            width: 100%;
+        }
+    }
+}
+
+.chart-scale-container {
+    padding: 4vmin 4vmin 1.2vmin 3vmin;
+    width: 35vmin;
+
+    .chart-scale {
+        background: #1f1f42;
+
+        .chart-scale-header {
+            background: #3a3f82;
+            padding: 1vmin 0;
+            position: relative;
+
+            p {
+                color: white;
+                font-size: 2.5vmin;
+                margin: 0;
+                text-align: center;
+            }
+
+            .tooltip {
+                align-items: center;
+                border: 1px solid #5ec253;
+                color: #5ec253;
+                display: flex;
+                font-size: 2.5vmin;
+                height: 3.5vmin;
+                justify-content: center;
+                line-height: 1;
+                position: absolute;
+                right: 1vmin;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 3.5vmin;
+            }
+        }
+        .chart-scale-body {
+            align-items: stretch;
+            display: flex;
+            flex-direction: column;
+            padding: 3vmin 3vmin 1vmin 3vmin;
+
+            .chart-scale-color {
+                height: 3.2vmin;
+                width: 100%;
+            }
+
+            .chart-scale-label {
+                color: white;
+                display: block;
+                font-size: 1.5vmin;
+                margin-bottom: 2vmin;
+                text-align: center;
+            }
+        }
+    }
+}
+
+.below-chart {
+    color: white;
+    font-size: 2.6vmin;
+    margin: 0;
+    margin-top: -0.5vmin;
+    text-align: center;
+}

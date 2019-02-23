@@ -45,4 +45,29 @@ export default class ReportsAPI {
             }
         });
     }
+
+    static playerVariation(
+        headers = {},
+        teamId,
+        chartType,
+        chartStartDate,
+        chartEndDate
+    ) {
+        const encrypted = encrypt({
+            team_id: teamId,
+            type: chartType,
+            start_date: chartStartDate,
+            end_date: chartEndDate
+        });
+        return axios({
+            method: 'post',
+            url: `${host}${root}/player_variation`,
+            headers: {
+                ...headers
+            },
+            data: {
+                encrypted
+            }
+        });
+    }
 }

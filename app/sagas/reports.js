@@ -53,3 +53,33 @@ export function* statsReportsTeams(action) {
         type: 'HIDE_LOADER'
     });
 }
+
+export function* getPlayerVariation(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        ReportsAPI.playerVariation,
+        {
+            Authorization: token
+        },
+        action.teamId,
+        action.chartType,
+        moment(action.chartStartDate).format('YYYY-MM-DD'),
+        moment(action.chartEndDate).format('YYYY-MM-DD')
+    );
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'GET_PLAYER_VARIATION',
+        data: decoded.data,
+        teamId: decoded.team_id,
+        teams: decoded.teams,
+        chartType: action.chartType,
+        chartStartDate: decoded.start_date,
+        chartEndDate: decoded.end_date
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}

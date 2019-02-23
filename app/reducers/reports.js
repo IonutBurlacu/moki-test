@@ -28,6 +28,14 @@ export default (
         dataBSelectOpen: false,
         dateSelectOverviewOpen: false,
         dateSelectTypicalOpen: false,
+        playerVariation: {
+            data: [],
+            teamId: null,
+            chartType: 'today',
+            chartStartDate: moment.utc().local(),
+            chartEndDate: moment.utc().local(),
+            teamSelectOpen: false
+        },
         loading: false
     },
     action
@@ -163,6 +171,43 @@ export default (
             return {
                 ...state,
                 filterByB: []
+            };
+        case 'GET_PLAYER_VARIATION_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_PLAYER_VARIATION':
+            return {
+                ...state,
+                playerVariation: {
+                    ...state.playerVariation,
+                    teamId: action.teamId,
+                    data: action.data,
+                    chartType: action.chartType,
+                    chartStartDate: action.chartStartDate,
+                    chartEndDate: action.chartEndDate
+                },
+                teams: action.teams,
+                loading: false
+            };
+        case 'OPEN_PLAYER_VARIATION_MENU':
+            return {
+                ...state,
+                playerVariation: {
+                    ...state.playerVariation,
+                    teamSelectOpen: false,
+                    dateSelectOpen: false,
+                    [action.menu]: true
+                }
+            };
+        case 'CLOSE_PLAYER_VARIATION_MENU':
+            return {
+                ...state,
+                playerVariation: {
+                    ...state.playerVariation,
+                    [action.menu]: false
+                }
             };
         case 'OPEN_REPORTS_MENU':
             return {

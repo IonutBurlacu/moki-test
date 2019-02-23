@@ -11,6 +11,7 @@ import PlayersPage from './components/Pages/PlayersPage';
 import TeamsPage from './components/Pages/TeamsPage';
 import ChallengesPage from './components/Pages/ChallengesPage';
 import ReportsPage from './components/Pages/ReportsPage';
+import PlayerVariationPage from './components/Pages/PlayerVariationPage';
 import SettingsPage from './components/Pages/SettingsPage';
 import PairBandsPage from './components/Pages/PairBandsPage';
 import SyncBandsPage from './components/Pages/SyncBandsPage';
@@ -51,7 +52,11 @@ export default () => (
                 path="/challenges/view/:id"
                 component={ChallengePage}
             />
-            <PrivateRoute path="/reports" component={ReportsPage} />
+            <PrivateRoute path="/reports" component={ReportsPage} exact />
+            <PrivateRoute
+                path="/reports/player_variation"
+                component={PlayerVariationPage}
+            />
             <PrivateRoute path="/settings" component={SettingsPage} />
             <PublicRoute path="/login" component={LoginPage} exact />
             <Route component={NotFoundPage} />

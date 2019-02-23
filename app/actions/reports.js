@@ -93,6 +93,44 @@ export const clearFilterFromDataB = () => ({
     type: 'CLEAR_FILTER_FROM_DATA_B'
 });
 
+export const getPlayerVariationRequest = (
+    teamId,
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
+    type: 'GET_PLAYER_VARIATION_REQUEST',
+    teamId,
+    chartType,
+    chartStartDate,
+    chartEndDate
+});
+
+export const getPlayerVariation = (
+    teamId,
+    data,
+    chartType,
+    chartStateDate,
+    chartEndDate
+) => ({
+    type: 'GET_PLAYER_VARIATION',
+    teamId,
+    data,
+    chartType,
+    chartStateDate,
+    chartEndDate
+});
+
+export const openPlayerVariationMenu = menu => ({
+    type: 'OPEN_PLAYER_VARIATION_MENU',
+    menu
+});
+
+export const closePlayerVariationMenu = menu => ({
+    type: 'CLOSE_PLAYER_VARIATION_MENU',
+    menu
+});
+
 export const openReportsMenu = menu => ({
     type: 'OPEN_REPORTS_MENU',
     menu
