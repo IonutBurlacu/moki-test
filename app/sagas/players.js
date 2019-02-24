@@ -88,8 +88,7 @@ export function* playerStats(action) {
 
     yield put({
         type: 'STATS_PLAYER',
-        overview: decoded.overview,
-        typical: decoded.typical,
+        data: decoded.data,
         chartType: action.chartType,
         chartStartDate: action.chartStartDate,
         chartEndDate: action.chartEndDate

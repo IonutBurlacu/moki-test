@@ -4,6 +4,7 @@ export default (
     state = {
         items: [],
         team: {
+            data: [],
             overview: [],
             typical: [],
             totalOverview: 0,
@@ -24,8 +25,7 @@ export default (
         dateSelectOpen: false,
         filterSelectOpen: false,
         sortSelectOpen: false,
-        dateSelectOverviewOpen: false,
-        dateSelectTypicalOpen: false,
+        dateSelectChartOpen: false,
         loading: false
     },
     action
@@ -103,20 +103,19 @@ export default (
                 ...state,
                 team: {
                     ...action.team,
-                    overview: action.team.overview.current,
-                    typical: action.team.typical.current,
-                    totalOverview: action.team.overview.current.reduce(
+                    data: action.team.data.current,
+                    totalOverview: action.team.data.current.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps,
+                            accumulator + currentValue.total_steps_overview,
                         0
                     ),
-                    totalTypical: action.team.typical.current.reduce(
+                    totalTypical: action.team.data.current.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps,
+                            accumulator + currentValue.total_steps_typical,
                         0
                     ),
                     totalOverviewPrevious:
-                        action.team.overview.previous_total.previous_steps
+                        action.team.data.previous_total.previous_steps
                 },
                 chartType: 'today',
                 chartStartDate: moment.utc().local(),
@@ -143,20 +142,19 @@ export default (
                 ...state,
                 team: {
                     ...state.team,
-                    overview: action.overview.current,
-                    typical: action.typical.current,
-                    totalOverview: action.overview.current.reduce(
+                    data: action.data.current,
+                    totalOverview: action.data.current.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps,
+                            accumulator + currentValue.total_steps_overview,
                         0
                     ),
-                    totalTypical: action.typical.current.reduce(
+                    totalTypical: action.data.current.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps,
+                            accumulator + currentValue.total_steps_typical,
                         0
                     ),
                     totalOverviewPrevious:
-                        action.overview.previous_total.previous_steps
+                        action.data.previous_total.previous_steps
                 },
                 chartType: action.chartType,
                 chartStartDate: action.chartStartDate,
@@ -301,8 +299,7 @@ export default (
                 dateSelectOpen: false,
                 filterSelectOpen: false,
                 sortSelectOpen: false,
-                dateSelectOverviewOpen: false,
-                dateSelectTypicalOpen: false,
+                dateSelectChartOpen: false,
                 [action.menu]: true
             };
         case 'CLOSE_TEAMS_MENU':

@@ -4,6 +4,7 @@ export default (
     state = {
         items: [],
         player: {
+            data: [],
             overview: [],
             typical: [],
             totalOverview: 0,
@@ -27,8 +28,7 @@ export default (
         dateSelectOpen: false,
         filterSelectOpen: false,
         sortSelectOpen: false,
-        dateSelectOverviewOpen: false,
-        dateSelectTypicalOpen: false,
+        dateSelectChartOpen: false,
         loading: false
     },
     action
@@ -110,20 +110,19 @@ export default (
                 player: {
                     ...action.player,
                     age: moment().diff(moment(action.player.birthday), 'year'),
-                    overview: action.player.overview.current,
-                    typical: action.player.typical.current,
-                    totalOverview: action.player.overview.current.reduce(
+                    data: action.player.data.current,
+                    totalOverview: action.player.data.current.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps,
+                            accumulator + currentValue.total_steps_overview,
                         0
                     ),
-                    totalTypical: action.player.typical.current.reduce(
+                    totalTypical: action.player.data.current.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps,
+                            accumulator + currentValue.total_steps_typical,
                         0
                     ),
                     totalOverviewPrevious:
-                        action.player.overview.previous_total.previous_steps
+                        action.player.data.previous_total.previous_steps
                 },
                 chartType: 'today',
                 chartStartDate: moment.utc().local(),
@@ -150,20 +149,19 @@ export default (
                 ...state,
                 player: {
                     ...state.player,
-                    overview: action.overview.current,
-                    typical: action.typical.current,
-                    totalOverview: action.overview.current.reduce(
+                    data: action.data.current,
+                    totalOverview: action.data.current.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps,
+                            accumulator + currentValue.total_steps_overview,
                         0
                     ),
-                    totalTypical: action.typical.current.reduce(
+                    totalTypical: action.data.current.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps,
+                            accumulator + currentValue.total_steps_typical,
                         0
                     ),
                     totalOverviewPrevious:
-                        action.overview.previous_total.previous_steps
+                        action.data.previous_total.previous_steps
                 },
                 chartType: action.chartType,
                 chartStartDate: action.chartStartDate,
@@ -356,8 +354,7 @@ export default (
                 dateSelectOpen: false,
                 filterSelectOpen: false,
                 sortSelectOpen: false,
-                dateSelectOverviewOpen: false,
-                dateSelectTypicalOpen: false,
+                dateSelectChartOpen: false,
                 [action.menu]: true
             };
         case 'CLOSE_PLAYERS_MENU':

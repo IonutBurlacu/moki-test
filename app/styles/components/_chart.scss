@@ -4,129 +4,9 @@
     .chart-container {
         flex: 1;
 
-        .chart-header {
-            margin: 3vmin 2vmin 3vmin 0;
-            position: relative;
-
-            h1 {
-                color: white;
-                font-size: 4vmin;
-                font-weight: normal;
-                line-height: 5.5vmin;
-                margin: 0;
-                text-align: center;
-            }
-
-            .chart-select-wrapper {
-                position: absolute;
-                right: 10px;
-                top: 0;
-
-                .chart-select {
-                    position: relative;
-                }
-            }
-
-            .chart-select-button {
-                background: transparent;
-                border: 1px solid white;
-                color: white;
-                font-size: 2.7vmin;
-                height: 5.5vmin;
-                padding: 1vmin 0;
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 25vmin;
-
-                &.active {
-                    background: #fe335e;
-                }
-
-                &:before {
-                    border-color: #fff transparent transparent transparent;
-                    border-style: solid;
-                    border-width: 1.6vmin 0.9vmin 0 0.9vmin;
-                    content: '';
-                    display: inline-block;
-                    height: 0;
-                    left: 1.4vmin;
-                    margin-right: 1vmin;
-                    position: absolute;
-                    vertical-align: middle;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    width: 0;
-                }
-            }
-
-            .chart-select-list-wrapper {
-                display: none;
-                position: absolute;
-                right: 0;
-                top: 5.5vmin;
-                z-index: 999;
-
-                .chart-select-list-header {
-                    background: #66667b;
-                    color: white;
-                    font-size: 2.7vmin;
-                    padding: 1vmin 0 1vmin 3vmin;
-                    position: relative;
-
-                    button {
-                        background: transparent;
-                        border: none;
-                        color: #bfc0c5;
-                        font-size: 4vmin;
-                        position: absolute;
-                        right: 1vmin;
-                        top: 50%;
-                        transform: translateY(-50%);
-                    }
-                }
-
-                .chart-select-list {
-                    background: #797993;
-                    list-style: none;
-                    padding: 0 3vmin;
-                    margin: 0;
-                    max-height: 55vmin;
-                    overflow-y: auto;
-                    padding: 0 3vmin;
-                    width: 60vmin;
-
-                    li {
-                        border-bottom: 1px solid #acacb7;
-                        color: white;
-                        font-size: 2.7vmin;
-                        padding: 1vmin 0;
-
-                        button {
-                            background: transparent;
-                            border: none;
-                            color: white;
-                            padding: 0;
-                            text-align: left;
-                            width: 100%;
-                        }
-
-                        &:last-child {
-                            border-bottom: none;
-                        }
-                    }
-
-                    .selected {
-                        button {
-                            color: #6ee05d;
-                        }
-                    }
-                }
-            }
-        }
-
         .chart {
             height: 37vmin;
+            margin-top: 4vmin;
             width: 100%;
         }
 
@@ -134,7 +14,7 @@
             display: flex;
             flex-direction: column;
             margin-bottom: 2vmin;
-            padding: 0 4vmin;
+            padding: 0 7vmin;
 
             .chart-bottom-line {
                 display: flex;
@@ -145,6 +25,26 @@
                     align-items: center;
                     display: flex;
                     flex: 1;
+                }
+
+                .number-grey {
+                    color: #868797;
+                    font-size: 4vmin;
+                }
+
+                .number-green {
+                    color: #23dec8;
+                    font-size: 4vmin;
+                }
+
+                .label-grey {
+                    color: #868797;
+                    margin-left: 0.5vmin;
+                }
+
+                .label-green {
+                    color: #23dec8;
+                    margin-left: 0.5vmin;
                 }
 
                 .left-side {
@@ -188,7 +88,7 @@
                             border-color: transparent transparent #23dec8
                                 transparent;
                             border-style: solid;
-                            border-width: 0 1vmin 1.8vmin 1vmin;
+                            border-width: 0 1.2vmin 2.2vmin 1.2vmin;
                             display: inline-block;
                             height: 0;
                             margin-left: 2vmin;
@@ -198,7 +98,7 @@
                         }
 
                         .percentage {
-                            font-size: 2.8vmin;
+                            font-size: 4vmin;
                             vertical-align: middle;
                         }
                     }
@@ -210,7 +110,7 @@
                             border-color: #fe335e transparent transparent
                                 transparent;
                             border-style: solid;
-                            border-width: 1.8vmin 1vmin 0 1vmin;
+                            border-width: 2.2vmin 1.2vmin 0 1.2vmin;
                             display: inline-block;
                             height: 0;
                             margin-left: 2vmin;
@@ -220,19 +120,16 @@
                         }
 
                         .percentage {
-                            font-size: 2.8vmin;
+                            font-size: 4vmin;
                             vertical-align: middle;
                         }
                     }
                 }
 
                 .right-side {
+                    color: white;
+                    font-size: 2.8vmin;
                     justify-content: flex-end;
-
-                    .total {
-                        color: #23dec8;
-                        font-size: 2.8vmin;
-                    }
                 }
             }
         }

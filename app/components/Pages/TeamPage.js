@@ -6,10 +6,10 @@ import { Header } from '../Header';
 import { editTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
 import PageHeader from './TeamPage/PageHeader';
-import OverviewChart from './TeamPage/OverviewChart';
-import TypicalChart from './TeamPage/TypicalChart';
+import TeamChart from './TeamPage/TeamChart';
 import PlayersList from './TeamPage/PlayersList';
 import ChallengesList from './TeamPage/ChallengesList';
+import { TopFilters } from './TeamPage/TopFilters';
 
 export class TeamPage extends Component {
     handleEdit = id => {
@@ -41,9 +41,9 @@ export class TeamPage extends Component {
                 {!this.props.loading ? (
                     <div className="content">
                         <PageHeader team={this.props.team} />
+                        <TopFilters />
                         <div className="charts-container">
-                            <OverviewChart />
-                            <TypicalChart />
+                            <TeamChart />
                         </div>
                         <div className="two-sides">
                             <div className="side">
