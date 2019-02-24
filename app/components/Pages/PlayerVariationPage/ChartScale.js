@@ -5,7 +5,7 @@ export class ChartScale extends Component {
     render() {
         const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
         const LABELS = [
-            'Highets',
+            'Highest',
             'Above Average',
             'Average',
             'Below Average',

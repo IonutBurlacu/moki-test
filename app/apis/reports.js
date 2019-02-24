@@ -64,4 +64,29 @@ export default class ReportsAPI {
             }
         });
     }
+
+    static totalSteps(
+        headers = {},
+        teamId,
+        chartType,
+        chartStartDate,
+        chartEndDate
+    ) {
+        const encrypted = encrypt({
+            team_id: teamId,
+            type: chartType,
+            start_date: chartStartDate,
+            end_date: chartEndDate
+        });
+        return axios({
+            method: 'post',
+            url: `${host}${root}/total_steps`,
+            headers: {
+                ...headers
+            },
+            data: {
+                encrypted
+            }
+        });
+    }
 }

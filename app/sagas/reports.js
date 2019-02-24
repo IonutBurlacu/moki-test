@@ -77,3 +77,32 @@ export function* getGroupAverages(action) {
         type: 'HIDE_LOADER'
     });
 }
+
+export function* getTotalSteps(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        ReportsAPI.totalSteps,
+        {
+            Authorization: token
+        },
+        action.teamId,
+        action.chartType,
+        moment(action.chartStartDate).format('YYYY-MM-DD'),
+        moment(action.chartEndDate).format('YYYY-MM-DD')
+    );
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'GET_TOTAL_STEPS',
+        data: decoded.data,
+        teamId: decoded.team_id,
+        chartType: action.chartType,
+        chartStartDate: decoded.start_date,
+        chartEndDate: decoded.end_date
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}

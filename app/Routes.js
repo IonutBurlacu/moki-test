@@ -13,6 +13,7 @@ import ChallengesPage from './components/Pages/ChallengesPage';
 import ReportsPage from './components/Pages/ReportsPage';
 import PlayerVariationPage from './components/Pages/PlayerVariationPage';
 import GroupAveragesPage from './components/Pages/GroupAveragesPage';
+import TotalStepsPage from './components/Pages/TotalStepsPage';
 import SettingsPage from './components/Pages/SettingsPage';
 import PairBandsPage from './components/Pages/PairBandsPage';
 import SyncBandsPage from './components/Pages/SyncBandsPage';
@@ -61,6 +62,10 @@ export default () => (
             <PrivateRoute
                 path="/reports/group_averages"
                 component={GroupAveragesPage}
+            />
+            <PrivateRoute
+                path="/reports/total_steps"
+                component={TotalStepsPage}
             />
             <PrivateRoute path="/settings" component={SettingsPage} />
             <PublicRoute path="/login" component={LoginPage} exact />

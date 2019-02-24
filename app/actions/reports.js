@@ -82,3 +82,41 @@ export const closeGroupAveragesMenu = menu => ({
     type: 'CLOSE_GROUP_AVERAGES_MENU',
     menu
 });
+
+export const getTotalStepsRequest = (
+    teamId,
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
+    type: 'GET_TOTAL_STEPS_REQUEST',
+    teamId,
+    chartType,
+    chartStartDate,
+    chartEndDate
+});
+
+export const getTotalSteps = (
+    teamId,
+    data,
+    chartType,
+    chartStateDate,
+    chartEndDate
+) => ({
+    type: 'GET_TOTAL_STEPS',
+    teamId,
+    data,
+    chartType,
+    chartStateDate,
+    chartEndDate
+});
+
+export const openTotalStepsMenu = menu => ({
+    type: 'OPEN_TOTAL_STEPS_MENU',
+    menu
+});
+
+export const closeTotalStepsMenu = menu => ({
+    type: 'CLOSE_TOTAL_STEPS_MENU',
+    menu
+});

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Link from 'react-router-dom/Link';
-import { shell } from 'electron';
 import { connect } from 'react-redux';
 import Footer from '../Footer';
 import { Header } from '../Header';
@@ -89,7 +88,7 @@ export class ReportsPage extends Component {
                                     alt="total-steps"
                                 />
                                 <Link
-                                    to="/reports/player_variation"
+                                    to="/reports/total_steps"
                                     className="report-section-button"
                                 >
                                     <span>View</span>
