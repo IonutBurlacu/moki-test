@@ -19,6 +19,10 @@ export class DateBy extends Component {
         };
     }
 
+    componentWillUnmount() {
+        this.props.closePlayerVariationMenu('dateSelectOpen');
+    }
+
     getSelectedDateType = type => {
         switch (type) {
             case 'today':

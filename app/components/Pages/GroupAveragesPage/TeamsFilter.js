@@ -8,6 +8,10 @@ import {
 } from '../../../actions/reports';
 
 export class TeamsFilter extends Component {
+    componentWillUnmount() {
+        this.props.closeGroupAveragesMenu('teamSelectOpen');
+    }
+
     handleTeamSelectMenu = () => {
         if (this.props.groupAverages.teamSelectOpen) {
             this.props.closeGroupAveragesMenu('teamSelectOpen');
@@ -43,7 +47,7 @@ export class TeamsFilter extends Component {
                     }
                     onClick={this.handleTeamSelectMenu}
                 >
-                    {this.props.groupAverages.teamId
+                    {this.props.groupAverages.teamId && this.props.teams.length
                         ? this.props.teams.find(
                               team =>
                                   team.id === this.props.groupAverages.teamId

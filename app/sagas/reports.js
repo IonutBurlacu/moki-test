@@ -12,41 +12,7 @@ export function* getReportsTeams() {
 
     yield put({
         type: 'GET_REPORTS_TEAMS',
-        teams: decoded.teams,
-        overview: decoded.overview,
-        typical: decoded.typical
-    });
-
-    yield put({
-        type: 'HIDE_LOADER'
-    });
-}
-
-export function* statsReportsTeams(action) {
-    const token = yield select(getToken);
-    const response = yield call(
-        ReportsAPI.stats,
-        { Authorization: token },
-        action.teamIdsA,
-        action.teamIdsB,
-        action.chartType,
-        moment(action.chartStartDate).format('YYYY-MM-DD'),
-        moment(action.chartEndDate).format('YYYY-MM-DD'),
-        action.filterByA,
-        action.filterByB
-    );
-
-    const decoded = decrypt(response.data);
-
-    yield put({
-        type: 'STATS_REPORTS_TEAMS',
-        overview: decoded.overview,
-        typical: decoded.typical,
-        chartType: action.chartType,
-        chartStartDate: action.chartStartDate,
-        chartEndDate: action.chartEndDate,
-        filterByA: action.filterByA,
-        filterByB: action.filterByB
+        teams: decoded.teams
     });
 
     yield put({
@@ -73,7 +39,6 @@ export function* getPlayerVariation(action) {
         type: 'GET_PLAYER_VARIATION',
         data: decoded.data,
         teamId: decoded.team_id,
-        teams: decoded.teams,
         chartType: action.chartType,
         chartStartDate: decoded.start_date,
         chartEndDate: decoded.end_date
@@ -103,7 +68,6 @@ export function* getGroupAverages(action) {
         type: 'GET_GROUP_AVERAGES',
         data: decoded.data,
         teamId: decoded.team_id,
-        teams: decoded.teams,
         chartType: action.chartType,
         chartStartDate: decoded.start_date,
         chartEndDate: decoded.end_date

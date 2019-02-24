@@ -48,9 +48,11 @@ button:disabled {
     .content {
         flex: 1;
         overflow-x: hidden;
-        // overflow-y: auto;
-        // overflow-x: inherit;
-        // width: 100%;
+    }
+
+    .content-flex {
+        display: flex;
+        flex-direction: column;
     }
 }
 

@@ -55,7 +55,6 @@ import { pairBand, syncBand } from './bands';
 
 import {
     getReportsTeams,
-    statsReportsTeams,
     getPlayerVariation,
     getGroupAverages
 } from './reports';
@@ -72,7 +71,6 @@ export default function* sagas() {
         fork(takeLatest, 'SYNC_BAND_REQUEST', syncBand),
 
         fork(takeLatest, 'GET_REPORTS_TEAMS_REQUEST', getReportsTeams),
-        fork(takeLatest, 'STATS_REPORTS_TEAMS_REQUEST', statsReportsTeams),
         fork(takeLatest, 'GET_PLAYER_VARIATION_REQUEST', getPlayerVariation),
         fork(takeLatest, 'GET_GROUP_AVERAGES_REQUEST', getGroupAverages),
 

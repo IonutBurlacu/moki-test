@@ -52,7 +52,8 @@ export class PlayerVariationChart extends Component {
         return (
             <div className="chart-container">
                 <div className="legend">
-                    {this.props.playerVariation.teamId ? (
+                    {this.props.playerVariation.teamId &&
+                    this.props.teams.length ? (
                         <div>
                             <p className="team">
                                 {

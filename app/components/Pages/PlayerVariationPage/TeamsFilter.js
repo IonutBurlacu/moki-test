@@ -8,6 +8,10 @@ import {
 } from '../../../actions/reports';
 
 export class TeamsFilter extends Component {
+    componentWillUnmount() {
+        this.props.closePlayerVariationMenu('teamSelectOpen');
+    }
+
     handleTeamSelectMenu = () => {
         if (this.props.playerVariation.teamSelectOpen) {
             this.props.closePlayerVariationMenu('teamSelectOpen');
@@ -43,7 +47,8 @@ export class TeamsFilter extends Component {
                     }
                     onClick={this.handleTeamSelectMenu}
                 >
-                    {this.props.playerVariation.teamId
+                    {this.props.playerVariation.teamId &&
+                    this.props.teams.length
                         ? this.props.teams.find(
                               team =>
                                   team.id === this.props.playerVariation.teamId

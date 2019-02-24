@@ -52,7 +52,8 @@ export class GroupAveragesChart extends Component {
         return (
             <div className="chart-container">
                 <div className="legend">
-                    {this.props.groupAverages.teamId ? (
+                    {this.props.groupAverages.teamId &&
+                    this.props.teams.length ? (
                         <div>
                             <p className="team">
                                 {
