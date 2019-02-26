@@ -7,7 +7,7 @@ import PageTitle from './PlayerVariationPage/PageTitle';
 import { showLoader } from '../../actions/loader';
 import { getPlayerVariationRequest } from '../../actions/reports';
 import PlayerVariationChart from './PlayerVariationPage/PlayerVariationChart';
-import { TopFilters } from './PlayerVariationPage/TopFilters';
+import TopFilters from './PlayerVariationPage/TopFilters';
 import { ChartScale } from './PlayerVariationPage/ChartScale';
 
 export class PlayerVariationPage extends Component {

@@ -7,7 +7,7 @@ import PageTitle from './GroupAveragesPage/PageTitle';
 import { showLoader } from '../../actions/loader';
 import { getGroupAveragesRequest } from '../../actions/reports';
 import GroupAveragesChart from './GroupAveragesPage/GroupAveragesChart';
-import { TopFilters } from './GroupAveragesPage/TopFilters';
+import TopFilters from './GroupAveragesPage/TopFilters';
 import { ChartScale } from './GroupAveragesPage/ChartScale';
 
 export class GroupAveragesPage extends Component {

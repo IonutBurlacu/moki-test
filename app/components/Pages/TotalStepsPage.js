@@ -7,7 +7,7 @@ import PageTitle from './TotalStepsPage/PageTitle';
 import { showLoader } from '../../actions/loader';
 import { getTotalStepsRequest } from '../../actions/reports';
 import TotalStepsChart from './TotalStepsPage/TotalStepsChart';
-import { TopFilters } from './TotalStepsPage/TopFilters';
+import TopFilters from './TotalStepsPage/TopFilters';
 import { ChartScale } from './TotalStepsPage/ChartScale';
 
 export class TotalStepsPage extends Component {

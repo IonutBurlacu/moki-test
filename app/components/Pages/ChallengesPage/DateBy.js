@@ -58,8 +58,8 @@ export class DateBy extends Component {
 
     handleDateRangeSelect = ranges => {
         this.setState({
-            startDate: moment(ranges.range1.startDate),
-            endDate: moment(ranges.range1.endDate)
+            startDate: moment(ranges.range1.startDate).hour(12),
+            endDate: moment(ranges.range1.endDate).hour(12)
         });
     };
 
