@@ -9,7 +9,7 @@ import PageHeader from './TeamPage/PageHeader';
 import TeamChart from './TeamPage/TeamChart';
 import PlayersList from './TeamPage/PlayersList';
 import ChallengesList from './TeamPage/ChallengesList';
-import { TopFilters } from './TeamPage/TopFilters';
+import TopFilters from './TeamPage/TopFilters';
 
 export class TeamPage extends Component {
     handleEdit = id => {
