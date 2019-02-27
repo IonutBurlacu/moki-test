@@ -50,3 +50,9 @@
         }
     }
 }
+
+.without-question-mark {
+    h1:after {
+        display: none;
+    }
+}

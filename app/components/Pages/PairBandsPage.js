@@ -172,20 +172,26 @@ export class PairBandsPage extends Component {
                                                 >
                                                     <span className="percentage-icon" />
                                                     <span className="percentage">
-                                                        {player.previous_steps >
-                                                        player.current_steps
-                                                            ? (
-                                                                  ((player.previous_steps -
-                                                                      player.current_steps) /
-                                                                      player.previous_steps) *
-                                                                  100
-                                                              ).toFixed(0)
-                                                            : (
-                                                                  ((player.current_steps -
-                                                                      player.previous_steps) /
-                                                                      player.current_steps) *
-                                                                  100
-                                                              ).toFixed(0)}
+                                                        {player.current_steps >
+                                                        player.previous_steps
+                                                            ? player.previous_steps >
+                                                              0
+                                                                ? Math.round(
+                                                                      (player.current_steps *
+                                                                          100) /
+                                                                          player.previous_steps -
+                                                                          100
+                                                                  )
+                                                                : player.current_steps
+                                                            : player.current_steps >
+                                                              0
+                                                                ? Math.round(
+                                                                      ((player.previous_steps -
+                                                                          player.current_steps) *
+                                                                          100) /
+                                                                          player.previous_steps
+                                                                  )
+                                                                : 100}
                                                         %
                                                     </span>
                                                 </td>

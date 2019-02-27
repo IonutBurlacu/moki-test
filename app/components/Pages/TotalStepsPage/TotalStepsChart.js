@@ -52,6 +52,7 @@ export class TotalStepsChart extends Component {
     };
 
     render() {
+        const { totalOverview, totalOverviewPrevious } = this.props.totalSteps;
         return (
             <div className="chart-container">
                 <div className="legend">
@@ -220,41 +221,32 @@ export class TotalStepsChart extends Component {
                         </div>
                         <div className="center-side">
                             <span>Trend:</span>
-                            {this.props.totalSteps.totalOverview -
-                                this.props.totalSteps.totalOverviewPrevious !==
-                            0 ? (
+                            {totalOverview - totalOverviewPrevious !== 0 ? (
                                 <span
                                     className={
-                                        this.props.totalSteps.totalOverview >
-                                        this.props.totalSteps
-                                            .totalOverviewPrevious
+                                        totalOverview > totalOverviewPrevious
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
                                     <span className="percentage">
-                                        {this.props.totalSteps.totalOverview >
-                                        this.props.totalSteps
-                                            .totalOverviewPrevious
-                                            ? (
-                                                  ((this.props.totalSteps
-                                                      .totalOverview -
-                                                      this.props.totalSteps
-                                                          .totalOverviewPrevious) /
-                                                      this.props.totalSteps
-                                                          .totalOverview) *
-                                                  100
-                                              ).toFixed(0)
-                                            : (
-                                                  ((this.props.totalSteps
-                                                      .totalOverviewPrevious -
-                                                      this.props.totalSteps
-                                                          .totalOverview) /
-                                                      this.props.totalSteps
-                                                          .totalOverviewPrevious) *
-                                                  100
-                                              ).toFixed(0)}
+                                        {totalOverview > totalOverviewPrevious
+                                            ? totalOverviewPrevious > 0
+                                                ? (
+                                                      (totalOverview * 100) /
+                                                          totalOverviewPrevious -
+                                                      100
+                                                  ).toFixed(0)
+                                                : totalOverview
+                                            : totalOverview > 0
+                                                ? (
+                                                      ((totalOverviewPrevious -
+                                                          totalOverview) *
+                                                          100) /
+                                                      totalOverviewPrevious
+                                                  ).toFixed(0)
+                                                : 100}
                                         %
                                     </span>
                                 </span>

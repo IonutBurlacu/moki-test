@@ -154,17 +154,15 @@ export class PlayersPage extends Component {
                                             </td>
                                             <td
                                                 className={
-                                                    player.percentage < 0
+                                                    player.current_steps <
+                                                    player.previous_steps
                                                         ? 'negative align-right'
                                                         : 'positive align-right'
                                                 }
                                             >
                                                 <span className="percentage-icon" />
                                                 <span className="percentage">
-                                                    {Math.abs(
-                                                        player.percentage
-                                                    ).toFixed(0)}
-                                                    %
+                                                    {player.percentage}%
                                                 </span>
                                             </td>
                                             <td className="align-right">

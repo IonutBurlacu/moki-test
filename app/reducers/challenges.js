@@ -29,23 +29,7 @@ export default (
         case 'GET_CHALLENGES':
             return {
                 ...state,
-                items: action.challenges.map(challenge => ({
-                    ...challenge,
-                    percentage:
-                        challenge.previous_steps - challenge.current_steps !== 0
-                            ? challenge.previous_steps > challenge.current_steps
-                                ? -(
-                                      ((challenge.previous_steps -
-                                          challenge.current_steps) /
-                                          challenge.previous_steps) *
-                                      100
-                                  )
-                                : ((challenge.current_steps -
-                                      challenge.previous_steps) /
-                                      challenge.current_steps) *
-                                  100
-                            : 0
-                })),
+                items: action.challenges,
                 teams: action.teams,
                 listDate: action.listDate,
                 loading: false

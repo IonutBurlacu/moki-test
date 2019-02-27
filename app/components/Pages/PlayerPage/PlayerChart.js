@@ -13,6 +13,7 @@ import { showLoader } from '../../../actions/loader';
 
 export class PlayerChart extends Component {
     render() {
+        const { totalOverview, totalOverviewPrevious } = this.props.player;
         return (
             <div className="chart-container">
                 <div className="chart">
@@ -99,39 +100,32 @@ export class PlayerChart extends Component {
                         </div>
                         <div className="center-side">
                             <span>Trend:</span>
-                            {this.props.player.totalOverview -
-                                this.props.player.totalOverviewPrevious !==
-                            0 ? (
+                            {totalOverview - totalOverviewPrevious !== 0 ? (
                                 <span
                                     className={
-                                        this.props.player.totalOverview >
-                                        this.props.player.totalOverviewPrevious
+                                        totalOverview > totalOverviewPrevious
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
                                     <span className="percentage">
-                                        {this.props.player.totalOverview >
-                                        this.props.player.totalOverviewPrevious
-                                            ? (
-                                                  ((this.props.player
-                                                      .totalOverview -
-                                                      this.props.player
-                                                          .totalOverviewPrevious) /
-                                                      this.props.player
-                                                          .totalOverview) *
-                                                  100
-                                              ).toFixed(0)
-                                            : (
-                                                  ((this.props.player
-                                                      .totalOverviewPrevious -
-                                                      this.props.player
-                                                          .totalOverview) /
-                                                      this.props.player
-                                                          .totalOverviewPrevious) *
-                                                  100
-                                              ).toFixed(0)}
+                                        {totalOverview > totalOverviewPrevious
+                                            ? totalOverviewPrevious > 0
+                                                ? (
+                                                      (totalOverview * 100) /
+                                                          totalOverviewPrevious -
+                                                      100
+                                                  ).toFixed(0)
+                                                : totalOverview
+                                            : totalOverview > 0
+                                                ? (
+                                                      ((totalOverviewPrevious -
+                                                          totalOverview) *
+                                                          100) /
+                                                      totalOverviewPrevious
+                                                  ).toFixed(0)
+                                                : 100}
                                         %
                                     </span>
                                 </span>

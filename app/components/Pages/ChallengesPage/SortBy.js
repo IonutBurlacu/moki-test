@@ -130,44 +130,6 @@ export class SortBy extends Component {
                                 Name Z-A
                             </button>
                         </li>
-                        <li
-                            className={
-                                this.props.listSort === 'increase'
-                                    ? 'selected'
-                                    : ''
-                            }
-                        >
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    this.handleSortSelectChange(
-                                        'increase',
-                                        '% Increase'
-                                    )
-                                }
-                            >
-                                % Increase
-                            </button>
-                        </li>
-                        <li
-                            className={
-                                this.props.listSort === 'decrease'
-                                    ? 'selected'
-                                    : ''
-                            }
-                        >
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    this.handleSortSelectChange(
-                                        'decrease',
-                                        '% Decrease'
-                                    )
-                                }
-                            >
-                                % Decrease
-                            </button>
-                        </li>
                     </ul>
                 </div>
             </div>

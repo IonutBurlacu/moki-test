@@ -46,17 +46,22 @@ export default (
                     ...player,
                     percentage:
                         player.previous_steps - player.current_steps !== 0
-                            ? player.previous_steps > player.current_steps
-                                ? -(
-                                      ((player.previous_steps -
-                                          player.current_steps) /
-                                          player.previous_steps) *
-                                      100
-                                  )
-                                : ((player.current_steps -
-                                      player.previous_steps) /
-                                      player.current_steps) *
-                                  100
+                            ? player.current_steps > player.previous_steps
+                                ? player.previous_steps > 0
+                                    ? Math.round(
+                                          (player.current_steps * 100) /
+                                              player.previous_steps -
+                                              100
+                                      )
+                                    : player.current_steps
+                                : player.current_steps > 0
+                                    ? Math.round(
+                                          ((player.previous_steps -
+                                              player.current_steps) *
+                                              100) /
+                                              player.previous_steps
+                                      )
+                                    : 100
                             : 0,
                     age: moment().diff(moment(player.birthday), 'year')
                 })),

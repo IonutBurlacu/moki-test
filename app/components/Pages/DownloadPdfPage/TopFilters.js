@@ -4,12 +4,16 @@ import axios from 'axios';
 import host from '../../../constants/serverUrl';
 import encrypt from '../../../utils/encrypt';
 import { showLoader, hideLoader } from '../../../actions/loader';
+import { showAlert } from '../../../actions/alert';
 import SortBy from './SortBy';
 import DateBy from './DateBy';
 
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
-        if (this.props.downloadPdf.teamIds.length === 0) return;
+        if (this.props.downloadPdf.teamIds.length === 0) {
+            this.props.showAlert('Select at least one team.');
+            return;
+        }
         const encrypted = encrypt({
             team_ids: this.props.downloadPdf.teamIds,
             type: this.props.downloadPdf.chartType,
@@ -84,6 +88,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    showAlert: message => dispatch(showAlert(message)),
     showLoader: () => dispatch(showLoader()),
     hideLoader: () => dispatch(hideLoader())
 });

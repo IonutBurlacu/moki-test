@@ -150,17 +150,15 @@ export class DownloadPdfPage extends Component {
                                             </td>
                                             <td
                                                 className={
-                                                    team.percentage < 0
+                                                    team.current_steps <
+                                                    team.previous_steps
                                                         ? 'negative align-right'
                                                         : 'positive align-right'
                                                 }
                                             >
                                                 <span className="percentage-icon" />
                                                 <span className="percentage">
-                                                    {Math.abs(
-                                                        team.percentage
-                                                    ).toFixed(0)}
-                                                    %
+                                                    {team.percentage}%
                                                 </span>
                                             </td>
                                             <td className="align-right">

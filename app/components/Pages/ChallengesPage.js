@@ -143,21 +143,6 @@ export class ChallengesPage extends Component {
                                                     </div>
                                                 )}
                                             </td>
-                                            <td
-                                                className={
-                                                    challenge.percentage < 0
-                                                        ? 'negative align-right'
-                                                        : 'positive align-right'
-                                                }
-                                            >
-                                                <span className="percentage-icon" />
-                                                <span className="percentage">
-                                                    {Math.abs(
-                                                        challenge.percentage
-                                                    ).toFixed(0)}
-                                                    %
-                                                </span>
-                                            </td>
                                             <td className="align-right">
                                                 <h1 className="title">
                                                     {challenge.current_steps.toLocaleString()}
