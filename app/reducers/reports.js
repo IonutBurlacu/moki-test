@@ -25,7 +25,10 @@ export default (
             chartType: 'today',
             chartStartDate: moment.utc().local(),
             chartEndDate: moment.utc().local(),
-            teamSelectOpen: false
+            teamSelectOpen: false,
+            totalOverview: 0,
+            totalTypical: 0,
+            totalOverviewPrevious: 0
         },
         downloadPdf: {
             teams: [],
@@ -140,7 +143,19 @@ export default (
                     data: action.data,
                     chartType: action.chartType,
                     chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    chartEndDate: moment(action.chartEndDate),
+                    totalOverview: action.data.current.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps_overview,
+                        0
+                    ),
+                    totalTypical: action.data.current.reduce(
+                        (accumulator, currentValue) =>
+                            accumulator + currentValue.total_steps_typical,
+                        0
+                    ),
+                    totalOverviewPrevious:
+                        action.data.previous_total.previous_steps
                 },
                 loading: false
             };

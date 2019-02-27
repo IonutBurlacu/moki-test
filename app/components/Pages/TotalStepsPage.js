@@ -32,7 +32,7 @@ export class TotalStepsPage extends Component {
                     <div className="content">
                         <TopFilters />
                         <PageTitle title="Total Steps" />
-                        <div className="chart-with-scale">
+                        <div className="charts-container chart-with-scale">
                             <TotalStepsChart />
                             <ChartScale />
                         </div>

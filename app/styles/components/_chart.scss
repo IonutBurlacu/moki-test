@@ -137,14 +137,14 @@
 }
 
 .chart-with-scale {
-    align-items: flex-end;
+    align-items: flex-start;
     display: flex;
 
     .chart-container {
         flex: 1;
 
         .legend {
-            padding: 3vmin 0 1vmin 10vmin;
+            padding: 1vmin 0 1vmin 10vmin;
 
             .team {
                 color: white;
@@ -161,7 +161,8 @@
         }
 
         .chart {
-            height: 42vmin;
+            height: 40vmin;
+            margin-top: 0;
             width: 100%;
         }
     }

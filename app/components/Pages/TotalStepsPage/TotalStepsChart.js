@@ -82,7 +82,7 @@ export class TotalStepsChart extends Component {
                                     top: 10,
                                     right: 15,
                                     left: 10,
-                                    bottom: 10
+                                    bottom: 0
                                 }}
                             >
                                 <CartesianGrid
@@ -206,6 +206,75 @@ export class TotalStepsChart extends Component {
                             </LineChart>
                         )}
                     </ResponsiveContainer>
+                </div>
+                <div className="chart-bottom">
+                    <div className="chart-bottom-line">
+                        <div className="left-side">
+                            <span className="total">
+                                Typical:{' '}
+                                <span className="number-grey">
+                                    {this.props.totalSteps.totalTypical.toLocaleString()}
+                                </span>
+                                <span className="label-grey">steps</span>
+                            </span>
+                        </div>
+                        <div className="center-side">
+                            <span>Trend:</span>
+                            {this.props.totalSteps.totalOverview -
+                                this.props.totalSteps.totalOverviewPrevious !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.totalSteps.totalOverview >
+                                        this.props.totalSteps
+                                            .totalOverviewPrevious
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">
+                                        {this.props.totalSteps.totalOverview >
+                                        this.props.totalSteps
+                                            .totalOverviewPrevious
+                                            ? (
+                                                  ((this.props.totalSteps
+                                                      .totalOverview -
+                                                      this.props.totalSteps
+                                                          .totalOverviewPrevious) /
+                                                      this.props.totalSteps
+                                                          .totalOverview) *
+                                                  100
+                                              ).toFixed(0)
+                                            : (
+                                                  ((this.props.totalSteps
+                                                      .totalOverviewPrevious -
+                                                      this.props.totalSteps
+                                                          .totalOverview) /
+                                                      this.props.totalSteps
+                                                          .totalOverviewPrevious) *
+                                                  100
+                                              ).toFixed(0)}
+                                        %
+                                    </span>
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
+                        </div>
+                        <div className="right-side">
+                            <span className="total">
+                                Total:{' '}
+                                <span className="number-green">
+                                    {this.props.totalSteps.totalOverview.toLocaleString()}
+                                </span>
+                                <span className="label-green">steps</span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
