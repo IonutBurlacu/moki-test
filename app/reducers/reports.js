@@ -27,6 +27,17 @@ export default (
             chartEndDate: moment.utc().local(),
             teamSelectOpen: false
         },
+        downloadPdf: {
+            teams: [],
+            teamIds: [],
+            chartType: 'today',
+            chartStartDate: moment.utc().local(),
+            chartEndDate: moment.utc().local(),
+            listSort: 'most_steps',
+            listSortLabel: 'Most steps',
+            dateSelectOpen: false,
+            sortSelectOpen: false
+        },
         loading: false
     },
     action
@@ -148,6 +159,92 @@ export default (
                 ...state,
                 totalSteps: {
                     ...state.totalSteps,
+                    [action.menu]: false
+                }
+            };
+        case 'GET_DOWNLOAD_PDF_TEAMS_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_DOWNLOAD_PDF_TEAMS':
+            return {
+                ...state,
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    teams: action.teams.map(team => ({
+                        ...team,
+                        percentage:
+                            team.previous_steps - team.current_steps !== 0
+                                ? team.previous_steps > team.current_steps
+                                    ? -(
+                                          ((team.previous_steps -
+                                              team.current_steps) /
+                                              team.previous_steps) *
+                                          100
+                                      )
+                                    : ((team.current_steps -
+                                          team.previous_steps) /
+                                          team.current_steps) *
+                                      100
+                                : 0
+                    })),
+                    chartType: action.chartType
+                },
+                loading: false
+            };
+        case 'ADD_TEAM_TO_DOWNLOAD_PDF':
+            return {
+                ...state,
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    teamIds: [...state.downloadPdf.teamIds, action.teamId]
+                }
+            };
+        case 'REMOVE_TEAM_FROM_DOWNLOAD_PDF':
+            return {
+                ...state,
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    teamIds: state.downloadPdf.teamIds.filter(
+                        teamId => teamId !== action.teamId
+                    )
+                }
+            };
+        case 'CHANGE_DOWNLOAD_PDF_TEAMS_LIST_DATE':
+            return {
+                ...state,
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    chartType: action.chartType,
+                    chartStartDate: action.chartStartDate,
+                    chartEndDate: action.chartEndDate
+                }
+            };
+        case 'CHANGE_DOWNLOAD_PDF_TEAMS_LIST_SORT':
+            return {
+                ...state,
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    listSort: action.listSort,
+                    listSortLabel: action.listSortLabel
+                }
+            };
+        case 'OPEN_DOWNLOAD_PDF_MENU':
+            return {
+                ...state,
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    dateSelectOpen: false,
+                    sortSelectOpen: false,
+                    [action.menu]: true
+                }
+            };
+        case 'CLOSE_DOWNLOAD_PDF_MENU':
+            return {
+                ...state,
+                downloadPdf: {
+                    ...state.downloadPdf,
                     [action.menu]: false
                 }
             };

@@ -16,7 +16,7 @@ export class GroupAveragesPage extends Component {
         this.props.getGroupAveragesRequest(
             this.props.groupAverages.teamId,
             this.props.groupAverages.chartType,
-            this.props.groupAverages.chartStateDate,
+            this.props.groupAverages.chartStartDate,
             this.props.groupAverages.chartEndDate
         );
     }

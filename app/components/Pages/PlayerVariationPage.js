@@ -16,7 +16,7 @@ export class PlayerVariationPage extends Component {
         this.props.getPlayerVariationRequest(
             this.props.playerVariation.teamId,
             this.props.playerVariation.chartType,
-            this.props.playerVariation.chartStateDate,
+            this.props.playerVariation.chartStartDate,
             this.props.playerVariation.chartEndDate
         );
     }

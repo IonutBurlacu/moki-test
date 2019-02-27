@@ -111,7 +111,7 @@ export class ReportsPage extends Component {
                                     alt="download-pdf"
                                 />
                                 <Link
-                                    to="/reports/player_variation"
+                                    to="/reports/download_pdf"
                                     className="report-section-button"
                                 >
                                     <span>View</span>

@@ -16,7 +16,7 @@ export class TotalStepsPage extends Component {
         this.props.getTotalStepsRequest(
             this.props.totalSteps.teamId,
             this.props.totalSteps.chartType,
-            this.props.totalSteps.chartStateDate,
+            this.props.totalSteps.chartStartDate,
             this.props.totalSteps.chartEndDate
         );
     }

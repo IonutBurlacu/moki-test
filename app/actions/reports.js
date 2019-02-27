@@ -24,14 +24,14 @@ export const getPlayerVariation = (
     teamId,
     data,
     chartType,
-    chartStateDate,
+    chartStartDate,
     chartEndDate
 ) => ({
     type: 'GET_PLAYER_VARIATION',
     teamId,
     data,
     chartType,
-    chartStateDate,
+    chartStartDate,
     chartEndDate
 });
 
@@ -62,14 +62,14 @@ export const getGroupAverages = (
     teamId,
     data,
     chartType,
-    chartStateDate,
+    chartStartDate,
     chartEndDate
 ) => ({
     type: 'GET_GROUP_AVERAGES',
     teamId,
     data,
     chartType,
-    chartStateDate,
+    chartStartDate,
     chartEndDate
 });
 
@@ -100,14 +100,14 @@ export const getTotalSteps = (
     teamId,
     data,
     chartType,
-    chartStateDate,
+    chartStartDate,
     chartEndDate
 ) => ({
     type: 'GET_TOTAL_STEPS',
     teamId,
     data,
     chartType,
-    chartStateDate,
+    chartStartDate,
     chartEndDate
 });
 
@@ -118,5 +118,59 @@ export const openTotalStepsMenu = menu => ({
 
 export const closeTotalStepsMenu = menu => ({
     type: 'CLOSE_TOTAL_STEPS_MENU',
+    menu
+});
+
+export const getDownloadPdfTeamsRequest = (
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
+    type: 'GET_DOWNLOAD_PDF_TEAMS_REQUEST',
+    chartType,
+    chartStartDate,
+    chartEndDate
+});
+
+export const getDownloadPdfTeams = (teams, chartType) => ({
+    type: 'GET_DOWNLOAD_PDF_TEAMS',
+    teams,
+    chartType
+});
+
+export const addTeamToDownloadPdf = teamId => ({
+    type: 'ADD_TEAM_TO_DOWNLOAD_PDF',
+    teamId
+});
+
+export const removeTeamFromDownloadPdf = teamId => ({
+    type: 'REMOVE_TEAM_FROM_DOWNLOAD_PDF',
+    teamId
+});
+
+export const changeDownloadPdfTeamsListDate = (
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
+    type: 'CHANGE_DOWNLOAD_PDF_TEAMS_LIST_DATE',
+    chartType,
+    chartStartDate,
+    chartEndDate
+});
+
+export const changeDownloadPdfTeamsListSort = (listSort, listSortLabel) => ({
+    type: 'CHANGE_DOWNLOAD_PDF_TEAMS_LIST_SORT',
+    listSort,
+    listSortLabel
+});
+
+export const openDownloadPdfMenu = menu => ({
+    type: 'OPEN_DOWNLOAD_PDF_MENU',
+    menu
+});
+
+export const closeDownloadPdfMenu = menu => ({
+    type: 'CLOSE_DOWNLOAD_PDF_MENU',
     menu
 });

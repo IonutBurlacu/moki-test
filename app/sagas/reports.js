@@ -3,6 +3,7 @@ import moment from 'moment';
 import decrypt from '../utils/decrypt';
 import { getToken } from '../selectors/auth';
 import ReportsAPI from '../apis/reports';
+import TeamsAPI from '../apis/teams';
 
 export function* getReportsTeams() {
     const token = yield select(getToken);
@@ -100,6 +101,31 @@ export function* getTotalSteps(action) {
         chartType: action.chartType,
         chartStartDate: decoded.start_date,
         chartEndDate: decoded.end_date
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
+export function* getDownloadPdfTeams(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        TeamsAPI.get,
+        { Authorization: token },
+        action.chartType,
+        moment(action.chartStartDate).format('YYYY-MM-DD'),
+        moment(action.chartEndDate).format('YYYY-MM-DD')
+    );
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'GET_DOWNLOAD_PDF_TEAMS',
+        teams: decoded.teams,
+        chartType: action.chartType,
+        chartStartDate: action.chartStartDate,
+        chartEndDate: action.chartEndDate
     });
 
     yield put({
