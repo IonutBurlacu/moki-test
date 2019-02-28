@@ -3,6 +3,7 @@ import moment from 'moment';
 export default (
     state = {
         teams: [],
+        scales: null,
         playerVariation: {
             data: [],
             teamId: null,
@@ -73,6 +74,7 @@ export default (
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
                 },
+                scales: action.scales,
                 loading: false
             };
         case 'OPEN_PLAYER_VARIATION_MENU':
@@ -109,6 +111,7 @@ export default (
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
                 },
+                scales: action.scales,
                 loading: false
             };
         case 'OPEN_GROUP_AVERAGES_MENU':
@@ -157,6 +160,7 @@ export default (
                     totalOverviewPrevious:
                         action.data.previous_total.previous_steps
                 },
+                scales: action.scales,
                 loading: false
             };
         case 'OPEN_TOTAL_STEPS_MENU':

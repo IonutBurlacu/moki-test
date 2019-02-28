@@ -42,7 +42,8 @@ export function* getPlayerVariation(action) {
         teamId: decoded.team_id,
         chartType: action.chartType,
         chartStartDate: decoded.start_date,
-        chartEndDate: decoded.end_date
+        chartEndDate: decoded.end_date,
+        scales: decoded.scales
     });
 
     yield put({
@@ -71,7 +72,8 @@ export function* getGroupAverages(action) {
         teamId: decoded.team_id,
         chartType: action.chartType,
         chartStartDate: decoded.start_date,
-        chartEndDate: decoded.end_date
+        chartEndDate: decoded.end_date,
+        scales: decoded.scales
     });
 
     yield put({
@@ -100,7 +102,8 @@ export function* getTotalSteps(action) {
         teamId: decoded.team_id,
         chartType: action.chartType,
         chartStartDate: decoded.start_date,
-        chartEndDate: decoded.end_date
+        chartEndDate: decoded.end_date,
+        scales: decoded.scales
     });
 
     yield put({

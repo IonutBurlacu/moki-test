@@ -106,16 +106,35 @@ export class GroupAveragesChart extends Component {
                             <Tooltip cursor={false} />
                             <Bar
                                 dataKey="avg_steps"
-                                name="Average Steps"
-                                fill="#fe335e"
+                                name="Total Steps"
                                 maxBarSize={70}
                             >
                                 {this.props.groupAverages.data.map(
                                     (entry, index) => {
-                                        const color =
-                                            entry.avg_steps > 1
-                                                ? COLORS[0]
-                                                : COLORS[1];
+                                        let color;
+                                        if (
+                                            entry.avg_steps <
+                                            this.props.scales.first_step
+                                        ) {
+                                            color = COLORS[0];
+                                        } else if (
+                                            entry.avg_steps <
+                                            this.props.scales.second_step
+                                        ) {
+                                            color = COLORS[1];
+                                        } else if (
+                                            entry.avg_steps <
+                                            this.props.scales.third_step
+                                        ) {
+                                            color = COLORS[2];
+                                        } else if (
+                                            entry.avg_steps <
+                                            this.props.scales.fourth_step
+                                        ) {
+                                            color = COLORS[3];
+                                        } else {
+                                            color = COLORS[4];
+                                        }
                                         return (
                                             <Cell key={index} fill={color} />
                                         );
@@ -132,7 +151,8 @@ export class GroupAveragesChart extends Component {
 
 const mapStateToProps = state => ({
     teams: state.reports.teams,
-    groupAverages: state.reports.groupAverages
+    groupAverages: state.reports.groupAverages,
+    scales: state.reports.scales
 });
 
 export default connect(

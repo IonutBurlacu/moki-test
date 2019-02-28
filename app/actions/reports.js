@@ -25,14 +25,16 @@ export const getPlayerVariation = (
     data,
     chartType,
     chartStartDate,
-    chartEndDate
+    chartEndDate,
+    scales
 ) => ({
     type: 'GET_PLAYER_VARIATION',
     teamId,
     data,
     chartType,
     chartStartDate,
-    chartEndDate
+    chartEndDate,
+    scales
 });
 
 export const openPlayerVariationMenu = menu => ({
@@ -63,14 +65,16 @@ export const getGroupAverages = (
     data,
     chartType,
     chartStartDate,
-    chartEndDate
+    chartEndDate,
+    scales
 ) => ({
     type: 'GET_GROUP_AVERAGES',
     teamId,
     data,
     chartType,
     chartStartDate,
-    chartEndDate
+    chartEndDate,
+    scales
 });
 
 export const openGroupAveragesMenu = menu => ({
@@ -101,14 +105,16 @@ export const getTotalSteps = (
     data,
     chartType,
     chartStartDate,
-    chartEndDate
+    chartEndDate,
+    scales
 ) => ({
     type: 'GET_TOTAL_STEPS',
     teamId,
     data,
     chartType,
     chartStartDate,
-    chartEndDate
+    chartEndDate,
+    scales
 });
 
 export const openTotalStepsMenu = menu => ({

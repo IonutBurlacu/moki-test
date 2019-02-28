@@ -115,16 +115,35 @@ export class TotalStepsChart extends Component {
                                 <Tooltip cursor={false} />
                                 <Bar
                                     dataKey="total_steps_overview"
-                                    name="Total"
-                                    fill="#fe335e"
+                                    name="Total Steps"
                                     maxBarSize={70}
                                 >
                                     {this.props.totalSteps.data.current.map(
                                         (entry, index) => {
-                                            const color =
-                                                entry.total_steps_overview > 1
-                                                    ? COLORS[0]
-                                                    : COLORS[1];
+                                            let color;
+                                            if (
+                                                entry.total_steps_overview <
+                                                this.props.scales.first_step
+                                            ) {
+                                                color = COLORS[0];
+                                            } else if (
+                                                entry.total_steps_overview <
+                                                this.props.scales.second_step
+                                            ) {
+                                                color = COLORS[1];
+                                            } else if (
+                                                entry.total_steps_overview <
+                                                this.props.scales.third_step
+                                            ) {
+                                                color = COLORS[2];
+                                            } else if (
+                                                entry.total_steps_overview <
+                                                this.props.scales.fourth_step
+                                            ) {
+                                                color = COLORS[3];
+                                            } else {
+                                                color = COLORS[4];
+                                            }
                                             return (
                                                 <Cell
                                                     key={index}
@@ -275,7 +294,8 @@ export class TotalStepsChart extends Component {
 
 const mapStateToProps = state => ({
     teams: state.reports.teams,
-    totalSteps: state.reports.totalSteps
+    totalSteps: state.reports.totalSteps,
+    scales: state.reports.scales
 });
 
 export default connect(

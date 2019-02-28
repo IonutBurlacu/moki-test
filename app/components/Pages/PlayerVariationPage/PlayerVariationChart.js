@@ -111,15 +111,34 @@ export class PlayerVariationChart extends Component {
                             <Bar
                                 dataKey="total_steps"
                                 name="Total Steps"
-                                fill="#fe335e"
                                 maxBarSize={70}
                             >
                                 {this.props.playerVariation.data.map(
                                     (entry, index) => {
-                                        const color =
-                                            entry.total_steps > 1
-                                                ? COLORS[0]
-                                                : COLORS[1];
+                                        let color;
+                                        if (
+                                            entry.total_steps <
+                                            this.props.scales.first_step
+                                        ) {
+                                            color = COLORS[0];
+                                        } else if (
+                                            entry.total_steps <
+                                            this.props.scales.second_step
+                                        ) {
+                                            color = COLORS[1];
+                                        } else if (
+                                            entry.total_steps <
+                                            this.props.scales.third_step
+                                        ) {
+                                            color = COLORS[2];
+                                        } else if (
+                                            entry.total_steps <
+                                            this.props.scales.fourth_step
+                                        ) {
+                                            color = COLORS[3];
+                                        } else {
+                                            color = COLORS[4];
+                                        }
                                         return (
                                             <Cell key={index} fill={color} />
                                         );
@@ -136,7 +155,8 @@ export class PlayerVariationChart extends Component {
 
 const mapStateToProps = state => ({
     teams: state.reports.teams,
-    playerVariation: state.reports.playerVariation
+    playerVariation: state.reports.playerVariation,
+    scales: state.reports.scales
 });
 
 export default connect(
