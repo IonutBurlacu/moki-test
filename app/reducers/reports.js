@@ -42,6 +42,17 @@ export default (
             dateSelectOpen: false,
             sortSelectOpen: false
         },
+        downloadCsv: {
+            teams: [],
+            teamId: null,
+            chartType: 'today',
+            chartStartDate: moment.utc().local(),
+            chartEndDate: moment.utc().local(),
+            listSort: 'most_steps',
+            listSortLabel: 'Most steps',
+            dateSelectOpen: false,
+            sortSelectOpen: false
+        },
         loading: false
     },
     action
@@ -269,6 +280,87 @@ export default (
                 ...state,
                 downloadPdf: {
                     ...state.downloadPdf,
+                    [action.menu]: false
+                }
+            };
+        case 'GET_DOWNLOAD_CSV_TEAMS_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'GET_DOWNLOAD_CSV_TEAMS':
+            return {
+                ...state,
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    teams: action.teams.map(team => ({
+                        ...team,
+                        percentage:
+                            team.previous_steps - team.current_steps !== 0
+                                ? team.current_steps > team.previous_steps
+                                    ? team.previous_steps > 0
+                                        ? Math.round(
+                                              (team.current_steps * 100) /
+                                                  team.previous_steps -
+                                                  100
+                                          )
+                                        : team.current_steps
+                                    : team.current_steps > 0
+                                        ? Math.round(
+                                              ((team.previous_steps -
+                                                  team.current_steps) *
+                                                  100) /
+                                                  team.previous_steps
+                                          )
+                                        : 100
+                                : 0
+                    })),
+                    chartType: action.chartType
+                },
+                loading: false
+            };
+        case 'ADD_TEAM_TO_DOWNLOAD_CSV':
+            return {
+                ...state,
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    teamId: action.teamId
+                }
+            };
+        case 'CHANGE_DOWNLOAD_CSV_TEAMS_LIST_DATE':
+            return {
+                ...state,
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    chartType: action.chartType,
+                    chartStartDate: action.chartStartDate,
+                    chartEndDate: action.chartEndDate
+                }
+            };
+        case 'CHANGE_DOWNLOAD_CSV_TEAMS_LIST_SORT':
+            return {
+                ...state,
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    listSort: action.listSort,
+                    listSortLabel: action.listSortLabel
+                }
+            };
+        case 'OPEN_DOWNLOAD_CSV_MENU':
+            return {
+                ...state,
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    dateSelectOpen: false,
+                    sortSelectOpen: false,
+                    [action.menu]: true
+                }
+            };
+        case 'CLOSE_DOWNLOAD_CSV_MENU':
+            return {
+                ...state,
+                downloadCsv: {
+                    ...state.downloadCsv,
                     [action.menu]: false
                 }
             };

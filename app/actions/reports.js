@@ -180,3 +180,52 @@ export const closeDownloadPdfMenu = menu => ({
     type: 'CLOSE_DOWNLOAD_PDF_MENU',
     menu
 });
+
+export const getDownloadCsvTeamsRequest = (
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
+    type: 'GET_DOWNLOAD_CSV_TEAMS_REQUEST',
+    chartType,
+    chartStartDate,
+    chartEndDate
+});
+
+export const getDownloadCsvTeams = (teams, chartType) => ({
+    type: 'GET_DOWNLOAD_CSV_TEAMS',
+    teams,
+    chartType
+});
+
+export const addTeamToDownloadCsv = teamId => ({
+    type: 'ADD_TEAM_TO_DOWNLOAD_CSV',
+    teamId
+});
+
+export const changeDownloadCsvTeamsListDate = (
+    chartType,
+    chartStartDate,
+    chartEndDate
+) => ({
+    type: 'CHANGE_DOWNLOAD_CSV_TEAMS_LIST_DATE',
+    chartType,
+    chartStartDate,
+    chartEndDate
+});
+
+export const changeDownloadCsvTeamsListSort = (listSort, listSortLabel) => ({
+    type: 'CHANGE_DOWNLOAD_CSV_TEAMS_LIST_SORT',
+    listSort,
+    listSortLabel
+});
+
+export const openDownloadCsvMenu = menu => ({
+    type: 'OPEN_DOWNLOAD_CSV_MENU',
+    menu
+});
+
+export const closeDownloadCsvMenu = menu => ({
+    type: 'CLOSE_DOWNLOAD_CSV_MENU',
+    menu
+});

@@ -135,3 +135,28 @@ export function* getDownloadPdfTeams(action) {
         type: 'HIDE_LOADER'
     });
 }
+
+export function* getDownloadCsvTeams(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        TeamsAPI.get,
+        { Authorization: token },
+        action.chartType,
+        moment(action.chartStartDate).format('YYYY-MM-DD'),
+        moment(action.chartEndDate).format('YYYY-MM-DD')
+    );
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'GET_DOWNLOAD_CSV_TEAMS',
+        teams: decoded.teams,
+        chartType: action.chartType,
+        chartStartDate: action.chartStartDate,
+        chartEndDate: action.chartEndDate
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}

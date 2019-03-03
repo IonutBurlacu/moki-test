@@ -18,7 +18,6 @@ const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
 export class TotalStepsChart extends Component {
     getDateLegend = () => {
-        console.log(this.props.totalSteps);
         switch (this.props.totalSteps.chartType) {
             case 'today':
                 return moment().format('D MMMM YYYY');

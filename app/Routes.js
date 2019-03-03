@@ -15,6 +15,7 @@ import PlayerVariationPage from './components/Pages/PlayerVariationPage';
 import GroupAveragesPage from './components/Pages/GroupAveragesPage';
 import TotalStepsPage from './components/Pages/TotalStepsPage';
 import DownloadPdfPage from './components/Pages/DownloadPdfPage';
+import DownloadCsvPage from './components/Pages/DownloadCsvPage';
 import SettingsPage from './components/Pages/SettingsPage';
 import PairBandsPage from './components/Pages/PairBandsPage';
 import SyncBandsPage from './components/Pages/SyncBandsPage';
@@ -72,7 +73,11 @@ export default () => (
                 path="/reports/download_pdf"
                 component={DownloadPdfPage}
             />
-            <PrivateRoute path="/settings" component={SettingsPage} />
+            <PrivateRoute path="/settings" component={SettingsPage} exact />
+            <PrivateRoute
+                path="/settings/download_csv"
+                component={DownloadCsvPage}
+            />
             <PublicRoute path="/login" component={LoginPage} exact />
             <Route component={NotFoundPage} />
         </Switch>

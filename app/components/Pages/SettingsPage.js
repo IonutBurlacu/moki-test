@@ -86,6 +86,10 @@ export class SettingsPage extends Component {
         this.openConfirmModal();
     };
 
+    handleExportCsv = () => {
+        this.props.history.push('/settings/download_csv');
+    };
+
     handleDownloadTemplate = () => {
         axios({
             url: `${host}/api/players/download`,
@@ -162,6 +166,18 @@ export class SettingsPage extends Component {
                                             onClick={this.handleReadBattery}
                                         >
                                             Read Band Battery Levels
+                                        </button>
+                                    </td>
+                                    <td />
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button
+                                            className="setting-button"
+                                            type="button"
+                                            onClick={this.handleExportCsv}
+                                        >
+                                            Download CSV Data
                                         </button>
                                     </td>
                                     <td />
