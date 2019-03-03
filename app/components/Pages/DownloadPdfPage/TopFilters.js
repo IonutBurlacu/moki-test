@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import axios from 'axios';
 import host from '../../../constants/serverUrl';
 import encrypt from '../../../utils/encrypt';
 import { showLoader, hideLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
+import {
+    getDownloadPdfTeamsRequest,
+    changeDownloadPdfTeamsListDate,
+    openDownloadPdfMenu,
+    closeDownloadPdfMenu
+} from '../../../actions/reports';
 import SortBy from './SortBy';
-import DateBy from './DateBy';
+import DateBy from '../../DateBy';
 
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
@@ -60,7 +67,18 @@ export class TopFilters extends Component {
                     <SortBy />
                 </div>
                 <div className="center-side">
-                    <DateBy />
+                    <DateBy
+                        startDate={this.props.downloadPdf.chartStartDate}
+                        endDate={this.props.downloadPdf.chartEndDate}
+                        dateSelectOpen={this.props.downloadPdf.dateSelectOpen}
+                        fetchNewData={this.props.getDownloadPdfTeamsRequest}
+                        changeDateType={
+                            this.props.changeDownloadPdfTeamsListDate
+                        }
+                        openMenu={this.props.openDownloadPdfMenu}
+                        closeMenu={this.props.closeDownloadPdfMenu}
+                        type={this.props.downloadPdf.chartType}
+                    />
                 </div>
                 <div className="right-side">
                     <div className="filter-wrapper">
@@ -73,7 +91,7 @@ export class TopFilters extends Component {
                             }
                             onClick={this.handleDownloadPDF}
                         >
-                            Download PDF
+                            Download
                         </button>
                     </div>
                 </div>
@@ -90,7 +108,29 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message)),
     showLoader: () => dispatch(showLoader()),
-    hideLoader: () => dispatch(hideLoader())
+    hideLoader: () => dispatch(hideLoader()),
+    openDownloadPdfMenu: menu => dispatch(openDownloadPdfMenu(menu)),
+    closeDownloadPdfMenu: menu => dispatch(closeDownloadPdfMenu(menu)),
+    changeDownloadPdfTeamsListDate: (
+        chartType,
+        chartStartDate = moment.utc().local(),
+        chartEndDate = moment.utc().local()
+    ) =>
+        dispatch(
+            changeDownloadPdfTeamsListDate(
+                chartType,
+                chartStartDate,
+                chartEndDate
+            )
+        ),
+    getDownloadPdfTeamsRequest: (
+        chartType,
+        chartStartDate = moment.utc().local(),
+        chartEndDate = moment.utc().local()
+    ) =>
+        dispatch(
+            getDownloadPdfTeamsRequest(chartType, chartStartDate, chartEndDate)
+        )
 });
 
 export default connect(

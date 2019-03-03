@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import axios from 'axios';
 import host from '../../../constants/serverUrl';
 import encrypt from '../../../utils/encrypt';
 import { showLoader, hideLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import SortBy from './SortBy';
-import DateBy from './DateBy';
+import DateBy from '../../DateBy';
+import {
+    getDownloadCsvTeamsRequest,
+    changeDownloadCsvTeamsListDate,
+    openDownloadCsvMenu,
+    closeDownloadCsvMenu
+} from '../../../actions/reports';
 
 export class TopFilters extends Component {
     handleDownloadCSV = () => {
@@ -65,7 +72,18 @@ export class TopFilters extends Component {
                     <SortBy />
                 </div>
                 <div className="center-side">
-                    <DateBy />
+                    <DateBy
+                        startDate={this.props.downloadCsv.chartStartDate}
+                        endDate={this.props.downloadCsv.chartEndDate}
+                        dateSelectOpen={this.props.downloadCsv.dateSelectOpen}
+                        fetchNewData={this.props.getDownloadCsvTeamsRequest}
+                        changeDateType={
+                            this.props.changeDownloadCsvTeamsListDate
+                        }
+                        openMenu={this.props.openDownloadCsvMenu}
+                        closeMenu={this.props.closeDownloadCsvMenu}
+                        type={this.props.downloadCsv.chartType}
+                    />
                 </div>
                 <div className="right-side">
                     <div className="filter-wrapper">
@@ -78,7 +96,7 @@ export class TopFilters extends Component {
                             }
                             onClick={this.handleDownloadCSV}
                         >
-                            Download CSV
+                            Download
                         </button>
                     </div>
                 </div>
@@ -95,7 +113,29 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message)),
     showLoader: () => dispatch(showLoader()),
-    hideLoader: () => dispatch(hideLoader())
+    hideLoader: () => dispatch(hideLoader()),
+    openDownloadCsvMenu: menu => dispatch(openDownloadCsvMenu(menu)),
+    closeDownloadCsvMenu: menu => dispatch(closeDownloadCsvMenu(menu)),
+    changeDownloadCsvTeamsListDate: (
+        chartType,
+        chartStartDate = moment.utc().local(),
+        chartEndDate = moment.utc().local()
+    ) =>
+        dispatch(
+            changeDownloadCsvTeamsListDate(
+                chartType,
+                chartStartDate,
+                chartEndDate
+            )
+        ),
+    getDownloadCsvTeamsRequest: (
+        chartType,
+        chartStartDate = moment.utc().local(),
+        chartEndDate = moment.utc().local()
+    ) =>
+        dispatch(
+            getDownloadCsvTeamsRequest(chartType, chartStartDate, chartEndDate)
+        )
 });
 
 export default connect(

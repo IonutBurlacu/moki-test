@@ -3,20 +3,14 @@ import { connect } from 'react-redux';
 import { DateRange } from 'react-date-range';
 import enGb from 'react-date-range/dist/locale/en-GB';
 import moment from 'moment';
-import {
-    getDownloadCsvTeamsRequest,
-    changeDownloadCsvTeamsListDate,
-    openDownloadCsvMenu,
-    closeDownloadCsvMenu
-} from '../../../actions/reports';
-import { showLoader } from '../../../actions/loader';
+import { showLoader } from '../actions/loader';
 
 export class DateBy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: props.downloadCsv.chartStartDate,
-            endDate: props.downloadCsv.chartEndDate
+            startDate: props.startDate,
+            endDate: props.endDate
         };
     }
 
@@ -38,22 +32,22 @@ export class DateBy extends Component {
     };
 
     handleDateSelectMenu = () => {
-        if (this.props.downloadCsv.dateSelectOpen) {
-            this.props.closeDownloadCsvMenu('dateSelectOpen');
+        if (this.props.dateSelectOpen) {
+            this.props.closeMenu('dateSelectOpen');
         } else {
-            this.props.openDownloadCsvMenu('dateSelectOpen');
+            this.props.openMenu('dateSelectOpen');
         }
     };
 
     handleCloseDateSelectMenu = () => {
-        this.props.closeDownloadCsvMenu('dateSelectOpen');
+        this.props.closeMenu('dateSelectOpen');
     };
 
     handleDateSelectChange = listDate => {
-        this.props.closeDownloadCsvMenu('dateSelectOpen');
-        this.props.changeDownloadCsvTeamsListDate(listDate);
+        this.props.closeMenu('dateSelectOpen');
+        this.props.changeDateType(listDate);
         this.props.showLoader();
-        this.props.getDownloadCsvTeamsRequest(listDate);
+        this.props.fetchNewData(listDate);
     };
 
     handleDateRangeSelect = ranges => {
@@ -66,14 +60,14 @@ export class DateBy extends Component {
     handleDateRangeFocus = ranges => {
         setTimeout(() => {
             if (ranges[1] === 0) {
-                this.props.closeDownloadCsvMenu('dateSelectOpen');
-                this.props.changeDownloadCsvTeamsListDate(
+                this.props.closeMenu('dateSelectOpen');
+                this.props.changeDateType(
                     'interval',
                     this.state.startDate,
                     this.state.endDate
                 );
                 this.props.showLoader();
-                this.props.getDownloadCsvTeamsRequest(
+                this.props.fetchNewData(
                     'interval',
                     this.state.startDate,
                     this.state.endDate
@@ -88,20 +82,18 @@ export class DateBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.props.downloadCsv.dateSelectOpen
+                        this.props.dateSelectOpen
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
                     onClick={this.handleDateSelectMenu}
                 >
-                    {this.getSelectedDateType(this.props.downloadCsv.chartType)}
+                    {this.getSelectedDateType(this.props.type)}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.props.downloadCsv.dateSelectOpen
-                            ? 'block'
-                            : 'none'
+                        display: this.props.dateSelectOpen ? 'block' : 'none'
                     }}
                 >
                     <div className="filter-select-list-header">
@@ -116,9 +108,7 @@ export class DateBy extends Component {
                     <ul className="filter-select-list">
                         <li
                             className={
-                                this.props.downloadCsv.chartType === 'today'
-                                    ? 'selected'
-                                    : ''
+                                this.props.type === 'today' ? 'selected' : ''
                             }
                         >
                             <button
@@ -132,9 +122,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.downloadCsv.chartType === 'week'
-                                    ? 'selected'
-                                    : ''
+                                this.props.type === 'week' ? 'selected' : ''
                             }
                         >
                             <button
@@ -148,9 +136,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.downloadCsv.chartType === 'month'
-                                    ? 'selected'
-                                    : ''
+                                this.props.type === 'month' ? 'selected' : ''
                             }
                         >
                             <button
@@ -164,9 +150,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.downloadCsv.chartType === 'year'
-                                    ? 'selected'
-                                    : ''
+                                this.props.type === 'year' ? 'selected' : ''
                             }
                         >
                             <button
@@ -180,9 +164,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.downloadCsv.chartType === 'interval'
-                                    ? 'selected'
-                                    : ''
+                                this.props.type === 'interval' ? 'selected' : ''
                             }
                         >
                             <DateRange
@@ -209,37 +191,11 @@ export class DateBy extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    downloadCsv: state.reports.downloadCsv
-});
-
 const mapDispatchToProps = dispatch => ({
-    showLoader: () => dispatch(showLoader()),
-    openDownloadCsvMenu: menu => dispatch(openDownloadCsvMenu(menu)),
-    closeDownloadCsvMenu: menu => dispatch(closeDownloadCsvMenu(menu)),
-    changeDownloadCsvTeamsListDate: (
-        chartType,
-        chartStartDate = moment.utc().local(),
-        chartEndDate = moment.utc().local()
-    ) =>
-        dispatch(
-            changeDownloadCsvTeamsListDate(
-                chartType,
-                chartStartDate,
-                chartEndDate
-            )
-        ),
-    getDownloadCsvTeamsRequest: (
-        chartType,
-        chartStartDate = moment.utc().local(),
-        chartEndDate = moment.utc().local()
-    ) =>
-        dispatch(
-            getDownloadCsvTeamsRequest(chartType, chartStartDate, chartEndDate)
-        )
+    showLoader: () => dispatch(showLoader())
 });
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(DateBy);

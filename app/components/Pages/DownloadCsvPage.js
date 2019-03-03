@@ -47,13 +47,13 @@ export class DownloadCsvPage extends Component {
         return (
             <div className="container container-with-title">
                 <Header
-                    leftButton={<Link to="/reports">Back</Link>}
+                    leftButton={<Link to="/settings">Back</Link>}
                     rightButton={<div />}
                 />
 
                 {!this.props.loading ? (
                     <div className="content">
-                        <PageTitle title="Download CSV" />
+                        <PageTitle title="Download CSV Data" />
                         <TopFilters />
                         <div className="table-wrapper">
                             <table className="table">
