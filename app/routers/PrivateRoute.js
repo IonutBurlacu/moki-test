@@ -12,41 +12,42 @@ import { closeAllPlayersMenu } from '../actions/players';
 import { closeAllReportsMenu } from '../actions/reports';
 import { closeAllTeamsMenu } from '../actions/teams';
 
-export class PrivateRoute extends Component {
-    render() {
-        return (
-            <Route
-                component={props =>
-                    this.props.isAuthenticated ? (
-                        <div
-                            onClick={event => {
-                                if (
-                                    !event.target.classList.contains(
-                                        'filter-button'
-                                    )
-                                ) {
-                                    this.props.closeAllChallengesMenu();
-                                    this.props.closeAllPlayersMenu();
-                                    this.props.closeAllReportsMenu();
-                                    this.props.closeAllTeamsMenu();
-                                }
-                            }}
-                        >
-                            <this.props.component {...props} />
-                            <Alert />
-                            <Loader />
-                            <PairSound />
-                            <FailSound />
-                            <SyncSound />
-                        </div>
-                    ) : (
-                        <Redirect to="/login" />
-                    )
-                }
-            />
-        );
-    }
-}
+export const PrivateRoute = ({
+    isAuthenticated,
+    component: Component,
+    closeAllChallengesMenu,
+    closeAllPlayersMenu,
+    closeAllReportsMenu,
+    closeAllTeamsMenu,
+    ...rest
+}) => (
+    <Route
+        {...rest}
+        component={props =>
+            isAuthenticated ? (
+                <div
+                    onClick={event => {
+                        if (!event.target.classList.contains('filter-button')) {
+                            closeAllChallengesMenu();
+                            closeAllPlayersMenu();
+                            closeAllReportsMenu();
+                            closeAllTeamsMenu();
+                        }
+                    }}
+                >
+                    <Component {...props} />
+                    <Alert />
+                    <Loader />
+                    <PairSound />
+                    <FailSound />
+                    <SyncSound />
+                </div>
+            ) : (
+                <Redirect to="/login" />
+            )
+        }
+    />
+);
 
 const mapStateToProps = state => ({
     isAuthenticated: !!state.auth.token

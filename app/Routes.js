@@ -39,7 +39,7 @@ export default () => (
             <PrivateRoute path="/players/add" component={AddPlayerPage} />
             <PrivateRoute path="/players/edit/:id" component={EditPlayerPage} />
             <PrivateRoute path="/players/view/:id" component={PlayerPage} />
-            <PrivateRoute path="/bands/pair" component={PairBandsPage} />
+            <PrivateRoute path="/bands/pair/:id?" component={PairBandsPage} />
             <PrivateRoute path="/bands/sync" component={SyncBandsPage} />
             <PrivateRoute path="/bands/read" component={ReadBatteryPage} />
             <PrivateRoute path="/teams" component={TeamsPage} exact />

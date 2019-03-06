@@ -22,7 +22,11 @@ export class PlayerPage extends Component {
         return (
             <div className="container">
                 <Header
-                    leftButton={<Link to="/bands/pair">Pair Bands</Link>}
+                    leftButton={
+                        <Link to={`/bands/pair/${this.props.player.id}`}>
+                            Pair Bands
+                        </Link>
+                    }
                     rightButton={
                         <button
                             type="button"
