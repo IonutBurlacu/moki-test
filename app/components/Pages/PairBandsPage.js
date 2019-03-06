@@ -8,6 +8,7 @@ import { getPlayersRequest } from '../../actions/players';
 import { showLoader } from '../../actions/loader';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
+import getFilteredPlayers from '../../selectors/players';
 import defaultAvatar from '../../images/default_avatar.png';
 import challengesIconWide from '../../images/challenges_icon_wide.png';
 import teamsIconWide from '../../images/teams_icon_wide.png';
@@ -92,7 +93,7 @@ export class PairBandsPage extends Component {
                                                     moment
                                                         .utc(
                                                             player.band
-                                                                .created_at
+                                                                .last_pair_at
                                                         )
                                                         .local()
                                                         .unix() >
@@ -102,7 +103,7 @@ export class PairBandsPage extends Component {
                                                         {moment
                                                             .utc(
                                                                 player.band
-                                                                    .created_at
+                                                                    .last_pair_at
                                                             )
                                                             .local()
                                                             .format(
@@ -236,7 +237,10 @@ export class PairBandsPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    players: state.players.items,
+    players: getFilteredPlayers(state.players.items, {
+        filterByValues: [],
+        sortBy: 'name_asc'
+    }),
     loading: state.players.loading,
     selectedPlayerId: state.bands.selectedPlayerId
 });
