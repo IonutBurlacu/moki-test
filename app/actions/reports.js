@@ -149,11 +149,6 @@ export const addTeamToDownloadPdf = teamId => ({
     teamId
 });
 
-export const removeTeamFromDownloadPdf = teamId => ({
-    type: 'REMOVE_TEAM_FROM_DOWNLOAD_PDF',
-    teamId
-});
-
 export const changeDownloadPdfTeamsListDate = (
     chartType,
     chartStartDate,

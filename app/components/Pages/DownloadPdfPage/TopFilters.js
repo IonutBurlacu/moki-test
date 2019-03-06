@@ -17,12 +17,12 @@ import DateBy from '../../DateBy';
 
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
-        if (this.props.downloadPdf.teamIds.length === 0) {
+        if (this.props.downloadPdf.teamId === null) {
             this.props.showAlert('Select at least one team.');
             return;
         }
         const encrypted = encrypt({
-            team_ids: this.props.downloadPdf.teamIds,
+            team_id: this.props.downloadPdf.teamId,
             type: this.props.downloadPdf.chartType,
             start_date: this.props.downloadPdf.chartStartDate,
             end_date: this.props.downloadPdf.chartEndDate
@@ -46,9 +46,15 @@ export class TopFilters extends Component {
                 );
                 const link = document.createElement('a');
                 link.href = url;
+                const teamName = this.props.downloadPdf.teams
+                    .find(team => team.id === this.props.downloadPdf.teamId)
+                    .name.split(' ')
+                    .join('_');
                 link.setAttribute(
                     'download',
-                    `MOKI_all_reports_${this.props.downloadPdf.chartType}.pdf`
+                    `MOKI_${teamName}_all_reports_${
+                        this.props.downloadPdf.chartType
+                    }.pdf`
                 );
                 document.body.appendChild(link);
                 link.click();
@@ -85,7 +91,7 @@ export class TopFilters extends Component {
                         <button
                             type="button"
                             className={
-                                this.props.downloadPdf.teamIds.length
+                                this.props.downloadPdf.teamId !== null
                                     ? 'filter-button active'
                                     : 'filter-button'
                             }

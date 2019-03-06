@@ -33,9 +33,10 @@ export class TopFilters extends Component {
                     new Blob([response.data])
                 );
                 const link = document.createElement('a');
-                const teamName = this.props.teams.find(
-                    team => team.id === this.props.groupAverages.teamId
-                ).name;
+                const teamName = this.props.teams
+                    .find(team => team.id === this.props.groupAverages.teamId)
+                    .name.split(' ')
+                    .join('_');
                 link.href = url;
                 link.setAttribute(
                     'download',

@@ -7,8 +7,7 @@ import { Header } from '../Header';
 import PageTitle from './DownloadPdfPage/PageTitle';
 import {
     getDownloadPdfTeamsRequest,
-    addTeamToDownloadPdf,
-    removeTeamFromDownloadPdf
+    addTeamToDownloadPdf
 } from '../../actions/reports';
 import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
@@ -37,8 +36,8 @@ export class DownloadPdfPage extends Component {
     };
 
     handleTeamClick = teamId => {
-        if (this.props.downloadPdf.teamIds.includes(teamId)) {
-            this.props.removeTeamFromDownloadPdf(teamId);
+        if (this.props.downloadPdf.teamId === teamId) {
+            this.props.addTeamToDownloadPdf(null);
         } else {
             this.props.addTeamToDownloadPdf(teamId);
         }
@@ -63,9 +62,8 @@ export class DownloadPdfPage extends Component {
                                         <tr
                                             key={team.id}
                                             className={
-                                                this.props.downloadPdf.teamIds.includes(
-                                                    team.id
-                                                )
+                                                this.props.downloadPdf
+                                                    .teamId === team.id
                                                     ? 'selected-tr'
                                                     : ''
                                             }
@@ -209,8 +207,6 @@ const mapDispatchToProps = dispatch => ({
         ),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     addTeamToDownloadPdf: teamId => dispatch(addTeamToDownloadPdf(teamId)),
-    removeTeamFromDownloadPdf: teamId =>
-        dispatch(removeTeamFromDownloadPdf(teamId)),
     showLoader: () => dispatch(showLoader())
 });
 

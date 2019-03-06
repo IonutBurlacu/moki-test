@@ -33,7 +33,7 @@ export default (
         },
         downloadPdf: {
             teams: [],
-            teamIds: [],
+            teamId: null,
             chartType: 'today',
             chartStartDate: moment.utc().local(),
             chartEndDate: moment.utc().local(),
@@ -233,17 +233,7 @@ export default (
                 ...state,
                 downloadPdf: {
                     ...state.downloadPdf,
-                    teamIds: [...state.downloadPdf.teamIds, action.teamId]
-                }
-            };
-        case 'REMOVE_TEAM_FROM_DOWNLOAD_PDF':
-            return {
-                ...state,
-                downloadPdf: {
-                    ...state.downloadPdf,
-                    teamIds: state.downloadPdf.teamIds.filter(
-                        teamId => teamId !== action.teamId
-                    )
+                    teamId: action.teamId
                 }
             };
         case 'CHANGE_DOWNLOAD_PDF_TEAMS_LIST_DATE':

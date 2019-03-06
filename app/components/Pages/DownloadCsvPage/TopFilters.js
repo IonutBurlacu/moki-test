@@ -46,9 +46,10 @@ export class TopFilters extends Component {
                 );
                 const link = document.createElement('a');
                 link.href = url;
-                const teamName = this.props.downloadCsv.teams.find(
-                    team => team.id === this.props.downloadCsv.teamId
-                ).name;
+                const teamName = this.props.downloadCsv.teams
+                    .find(team => team.id === this.props.downloadCsv.teamId)
+                    .name.split(' ')
+                    .join('_');
                 link.setAttribute(
                     'download',
                     `MOKI_export_${teamName}_${
