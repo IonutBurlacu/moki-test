@@ -50,11 +50,10 @@ export class DownloadPdfPage extends Component {
                     leftButton={<Link to="/reports">Back</Link>}
                     rightButton={<div />}
                 />
-
+                <PageTitle title="Download PDF" />
+                <TopFilters />
                 {!this.props.loading ? (
                     <div className="content">
-                        <PageTitle title="Download PDF" />
-                        <TopFilters />
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>

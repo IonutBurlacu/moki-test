@@ -50,11 +50,10 @@ export class DownloadCsvPage extends Component {
                     leftButton={<Link to="/settings">Back</Link>}
                     rightButton={<div />}
                 />
-
+                <PageTitle title="Download CSV Data" />
+                <TopFilters />
                 {!this.props.loading ? (
                     <div className="content">
-                        <PageTitle title="Download CSV Data" />
-                        <TopFilters />
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>

@@ -42,11 +42,10 @@ export class TeamsPage extends Component {
                     leftButton={<Link to="/bands/pair">Pair Bands</Link>}
                     rightButton={<Link to="/teams/add">Add</Link>}
                 />
-
+                <PageTitle title="Teams" />
+                <TopFilters />
                 {!loading ? (
                     <div className="content">
-                        <PageTitle title="Teams" />
-                        <TopFilters />
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>

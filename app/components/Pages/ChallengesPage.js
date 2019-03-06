@@ -45,10 +45,10 @@ export class ChallengesPage extends Component {
                     leftButton={<Link to="/bands/pair">Pair Bands</Link>}
                     rightButton={<Link to="/challenges/add">Add</Link>}
                 />
+                <PageTitle title="Challenges" />
+                <TopFilters />
                 {!loading ? (
                     <div className="content">
-                        <PageTitle title="Challenges" />
-                        <TopFilters />
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>
