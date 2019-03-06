@@ -17,7 +17,7 @@
         }
 
         .filter-select-list-wrapper {
-            left: 0;
+            left: -26px;
             right: inherit;
         }
     }
@@ -25,6 +25,12 @@
     .center-side {
         display: flex;
         justify-content: center;
+
+        .filter-select-list-wrapper {
+            left: 50%;
+            right: inherit;
+            transform: translateX(-50%);
+        }
     }
 
     .right-side {
@@ -82,8 +88,8 @@
     .filter-select-list-wrapper {
         display: none;
         position: absolute;
-        right: 0;
-        top: 5.5vmin;
+        right: -26px;
+        top: 7.1vmin;
         z-index: 999;
 
         .filter-select-list-header {
