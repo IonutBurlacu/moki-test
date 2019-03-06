@@ -177,3 +177,7 @@ export const closeChallengesMenu = menu => ({
     type: 'CLOSE_CHALLENGES_MENU',
     menu
 });
+
+export const closeAllChallengesMenu = () => ({
+    type: 'CLOSE_ALL_CHALLENGES_MENU'
+});

@@ -224,3 +224,7 @@ export const closeDownloadCsvMenu = menu => ({
     type: 'CLOSE_DOWNLOAD_CSV_MENU',
     menu
 });
+
+export const closeAllReportsMenu = () => ({
+    type: 'CLOSE_ALL_REPORTS_MENU'
+});

@@ -205,3 +205,7 @@ export const closePlayersMenu = menu => ({
     type: 'CLOSE_PLAYERS_MENU',
     menu
 });
+
+export const closeAllPlayersMenu = () => ({
+    type: 'CLOSE_ALL_PLAYERS_MENU'
+});

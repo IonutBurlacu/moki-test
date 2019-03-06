@@ -10,7 +10,8 @@ export default (
             chartType: 'today',
             chartStartDate: moment.utc().local(),
             chartEndDate: moment.utc().local(),
-            teamSelectOpen: false
+            teamSelectOpen: false,
+            dateSelectOpen: false
         },
         groupAverages: {
             data: [],
@@ -18,7 +19,8 @@ export default (
             chartType: 'today',
             chartStartDate: moment.utc().local(),
             chartEndDate: moment.utc().local(),
-            teamSelectOpen: false
+            teamSelectOpen: false,
+            dateSelectOpen: false
         },
         totalSteps: {
             data: [],
@@ -27,6 +29,7 @@ export default (
             chartStartDate: moment.utc().local(),
             chartEndDate: moment.utc().local(),
             teamSelectOpen: false,
+            dateSelectOpen: false,
             totalOverview: 0,
             totalTypical: 0,
             totalOverviewPrevious: 0
@@ -352,6 +355,35 @@ export default (
                 downloadCsv: {
                     ...state.downloadCsv,
                     [action.menu]: false
+                }
+            };
+        case 'CLOSE_ALL_REPORTS_MENU':
+            return {
+                ...state,
+                playerVariation: {
+                    ...state.playerVariation,
+                    teamSelectOpen: false,
+                    dateSelectOpen: false
+                },
+                groupAverages: {
+                    ...state.groupAverages,
+                    teamSelectOpen: false,
+                    dateSelectOpen: false
+                },
+                totalSteps: {
+                    ...state.totalSteps,
+                    teamSelectOpen: false,
+                    dateSelectOpen: false
+                },
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    dateSelectOpen: false,
+                    sortSelectOpen: false
+                },
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    dateSelectOpen: false,
+                    sortSelectOpen: false
                 }
             };
         default:

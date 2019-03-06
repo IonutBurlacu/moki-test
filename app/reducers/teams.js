@@ -313,6 +313,14 @@ export default (
                 ...state,
                 [action.menu]: false
             };
+        case 'CLOSE_ALL_TEAMS_MENU':
+            return {
+                ...state,
+                dateSelectOpen: false,
+                filterSelectOpen: false,
+                sortSelectOpen: false,
+                dateSelectChartOpen: false
+            };
         default:
             return state;
     }

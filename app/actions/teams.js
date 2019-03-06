@@ -171,3 +171,7 @@ export const closeTeamsMenu = menu => ({
     type: 'CLOSE_TEAMS_MENU',
     menu
 });
+
+export const closeAllTeamsMenu = () => ({
+    type: 'CLOSE_ALL_TEAMS_MENU'
+});

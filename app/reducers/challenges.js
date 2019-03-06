@@ -316,6 +316,13 @@ export default (
                 ...state,
                 [action.menu]: false
             };
+        case 'CLOSE_ALL_CHALLENGES_MENU':
+            return {
+                ...state,
+                dateSelectOpen: false,
+                filterSelectOpen: false,
+                sortSelectOpen: false
+            };
         default:
             return state;
     }
