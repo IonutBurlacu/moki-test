@@ -61,9 +61,9 @@ export default class AuthAPI {
         });
     }
 
-    static changeSetting(headers = {}, settingName) {
+    static changeSetting(headers = {}, settingName, settingValue) {
         const encrypted = encrypt({
-            [settingName]: true
+            [settingName]: settingValue
         });
         return axios({
             method: 'post',

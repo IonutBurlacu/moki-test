@@ -119,12 +119,14 @@ export function* changeSetting(action) {
         {
             Authorization: token
         },
-        action.settingName
+        action.settingName,
+        action.settingValue
     );
 
     yield put({
         type: 'CHANGE_SETTING',
-        [action.settingName]: ''
+        settingName: action.settingName,
+        settingValue: action.settingValue
     });
 
     yield put({
@@ -143,7 +145,9 @@ export function* getSettings() {
     yield put({
         type: 'GET_SETTINGS',
         ignoreWeekend: !!decoded.ignore_weekend,
-        hideTotals: !!decoded.hide_totals
+        hideTotals: !!decoded.hide_totals,
+        minHourId: decoded.min_hour_id,
+        maxHourId: decoded.max_hour_id
     });
 
     yield put({

@@ -18,7 +18,7 @@ export class IgnoreWeekendCheckbox extends Component {
             [event.target.name]: !previousState
         });
         this.props.showLoader();
-        this.props.changeSettingRequest(event.target.name);
+        this.props.changeSettingRequest(event.target.name, !previousState);
     };
 
     render() {
@@ -44,8 +44,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
-    changeSettingRequest: settingName =>
-        dispatch(changeSettingRequest(settingName))
+    changeSettingRequest: (settingName, settingValue) =>
+        dispatch(changeSettingRequest(settingName, settingValue))
 });
 
 export default connect(

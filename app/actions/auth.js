@@ -30,22 +30,31 @@ export const deleteAccount = () => ({
     type: 'DELETE_ACCOUNT'
 });
 
-export const changeSettingRequest = settingName => ({
+export const changeSettingRequest = (settingName, settingValue) => ({
     type: 'CHANGE_SETTING_REQUEST',
-    settingName
+    settingName,
+    settingValue
 });
 
-export const changeSetting = settingName => ({
+export const changeSetting = (settingName, settingValue) => ({
     type: 'CHANGE_SETTING',
-    settingName
+    settingName,
+    settingValue
 });
 
 export const getSettingsRequest = () => ({
     type: 'GET_SETTINGS_REQUEST'
 });
 
-export const getSettings = (ignoreWeekend, hideTotals) => ({
+export const getSettings = (
+    ignoreWeekend,
+    hideTotals,
+    minHourId,
+    maxHourId
+) => ({
     type: 'GET_SETTINGS',
     ignoreWeekend,
-    hideTotals
+    hideTotals,
+    minHourId,
+    maxHourId
 });

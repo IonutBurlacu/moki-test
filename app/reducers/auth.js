@@ -1,5 +1,11 @@
 export default (
-    state = { ignore_weekend: false, hide_totals: false, loading: true },
+    state = {
+        ignore_weekend: false,
+        hide_totals: false,
+        min_hour_id: null,
+        max_hour_id: null,
+        loading: true
+    },
     action
 ) => {
     switch (action.type) {
@@ -17,7 +23,7 @@ export default (
         case 'CHANGE_SETTING':
             return {
                 ...state,
-                [action.settingName]: !state[action.settingName]
+                [action.settingName]: action.settingValue
             };
         case 'GET_SETTINGS_REQUEST':
             return {
@@ -29,6 +35,8 @@ export default (
                 ...state,
                 hide_totals: action.hideTotals,
                 ignore_weekend: action.ignoreWeekend,
+                min_hour_id: action.minHourId,
+                max_hour_id: action.maxHourId,
                 loading: false
             };
         default:

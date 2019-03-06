@@ -25,8 +25,8 @@ export class SettingsPage extends Component {
         super(props);
 
         this.state = {
-            hide_totals: props.hide_totals,
-            ignore_weekend: props.ignore_weekend,
+            min_hour_id: props.min_hour_id,
+            max_hour_id: props.max_hour_id,
             importModalIsOpen: false,
             accountModalIsOpen: false,
             confirmModalIsOpen: false
@@ -67,15 +67,6 @@ export class SettingsPage extends Component {
         sessionStorage.removeItem('Authorization');
         this.props.setActiveMenu('');
         this.props.history.push('/');
-    };
-
-    handleCheckboxChange = event => {
-        const previousState = this.state[event.target.name];
-        this.setState({
-            [event.target.name]: !previousState
-        });
-        this.props.showLoader();
-        this.props.changeSettingRequest(event.target.name);
     };
 
     handleReadBattery = () => {
@@ -119,7 +110,44 @@ export class SettingsPage extends Component {
         shell.openExternal('https://moki.technology/pages/contact-us');
     };
 
+    handleTimeRangeChange = event => {
+        this.setState({
+            [event.target.name]: parseInt(event.target.value, 10)
+        });
+        this.props.showLoader();
+        this.props.changeSettingRequest(
+            event.target.name,
+            parseInt(event.target.value, 10)
+        );
+    };
+
     render() {
+        const options = [
+            { id: 0, value: '00:00' },
+            { id: 2, value: '01:00' },
+            { id: 4, value: '02:00' },
+            { id: 6, value: '03:00' },
+            { id: 8, value: '04:00' },
+            { id: 10, value: '05:00' },
+            { id: 12, value: '06:00' },
+            { id: 14, value: '07:00' },
+            { id: 16, value: '08:00' },
+            { id: 18, value: '09:00' },
+            { id: 20, value: '10:00' },
+            { id: 22, value: '11:00' },
+            { id: 24, value: '12:00' },
+            { id: 26, value: '13:00' },
+            { id: 28, value: '14:00' },
+            { id: 30, value: '15:00' },
+            { id: 32, value: '16:00' },
+            { id: 34, value: '17:00' },
+            { id: 36, value: '18:00' },
+            { id: 38, value: '19:00' },
+            { id: 40, value: '20:00' },
+            { id: 42, value: '21:00' },
+            { id: 44, value: '22:00' },
+            { id: 46, value: '23:00' }
+        ];
         return (
             <div className="container container-with-title">
                 <Header
@@ -133,125 +161,174 @@ export class SettingsPage extends Component {
                     }
                     rightButton={<div />}
                 />
+                <PageTitle title="Settings" />
                 {!this.props.loading ? (
                     <div className="content">
-                        <PageTitle title="Settings" />
                         <div className="table-wrapper settings-table-wrapper">
                             <table className="table settings-table">
-                                <tr>
-                                    <td>
-                                        <span className="setting-label">
-                                            Hide Totals at Record Steps
-                                        </span>
-                                    </td>
-                                    <td className="align-right switch-column">
-                                        <HideTotalCheckbox />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span className="setting-label">
-                                            Ignore Weekend Data
-                                        </span>
-                                    </td>
-                                    <td className="align-right switch-column">
-                                        <IgnoreWeekendCheckbox />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button
-                                            className="setting-button"
-                                            type="button"
-                                            onClick={this.handleReadBattery}
-                                        >
-                                            Read Band Battery Levels
-                                        </button>
-                                    </td>
-                                    <td />
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button
-                                            className="setting-button"
-                                            type="button"
-                                            onClick={this.handleExportCsv}
-                                        >
-                                            Download CSV Data
-                                        </button>
-                                    </td>
-                                    <td />
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button
-                                            className="setting-button"
-                                            type="button"
-                                            onClick={this.handleDeleteDatabase}
-                                        >
-                                            Delete Database
-                                        </button>
-                                    </td>
-                                    <td />
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button
-                                            className="setting-button"
-                                            type="button"
-                                            onClick={this.openImportModal}
-                                        >
-                                            Import Database
-                                        </button>
-                                    </td>
-                                    <td className="align-right">
-                                        <button
-                                            className="green-button"
-                                            type="button"
-                                            onClick={
-                                                this.handleDownloadTemplate
-                                            }
-                                        >
-                                            Download Template
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button
-                                            className="setting-button"
-                                            type="button"
-                                            onClick={this.openAccountModal}
-                                        >
-                                            Account
-                                        </button>
-                                    </td>
-                                    <td />
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            className="setting-button"
-                                            onClick={this.logout}
-                                        >
-                                            Log Out
-                                        </button>
-                                    </td>
-                                    <td />
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button
-                                            className="setting-button"
-                                            type="button"
-                                            onClick={this.handleContactSupport}
-                                        >
-                                            Contact Support
-                                        </button>
-                                    </td>
-                                    <td />
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span className="setting-label">
+                                                Hide Totals at Record Steps
+                                            </span>
+                                        </td>
+                                        <td className="align-right switch-column">
+                                            <HideTotalCheckbox />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span className="setting-label">
+                                                Ignore Weekend Data
+                                            </span>
+                                        </td>
+                                        <td className="align-right switch-column">
+                                            <IgnoreWeekendCheckbox />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span className="setting-label">
+                                                Time Range
+                                            </span>
+                                        </td>
+                                        <td className="align-right switch-column">
+                                            <select
+                                                className="time-range-select"
+                                                name="min_hour_id"
+                                                value={this.state.min_hour_id}
+                                                onChange={
+                                                    this.handleTimeRangeChange
+                                                }
+                                            >
+                                                {options.map(option => (
+                                                    <option
+                                                        key={option.id}
+                                                        value={option.id}
+                                                    >
+                                                        {option.value}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <select
+                                                className="time-range-select"
+                                                name="max_hour_id"
+                                                value={this.state.max_hour_id}
+                                                onChange={
+                                                    this.handleTimeRangeChange
+                                                }
+                                            >
+                                                {options.map(option => (
+                                                    <option
+                                                        key={option.id}
+                                                        value={option.id}
+                                                    >
+                                                        {option.value}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                                onClick={this.handleReadBattery}
+                                            >
+                                                Read Band Battery Levels
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                                onClick={this.handleExportCsv}
+                                            >
+                                                Download CSV Data
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                                onClick={
+                                                    this.handleDeleteDatabase
+                                                }
+                                            >
+                                                Delete Database
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                                onClick={this.openImportModal}
+                                            >
+                                                Import Database
+                                            </button>
+                                        </td>
+                                        <td className="align-right">
+                                            <button
+                                                className="green-button"
+                                                type="button"
+                                                onClick={
+                                                    this.handleDownloadTemplate
+                                                }
+                                            >
+                                                Download Template
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                                onClick={this.openAccountModal}
+                                            >
+                                                Account
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                                type="button"
+                                                className="setting-button"
+                                                onClick={this.logout}
+                                            >
+                                                Log Out
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                                onClick={
+                                                    this.handleContactSupport
+                                                }
+                                            >
+                                                Contact Support
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -279,16 +356,16 @@ export class SettingsPage extends Component {
 const mapStateToProps = state => ({
     token: state.auth.token,
     loading: state.auth.loading,
-    hide_totals: state.auth.hide_totals,
-    ignore_weekend: state.auth.ignore_weekend
+    min_hour_id: state.auth.min_hour_id,
+    max_hour_id: state.auth.max_hour_id
 });
 
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
     showLoader: () => dispatch(showLoader()),
     setActiveMenu: menu => dispatch(setActiveMenu(menu)),
-    changeSettingRequest: settingName =>
-        dispatch(changeSettingRequest(settingName)),
+    changeSettingRequest: (settingName, settingValue) =>
+        dispatch(changeSettingRequest(settingName, settingValue)),
     getSettingsRequest: () => dispatch(getSettingsRequest())
 });
 
