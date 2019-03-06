@@ -23,7 +23,9 @@ export default (
             dateSelectOpen: false
         },
         totalSteps: {
-            data: [],
+            data: {
+                current: []
+            },
             teamId: null,
             chartType: 'today',
             chartStartDate: moment.utc().local(),
