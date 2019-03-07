@@ -197,7 +197,6 @@ export class SettingsPage extends Component {
                                             <select
                                                 className="time-range-select"
                                                 name="min_hour_id"
-                                                value={this.state.min_hour_id}
                                                 onChange={
                                                     this.handleTimeRangeChange
                                                 }
@@ -206,6 +205,11 @@ export class SettingsPage extends Component {
                                                     <option
                                                         key={option.id}
                                                         value={option.id}
+                                                        selected={
+                                                            this.props
+                                                                .min_hour_id ===
+                                                            option.id
+                                                        }
                                                     >
                                                         {option.value}
                                                     </option>
@@ -214,7 +218,6 @@ export class SettingsPage extends Component {
                                             <select
                                                 className="time-range-select"
                                                 name="max_hour_id"
-                                                value={this.state.max_hour_id}
                                                 onChange={
                                                     this.handleTimeRangeChange
                                                 }
@@ -223,6 +226,11 @@ export class SettingsPage extends Component {
                                                     <option
                                                         key={option.id}
                                                         value={option.id}
+                                                        selected={
+                                                            this.props
+                                                                .max_hour_id ===
+                                                            option.id
+                                                        }
                                                     >
                                                         {option.value}
                                                     </option>
