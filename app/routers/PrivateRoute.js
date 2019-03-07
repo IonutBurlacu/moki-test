@@ -27,7 +27,21 @@ export const PrivateRoute = ({
             isAuthenticated ? (
                 <div
                     onClick={event => {
-                        if (!event.target.classList.contains('filter-button')) {
+                        if (
+                            !event.target.classList.contains('filter-button') &&
+                            !event.target.parentElement.classList.contains(
+                                'rdrDayNumber'
+                            ) &&
+                            !event.target.parentElement.classList.contains(
+                                'rdrMonthPicker'
+                            ) &&
+                            !event.target.parentElement.classList.contains(
+                                'rdrYearPicker'
+                            ) &&
+                            !event.target.parentElement.classList.contains(
+                                'rdrNextPrevButton'
+                            )
+                        ) {
                             closeAllChallengesMenu();
                             closeAllPlayersMenu();
                             closeAllReportsMenu();
