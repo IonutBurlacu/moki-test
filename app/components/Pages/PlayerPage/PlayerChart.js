@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
-    LineChart,
+    ComposedChart,
     Line,
+    Bar,
     CartesianGrid,
     ResponsiveContainer,
     Tooltip,
@@ -19,7 +20,7 @@ export class PlayerChart extends Component {
                 <div className="chart">
                     {this.props.player.data.length ? (
                         <ResponsiveContainer width="99%">
-                            <LineChart
+                            <ComposedChart
                                 data={this.props.player.data}
                                 margin={{
                                     top: 10,
@@ -59,16 +60,11 @@ export class PlayerChart extends Component {
                                     }}
                                 />
                                 <Tooltip />
-                                <Line
-                                    type="monotone"
+                                <Bar
                                     dataKey="total_steps_overview"
                                     name="Total"
-                                    stroke="#23dec8"
-                                    strokeWidth="2"
-                                    dot={{
-                                        stroke: '#23dec8',
-                                        strokeWidth: 5
-                                    }}
+                                    maxBarSize={70}
+                                    fill="#23dec8"
                                 />
                                 <Line
                                     type="monotone"
@@ -81,7 +77,7 @@ export class PlayerChart extends Component {
                                         strokeWidth: 5
                                     }}
                                 />
-                            </LineChart>
+                            </ComposedChart>
                         </ResponsiveContainer>
                     ) : (
                         ''

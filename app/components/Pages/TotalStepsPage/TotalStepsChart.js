@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
-    BarChart,
-    LineChart,
+    ComposedChart,
     Bar,
     Line,
     Cell,
@@ -74,7 +73,7 @@ export class TotalStepsChart extends Component {
                 </div>
                 <div className="chart">
                     <ResponsiveContainer width="99%">
-                        <BarChart
+                        <ComposedChart
                             data={this.props.totalSteps.data.current}
                             barCategoryGap={5}
                             margin={{
@@ -143,13 +142,18 @@ export class TotalStepsChart extends Component {
                                     }
                                 )}
                             </Bar>
-                            <Bar
+                            <Line
+                                type="monotone"
                                 dataKey="total_steps_typical"
                                 name="Typical"
-                                fill="#868797"
-                                maxBarSize={20}
+                                stroke="#868797"
+                                strokeWidth="2"
+                                dot={{
+                                    stroke: '#868797',
+                                    strokeWidth: 5
+                                }}
                             />
-                        </BarChart>
+                        </ComposedChart>
                     </ResponsiveContainer>
                 </div>
                 <div className="chart-bottom">
