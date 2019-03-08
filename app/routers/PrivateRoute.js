@@ -12,6 +12,17 @@ import { closeAllPlayersMenu } from '../actions/players';
 import { closeAllReportsMenu } from '../actions/reports';
 import { closeAllTeamsMenu } from '../actions/teams';
 
+const checkParentClass = (className, element) => {
+    let parent = element.parentElement;
+    while (parent) {
+        if (parent.classList.contains(className)) {
+            return true;
+        }
+        parent = parent.parentElement;
+    }
+    return false;
+};
+
 export const PrivateRoute = ({
     isAuthenticated,
     component: Component,
@@ -27,21 +38,7 @@ export const PrivateRoute = ({
             isAuthenticated ? (
                 <div
                     onClick={event => {
-                        if (
-                            !event.target.classList.contains('filter-button') &&
-                            !event.target.parentElement.classList.contains(
-                                'rdrDayNumber'
-                            ) &&
-                            !event.target.parentElement.classList.contains(
-                                'rdrMonthPicker'
-                            ) &&
-                            !event.target.parentElement.classList.contains(
-                                'rdrYearPicker'
-                            ) &&
-                            !event.target.parentElement.classList.contains(
-                                'rdrNextPrevButton'
-                            )
-                        ) {
+                        if (!checkParentClass('filter-wrapper', event.target)) {
                             closeAllChallengesMenu();
                             closeAllPlayersMenu();
                             closeAllReportsMenu();
