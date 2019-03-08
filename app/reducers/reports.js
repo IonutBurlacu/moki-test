@@ -91,6 +91,30 @@ export default (
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
                 },
+                groupAverages: {
+                    ...state.groupAverages,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                totalSteps: {
+                    ...state.totalSteps,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
                 scales: action.scales,
                 loading: false
             };
@@ -124,6 +148,30 @@ export default (
                     ...state.groupAverages,
                     teamId: action.teamId,
                     data: action.data,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                playerVariation: {
+                    ...state.playerVariation,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                totalSteps: {
+                    ...state.totalSteps,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                downloadCsv: {
+                    ...state.downloadCsv,
                     chartType: action.chartType,
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
@@ -177,6 +225,30 @@ export default (
                     ),
                     totalOverviewPrevious:
                         action.data.previous_total.previous_steps
+                },
+                groupAverages: {
+                    ...state.groupAverages,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                playerVariation: {
+                    ...state.playerVariation,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
                 },
                 scales: action.scales,
                 loading: false
@@ -232,6 +304,30 @@ export default (
                                 : 0
                     })),
                     chartType: action.chartType
+                },
+                groupAverages: {
+                    ...state.groupAverages,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                totalSteps: {
+                    ...state.totalSteps,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                playerVariation: {
+                    ...state.playerVariation,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                downloadCsv: {
+                    ...state.downloadCsv,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
                 },
                 loading: false
             };
@@ -313,6 +409,30 @@ export default (
                                 : 0
                     })),
                     chartType: action.chartType
+                },
+                groupAverages: {
+                    ...state.groupAverages,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                totalSteps: {
+                    ...state.totalSteps,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                downloadPdf: {
+                    ...state.downloadPdf,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
+                },
+                playerVariation: {
+                    ...state.playerVariation,
+                    chartType: action.chartType,
+                    chartStartDate: moment(action.chartStartDate),
+                    chartEndDate: moment(action.chartEndDate)
                 },
                 loading: false
             };
