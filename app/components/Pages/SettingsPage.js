@@ -238,38 +238,33 @@ export class SettingsPage extends Component {
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={this.handleReadBattery}>
                                         <td>
                                             <button
                                                 className="setting-button"
                                                 type="button"
-                                                onClick={this.handleReadBattery}
                                             >
                                                 Read Band Battery Levels
                                             </button>
                                         </td>
                                         <td />
                                     </tr>
-                                    <tr>
+                                    <tr onClick={this.handleExportCsv}>
                                         <td>
                                             <button
                                                 className="setting-button"
                                                 type="button"
-                                                onClick={this.handleExportCsv}
                                             >
                                                 Download CSV Data
                                             </button>
                                         </td>
                                         <td />
                                     </tr>
-                                    <tr>
+                                    <tr onClick={this.handleDeleteDatabase}>
                                         <td>
                                             <button
                                                 className="setting-button"
                                                 type="button"
-                                                onClick={
-                                                    this.handleDeleteDatabase
-                                                }
                                             >
                                                 Delete Database
                                             </button>
@@ -298,38 +293,33 @@ export class SettingsPage extends Component {
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={this.openAccountModal}>
                                         <td>
                                             <button
                                                 className="setting-button"
                                                 type="button"
-                                                onClick={this.openAccountModal}
                                             >
                                                 Account
                                             </button>
                                         </td>
                                         <td />
                                     </tr>
-                                    <tr>
+                                    <tr onClick={this.logout}>
                                         <td>
                                             <button
                                                 type="button"
                                                 className="setting-button"
-                                                onClick={this.logout}
                                             >
                                                 Log Out
                                             </button>
                                         </td>
                                         <td />
                                     </tr>
-                                    <tr>
+                                    <tr onClick={this.handleContactSupport}>
                                         <td>
                                             <button
                                                 className="setting-button"
                                                 type="button"
-                                                onClick={
-                                                    this.handleContactSupport
-                                                }
                                             >
                                                 Contact Support
                                             </button>
