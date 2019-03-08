@@ -30,6 +30,7 @@ export default (
             chartType: 'today',
             chartStartDate: moment.utc().local(),
             chartEndDate: moment.utc().local(),
+            playersCount: 0,
             teamSelectOpen: false,
             dateSelectOpen: false,
             totalOverview: 0,
@@ -163,6 +164,7 @@ export default (
                     chartType: action.chartType,
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate),
+                    playersCount: action.playersCount,
                     totalOverview: action.data.current.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.total_steps_overview,

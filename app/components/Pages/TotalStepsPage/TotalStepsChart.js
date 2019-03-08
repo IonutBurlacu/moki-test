@@ -115,22 +115,30 @@ export class TotalStepsChart extends Component {
                                         let color;
                                         if (
                                             entry.total_steps_overview <
-                                            this.props.scales.first_step
+                                            this.props.scales.first_step *
+                                                this.props.totalSteps
+                                                    .playersCount
                                         ) {
                                             color = COLORS[0];
                                         } else if (
                                             entry.total_steps_overview <
-                                            this.props.scales.second_step
+                                            this.props.scales.second_step *
+                                                this.props.totalSteps
+                                                    .playersCount
                                         ) {
                                             color = COLORS[1];
                                         } else if (
                                             entry.total_steps_overview <
-                                            this.props.scales.third_step
+                                            this.props.scales.third_step *
+                                                this.props.totalSteps
+                                                    .playersCount
                                         ) {
                                             color = COLORS[2];
                                         } else if (
                                             entry.total_steps_overview <
-                                            this.props.scales.fourth_step
+                                            this.props.scales.fourth_step *
+                                                this.props.totalSteps
+                                                    .playersCount
                                         ) {
                                             color = COLORS[3];
                                         } else {

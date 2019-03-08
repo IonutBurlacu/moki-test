@@ -112,24 +112,29 @@ export class GroupAveragesChart extends Component {
                                 {this.props.groupAverages.data.map(
                                     (entry, index) => {
                                         let color;
+                                        console.log(entry);
                                         if (
                                             entry.avg_steps <
-                                            this.props.scales.first_step
+                                            this.props.scales.first_step *
+                                                entry.count_players
                                         ) {
                                             color = COLORS[0];
                                         } else if (
                                             entry.avg_steps <
-                                            this.props.scales.second_step
+                                            this.props.scales.second_step *
+                                                entry.count_players
                                         ) {
                                             color = COLORS[1];
                                         } else if (
                                             entry.avg_steps <
-                                            this.props.scales.third_step
+                                            this.props.scales.third_step *
+                                                entry.count_players
                                         ) {
                                             color = COLORS[2];
                                         } else if (
                                             entry.avg_steps <
-                                            this.props.scales.fourth_step
+                                            this.props.scales.fourth_step *
+                                                entry.count_players
                                         ) {
                                             color = COLORS[3];
                                         } else {

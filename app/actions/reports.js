@@ -106,7 +106,8 @@ export const getTotalSteps = (
     chartType,
     chartStartDate,
     chartEndDate,
-    scales
+    scales,
+    playersCount
 ) => ({
     type: 'GET_TOTAL_STEPS',
     teamId,
@@ -114,7 +115,8 @@ export const getTotalSteps = (
     chartType,
     chartStartDate,
     chartEndDate,
-    scales
+    scales,
+    playersCount
 });
 
 export const openTotalStepsMenu = menu => ({
