@@ -150,17 +150,6 @@ export class TotalStepsChart extends Component {
                                     }
                                 )}
                             </Bar>
-                            <Line
-                                type="monotone"
-                                dataKey="total_steps_typical"
-                                name="Typical"
-                                stroke="#868797"
-                                strokeWidth="2"
-                                dot={{
-                                    stroke: '#868797',
-                                    strokeWidth: 5
-                                }}
-                            />
                         </ComposedChart>
                     </ResponsiveContainer>
                 </div>
