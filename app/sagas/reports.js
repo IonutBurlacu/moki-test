@@ -103,7 +103,8 @@ export function* getTotalSteps(action) {
         chartType: action.chartType,
         chartStartDate: decoded.start_date,
         chartEndDate: decoded.end_date,
-        scales: decoded.scales
+        scales: decoded.scales,
+        playersCount: decoded.players_count
     });
 
     yield put({
