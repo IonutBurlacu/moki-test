@@ -4,7 +4,7 @@ export default (
     state = {
         teams: [],
         scales: null,
-        playerVariation: {
+        playerAverages: {
             data: [],
             teamId: null,
             chartType: 'today',
@@ -75,16 +75,16 @@ export default (
                 teams: action.teams,
                 loading: false
             };
-        case 'GET_PLAYER_VARIATION_REQUEST':
+        case 'GET_PLAYER_AVERAGES_REQUEST':
             return {
                 ...state,
                 loading: true
             };
-        case 'GET_PLAYER_VARIATION':
+        case 'GET_PLAYER_AVERAGES':
             return {
                 ...state,
-                playerVariation: {
-                    ...state.playerVariation,
+                playerAverages: {
+                    ...state.playerAverages,
                     teamId: action.teamId,
                     data: action.data,
                     chartType: action.chartType,
@@ -118,21 +118,21 @@ export default (
                 scales: action.scales,
                 loading: false
             };
-        case 'OPEN_PLAYER_VARIATION_MENU':
+        case 'OPEN_PLAYER_AVERAGES_MENU':
             return {
                 ...state,
-                playerVariation: {
-                    ...state.playerVariation,
+                playerAverages: {
+                    ...state.playerAverages,
                     teamSelectOpen: false,
                     dateSelectOpen: false,
                     [action.menu]: true
                 }
             };
-        case 'CLOSE_PLAYER_VARIATION_MENU':
+        case 'CLOSE_PLAYER_AVERAGES_MENU':
             return {
                 ...state,
-                playerVariation: {
-                    ...state.playerVariation,
+                playerAverages: {
+                    ...state.playerAverages,
                     [action.menu]: false
                 }
             };
@@ -152,8 +152,8 @@ export default (
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
                 },
-                playerVariation: {
-                    ...state.playerVariation,
+                playerAverages: {
+                    ...state.playerAverages,
                     chartType: action.chartType,
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
@@ -232,8 +232,8 @@ export default (
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
                 },
-                playerVariation: {
-                    ...state.playerVariation,
+                playerAverages: {
+                    ...state.playerAverages,
                     chartType: action.chartType,
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
@@ -317,8 +317,8 @@ export default (
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
                 },
-                playerVariation: {
-                    ...state.playerVariation,
+                playerAverages: {
+                    ...state.playerAverages,
                     chartType: action.chartType,
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
@@ -428,8 +428,8 @@ export default (
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
                 },
-                playerVariation: {
-                    ...state.playerVariation,
+                playerAverages: {
+                    ...state.playerAverages,
                     chartType: action.chartType,
                     chartStartDate: moment(action.chartStartDate),
                     chartEndDate: moment(action.chartEndDate)
@@ -484,8 +484,8 @@ export default (
         case 'CLOSE_ALL_REPORTS_MENU':
             return {
                 ...state,
-                playerVariation: {
-                    ...state.playerVariation,
+                playerAverages: {
+                    ...state.playerAverages,
                     teamSelectOpen: false,
                     dateSelectOpen: false
                 },

@@ -6,7 +6,7 @@ import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import { showLoader } from '../../actions/loader';
 import { getReportsTeamsRequest } from '../../actions/reports';
-import playerVariationIcon from '../../images/player_variation.png';
+import playerAveragesIcon from '../../images/player_averages.png';
 import groupAveragesIcon from '../../images/group_averages.png';
 import totalStepsIcon from '../../images/total_steps.png';
 import downloadPdfIcon from '../../images/download_pdf.png';
@@ -35,12 +35,12 @@ export class ReportsPage extends Component {
                                     between most and least active.
                                 </p>
                                 <img
-                                    src={playerVariationIcon}
+                                    src={playerAveragesIcon}
                                     className="report-section-icon"
-                                    alt="players-variation"
+                                    alt="players-averages"
                                 />
                                 <Link
-                                    to="/reports/player_variation"
+                                    to="/reports/player_averages"
                                     className="report-section-button"
                                 >
                                     <span>View</span>

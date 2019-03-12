@@ -11,7 +11,7 @@ import PlayersPage from './components/Pages/PlayersPage';
 import TeamsPage from './components/Pages/TeamsPage';
 import ChallengesPage from './components/Pages/ChallengesPage';
 import ReportsPage from './components/Pages/ReportsPage';
-import PlayerVariationPage from './components/Pages/PlayerVariationPage';
+import PlayerAveragesPage from './components/Pages/PlayerAveragesPage';
 import GroupAveragesPage from './components/Pages/GroupAveragesPage';
 import TotalStepsPage from './components/Pages/TotalStepsPage';
 import DownloadPdfPage from './components/Pages/DownloadPdfPage';
@@ -58,8 +58,8 @@ export default () => (
             />
             <PrivateRoute path="/reports" component={ReportsPage} exact />
             <PrivateRoute
-                path="/reports/player_variation"
-                component={PlayerVariationPage}
+                path="/reports/player_averages"
+                component={PlayerAveragesPage}
             />
             <PrivateRoute
                 path="/reports/group_averages"

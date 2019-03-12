@@ -21,10 +21,10 @@ export function* getReportsTeams() {
     });
 }
 
-export function* getPlayerVariation(action) {
+export function* getPlayerAverages(action) {
     const token = yield select(getToken);
     const response = yield call(
-        ReportsAPI.playerVariation,
+        ReportsAPI.playerAverages,
         {
             Authorization: token
         },
@@ -37,7 +37,7 @@ export function* getPlayerVariation(action) {
     const decoded = decrypt(response.data);
 
     yield put({
-        type: 'GET_PLAYER_VARIATION',
+        type: 'GET_PLAYER_AVERAGES',
         data: decoded.data,
         teamId: decoded.team_id,
         chartType: action.chartType,

@@ -4,9 +4,9 @@ import { DateRange } from 'react-date-range';
 import enGb from 'react-date-range/dist/locale/en-GB';
 import moment from 'moment';
 import {
-    getPlayerVariationRequest,
-    openPlayerVariationMenu,
-    closePlayerVariationMenu
+    getPlayerAveragesRequest,
+    openPlayerAveragesMenu,
+    closePlayerAveragesMenu
 } from '../../../actions/reports';
 import { showLoader } from '../../../actions/loader';
 
@@ -14,13 +14,13 @@ export class DateBy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: props.playerVariation.chartStartDate,
-            endDate: props.playerVariation.chartEndDate
+            startDate: props.playerAverages.chartStartDate,
+            endDate: props.playerAverages.chartEndDate
         };
     }
 
     componentWillUnmount() {
-        this.props.closePlayerVariationMenu('dateSelectOpen');
+        this.props.closePlayerAveragesMenu('dateSelectOpen');
     }
 
     getSelectedDateType = type => {
@@ -41,25 +41,25 @@ export class DateBy extends Component {
     };
 
     handleDateSelectMenu = () => {
-        if (this.props.playerVariation.dateSelectOpen) {
-            this.props.closePlayerVariationMenu('dateSelectOpen');
+        if (this.props.playerAverages.dateSelectOpen) {
+            this.props.closePlayerAveragesMenu('dateSelectOpen');
         } else {
-            this.props.openPlayerVariationMenu('dateSelectOpen');
+            this.props.openPlayerAveragesMenu('dateSelectOpen');
         }
     };
 
     handleCloseDateSelectMenu = () => {
-        this.props.closePlayerVariationMenu('dateSelectOpen');
+        this.props.closePlayerAveragesMenu('dateSelectOpen');
     };
 
     handleDateSelectChange = chartType => {
-        this.props.closePlayerVariationMenu('dateSelectOpen');
+        this.props.closePlayerAveragesMenu('dateSelectOpen');
         this.props.showLoader();
-        this.props.getPlayerVariationRequest(
-            this.props.playerVariation.teamId,
+        this.props.getPlayerAveragesRequest(
+            this.props.playerAverages.teamId,
             chartType,
-            this.props.playerVariation.chartStartDate,
-            this.props.playerVariation.chartEndDate
+            this.props.playerAverages.chartStartDate,
+            this.props.playerAverages.chartEndDate
         );
     };
 
@@ -73,10 +73,10 @@ export class DateBy extends Component {
     handleDateRangeFocus = ranges => {
         setTimeout(() => {
             if (ranges[1] === 0) {
-                this.props.closePlayerVariationMenu('dateSelectOpen');
+                this.props.closePlayerAveragesMenu('dateSelectOpen');
                 this.props.showLoader();
-                this.props.getPlayerVariationRequest(
-                    this.props.playerVariation.teamId,
+                this.props.getPlayerAveragesRequest(
+                    this.props.playerAverages.teamId,
                     'interval',
                     this.state.startDate,
                     this.state.endDate
@@ -91,20 +91,20 @@ export class DateBy extends Component {
                 <button
                     type="button"
                     className={
-                        this.props.playerVariation.dateSelectOpen
+                        this.props.playerAverages.dateSelectOpen
                             ? 'filter-button filter-with-tick active'
                             : 'filter-button filter-with-tick'
                     }
                     onClick={this.handleDateSelectMenu}
                 >
                     {this.getSelectedDateType(
-                        this.props.playerVariation.chartType
+                        this.props.playerAverages.chartType
                     )}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
                     style={{
-                        display: this.props.playerVariation.dateSelectOpen
+                        display: this.props.playerAverages.dateSelectOpen
                             ? 'block'
                             : 'none'
                     }}
@@ -211,21 +211,21 @@ export class DateBy extends Component {
 }
 
 const mapStateToProps = state => ({
-    playerVariation: state.reports.playerVariation
+    playerAverages: state.reports.playerAverages
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
-    openPlayerVariationMenu: menu => dispatch(openPlayerVariationMenu(menu)),
-    closePlayerVariationMenu: menu => dispatch(closePlayerVariationMenu(menu)),
-    getPlayerVariationRequest: (
+    openPlayerAveragesMenu: menu => dispatch(openPlayerAveragesMenu(menu)),
+    closePlayerAveragesMenu: menu => dispatch(closePlayerAveragesMenu(menu)),
+    getPlayerAveragesRequest: (
         teamId,
         chartType,
         chartStartDate,
         chartEndDate
     ) =>
         dispatch(
-            getPlayerVariationRequest(
+            getPlayerAveragesRequest(
                 teamId,
                 chartType,
                 chartStartDate,

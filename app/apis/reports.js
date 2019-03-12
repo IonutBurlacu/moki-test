@@ -15,7 +15,7 @@ export default class ReportsAPI {
         });
     }
 
-    static playerVariation(
+    static playerAverages(
         headers = {},
         teamId,
         chartType,
@@ -30,7 +30,7 @@ export default class ReportsAPI {
         });
         return axios({
             method: 'post',
-            url: `${host}${root}/player_variation`,
+            url: `${host}${root}/player_averages`,
             headers: {
                 ...headers
             },

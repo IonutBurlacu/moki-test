@@ -10,14 +10,14 @@ import DateBy from './DateBy';
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
         const encrypted = encrypt({
-            team_id: this.props.playerVariation.teamId,
-            type: this.props.playerVariation.chartType,
-            start_date: this.props.playerVariation.chartStartDate,
-            end_date: this.props.playerVariation.chartEndDate
+            team_id: this.props.playerAverages.teamId,
+            type: this.props.playerAverages.chartType,
+            start_date: this.props.playerAverages.chartStartDate,
+            end_date: this.props.playerAverages.chartEndDate
         });
         this.props.showLoader();
         axios({
-            url: `${host}/api/reports/player_variation_pdf`,
+            url: `${host}/api/reports/player_averages_pdf`,
             method: 'POST',
             responseType: 'blob',
             headers: {
@@ -34,14 +34,14 @@ export class TopFilters extends Component {
                 );
                 const link = document.createElement('a');
                 const teamName = this.props.teams
-                    .find(team => team.id === this.props.playerVariation.teamId)
+                    .find(team => team.id === this.props.playerAverages.teamId)
                     .name.split(' ')
                     .join('_');
                 link.href = url;
                 link.setAttribute(
                     'download',
-                    `MOKI_${teamName}_player_variation_${
-                        this.props.playerVariation.chartType
+                    `MOKI_${teamName}_player_averages_${
+                        this.props.playerAverages.chartType
                     }.pdf`
                 );
                 document.body.appendChild(link);
@@ -82,7 +82,7 @@ export class TopFilters extends Component {
 const mapStateToProps = state => ({
     token: state.auth.token,
     teams: state.reports.teams,
-    playerVariation: state.reports.playerVariation
+    playerAverages: state.reports.playerAverages
 });
 
 const mapDispatchToProps = dispatch => ({

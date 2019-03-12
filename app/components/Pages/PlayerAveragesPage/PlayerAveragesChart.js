@@ -14,34 +14,34 @@ import moment from 'moment';
 
 const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
-export class PlayerVariationChart extends Component {
+export class PlayerAveragesChart extends Component {
     getDateLegend = () => {
-        switch (this.props.playerVariation.chartType) {
+        switch (this.props.playerAverages.chartType) {
             case 'today':
                 return moment().format('D MMMM YYYY');
             case 'week':
                 return `${moment(
-                    this.props.playerVariation.chartStartDate
+                    this.props.playerAverages.chartStartDate
                 ).format('D')} - ${moment(
-                    this.props.playerVariation.chartEndDate
+                    this.props.playerAverages.chartEndDate
                 ).format('D MMMM YYYY')}`;
             case 'month':
                 return `${moment(
-                    this.props.playerVariation.chartStartDate
+                    this.props.playerAverages.chartStartDate
                 ).format('D')} - ${moment(
-                    this.props.playerVariation.chartEndDate
+                    this.props.playerAverages.chartEndDate
                 ).format('D MMMM YYYY')}`;
             case 'year':
                 return `${moment(
-                    this.props.playerVariation.chartStartDate
+                    this.props.playerAverages.chartStartDate
                 ).format('MMM')} - ${moment(
-                    this.props.playerVariation.chartEndDate
+                    this.props.playerAverages.chartEndDate
                 ).format('MMM YYYY')}`;
             case 'interval':
                 return `${moment(
-                    this.props.playerVariation.chartStartDate
+                    this.props.playerAverages.chartStartDate
                 ).format('D MMM YYYY')} - ${moment(
-                    this.props.playerVariation.chartEndDate
+                    this.props.playerAverages.chartEndDate
                 ).format('D MMM YYYY')}`;
             default:
                 return moment().format('D MMMM YYYY');
@@ -52,7 +52,7 @@ export class PlayerVariationChart extends Component {
         return (
             <div className="chart-container">
                 <div className="legend">
-                    {this.props.playerVariation.teamId &&
+                    {this.props.playerAverages.teamId &&
                     this.props.teams.length ? (
                         <div>
                             <p className="team">
@@ -60,7 +60,7 @@ export class PlayerVariationChart extends Component {
                                     this.props.teams.find(
                                         team =>
                                             team.id ===
-                                            this.props.playerVariation.teamId
+                                            this.props.playerAverages.teamId
                                     ).name
                                 }
                             </p>
@@ -73,7 +73,7 @@ export class PlayerVariationChart extends Component {
                 <div className="chart">
                     <ResponsiveContainer width="99%">
                         <BarChart
-                            data={this.props.playerVariation.data}
+                            data={this.props.playerAverages.data}
                             barCategoryGap={5}
                             margin={{
                                 top: 10,
@@ -109,30 +109,30 @@ export class PlayerVariationChart extends Component {
                             />
                             <Tooltip cursor={false} />
                             <Bar
-                                dataKey="total_steps"
-                                name="Total Steps"
+                                dataKey="avg_steps"
+                                name="Average Steps"
                                 maxBarSize={70}
                             >
-                                {this.props.playerVariation.data.map(
+                                {this.props.playerAverages.data.map(
                                     (entry, index) => {
                                         let color;
                                         if (
-                                            entry.total_steps <
+                                            entry.avg_steps <
                                             this.props.scales.first_step
                                         ) {
                                             color = COLORS[0];
                                         } else if (
-                                            entry.total_steps <
+                                            entry.avg_steps <
                                             this.props.scales.second_step
                                         ) {
                                             color = COLORS[1];
                                         } else if (
-                                            entry.total_steps <
+                                            entry.avg_steps <
                                             this.props.scales.third_step
                                         ) {
                                             color = COLORS[2];
                                         } else if (
-                                            entry.total_steps <
+                                            entry.avg_steps <
                                             this.props.scales.fourth_step
                                         ) {
                                             color = COLORS[3];
@@ -155,11 +155,11 @@ export class PlayerVariationChart extends Component {
 
 const mapStateToProps = state => ({
     teams: state.reports.teams,
-    playerVariation: state.reports.playerVariation,
+    playerAverages: state.reports.playerAverages,
     scales: state.reports.scales
 });
 
 export default connect(
     mapStateToProps,
     null
-)(PlayerVariationChart);
+)(PlayerAveragesChart);

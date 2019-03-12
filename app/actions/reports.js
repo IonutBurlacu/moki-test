@@ -7,20 +7,20 @@ export const getReportsTeams = teams => ({
     teams
 });
 
-export const getPlayerVariationRequest = (
+export const getPlayerAveragesRequest = (
     teamId,
     chartType,
     chartStartDate,
     chartEndDate
 ) => ({
-    type: 'GET_PLAYER_VARIATION_REQUEST',
+    type: 'GET_PLAYER_AVERAGES_REQUEST',
     teamId,
     chartType,
     chartStartDate,
     chartEndDate
 });
 
-export const getPlayerVariation = (
+export const getPlayerAverages = (
     teamId,
     data,
     chartType,
@@ -28,7 +28,7 @@ export const getPlayerVariation = (
     chartEndDate,
     scales
 ) => ({
-    type: 'GET_PLAYER_VARIATION',
+    type: 'GET_PLAYER_AVERAGES',
     teamId,
     data,
     chartType,
@@ -37,13 +37,13 @@ export const getPlayerVariation = (
     scales
 });
 
-export const openPlayerVariationMenu = menu => ({
-    type: 'OPEN_PLAYER_VARIATION_MENU',
+export const openPlayerAveragesMenu = menu => ({
+    type: 'OPEN_PLAYER_AVERAGES_MENU',
     menu
 });
 
-export const closePlayerVariationMenu = menu => ({
-    type: 'CLOSE_PLAYER_VARIATION_MENU',
+export const closePlayerAveragesMenu = menu => ({
+    type: 'CLOSE_PLAYER_AVERAGES_MENU',
     menu
 });
 
