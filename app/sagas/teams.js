@@ -3,6 +3,11 @@ import { push } from 'react-router-redux';
 import moment from 'moment';
 import decrypt from '../utils/decrypt';
 import { getToken } from '../selectors/auth';
+import {
+    getTeamsChartType,
+    getTeamsChartStartDate,
+    getTeamsChartEndDate
+} from '../selectors/teams';
 import TeamsAPI from '../apis/teams';
 
 export function* teamsFetchList(action) {
@@ -123,10 +128,16 @@ export function* teamUpdate(action) {
 
 export function* teamView(action) {
     const token = yield select(getToken);
+    const chartType = yield select(getTeamsChartType);
+    const chartStartDate = yield select(getTeamsChartStartDate);
+    const chartEndDate = yield select(getTeamsChartEndDate);
     const response = yield call(
         TeamsAPI.view,
         { Authorization: token },
-        action.id
+        action.id,
+        chartType,
+        moment(chartStartDate).format('YYYY-MM-DD'),
+        moment(chartEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);

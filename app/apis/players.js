@@ -16,12 +16,20 @@ export default class PlayersAPI {
         });
     }
 
-    static view(headers = {}, id) {
+    static view(headers = {}, id, chartType, chartStartDate, chartEndDate) {
+        const encrypted = encrypt({
+            type: chartType,
+            start_date: chartStartDate,
+            end_date: chartEndDate
+        });
         return axios({
-            method: 'get',
+            method: 'post',
             url: `${host}${root}/view/${id}`,
             headers: {
                 ...headers
+            },
+            data: {
+                encrypted
             }
         });
     }

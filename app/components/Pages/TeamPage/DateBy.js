@@ -115,7 +115,7 @@ export class DateBy extends Component {
                     <ul className="filter-select-list">
                         <li
                             className={
-                                this.props.listDate === 'today'
+                                this.props.chartType === 'today'
                                     ? 'selected'
                                     : ''
                             }
@@ -131,7 +131,9 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'week' ? 'selected' : ''
+                                this.props.chartType === 'week'
+                                    ? 'selected'
+                                    : ''
                             }
                         >
                             <button
@@ -145,7 +147,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'month'
+                                this.props.chartType === 'month'
                                     ? 'selected'
                                     : ''
                             }
@@ -161,7 +163,9 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'year' ? 'selected' : ''
+                                this.props.chartType === 'year'
+                                    ? 'selected'
+                                    : ''
                             }
                         >
                             <button
@@ -175,7 +179,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'interval'
+                                this.props.chartType === 'interval'
                                     ? 'selected'
                                     : ''
                             }

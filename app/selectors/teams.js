@@ -26,3 +26,7 @@ const getFilteredTeams = (teams, { filterByValues, sortBy }) =>
         });
 
 export default getFilteredTeams;
+
+export const getTeamsChartType = state => state.teams.chartType;
+export const getTeamsChartStartDate = state => state.teams.chartStartDate;
+export const getTeamsChartEndDate = state => state.teams.chartEndDate;

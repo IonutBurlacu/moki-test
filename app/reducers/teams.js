@@ -68,10 +68,12 @@ export default (
         case 'CHANGE_TEAMS_LIST_DATE':
             return {
                 ...state,
-                chartType: action.listDate,
                 listDate: action.listDate,
                 listStartDate: action.listStartDate,
-                listEndDate: action.listEndDate
+                listEndDate: action.listEndDate,
+                chartType: action.listDate,
+                chartStartDate: action.listStartDate,
+                chartEndDate: action.listEndDate
             };
         case 'CHANGE_TEAMS_LIST_SORT':
             return {
@@ -123,9 +125,6 @@ export default (
                     totalOverviewPrevious:
                         action.team.data.previous_total.previous_steps
                 },
-                chartType: 'today',
-                chartStartDate: moment.utc().local(),
-                chartEndDate: moment.utc().local(),
                 loading: false
             };
         case 'DELETE_TEAM_REQUEST':
@@ -165,6 +164,9 @@ export default (
                 chartType: action.chartType,
                 chartStartDate: action.chartStartDate,
                 chartEndDate: action.chartEndDate,
+                listDate: action.chartType,
+                listStartDate: action.chartStartDate,
+                listEndDate: action.chartEndDate,
                 loading: false
             };
         case 'INSERT_TEAM_REQUEST':

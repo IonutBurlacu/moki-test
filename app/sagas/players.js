@@ -3,6 +3,11 @@ import { push } from 'react-router-redux';
 import moment from 'moment';
 import decrypt from '../utils/decrypt';
 import { getToken } from '../selectors/auth';
+import {
+    getPlayersChartType,
+    getPlayersChartStartDate,
+    getPlayersChartEndDate
+} from '../selectors/players';
 import PlayersAPI from '../apis/players';
 
 export function* playersFetchList(action) {
@@ -33,10 +38,16 @@ export function* playersFetchList(action) {
 
 export function* playerView(action) {
     const token = yield select(getToken);
+    const chartType = yield select(getPlayersChartType);
+    const chartStartDate = yield select(getPlayersChartStartDate);
+    const chartEndDate = yield select(getPlayersChartEndDate);
     const response = yield call(
         PlayersAPI.view,
         { Authorization: token },
-        action.id
+        action.id,
+        chartType,
+        moment(chartStartDate).format('YYYY-MM-DD'),
+        moment(chartEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);

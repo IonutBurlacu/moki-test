@@ -73,10 +73,12 @@ export default (
         case 'CHANGE_PLAYERS_LIST_DATE':
             return {
                 ...state,
-                chartType: action.listDate,
                 listDate: action.listDate,
                 listStartDate: action.listStartDate,
-                listEndDate: action.listEndDate
+                listEndDate: action.listEndDate,
+                chartType: action.listDate,
+                chartStartDate: action.listStartDate,
+                chartEndDate: action.listEndDate
             };
         case 'CHANGE_PLAYERS_LIST_SORT':
             return {
@@ -129,9 +131,6 @@ export default (
                     totalOverviewPrevious:
                         action.player.data.previous_total.previous_steps
                 },
-                chartType: 'today',
-                chartStartDate: moment.utc().local(),
-                chartEndDate: moment.utc().local(),
                 loading: false
             };
         case 'DELETE_PLAYER_REQUEST':
@@ -171,6 +170,9 @@ export default (
                 chartType: action.chartType,
                 chartStartDate: action.chartStartDate,
                 chartEndDate: action.chartEndDate,
+                listDate: action.chartType,
+                listStartDate: action.chartStartDate,
+                listEndDate: action.chartEndDate,
                 loading: false
             };
         case 'CREATE_PLAYER_REQUEST':
