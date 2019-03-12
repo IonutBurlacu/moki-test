@@ -81,7 +81,8 @@ export class SettingsPage extends Component {
         this.props.history.push('/settings/download_csv');
     };
 
-    handleDownloadTemplate = () => {
+    handleDownloadTemplate = event => {
+        event.stopPropagation();
         axios({
             url: `${host}/api/players/download`,
             method: 'GET',
@@ -271,12 +272,11 @@ export class SettingsPage extends Component {
                                         </td>
                                         <td />
                                     </tr>
-                                    <tr>
+                                    <tr onClick={this.openImportModal}>
                                         <td>
                                             <button
                                                 className="setting-button"
                                                 type="button"
-                                                onClick={this.openImportModal}
                                             >
                                                 Import Database
                                             </button>
