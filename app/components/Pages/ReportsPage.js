@@ -26,13 +26,13 @@ export class ReportsPage extends Component {
                     <div className="report-sections">
                         <div className="report-section">
                             <div className="report-section-title">
-                                <p>Player Variation</p>
+                                <p>Player Averages</p>
                             </div>
                             <div className="report-section-body">
                                 <p className="report-section-description">
-                                    All Players in your Team ranked in order of
-                                    steps taken. See the difference between most
-                                    and least active.
+                                    All Players in your team ranked in order of
+                                    average daily steps. See the difference
+                                    between most and least active.
                                 </p>
                                 <img
                                     src={playerVariationIcon}
@@ -55,9 +55,9 @@ export class ReportsPage extends Component {
                             </div>
                             <div className="report-section-body">
                                 <p className="report-section-description">
-                                    See the average steps taken by groups in
-                                    your Team, including boys and girls, SEN and
-                                    Pupil Premium.
+                                    See the average steps taken by any team and
+                                    the groups within it, including boys and
+                                    girls, SEN and Pupil Premium.
                                 </p>
                                 <img
                                     src={groupAveragesIcon}
@@ -78,9 +78,8 @@ export class ReportsPage extends Component {
                             </div>
                             <div className="report-section-body">
                                 <p className="report-section-description">
-                                    A view of a Player or Team's step count
-                                    across a selected time frame. Also enables
-                                    you to compare two or more data sets.
+                                    Compare a Teams total and average steps
+                                    across any selected time frame.
                                 </p>
                                 <img
                                     src={totalStepsIcon}
@@ -102,8 +101,8 @@ export class ReportsPage extends Component {
                             <div className="report-section-body">
                                 <p className="report-section-description">
                                     Want to print the whole Report? Click here
-                                    to select Teams and download the report as a
-                                    PDF.
+                                    to select a Team and download all three
+                                    reports as a PDF.
                                 </p>
                                 <img
                                     src={downloadPdfIcon}
