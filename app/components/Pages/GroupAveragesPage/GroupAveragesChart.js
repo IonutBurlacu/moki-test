@@ -103,10 +103,15 @@ export class GroupAveragesChart extends Component {
                                     return number.toString();
                                 }}
                             />
-                            <Tooltip cursor={false} />
+                            <Tooltip
+                                cursor={false}
+                                formatter={value =>
+                                    new Intl.NumberFormat('en').format(value)
+                                }
+                            />
                             <Bar
                                 dataKey="avg_steps"
-                                name="Total Steps"
+                                name="Average Day"
                                 maxBarSize={70}
                             >
                                 {this.props.groupAverages.data.map(

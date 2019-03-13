@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import CustomTooltip from './CustomTooltip';
 
 const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
@@ -104,7 +105,49 @@ export class TotalStepsChart extends Component {
                                     return number.toString();
                                 }}
                             />
-                            <Tooltip cursor={false} />
+                            <Tooltip
+                                cursor={false}
+                                labelFormatter={label => {
+                                    const weekDays = [
+                                        'MON',
+                                        'TUE',
+                                        'WED',
+                                        'THU',
+                                        'FRI',
+                                        'SAT',
+                                        'SUN'
+                                    ];
+                                    switch (this.props.totalSteps.dateByType) {
+                                        case 'today':
+                                            return moment().format(
+                                                'DD/MM/YYYY'
+                                            );
+                                        case 'week':
+                                            return moment()
+                                                .startOf('isoWeek')
+                                                .day(
+                                                    weekDays.indexOf(label) + 1
+                                                )
+                                                .format('DD/MM/YYYY');
+                                        case 'month':
+                                            return moment()
+                                                .startOf('month')
+                                                .date(label)
+                                                .format('DD/MM/YYYY');
+                                        case 'year':
+                                            return moment()
+                                                .startOf('year')
+                                                .month(label)
+                                                .startOf('month')
+                                                .format('MMM YYYY');
+                                        default:
+                                            return 'Interval';
+                                    }
+                                }}
+                                formatter={value =>
+                                    new Intl.NumberFormat('en').format(value)
+                                }
+                            />
                             <Bar
                                 dataKey="total_steps_overview"
                                 name="Total Steps"
