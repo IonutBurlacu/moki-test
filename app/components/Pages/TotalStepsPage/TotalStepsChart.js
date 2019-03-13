@@ -138,8 +138,66 @@ export class TotalStepsChart extends Component {
                                                 .month(label)
                                                 .startOf('month')
                                                 .format('MMM YYYY');
+                                        case 'interval':
+                                            if (
+                                                this.props.totalSteps.dateByEndDate.diff(
+                                                    this.props.totalSteps
+                                                        .dateByStartDate,
+                                                    'months'
+                                                ) >= 1
+                                            ) {
+                                                return moment(
+                                                    this.props.totalSteps
+                                                        .dateByStartDate
+                                                )
+                                                    .startOf('year')
+                                                    .month(label)
+                                                    .startOf('month')
+                                                    .format('MMM YYYY');
+                                            }
+                                            if (
+                                                this.props.totalSteps.dateByEndDate.diff(
+                                                    this.props.totalSteps
+                                                        .dateByStartDate,
+                                                    'weeks'
+                                                ) >= 1
+                                            ) {
+                                                return moment(
+                                                    this.props.totalSteps
+                                                        .dateByStartDate
+                                                )
+                                                    .startOf('month')
+                                                    .date(label)
+                                                    .format('DD/MM/YYYY');
+                                            }
+                                            if (
+                                                this.props.totalSteps.dateByEndDate.diff(
+                                                    this.props.totalSteps
+                                                        .dateByStartDate,
+                                                    'days'
+                                                ) >= 1
+                                            ) {
+                                                return moment(
+                                                    this.props.totalSteps
+                                                        .dateByStartDate
+                                                )
+                                                    .startOf('isoWeek')
+                                                    .day(
+                                                        weekDays.indexOf(
+                                                            label
+                                                        ) + 1
+                                                    )
+                                                    .format('DD/MM/YYYY');
+                                            }
+                                            return moment(
+                                                this.props.totalSteps
+                                                    .dateByStartDate
+                                            ).format('DD/MM/YYYY');
+
                                         default:
-                                            return 'Interval';
+                                            return moment().format(
+                                                'DD/MM/YYYY'
+                                            );
                                     }
                                 }}
                                 formatter={value =>
