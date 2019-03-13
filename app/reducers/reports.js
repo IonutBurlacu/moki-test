@@ -88,32 +88,32 @@ export default (
                     teamId: action.teamId,
                     data: action.data,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 groupAverages: {
                     ...state.groupAverages,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 totalSteps: {
                     ...state.totalSteps,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 downloadPdf: {
                     ...state.downloadPdf,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 downloadCsv: {
                     ...state.downloadCsv,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 scales: action.scales,
                 loading: false
@@ -149,32 +149,32 @@ export default (
                     teamId: action.teamId,
                     data: action.data,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 playerAverages: {
                     ...state.playerAverages,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 totalSteps: {
                     ...state.totalSteps,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 downloadPdf: {
                     ...state.downloadPdf,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 downloadCsv: {
                     ...state.downloadCsv,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 scales: action.scales,
                 loading: false
@@ -210,8 +210,8 @@ export default (
                     teamId: action.teamId,
                     data: action.data,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate),
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12),
                     playersCount: action.playersCount,
                     totalOverview: action.data.current.reduce(
                         (accumulator, currentValue) =>
@@ -229,26 +229,26 @@ export default (
                 groupAverages: {
                     ...state.groupAverages,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 playerAverages: {
                     ...state.playerAverages,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 downloadPdf: {
                     ...state.downloadPdf,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 downloadCsv: {
                     ...state.downloadCsv,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 scales: action.scales,
                 loading: false
@@ -308,26 +308,26 @@ export default (
                 groupAverages: {
                     ...state.groupAverages,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 totalSteps: {
                     ...state.totalSteps,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 playerAverages: {
                     ...state.playerAverages,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 downloadCsv: {
                     ...state.downloadCsv,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 loading: false
             };
@@ -413,26 +413,26 @@ export default (
                 groupAverages: {
                     ...state.groupAverages,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 totalSteps: {
                     ...state.totalSteps,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 downloadPdf: {
                     ...state.downloadPdf,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 playerAverages: {
                     ...state.playerAverages,
                     dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate),
-                    dateByEndDate: moment(action.dateByEndDate)
+                    dateByStartDate: moment(action.dateByStartDate).hour(12),
+                    dateByEndDate: moment(action.dateByEndDate).hour(12)
                 },
                 loading: false
             };

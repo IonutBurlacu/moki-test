@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     ComposedChart,
     Bar,
-    Line,
     Cell,
     CartesianGrid,
     ResponsiveContainer,
@@ -12,7 +11,6 @@ import {
 } from 'recharts';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import CustomTooltip from './CustomTooltip';
 
 const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
