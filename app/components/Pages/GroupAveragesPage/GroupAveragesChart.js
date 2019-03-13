@@ -115,26 +115,22 @@ export class GroupAveragesChart extends Component {
                                         console.log(entry);
                                         if (
                                             entry.avg_steps <
-                                            this.props.scales.first_step *
-                                                entry.count_players
+                                            this.props.scales.first_step
                                         ) {
                                             color = COLORS[0];
                                         } else if (
                                             entry.avg_steps <
-                                            this.props.scales.second_step *
-                                                entry.count_players
+                                            this.props.scales.second_step
                                         ) {
                                             color = COLORS[1];
                                         } else if (
                                             entry.avg_steps <
-                                            this.props.scales.third_step *
-                                                entry.count_players
+                                            this.props.scales.third_step
                                         ) {
                                             color = COLORS[2];
                                         } else if (
                                             entry.avg_steps <
-                                            this.props.scales.fourth_step *
-                                                entry.count_players
+                                            this.props.scales.fourth_step
                                         ) {
                                             color = COLORS[3];
                                         } else {
