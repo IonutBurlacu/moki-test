@@ -16,32 +16,32 @@ const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
 export class PlayerAveragesChart extends Component {
     getDateLegend = () => {
-        switch (this.props.playerAverages.chartType) {
+        switch (this.props.playerAverages.dateByType) {
             case 'today':
                 return moment().format('D MMMM YYYY');
             case 'week':
                 return `${moment(
-                    this.props.playerAverages.chartStartDate
+                    this.props.playerAverages.dateByStartDate
                 ).format('D')} - ${moment(
-                    this.props.playerAverages.chartEndDate
+                    this.props.playerAverages.dateByEndDate
                 ).format('D MMMM YYYY')}`;
             case 'month':
                 return `${moment(
-                    this.props.playerAverages.chartStartDate
+                    this.props.playerAverages.dateByStartDate
                 ).format('D')} - ${moment(
-                    this.props.playerAverages.chartEndDate
+                    this.props.playerAverages.dateByEndDate
                 ).format('D MMMM YYYY')}`;
             case 'year':
                 return `${moment(
-                    this.props.playerAverages.chartStartDate
+                    this.props.playerAverages.dateByStartDate
                 ).format('MMM')} - ${moment(
-                    this.props.playerAverages.chartEndDate
+                    this.props.playerAverages.dateByEndDate
                 ).format('MMM YYYY')}`;
             case 'interval':
                 return `${moment(
-                    this.props.playerAverages.chartStartDate
+                    this.props.playerAverages.dateByStartDate
                 ).format('D MMM YYYY')} - ${moment(
-                    this.props.playerAverages.chartEndDate
+                    this.props.playerAverages.dateByEndDate
                 ).format('D MMM YYYY')}`;
             default:
                 return moment().format('D MMMM YYYY');

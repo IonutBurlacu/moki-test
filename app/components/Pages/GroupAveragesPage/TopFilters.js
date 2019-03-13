@@ -11,9 +11,9 @@ export class TopFilters extends Component {
     handleDownloadPDF = () => {
         const encrypted = encrypt({
             team_id: this.props.groupAverages.teamId,
-            type: this.props.groupAverages.chartType,
-            start_date: this.props.groupAverages.chartStartDate,
-            end_date: this.props.groupAverages.chartEndDate
+            type: this.props.groupAverages.dateByType,
+            start_date: this.props.groupAverages.dateByStartDate,
+            end_date: this.props.groupAverages.dateByEndDate
         });
         this.props.showLoader();
         axios({
@@ -41,7 +41,7 @@ export class TopFilters extends Component {
                 link.setAttribute(
                     'download',
                     `MOKI_${teamName}_group_averages_${
-                        this.props.groupAverages.chartType
+                        this.props.groupAverages.dateByType
                     }.pdf`
                 );
                 document.body.appendChild(link);

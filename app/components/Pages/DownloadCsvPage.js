@@ -23,9 +23,9 @@ export class DownloadCsvPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getDownloadCsvTeamsRequest(
-            this.props.downloadCsv.chartType,
-            this.props.downloadCsv.chartStartDate,
-            this.props.downloadCsv.chartEndDate
+            this.props.downloadCsv.dateByType,
+            this.props.downloadCsv.dateByStartDate,
+            this.props.downloadCsv.dateByEndDate
         );
     }
 
@@ -200,9 +200,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getDownloadCsvTeamsRequest: (chartType, chartStartDate, chartEndDate) =>
+    getDownloadCsvTeamsRequest: (dateByType, dateByStartDate, dateByEndDate) =>
         dispatch(
-            getDownloadCsvTeamsRequest(chartType, chartStartDate, chartEndDate)
+            getDownloadCsvTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
         ),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     addTeamToDownloadCsv: teamId => dispatch(addTeamToDownloadCsv(teamId)),

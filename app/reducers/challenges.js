@@ -7,9 +7,9 @@ export default (
         new: { teams: [], players: [] },
         players: [],
         teams: [],
-        listDate: 'today',
-        listStartDate: moment.utc().local(),
-        listEndDate: moment.utc().local(),
+        dateByType: 'today',
+        dateByStartDate: moment.utc().local(),
+        dateByEndDate: moment.utc().local(),
         listSort: 'most_steps',
         listSortLabel: 'Most steps',
         listFilterValues: [],
@@ -31,15 +31,15 @@ export default (
                 ...state,
                 items: action.challenges,
                 teams: action.teams,
-                listDate: action.listDate,
+                dateByType: action.dateByType,
                 loading: false
             };
-        case 'CHANGE_CHALLENGES_LIST_DATE':
+        case 'CHANGE_CHALLENGES_DATE_BY_TYPE':
             return {
                 ...state,
-                listDate: action.listDate,
-                listStartDate: action.listStartDate,
-                listEndDate: action.listEndDate
+                dateByType: action.dateByType,
+                dateByStartDate: action.dateByStartDate,
+                dateByEndDate: action.dateByEndDate
             };
         case 'CHANGE_CHALLENGES_LIST_SORT':
             return {

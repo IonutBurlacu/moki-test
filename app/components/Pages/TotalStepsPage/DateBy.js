@@ -14,8 +14,8 @@ export class DateBy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: props.totalSteps.chartStartDate,
-            endDate: props.totalSteps.chartEndDate
+            startDate: props.totalSteps.dateByStartDate,
+            endDate: props.totalSteps.dateByEndDate
         };
     }
 
@@ -52,14 +52,14 @@ export class DateBy extends Component {
         this.props.closeTotalStepsMenu('dateSelectOpen');
     };
 
-    handleDateSelectChange = chartType => {
+    handleDateSelectChange = dateByType => {
         this.props.closeTotalStepsMenu('dateSelectOpen');
         this.props.showLoader();
         this.props.getTotalStepsRequest(
             this.props.totalSteps.teamId,
-            chartType,
-            this.props.totalSteps.chartStartDate,
-            this.props.totalSteps.chartEndDate
+            dateByType,
+            this.props.totalSteps.dateByStartDate,
+            this.props.totalSteps.dateByEndDate
         );
     };
 
@@ -97,7 +97,7 @@ export class DateBy extends Component {
                     }
                     onClick={this.handleDateSelectMenu}
                 >
-                    {this.getSelectedDateType(this.props.totalSteps.chartType)}
+                    {this.getSelectedDateType(this.props.totalSteps.dateByType)}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
@@ -119,7 +119,7 @@ export class DateBy extends Component {
                     <ul className="filter-select-list">
                         <li
                             className={
-                                this.props.listDate === 'today'
+                                this.props.totalSteps.dateByType === 'today'
                                     ? 'selected'
                                     : ''
                             }
@@ -135,7 +135,9 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'week' ? 'selected' : ''
+                                this.props.totalSteps.dateByType === 'week'
+                                    ? 'selected'
+                                    : ''
                             }
                         >
                             <button
@@ -149,7 +151,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'month'
+                                this.props.totalSteps.dateByType === 'month'
                                     ? 'selected'
                                     : ''
                             }
@@ -165,7 +167,9 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'year' ? 'selected' : ''
+                                this.props.totalSteps.dateByType === 'year'
+                                    ? 'selected'
+                                    : ''
                             }
                         >
                             <button
@@ -179,7 +183,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'interval'
+                                this.props.totalSteps.dateByType === 'interval'
                                     ? 'selected'
                                     : ''
                             }
@@ -216,13 +220,18 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     openTotalStepsMenu: menu => dispatch(openTotalStepsMenu(menu)),
     closeTotalStepsMenu: menu => dispatch(closeTotalStepsMenu(menu)),
-    getTotalStepsRequest: (teamId, chartType, chartStartDate, chartEndDate) =>
+    getTotalStepsRequest: (
+        teamId,
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
+    ) =>
         dispatch(
             getTotalStepsRequest(
                 teamId,
-                chartType,
-                chartStartDate,
-                chartEndDate
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         )
 });

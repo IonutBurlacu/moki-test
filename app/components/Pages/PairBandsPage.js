@@ -278,7 +278,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     pairModeOn: () => dispatch(pairModeOn()),
     pairModeOff: () => dispatch(pairModeOff()),
-    getPlayersRequest: listDate => dispatch(getPlayersRequest(listDate)),
+    getPlayersRequest: dateByType => dispatch(getPlayersRequest(dateByType)),
     playerSelected: id => dispatch(playerSelected(id)),
     showLoader: () => dispatch(showLoader())
 });

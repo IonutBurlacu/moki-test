@@ -5,7 +5,7 @@ import SortBy from './SortBy';
 import DateBy from '../../DateBy';
 import FilterBy from './FilterBy';
 import {
-    changeChallengesListDate,
+    changeChallengesDateByType,
     getChallengesRequest,
     openChallengesMenu,
     closeChallengesMenu
@@ -20,14 +20,14 @@ export class TopFilters extends Component {
                 </div>
                 <div className="center-side">
                     <DateBy
-                        startDate={this.props.listStartDate}
-                        endDate={this.props.listEndDate}
+                        startDate={this.props.dateByStartDate}
+                        endDate={this.props.dateByEndDate}
                         dateSelectOpen={this.props.dateSelectOpen}
                         fetchNewData={this.props.getChallengesRequest}
-                        changeDateType={this.props.changeChallengesListDate}
+                        changeDateType={this.props.changeChallengesDateByType}
                         openMenu={this.props.openChallengesMenu}
                         closeMenu={this.props.closeChallengesMenu}
-                        type={this.props.listDate}
+                        type={this.props.dateByType}
                     />
                 </div>
                 <div className="right-side">
@@ -39,28 +39,35 @@ export class TopFilters extends Component {
 }
 
 const mapStateToProps = state => ({
-    listDate: state.challenges.listDate,
-    listStartDate: state.challenges.listStartDate,
-    listEndDate: state.challenges.listEndDate,
+    dateByType: state.challenges.dateByType,
+    dateByStartDate: state.challenges.dateByStartDate,
+    dateByEndDate: state.challenges.dateByEndDate,
     dateSelectOpen: state.challenges.dateSelectOpen
 });
 
 const mapDispatchToProps = dispatch => ({
     openChallengesMenu: menu => dispatch(openChallengesMenu(menu)),
     closeChallengesMenu: menu => dispatch(closeChallengesMenu(menu)),
-    changeChallengesListDate: (
-        listDate,
-        listStartDate = moment.utc().local(),
-        listEndDate = moment.utc().local()
+    changeChallengesDateByType: (
+        dateByType,
+        dateByStartDate = moment.utc().local(),
+        dateByEndDate = moment.utc().local()
     ) =>
         dispatch(
-            changeChallengesListDate(listDate, listStartDate, listEndDate)
+            changeChallengesDateByType(
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
+            )
         ),
     getChallengesRequest: (
-        listDate,
-        listStartDate = moment.utc().local(),
-        listEndDate = moment.utc().local()
-    ) => dispatch(getChallengesRequest(listDate, listStartDate, listEndDate))
+        dateByType,
+        dateByStartDate = moment.utc().local(),
+        dateByEndDate = moment.utc().local()
+    ) =>
+        dispatch(
+            getChallengesRequest(dateByType, dateByStartDate, dateByEndDate)
+        )
 });
 
 export default connect(

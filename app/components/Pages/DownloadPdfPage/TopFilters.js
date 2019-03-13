@@ -8,7 +8,7 @@ import { showLoader, hideLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import {
     getDownloadPdfTeamsRequest,
-    changeDownloadPdfTeamsListDate,
+    changeDownloadPdfTeamsDateByType,
     openDownloadPdfMenu,
     closeDownloadPdfMenu
 } from '../../../actions/reports';
@@ -23,9 +23,9 @@ export class TopFilters extends Component {
         }
         const encrypted = encrypt({
             team_id: this.props.downloadPdf.teamId,
-            type: this.props.downloadPdf.chartType,
-            start_date: this.props.downloadPdf.chartStartDate,
-            end_date: this.props.downloadPdf.chartEndDate
+            type: this.props.downloadPdf.dateByType,
+            start_date: this.props.downloadPdf.dateByStartDate,
+            end_date: this.props.downloadPdf.dateByEndDate
         });
         this.props.showLoader();
         axios({
@@ -53,7 +53,7 @@ export class TopFilters extends Component {
                 link.setAttribute(
                     'download',
                     `MOKI_${teamName}_all_reports_${
-                        this.props.downloadPdf.chartType
+                        this.props.downloadPdf.dateByType
                     }.pdf`
                 );
                 document.body.appendChild(link);
@@ -74,16 +74,16 @@ export class TopFilters extends Component {
                 </div>
                 <div className="center-side">
                     <DateBy
-                        startDate={this.props.downloadPdf.chartStartDate}
-                        endDate={this.props.downloadPdf.chartEndDate}
+                        startDate={this.props.downloadPdf.dateByStartDate}
+                        endDate={this.props.downloadPdf.dateByEndDate}
                         dateSelectOpen={this.props.downloadPdf.dateSelectOpen}
                         fetchNewData={this.props.getDownloadPdfTeamsRequest}
                         changeDateType={
-                            this.props.changeDownloadPdfTeamsListDate
+                            this.props.changeDownloadPdfTeamsDateByType
                         }
                         openMenu={this.props.openDownloadPdfMenu}
                         closeMenu={this.props.closeDownloadPdfMenu}
-                        type={this.props.downloadPdf.chartType}
+                        type={this.props.downloadPdf.dateByType}
                     />
                 </div>
                 <div className="right-side">
@@ -117,25 +117,25 @@ const mapDispatchToProps = dispatch => ({
     hideLoader: () => dispatch(hideLoader()),
     openDownloadPdfMenu: menu => dispatch(openDownloadPdfMenu(menu)),
     closeDownloadPdfMenu: menu => dispatch(closeDownloadPdfMenu(menu)),
-    changeDownloadPdfTeamsListDate: (
-        chartType,
-        chartStartDate = moment.utc().local(),
-        chartEndDate = moment.utc().local()
+    changeDownloadPdfTeamsDateByType: (
+        dateByType,
+        dateByStartDate = moment.utc().local(),
+        dateByEndDate = moment.utc().local()
     ) =>
         dispatch(
-            changeDownloadPdfTeamsListDate(
-                chartType,
-                chartStartDate,
-                chartEndDate
+            changeDownloadPdfTeamsDateByType(
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         ),
     getDownloadPdfTeamsRequest: (
-        chartType,
-        chartStartDate = moment.utc().local(),
-        chartEndDate = moment.utc().local()
+        dateByType,
+        dateByStartDate = moment.utc().local(),
+        dateByEndDate = moment.utc().local()
     ) =>
         dispatch(
-            getDownloadPdfTeamsRequest(chartType, chartStartDate, chartEndDate)
+            getDownloadPdfTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
         )
 });
 

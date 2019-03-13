@@ -29,9 +29,9 @@ export class TeamsFilter extends Component {
         this.props.showLoader();
         this.props.getGroupAveragesRequest(
             teamId,
-            this.props.groupAverages.chartType,
-            this.props.groupAverages.chartStartDate,
-            this.props.groupAverages.chartEndDate
+            this.props.groupAverages.dateByType,
+            this.props.groupAverages.dateByStartDate,
+            this.props.groupAverages.dateByEndDate
         );
     };
 
@@ -109,16 +109,16 @@ const mapDispatchToProps = dispatch => ({
     closeGroupAveragesMenu: menu => dispatch(closeGroupAveragesMenu(menu)),
     getGroupAveragesRequest: (
         teamId,
-        chartType,
-        chartStartDate,
-        chartEndDate
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
     ) =>
         dispatch(
             getGroupAveragesRequest(
                 teamId,
-                chartType,
-                chartStartDate,
-                chartEndDate
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         )
 });

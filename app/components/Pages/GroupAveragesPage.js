@@ -15,9 +15,9 @@ export class GroupAveragesPage extends Component {
         this.props.showLoader();
         this.props.getGroupAveragesRequest(
             this.props.groupAverages.teamId,
-            this.props.groupAverages.chartType,
-            this.props.groupAverages.chartStartDate,
-            this.props.groupAverages.chartEndDate
+            this.props.groupAverages.dateByType,
+            this.props.groupAverages.dateByStartDate,
+            this.props.groupAverages.dateByEndDate
         );
     }
 
@@ -55,16 +55,16 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     getGroupAveragesRequest: (
         teamId,
-        chartType,
-        chartStartDate,
-        chartEndDate
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
     ) =>
         dispatch(
             getGroupAveragesRequest(
                 teamId,
-                chartType,
-                chartStartDate,
-                chartEndDate
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         )
 });

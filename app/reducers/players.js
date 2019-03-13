@@ -16,12 +16,9 @@ export default (
         tags: [],
         challenges: [],
         teams: [],
-        chartType: 'today',
-        chartStartDate: moment.utc().local(),
-        chartEndDate: moment.utc().local(),
-        listDate: 'today',
-        listStartDate: moment.utc().local(),
-        listEndDate: moment.utc().local(),
+        dateByType: 'today',
+        dateByStartDate: moment.utc().local(),
+        dateByEndDate: moment.utc().local(),
         listSort: 'most_steps',
         listSortLabel: 'Most steps',
         listFilterValues: [],
@@ -66,19 +63,14 @@ export default (
                     age: moment().diff(moment(player.birthday), 'year')
                 })),
                 teams: action.teams,
-                listDate: action.listDate,
-                chartType: action.listDate,
                 loading: false
             };
-        case 'CHANGE_PLAYERS_LIST_DATE':
+        case 'CHANGE_PLAYERS_DATE_BY_TYPE':
             return {
                 ...state,
-                listDate: action.listDate,
-                listStartDate: action.listStartDate,
-                listEndDate: action.listEndDate,
-                chartType: action.listDate,
-                chartStartDate: action.listStartDate,
-                chartEndDate: action.listEndDate
+                dateByType: action.dateByType,
+                dateByStartDate: action.dateByStartDate,
+                dateByEndDate: action.dateByEndDate
             };
         case 'CHANGE_PLAYERS_LIST_SORT':
             return {
@@ -167,12 +159,9 @@ export default (
                     totalOverviewPrevious:
                         action.data.previous_total.previous_steps
                 },
-                chartType: action.chartType,
-                chartStartDate: action.chartStartDate,
-                chartEndDate: action.chartEndDate,
-                listDate: action.chartType,
-                listStartDate: action.chartStartDate,
-                listEndDate: action.chartEndDate,
+                dateByType: action.dateByType,
+                dateByStartDate: action.dateByStartDate,
+                dateByEndDate: action.dateByEndDate,
                 loading: false
             };
         case 'CREATE_PLAYER_REQUEST':

@@ -1,21 +1,28 @@
-export const getTeamsRequest = (listDate, listStartDate, listEndDate) => ({
+export const getTeamsRequest = (
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
     type: 'GET_TEAMS_REQUEST',
-    listDate,
-    listStartDate,
-    listEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
-export const getTeams = (teams, listDate) => ({
+export const getTeams = teams => ({
     type: 'GET_TEAMS',
-    teams,
-    listDate
+    teams
 });
 
-export const changeTeamsListDate = (listDate, listStartDate, listEndDate) => ({
-    type: 'CHANGE_TEAMS_LIST_DATE',
-    listDate,
-    listStartDate,
-    listEndDate
+export const changeTeamsDateByType = (
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
+    type: 'CHANGE_TEAMS_DATE_BY_TYPE',
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const changeTeamsListSort = (listSort, listSortLabel) => ({
@@ -50,30 +57,30 @@ export const viewTeam = team => ({
 
 export const statsTeamRequest = (
     id,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'STATS_TEAM_REQUEST',
     id,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const statsTeam = (
     overview,
     typical,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'STATS_TEAM',
     overview,
     typical,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const deleteTeamRequest = id => ({

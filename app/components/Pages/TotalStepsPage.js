@@ -15,9 +15,9 @@ export class TotalStepsPage extends Component {
         this.props.showLoader();
         this.props.getTotalStepsRequest(
             this.props.totalSteps.teamId,
-            this.props.totalSteps.chartType,
-            this.props.totalSteps.chartStartDate,
-            this.props.totalSteps.chartEndDate
+            this.props.totalSteps.dateByType,
+            this.props.totalSteps.dateByStartDate,
+            this.props.totalSteps.dateByEndDate
         );
     }
 
@@ -53,13 +53,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
-    getTotalStepsRequest: (teamId, chartType, chartStartDate, chartEndDate) =>
+    getTotalStepsRequest: (teamId, dateByType, dateByStartDate, dateByEndDate) =>
         dispatch(
             getTotalStepsRequest(
                 teamId,
-                chartType,
-                chartStartDate,
-                chartEndDate
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         )
 });

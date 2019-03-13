@@ -16,32 +16,32 @@ const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
 export class GroupAveragesChart extends Component {
     getDateLegend = () => {
-        switch (this.props.groupAverages.chartType) {
+        switch (this.props.groupAverages.dateByType) {
             case 'today':
                 return moment().format('D MMMM YYYY');
             case 'week':
                 return `${moment(
-                    this.props.groupAverages.chartStartDate
+                    this.props.groupAverages.dateByStartDate
                 ).format('D')} - ${moment(
-                    this.props.groupAverages.chartEndDate
+                    this.props.groupAverages.dateByEndDate
                 ).format('D MMMM YYYY')}`;
             case 'month':
                 return `${moment(
-                    this.props.groupAverages.chartStartDate
+                    this.props.groupAverages.dateByStartDate
                 ).format('D')} - ${moment(
-                    this.props.groupAverages.chartEndDate
+                    this.props.groupAverages.dateByEndDate
                 ).format('D MMMM YYYY')}`;
             case 'year':
                 return `${moment(
-                    this.props.groupAverages.chartStartDate
+                    this.props.groupAverages.dateByStartDate
                 ).format('MMM')} - ${moment(
-                    this.props.groupAverages.chartEndDate
+                    this.props.groupAverages.dateByEndDate
                 ).format('MMM YYYY')}`;
             case 'interval':
                 return `${moment(
-                    this.props.groupAverages.chartStartDate
+                    this.props.groupAverages.dateByStartDate
                 ).format('D MMM YYYY')} - ${moment(
-                    this.props.groupAverages.chartEndDate
+                    this.props.groupAverages.dateByEndDate
                 ).format('D MMM YYYY')}`;
             default:
                 return moment().format('D MMMM YYYY');

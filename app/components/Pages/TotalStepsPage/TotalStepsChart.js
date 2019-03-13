@@ -17,31 +17,31 @@ const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
 export class TotalStepsChart extends Component {
     getDateLegend = () => {
-        switch (this.props.totalSteps.chartType) {
+        switch (this.props.totalSteps.dateByType) {
             case 'today':
                 return moment().format('D MMMM YYYY');
             case 'week':
-                return `${moment(this.props.totalSteps.chartStartDate).format(
+                return `${moment(this.props.totalSteps.dateByStartDate).format(
                     'D'
-                )} - ${moment(this.props.totalSteps.chartEndDate).format(
+                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
                     'D MMMM YYYY'
                 )}`;
             case 'month':
-                return `${moment(this.props.totalSteps.chartStartDate).format(
+                return `${moment(this.props.totalSteps.dateByStartDate).format(
                     'D'
-                )} - ${moment(this.props.totalSteps.chartEndDate).format(
+                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
                     'D MMMM YYYY'
                 )}`;
             case 'year':
-                return `${moment(this.props.totalSteps.chartStartDate).format(
+                return `${moment(this.props.totalSteps.dateByStartDate).format(
                     'MMM'
-                )} - ${moment(this.props.totalSteps.chartEndDate).format(
+                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
                     'MMM YYYY'
                 )}`;
             case 'interval':
-                return `${moment(this.props.totalSteps.chartStartDate).format(
+                return `${moment(this.props.totalSteps.dateByStartDate).format(
                     'D MMM YYYY'
-                )} - ${moment(this.props.totalSteps.chartEndDate).format(
+                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
                     'D MMM YYYY'
                 )}`;
             default:

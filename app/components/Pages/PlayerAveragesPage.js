@@ -15,9 +15,9 @@ export class PlayerAveragesPage extends Component {
         this.props.showLoader();
         this.props.getPlayerAveragesRequest(
             this.props.playerAverages.teamId,
-            this.props.playerAverages.chartType,
-            this.props.playerAverages.chartStartDate,
-            this.props.playerAverages.chartEndDate
+            this.props.playerAverages.dateByType,
+            this.props.playerAverages.dateByStartDate,
+            this.props.playerAverages.dateByEndDate
         );
     }
 
@@ -56,16 +56,16 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     getPlayerAveragesRequest: (
         teamId,
-        chartType,
-        chartStartDate,
-        chartEndDate
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
     ) =>
         dispatch(
             getPlayerAveragesRequest(
                 teamId,
-                chartType,
-                chartStartDate,
-                chartEndDate
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         )
 });

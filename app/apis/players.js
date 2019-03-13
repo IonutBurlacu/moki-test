@@ -6,21 +6,21 @@ import encrypt from '../utils/encrypt';
 const root = '/api/players';
 
 export default class PlayersAPI {
-    static get(headers = {}, listDate, startDate, endDate) {
+    static get(headers = {}, dateByType, startDate, endDate) {
         return axios({
             method: 'get',
-            url: `${host}${root}/index?list_date=${listDate}&start_date=${startDate}&end_date=${endDate}`,
+            url: `${host}${root}/index?type=${dateByType}&start_date=${startDate}&end_date=${endDate}`,
             headers: {
                 ...headers
             }
         });
     }
 
-    static view(headers = {}, id, chartType, chartStartDate, chartEndDate) {
+    static view(headers = {}, id, dateByType, dateByStartDate, dateByEndDate) {
         const encrypted = encrypt({
-            type: chartType,
-            start_date: chartStartDate,
-            end_date: chartEndDate
+            type: dateByType,
+            start_date: dateByStartDate,
+            end_date: dateByEndDate
         });
         return axios({
             method: 'post',
@@ -44,11 +44,11 @@ export default class PlayersAPI {
         });
     }
 
-    static stats(headers = {}, id, chartType, chartStartDate, chartEndDate) {
+    static stats(headers = {}, id, dateByType, dateByStartDate, dateByEndDate) {
         const encrypted = encrypt({
-            type: chartType,
-            start_date: chartStartDate,
-            end_date: chartEndDate
+            type: dateByType,
+            start_date: dateByStartDate,
+            end_date: dateByEndDate
         });
         return axios({
             method: 'post',

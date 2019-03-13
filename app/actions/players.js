@@ -1,27 +1,30 @@
-export const getPlayersRequest = (listDate, listStartDate, listEndDate) => ({
+export const getPlayersRequest = (
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
     type: 'GET_PLAYERS_REQUEST',
-    listDate,
-    listStartDate,
-    listEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
-export const getPlayers = (players, grades, years, listDate) => ({
+export const getPlayers = (players, grades, years) => ({
     type: 'GET_PLAYERS',
     players,
     grades,
-    years,
-    listDate
+    years
 });
 
-export const changePlayersListDate = (
-    listDate,
-    listStartDate,
-    listEndDate
+export const changePlayersDateByType = (
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
-    type: 'CHANGE_PLAYERS_LIST_DATE',
-    listDate,
-    listStartDate,
-    listEndDate
+    type: 'CHANGE_PLAYERS_DATE_BY_TYPE',
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const changePlayersListSort = (listSort, listSortLabel) => ({
@@ -56,30 +59,30 @@ export const viewPlayer = player => ({
 
 export const statsPlayerRequest = (
     id,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'STATS_PLAYER_REQUEST',
     id,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const statsPlayer = (
     overview,
     typical,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'STATS_PLAYER',
     overview,
     typical,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const deletePlayerRequest = id => ({

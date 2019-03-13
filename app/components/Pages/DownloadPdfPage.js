@@ -23,9 +23,9 @@ export class DownloadPdfPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getDownloadPdfTeamsRequest(
-            this.props.downloadPdf.chartType,
-            this.props.downloadPdf.chartStartDate,
-            this.props.downloadPdf.chartEndDate
+            this.props.downloadPdf.dateByType,
+            this.props.downloadPdf.dateByStartDate,
+            this.props.downloadPdf.dateByEndDate
         );
     }
 
@@ -200,9 +200,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getDownloadPdfTeamsRequest: (chartType, chartStartDate, chartEndDate) =>
+    getDownloadPdfTeamsRequest: (dateByType, dateByStartDate, dateByEndDate) =>
         dispatch(
-            getDownloadPdfTeamsRequest(chartType, chartStartDate, chartEndDate)
+            getDownloadPdfTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
         ),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     addTeamToDownloadPdf: teamId => dispatch(addTeamToDownloadPdf(teamId)),

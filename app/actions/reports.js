@@ -9,31 +9,31 @@ export const getReportsTeams = teams => ({
 
 export const getPlayerAveragesRequest = (
     teamId,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'GET_PLAYER_AVERAGES_REQUEST',
     teamId,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const getPlayerAverages = (
     teamId,
     data,
-    chartType,
-    chartStartDate,
-    chartEndDate,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate,
     scales
 ) => ({
     type: 'GET_PLAYER_AVERAGES',
     teamId,
     data,
-    chartType,
-    chartStartDate,
-    chartEndDate,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate,
     scales
 });
 
@@ -49,31 +49,31 @@ export const closePlayerAveragesMenu = menu => ({
 
 export const getGroupAveragesRequest = (
     teamId,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'GET_GROUP_AVERAGES_REQUEST',
     teamId,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const getGroupAverages = (
     teamId,
     data,
-    chartType,
-    chartStartDate,
-    chartEndDate,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate,
     scales
 ) => ({
     type: 'GET_GROUP_AVERAGES',
     teamId,
     data,
-    chartType,
-    chartStartDate,
-    chartEndDate,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate,
     scales
 });
 
@@ -89,32 +89,32 @@ export const closeGroupAveragesMenu = menu => ({
 
 export const getTotalStepsRequest = (
     teamId,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'GET_TOTAL_STEPS_REQUEST',
     teamId,
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const getTotalSteps = (
     teamId,
     data,
-    chartType,
-    chartStartDate,
-    chartEndDate,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate,
     scales,
     playersCount
 ) => ({
     type: 'GET_TOTAL_STEPS',
     teamId,
     data,
-    chartType,
-    chartStartDate,
-    chartEndDate,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate,
     scales,
     playersCount
 });
@@ -130,20 +130,20 @@ export const closeTotalStepsMenu = menu => ({
 });
 
 export const getDownloadPdfTeamsRequest = (
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'GET_DOWNLOAD_PDF_TEAMS_REQUEST',
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
-export const getDownloadPdfTeams = (teams, chartType) => ({
+export const getDownloadPdfTeams = (teams, dateByType) => ({
     type: 'GET_DOWNLOAD_PDF_TEAMS',
     teams,
-    chartType
+    dateByType
 });
 
 export const addTeamToDownloadPdf = teamId => ({
@@ -151,15 +151,15 @@ export const addTeamToDownloadPdf = teamId => ({
     teamId
 });
 
-export const changeDownloadPdfTeamsListDate = (
-    chartType,
-    chartStartDate,
-    chartEndDate
+export const changeDownloadPdfTeamsDateByType = (
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
-    type: 'CHANGE_DOWNLOAD_PDF_TEAMS_LIST_DATE',
-    chartType,
-    chartStartDate,
-    chartEndDate
+    type: 'CHANGE_DOWNLOAD_PDF_TEAMS_DATE_BY_TYPE',
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const changeDownloadPdfTeamsListSort = (listSort, listSortLabel) => ({
@@ -179,20 +179,20 @@ export const closeDownloadPdfMenu = menu => ({
 });
 
 export const getDownloadCsvTeamsRequest = (
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
     type: 'GET_DOWNLOAD_CSV_TEAMS_REQUEST',
-    chartType,
-    chartStartDate,
-    chartEndDate
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
-export const getDownloadCsvTeams = (teams, chartType) => ({
+export const getDownloadCsvTeams = (teams, dateByType) => ({
     type: 'GET_DOWNLOAD_CSV_TEAMS',
     teams,
-    chartType
+    dateByType
 });
 
 export const addTeamToDownloadCsv = teamId => ({
@@ -200,15 +200,15 @@ export const addTeamToDownloadCsv = teamId => ({
     teamId
 });
 
-export const changeDownloadCsvTeamsListDate = (
-    chartType,
-    chartStartDate,
-    chartEndDate
+export const changeDownloadCsvTeamsDateByType = (
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 ) => ({
-    type: 'CHANGE_DOWNLOAD_CSV_TEAMS_LIST_DATE',
-    chartType,
-    chartStartDate,
-    chartEndDate
+    type: 'CHANGE_DOWNLOAD_CSV_TEAMS_DATE_BY_TYPE',
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const changeDownloadCsvTeamsListSort = (listSort, listSortLabel) => ({

@@ -5,10 +5,10 @@ import encrypt from '../utils/encrypt';
 const root = '/api/challenges';
 
 export default class ChallengesAPI {
-    static get(headers = {}, listDate, startDate, endDate) {
+    static get(headers = {}, dateByType, startDate, endDate) {
         return axios({
             method: 'get',
-            url: `${host}${root}/index?list_date=${listDate}&start_date=${startDate}&end_date=${endDate}`,
+            url: `${host}${root}/index?type=${dateByType}&start_date=${startDate}&end_date=${endDate}`,
             headers: {
                 ...headers
             }

@@ -4,18 +4,20 @@ import { DateRange } from 'react-date-range';
 import enGb from 'react-date-range/dist/locale/en-GB';
 import moment from 'moment';
 import {
+    changePlayersDateByType,
     statsPlayerRequest,
     openPlayersMenu,
     closePlayersMenu
 } from '../../../actions/players';
+import { changeTeamsDateByType } from '../../../actions/teams';
 import { showLoader } from '../../../actions/loader';
 
 export class DateBy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: props.chartStartDate,
-            endDate: props.chartEndDate
+            startDate: props.dateByStartDate,
+            endDate: props.dateByEndDate
         };
     }
 
@@ -50,12 +52,22 @@ export class DateBy extends Component {
 
     handleDateSelectChange = type => {
         this.props.showLoader();
+        this.props.changePlayersDateByType(
+            type,
+            this.props.dateByStartDate,
+            this.props.dateByEndDate
+        );
+        this.props.changeTeamsDateByType(
+            type,
+            this.props.dateByStartDate,
+            this.props.dateByEndDate
+        );
         this.props.closePlayersMenu('dateSelectChartOpen');
         this.props.statsPlayerRequest(
             this.props.player.id,
             type,
-            this.props.chartStartDate,
-            this.props.chartEndDate
+            this.props.dateByStartDate,
+            this.props.dateByEndDate
         );
     };
 
@@ -70,6 +82,16 @@ export class DateBy extends Component {
         setTimeout(() => {
             if (ranges[1] === 0) {
                 this.props.showLoader();
+                this.props.changePlayersDateByType(
+                    'interval',
+                    this.state.startDate,
+                    this.state.endDate
+                );
+                this.props.changeTeamsDateByType(
+                    'interval',
+                    this.state.startDate,
+                    this.state.endDate
+                );
                 this.props.closePlayersMenu('dateSelectChartOpen');
                 this.props.statsPlayerRequest(
                     this.props.player.id,
@@ -93,7 +115,7 @@ export class DateBy extends Component {
                     }
                     onClick={this.handleDateSelectMenu}
                 >
-                    {this.getSelectedDateType(this.props.chartType)}
+                    {this.getSelectedDateType(this.props.dateByType)}
                 </button>
                 <div
                     className="filter-select-list-wrapper"
@@ -115,7 +137,7 @@ export class DateBy extends Component {
                     <ul className="filter-select-list">
                         <li
                             className={
-                                this.props.chartType === 'today'
+                                this.props.dateByType === 'today'
                                     ? 'selected'
                                     : ''
                             }
@@ -131,7 +153,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.chartType === 'week'
+                                this.props.dateByType === 'week'
                                     ? 'selected'
                                     : ''
                             }
@@ -147,7 +169,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.chartType === 'month'
+                                this.props.dateByType === 'month'
                                     ? 'selected'
                                     : ''
                             }
@@ -163,7 +185,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.chartType === 'year'
+                                this.props.dateByType === 'year'
                                     ? 'selected'
                                     : ''
                             }
@@ -179,7 +201,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.chartType === 'interval'
+                                this.props.dateByType === 'interval'
                                     ? 'selected'
                                     : ''
                             }
@@ -210,15 +232,19 @@ export class DateBy extends Component {
 
 const mapStateToProps = state => ({
     player: state.players.player,
-    chartType: state.players.chartType,
-    chartStartDate: state.players.chartStartDate,
-    chartEndDate: state.players.chartEndDate,
+    dateByType: state.players.dateByType,
+    dateByStartDate: state.players.dateByStartDate,
+    dateByEndDate: state.players.dateByEndDate,
     dateSelectChartOpen: state.players.dateSelectChartOpen
 });
 
 const mapDispatchToProps = dispatch => ({
     statsPlayerRequest: (id, type, startDate, endDate) =>
         dispatch(statsPlayerRequest(id, type, startDate, endDate)),
+    changePlayersDateByType: (type, startDate, endDate) =>
+        dispatch(changePlayersDateByType(type, startDate, endDate)),
+    changeTeamsDateByType: (type, startDate, endDate) =>
+        dispatch(changeTeamsDateByType(type, startDate, endDate)),
     openPlayersMenu: menu => dispatch(openPlayersMenu(menu)),
     closePlayersMenu: menu => dispatch(closePlayersMenu(menu)),
     showLoader: () => dispatch(showLoader())

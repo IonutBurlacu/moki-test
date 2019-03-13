@@ -4,9 +4,9 @@ import moment from 'moment';
 import decrypt from '../utils/decrypt';
 import { getToken } from '../selectors/auth';
 import {
-    getTeamsChartType,
-    getTeamsChartStartDate,
-    getTeamsChartEndDate
+    getTeamsDateByType,
+    getTeamsDateByStartDate,
+    getTeamsDateByEndDate
 } from '../selectors/teams';
 import TeamsAPI from '../apis/teams';
 
@@ -15,19 +15,16 @@ export function* teamsFetchList(action) {
     const response = yield call(
         TeamsAPI.get,
         { Authorization: token },
-        action.listDate,
-        moment(action.listStartDate).format('YYYY-MM-DD'),
-        moment(action.listEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
 
     yield put({
         type: 'GET_TEAMS',
-        teams: decoded.teams,
-        listDate: action.listDate,
-        listStartDate: action.listStartDate,
-        listEndDate: action.listEndDate
+        teams: decoded.teams
     });
 
     yield put({
@@ -41,9 +38,9 @@ export function* teamStats(action) {
         TeamsAPI.stats,
         { Authorization: token },
         action.id,
-        action.chartType,
-        moment(action.chartStartDate).format('YYYY-MM-DD'),
-        moment(action.chartEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -51,9 +48,9 @@ export function* teamStats(action) {
     yield put({
         type: 'STATS_TEAM',
         data: decoded.data,
-        chartType: action.chartType,
-        chartStartDate: action.chartStartDate,
-        chartEndDate: action.chartEndDate
+        dateByType: action.dateByType,
+        dateByStartDate: action.dateByStartDate,
+        dateByEndDate: action.dateByEndDate
     });
 
     yield put({
@@ -128,16 +125,16 @@ export function* teamUpdate(action) {
 
 export function* teamView(action) {
     const token = yield select(getToken);
-    const chartType = yield select(getTeamsChartType);
-    const chartStartDate = yield select(getTeamsChartStartDate);
-    const chartEndDate = yield select(getTeamsChartEndDate);
+    const dateByType = yield select(getTeamsDateByType);
+    const dateByStartDate = yield select(getTeamsDateByStartDate);
+    const dateByEndDate = yield select(getTeamsDateByEndDate);
     const response = yield call(
         TeamsAPI.view,
         { Authorization: token },
         action.id,
-        chartType,
-        moment(chartStartDate).format('YYYY-MM-DD'),
-        moment(chartEndDate).format('YYYY-MM-DD')
+        dateByType,
+        moment(dateByStartDate).format('YYYY-MM-DD'),
+        moment(dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);

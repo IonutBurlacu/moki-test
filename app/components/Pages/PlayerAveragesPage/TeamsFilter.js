@@ -29,9 +29,9 @@ export class TeamsFilter extends Component {
         this.props.showLoader();
         this.props.getPlayerAveragesRequest(
             teamId,
-            this.props.playerAverages.chartType,
-            this.props.playerAverages.chartStartDate,
-            this.props.playerAverages.chartEndDate
+            this.props.playerAverages.dateByType,
+            this.props.playerAverages.dateByStartDate,
+            this.props.playerAverages.dateByEndDate
         );
     };
 
@@ -109,16 +109,16 @@ const mapDispatchToProps = dispatch => ({
     closePlayerAveragesMenu: menu => dispatch(closePlayerAveragesMenu(menu)),
     getPlayerAveragesRequest: (
         teamId,
-        chartType,
-        chartStartDate,
-        chartEndDate
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
     ) =>
         dispatch(
             getPlayerAveragesRequest(
                 teamId,
-                chartType,
-                chartStartDate,
-                chartEndDate
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         )
 });

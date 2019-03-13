@@ -10,7 +10,7 @@ import SortBy from './SortBy';
 import DateBy from '../../DateBy';
 import {
     getDownloadCsvTeamsRequest,
-    changeDownloadCsvTeamsListDate,
+    changeDownloadCsvTeamsDateByType,
     openDownloadCsvMenu,
     closeDownloadCsvMenu
 } from '../../../actions/reports';
@@ -23,9 +23,9 @@ export class TopFilters extends Component {
         }
         const encrypted = encrypt({
             team_id: this.props.downloadCsv.teamId,
-            type: this.props.downloadCsv.chartType,
-            start_date: this.props.downloadCsv.chartStartDate,
-            end_date: this.props.downloadCsv.chartEndDate
+            type: this.props.downloadCsv.dateByType,
+            start_date: this.props.downloadCsv.dateByStartDate,
+            end_date: this.props.downloadCsv.dateByEndDate
         });
         this.props.showLoader();
         axios({
@@ -53,7 +53,7 @@ export class TopFilters extends Component {
                 link.setAttribute(
                     'download',
                     `MOKI_export_${teamName}_${
-                        this.props.downloadCsv.chartType
+                        this.props.downloadCsv.dateByType
                     }.csv`
                 );
                 document.body.appendChild(link);
@@ -74,16 +74,16 @@ export class TopFilters extends Component {
                 </div>
                 <div className="center-side">
                     <DateBy
-                        startDate={this.props.downloadCsv.chartStartDate}
-                        endDate={this.props.downloadCsv.chartEndDate}
+                        startDate={this.props.downloadCsv.dateByStartDate}
+                        endDate={this.props.downloadCsv.dateByEndDate}
                         dateSelectOpen={this.props.downloadCsv.dateSelectOpen}
                         fetchNewData={this.props.getDownloadCsvTeamsRequest}
                         changeDateType={
-                            this.props.changeDownloadCsvTeamsListDate
+                            this.props.changeDownloadCsvTeamsDateByType
                         }
                         openMenu={this.props.openDownloadCsvMenu}
                         closeMenu={this.props.closeDownloadCsvMenu}
-                        type={this.props.downloadCsv.chartType}
+                        type={this.props.downloadCsv.dateByType}
                     />
                 </div>
                 <div className="right-side">
@@ -117,25 +117,25 @@ const mapDispatchToProps = dispatch => ({
     hideLoader: () => dispatch(hideLoader()),
     openDownloadCsvMenu: menu => dispatch(openDownloadCsvMenu(menu)),
     closeDownloadCsvMenu: menu => dispatch(closeDownloadCsvMenu(menu)),
-    changeDownloadCsvTeamsListDate: (
-        chartType,
-        chartStartDate = moment.utc().local(),
-        chartEndDate = moment.utc().local()
+    changeDownloadCsvTeamsDateByType: (
+        dateByType,
+        dateByStartDate = moment.utc().local(),
+        dateByEndDate = moment.utc().local()
     ) =>
         dispatch(
-            changeDownloadCsvTeamsListDate(
-                chartType,
-                chartStartDate,
-                chartEndDate
+            changeDownloadCsvTeamsDateByType(
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         ),
     getDownloadCsvTeamsRequest: (
-        chartType,
-        chartStartDate = moment.utc().local(),
-        chartEndDate = moment.utc().local()
+        dateByType,
+        dateByStartDate = moment.utc().local(),
+        dateByEndDate = moment.utc().local()
     ) =>
         dispatch(
-            getDownloadCsvTeamsRequest(chartType, chartStartDate, chartEndDate)
+            getDownloadCsvTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
         )
 });
 

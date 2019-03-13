@@ -43,11 +43,11 @@ export class DateBy extends Component {
         this.props.closeMenu('dateSelectOpen');
     };
 
-    handleDateSelectChange = listDate => {
+    handleDateSelectChange = dateByType => {
         this.props.closeMenu('dateSelectOpen');
-        this.props.changeDateType(listDate);
+        this.props.changeDateType(dateByType);
         this.props.showLoader();
-        this.props.fetchNewData(listDate);
+        this.props.fetchNewData(dateByType);
     };
 
     handleDateRangeSelect = ranges => {

@@ -7,18 +7,18 @@ export default (
         playerAverages: {
             data: [],
             teamId: null,
-            chartType: 'today',
-            chartStartDate: moment.utc().local(),
-            chartEndDate: moment.utc().local(),
+            dateByType: 'today',
+            dateByStartDate: moment.utc().local(),
+            dateByEndDate: moment.utc().local(),
             teamSelectOpen: false,
             dateSelectOpen: false
         },
         groupAverages: {
             data: [],
             teamId: null,
-            chartType: 'today',
-            chartStartDate: moment.utc().local(),
-            chartEndDate: moment.utc().local(),
+            dateByType: 'today',
+            dateByStartDate: moment.utc().local(),
+            dateByEndDate: moment.utc().local(),
             teamSelectOpen: false,
             dateSelectOpen: false
         },
@@ -27,9 +27,9 @@ export default (
                 current: []
             },
             teamId: null,
-            chartType: 'today',
-            chartStartDate: moment.utc().local(),
-            chartEndDate: moment.utc().local(),
+            dateByType: 'today',
+            dateByStartDate: moment.utc().local(),
+            dateByEndDate: moment.utc().local(),
             playersCount: 0,
             teamSelectOpen: false,
             dateSelectOpen: false,
@@ -40,9 +40,9 @@ export default (
         downloadPdf: {
             teams: [],
             teamId: null,
-            chartType: 'today',
-            chartStartDate: moment.utc().local(),
-            chartEndDate: moment.utc().local(),
+            dateByType: 'today',
+            dateByStartDate: moment.utc().local(),
+            dateByEndDate: moment.utc().local(),
             listSort: 'most_steps',
             listSortLabel: 'Most steps',
             dateSelectOpen: false,
@@ -51,9 +51,9 @@ export default (
         downloadCsv: {
             teams: [],
             teamId: null,
-            chartType: 'today',
-            chartStartDate: moment.utc().local(),
-            chartEndDate: moment.utc().local(),
+            dateByType: 'today',
+            dateByStartDate: moment.utc().local(),
+            dateByEndDate: moment.utc().local(),
             listSort: 'most_steps',
             listSortLabel: 'Most steps',
             dateSelectOpen: false,
@@ -87,33 +87,33 @@ export default (
                     ...state.playerAverages,
                     teamId: action.teamId,
                     data: action.data,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 groupAverages: {
                     ...state.groupAverages,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 totalSteps: {
                     ...state.totalSteps,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 downloadPdf: {
                     ...state.downloadPdf,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 downloadCsv: {
                     ...state.downloadCsv,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 scales: action.scales,
                 loading: false
@@ -148,33 +148,33 @@ export default (
                     ...state.groupAverages,
                     teamId: action.teamId,
                     data: action.data,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 playerAverages: {
                     ...state.playerAverages,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 totalSteps: {
                     ...state.totalSteps,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 downloadPdf: {
                     ...state.downloadPdf,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 downloadCsv: {
                     ...state.downloadCsv,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 scales: action.scales,
                 loading: false
@@ -209,9 +209,9 @@ export default (
                     ...state.totalSteps,
                     teamId: action.teamId,
                     data: action.data,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate),
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate),
                     playersCount: action.playersCount,
                     totalOverview: action.data.current.reduce(
                         (accumulator, currentValue) =>
@@ -228,27 +228,27 @@ export default (
                 },
                 groupAverages: {
                     ...state.groupAverages,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 playerAverages: {
                     ...state.playerAverages,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 downloadPdf: {
                     ...state.downloadPdf,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 downloadCsv: {
                     ...state.downloadCsv,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 scales: action.scales,
                 loading: false
@@ -303,31 +303,31 @@ export default (
                                         : 100
                                 : 0
                     })),
-                    chartType: action.chartType
+                    dateByType: action.dateByType
                 },
                 groupAverages: {
                     ...state.groupAverages,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 totalSteps: {
                     ...state.totalSteps,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 playerAverages: {
                     ...state.playerAverages,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 downloadCsv: {
                     ...state.downloadCsv,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 loading: false
             };
@@ -339,14 +339,14 @@ export default (
                     teamId: action.teamId
                 }
             };
-        case 'CHANGE_DOWNLOAD_PDF_TEAMS_LIST_DATE':
+        case 'CHANGE_DOWNLOAD_PDF_TEAMS_DATE_BY_TYPE':
             return {
                 ...state,
                 downloadPdf: {
                     ...state.downloadPdf,
-                    chartType: action.chartType,
-                    chartStartDate: action.chartStartDate,
-                    chartEndDate: action.chartEndDate
+                    dateByType: action.dateByType,
+                    dateByStartDate: action.dateByStartDate,
+                    dateByEndDate: action.dateByEndDate
                 }
             };
         case 'CHANGE_DOWNLOAD_PDF_TEAMS_LIST_SORT':
@@ -408,31 +408,31 @@ export default (
                                         : 100
                                 : 0
                     })),
-                    chartType: action.chartType
+                    dateByType: action.dateByType
                 },
                 groupAverages: {
                     ...state.groupAverages,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 totalSteps: {
                     ...state.totalSteps,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 downloadPdf: {
                     ...state.downloadPdf,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 playerAverages: {
                     ...state.playerAverages,
-                    chartType: action.chartType,
-                    chartStartDate: moment(action.chartStartDate),
-                    chartEndDate: moment(action.chartEndDate)
+                    dateByType: action.dateByType,
+                    dateByStartDate: moment(action.dateByStartDate),
+                    dateByEndDate: moment(action.dateByEndDate)
                 },
                 loading: false
             };
@@ -444,14 +444,14 @@ export default (
                     teamId: action.teamId
                 }
             };
-        case 'CHANGE_DOWNLOAD_CSV_TEAMS_LIST_DATE':
+        case 'CHANGE_DOWNLOAD_CSV_TEAMS_DATE_BY_TYPE':
             return {
                 ...state,
                 downloadCsv: {
                     ...state.downloadCsv,
-                    chartType: action.chartType,
-                    chartStartDate: action.chartStartDate,
-                    chartEndDate: action.chartEndDate
+                    dateByType: action.dateByType,
+                    dateByStartDate: action.dateByStartDate,
+                    dateByEndDate: action.dateByEndDate
                 }
             };
         case 'CHANGE_DOWNLOAD_CSV_TEAMS_LIST_SORT':

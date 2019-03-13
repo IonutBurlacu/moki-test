@@ -18,15 +18,15 @@ export default class ReportsAPI {
     static playerAverages(
         headers = {},
         teamId,
-        chartType,
-        chartStartDate,
-        chartEndDate
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
     ) {
         const encrypted = encrypt({
             team_id: teamId,
-            type: chartType,
-            start_date: chartStartDate,
-            end_date: chartEndDate
+            type: dateByType,
+            start_date: dateByStartDate,
+            end_date: dateByEndDate
         });
         return axios({
             method: 'post',
@@ -43,15 +43,15 @@ export default class ReportsAPI {
     static groupAverages(
         headers = {},
         teamId,
-        chartType,
-        chartStartDate,
-        chartEndDate
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
     ) {
         const encrypted = encrypt({
             team_id: teamId,
-            type: chartType,
-            start_date: chartStartDate,
-            end_date: chartEndDate
+            type: dateByType,
+            start_date: dateByStartDate,
+            end_date: dateByEndDate
         });
         return axios({
             method: 'post',
@@ -68,15 +68,15 @@ export default class ReportsAPI {
     static totalSteps(
         headers = {},
         teamId,
-        chartType,
-        chartStartDate,
-        chartEndDate
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
     ) {
         const encrypted = encrypt({
             team_id: teamId,
-            type: chartType,
-            start_date: chartStartDate,
-            end_date: chartEndDate
+            type: dateByType,
+            start_date: dateByStartDate,
+            end_date: dateByEndDate
         });
         return axios({
             method: 'post',

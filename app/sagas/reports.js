@@ -29,9 +29,9 @@ export function* getPlayerAverages(action) {
             Authorization: token
         },
         action.teamId,
-        action.chartType,
-        moment(action.chartStartDate).format('YYYY-MM-DD'),
-        moment(action.chartEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -40,9 +40,9 @@ export function* getPlayerAverages(action) {
         type: 'GET_PLAYER_AVERAGES',
         data: decoded.data,
         teamId: decoded.team_id,
-        chartType: action.chartType,
-        chartStartDate: decoded.start_date,
-        chartEndDate: decoded.end_date,
+        dateByType: action.dateByType,
+        dateByStartDate: decoded.start_date,
+        dateByEndDate: decoded.end_date,
         scales: decoded.scales
     });
 
@@ -59,9 +59,9 @@ export function* getGroupAverages(action) {
             Authorization: token
         },
         action.teamId,
-        action.chartType,
-        moment(action.chartStartDate).format('YYYY-MM-DD'),
-        moment(action.chartEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -70,9 +70,9 @@ export function* getGroupAverages(action) {
         type: 'GET_GROUP_AVERAGES',
         data: decoded.data,
         teamId: decoded.team_id,
-        chartType: action.chartType,
-        chartStartDate: decoded.start_date,
-        chartEndDate: decoded.end_date,
+        dateByType: action.dateByType,
+        dateByStartDate: decoded.start_date,
+        dateByEndDate: decoded.end_date,
         scales: decoded.scales
     });
 
@@ -89,9 +89,9 @@ export function* getTotalSteps(action) {
             Authorization: token
         },
         action.teamId,
-        action.chartType,
-        moment(action.chartStartDate).format('YYYY-MM-DD'),
-        moment(action.chartEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -100,9 +100,9 @@ export function* getTotalSteps(action) {
         type: 'GET_TOTAL_STEPS',
         data: decoded.data,
         teamId: decoded.team_id,
-        chartType: action.chartType,
-        chartStartDate: decoded.start_date,
-        chartEndDate: decoded.end_date,
+        dateByType: action.dateByType,
+        dateByStartDate: decoded.start_date,
+        dateByEndDate: decoded.end_date,
         scales: decoded.scales,
         playersCount: decoded.players_count
     });
@@ -117,9 +117,9 @@ export function* getDownloadPdfTeams(action) {
     const response = yield call(
         TeamsAPI.get,
         { Authorization: token },
-        action.chartType,
-        moment(action.chartStartDate).format('YYYY-MM-DD'),
-        moment(action.chartEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -127,9 +127,9 @@ export function* getDownloadPdfTeams(action) {
     yield put({
         type: 'GET_DOWNLOAD_PDF_TEAMS',
         teams: decoded.teams,
-        chartType: action.chartType,
-        chartStartDate: action.chartStartDate,
-        chartEndDate: action.chartEndDate
+        dateByType: action.dateByType,
+        dateByStartDate: action.dateByStartDate,
+        dateByEndDate: action.dateByEndDate
     });
 
     yield put({
@@ -142,9 +142,9 @@ export function* getDownloadCsvTeams(action) {
     const response = yield call(
         TeamsAPI.get,
         { Authorization: token },
-        action.chartType,
-        moment(action.chartStartDate).format('YYYY-MM-DD'),
-        moment(action.chartEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -152,9 +152,9 @@ export function* getDownloadCsvTeams(action) {
     yield put({
         type: 'GET_DOWNLOAD_CSV_TEAMS',
         teams: decoded.teams,
-        chartType: action.chartType,
-        chartStartDate: action.chartStartDate,
-        chartEndDate: action.chartEndDate
+        dateByType: action.dateByType,
+        dateByStartDate: action.dateByStartDate,
+        dateByEndDate: action.dateByEndDate
     });
 
     yield put({

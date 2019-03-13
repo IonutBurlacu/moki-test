@@ -9,9 +9,9 @@ import DateBy from './DateBy';
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
         const encrypted = encrypt({
-            type: this.props.chartType,
-            start_date: this.props.chartStartDate,
-            end_date: this.props.chartEndDate
+            type: this.props.dateByType,
+            start_date: this.props.dateByStartDate,
+            end_date: this.props.dateByEndDate
         });
         this.props.showLoader();
         axios({
@@ -36,7 +36,7 @@ export class TopFilters extends Component {
                     'download',
                     `MOKI_${this.props.player.first_name}_${
                         this.props.player.last_name
-                    }_${this.props.chartType}.pdf`
+                    }_${this.props.dateByType}.pdf`
                 );
                 document.body.appendChild(link);
                 link.click();
@@ -74,9 +74,9 @@ export class TopFilters extends Component {
 const mapStateToProps = state => ({
     token: state.auth.token,
     player: state.players.player,
-    chartType: state.players.chartType,
-    chartStartDate: state.players.chartStartDate,
-    chartEndDate: state.players.chartEndDate
+    dateByType: state.players.dateByType,
+    dateByStartDate: state.players.dateByStartDate,
+    dateByEndDate: state.players.dateByEndDate
 });
 
 const mapDispatchToProps = dispatch => ({

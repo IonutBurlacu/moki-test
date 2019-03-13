@@ -35,6 +35,6 @@ const getFilteredPlayers = (players, { filterByValues, sortBy }) =>
 
 export default getFilteredPlayers;
 
-export const getPlayersChartType = state => state.players.chartType;
-export const getPlayersChartStartDate = state => state.players.chartStartDate;
-export const getPlayersChartEndDate = state => state.players.chartEndDate;
+export const getPlayersDateByType = state => state.players.dateByType;
+export const getPlayersDateByStartDate = state => state.players.dateByStartDate;
+export const getPlayersDateByEndDate = state => state.players.dateByEndDate;

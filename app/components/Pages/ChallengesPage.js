@@ -22,7 +22,7 @@ const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 export class ChallengesPage extends Component {
     componentWillMount() {
         this.props.showLoader();
-        this.props.getChallengesRequest(this.props.listDate);
+        this.props.getChallengesRequest(this.props.dateByType);
     }
 
     handleView = id => {
@@ -181,11 +181,12 @@ const mapStateToProps = state => ({
         sortBy: state.challenges.listSort
     }),
     loading: state.challenges.loading,
-    listDate: state.challenges.listDate
+    dateByType: state.challenges.dateByType
 });
 
 const mapDispatchToProps = dispatch => ({
-    getChallengesRequest: listDate => dispatch(getChallengesRequest(listDate)),
+    getChallengesRequest: dateByType =>
+        dispatch(getChallengesRequest(dateByType)),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     showLoader: () => dispatch(showLoader())

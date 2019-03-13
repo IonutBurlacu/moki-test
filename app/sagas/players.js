@@ -4,9 +4,9 @@ import moment from 'moment';
 import decrypt from '../utils/decrypt';
 import { getToken } from '../selectors/auth';
 import {
-    getPlayersChartType,
-    getPlayersChartStartDate,
-    getPlayersChartEndDate
+    getPlayersDateByType,
+    getPlayersDateByStartDate,
+    getPlayersDateByEndDate
 } from '../selectors/players';
 import PlayersAPI from '../apis/players';
 
@@ -15,9 +15,9 @@ export function* playersFetchList(action) {
     const response = yield call(
         PlayersAPI.get,
         { Authorization: token },
-        action.listDate,
-        moment(action.listStartDate).format('YYYY-MM-DD'),
-        moment(action.listEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -25,10 +25,7 @@ export function* playersFetchList(action) {
     yield put({
         type: 'GET_PLAYERS',
         players: decoded.players,
-        teams: decoded.teams,
-        listDate: action.listDate,
-        listStartDate: action.listStartDate,
-        listEndDate: action.listEndDate
+        teams: decoded.teams
     });
 
     yield put({
@@ -38,16 +35,16 @@ export function* playersFetchList(action) {
 
 export function* playerView(action) {
     const token = yield select(getToken);
-    const chartType = yield select(getPlayersChartType);
-    const chartStartDate = yield select(getPlayersChartStartDate);
-    const chartEndDate = yield select(getPlayersChartEndDate);
+    const dateByType = yield select(getPlayersDateByType);
+    const dateByStartDate = yield select(getPlayersDateByStartDate);
+    const dateByEndDate = yield select(getPlayersDateByEndDate);
     const response = yield call(
         PlayersAPI.view,
         { Authorization: token },
         action.id,
-        chartType,
-        moment(chartStartDate).format('YYYY-MM-DD'),
-        moment(chartEndDate).format('YYYY-MM-DD')
+        dateByType,
+        moment(dateByStartDate).format('YYYY-MM-DD'),
+        moment(dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -90,9 +87,9 @@ export function* playerStats(action) {
         PlayersAPI.stats,
         { Authorization: token },
         action.id,
-        action.chartType,
-        moment(action.chartStartDate).format('YYYY-MM-DD'),
-        moment(action.chartEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -100,9 +97,9 @@ export function* playerStats(action) {
     yield put({
         type: 'STATS_PLAYER',
         data: decoded.data,
-        chartType: action.chartType,
-        chartStartDate: action.chartStartDate,
-        chartEndDate: action.chartEndDate
+        dateByType: action.dateByType,
+        dateByStartDate: action.dateByStartDate,
+        dateByEndDate: action.dateByEndDate
     });
 
     yield put({

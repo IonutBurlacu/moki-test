@@ -14,8 +14,8 @@ export class DateBy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startDate: props.groupAverages.chartStartDate,
-            endDate: props.groupAverages.chartEndDate
+            startDate: props.groupAverages.dateByStartDate,
+            endDate: props.groupAverages.dateByEndDate
         };
     }
 
@@ -52,14 +52,14 @@ export class DateBy extends Component {
         this.props.closeGroupAveragesMenu('dateSelectOpen');
     };
 
-    handleDateSelectChange = chartType => {
+    handleDateSelectChange = dateByType => {
         this.props.closeGroupAveragesMenu('dateSelectOpen');
         this.props.showLoader();
         this.props.getGroupAveragesRequest(
             this.props.groupAverages.teamId,
-            chartType,
-            this.props.groupAverages.chartStartDate,
-            this.props.groupAverages.chartEndDate
+            dateByType,
+            this.props.groupAverages.dateByStartDate,
+            this.props.groupAverages.dateByEndDate
         );
     };
 
@@ -98,7 +98,7 @@ export class DateBy extends Component {
                     onClick={this.handleDateSelectMenu}
                 >
                     {this.getSelectedDateType(
-                        this.props.groupAverages.chartType
+                        this.props.groupAverages.dateByType
                     )}
                 </button>
                 <div
@@ -121,7 +121,7 @@ export class DateBy extends Component {
                     <ul className="filter-select-list">
                         <li
                             className={
-                                this.props.listDate === 'today'
+                                this.props.groupAverages.dateByType === 'today'
                                     ? 'selected'
                                     : ''
                             }
@@ -137,7 +137,9 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'week' ? 'selected' : ''
+                                this.props.groupAverages.dateByType === 'week'
+                                    ? 'selected'
+                                    : ''
                             }
                         >
                             <button
@@ -151,7 +153,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'month'
+                                this.props.groupAverages.dateByType === 'month'
                                     ? 'selected'
                                     : ''
                             }
@@ -167,7 +169,9 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'year' ? 'selected' : ''
+                                this.props.groupAverages.dateByType === 'year'
+                                    ? 'selected'
+                                    : ''
                             }
                         >
                             <button
@@ -181,7 +185,8 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.listDate === 'interval'
+                                this.props.groupAverages.dateByType ===
+                                'interval'
                                     ? 'selected'
                                     : ''
                             }
@@ -220,16 +225,16 @@ const mapDispatchToProps = dispatch => ({
     closeGroupAveragesMenu: menu => dispatch(closeGroupAveragesMenu(menu)),
     getGroupAveragesRequest: (
         teamId,
-        chartType,
-        chartStartDate,
-        chartEndDate
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
     ) =>
         dispatch(
             getGroupAveragesRequest(
                 teamId,
-                chartType,
-                chartStartDate,
-                chartEndDate
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         )
 });

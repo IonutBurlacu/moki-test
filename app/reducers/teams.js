@@ -13,12 +13,9 @@ export default (
         },
         challenges: [],
         players: [],
-        chartType: 'today',
-        chartStartDate: moment.utc().local(),
-        chartEndDate: moment.utc().local(),
-        listDate: 'today',
-        listStartDate: moment.utc().local(),
-        listEndDate: moment.utc().local(),
+        dateByType: 'today',
+        dateByStartDate: moment.utc().local(),
+        dateByEndDate: moment.utc().local(),
         listSort: 'most_steps',
         listSortLabel: 'Most steps',
         listFilterValues: [],
@@ -61,19 +58,14 @@ export default (
                                     : 100
                             : 0
                 })),
-                chartType: action.listDate,
-                listDate: action.listDate,
                 loading: false
             };
-        case 'CHANGE_TEAMS_LIST_DATE':
+        case 'CHANGE_TEAMS_DATE_BY_TYPE':
             return {
                 ...state,
-                listDate: action.listDate,
-                listStartDate: action.listStartDate,
-                listEndDate: action.listEndDate,
-                chartType: action.listDate,
-                chartStartDate: action.listStartDate,
-                chartEndDate: action.listEndDate
+                dateByType: action.dateByType,
+                dateByStartDate: action.dateByStartDate,
+                dateByEndDate: action.dateByEndDate
             };
         case 'CHANGE_TEAMS_LIST_SORT':
             return {
@@ -161,12 +153,9 @@ export default (
                     totalOverviewPrevious:
                         action.data.previous_total.previous_steps
                 },
-                chartType: action.chartType,
-                chartStartDate: action.chartStartDate,
-                chartEndDate: action.chartEndDate,
-                listDate: action.chartType,
-                listStartDate: action.chartStartDate,
-                listEndDate: action.chartEndDate,
+                dateByType: action.dateByType,
+                dateByStartDate: action.dateByStartDate,
+                dateByEndDate: action.dateByEndDate,
                 loading: false
             };
         case 'INSERT_TEAM_REQUEST':

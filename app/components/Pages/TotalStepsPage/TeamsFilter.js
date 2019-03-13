@@ -29,9 +29,9 @@ export class TeamsFilter extends Component {
         this.props.showLoader();
         this.props.getTotalStepsRequest(
             teamId,
-            this.props.totalSteps.chartType,
-            this.props.totalSteps.chartStartDate,
-            this.props.totalSteps.chartEndDate
+            this.props.totalSteps.dateByType,
+            this.props.totalSteps.dateByStartDate,
+            this.props.totalSteps.dateByEndDate
         );
     };
 
@@ -106,13 +106,13 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     openTotalStepsMenu: menu => dispatch(openTotalStepsMenu(menu)),
     closeTotalStepsMenu: menu => dispatch(closeTotalStepsMenu(menu)),
-    getTotalStepsRequest: (teamId, chartType, chartStartDate, chartEndDate) =>
+    getTotalStepsRequest: (teamId, dateByType, dateByStartDate, dateByEndDate) =>
         dispatch(
             getTotalStepsRequest(
                 teamId,
-                chartType,
-                chartStartDate,
-                chartEndDate
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
             )
         )
 });

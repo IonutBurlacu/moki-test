@@ -10,9 +10,9 @@ export function* challengesFetchList(action) {
     const response = yield call(
         ChallengesAPI.get,
         { Authorization: token },
-        action.listDate,
-        moment(action.listStartDate).format('YYYY-MM-DD'),
-        moment(action.listEndDate).format('YYYY-MM-DD')
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
     );
 
     const decoded = decrypt(response.data);
@@ -21,9 +21,9 @@ export function* challengesFetchList(action) {
         type: 'GET_CHALLENGES',
         challenges: decoded.challenges,
         teams: decoded.teams,
-        listDate: action.listDate,
-        listStartDate: action.listStartDate,
-        listEndDate: action.listEndDate
+        dateByType: action.dateByType,
+        dateByStartDate: action.dateByStartDate,
+        dateByEndDate: action.dateByEndDate
     });
 
     yield put({
