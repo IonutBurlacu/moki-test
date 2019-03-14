@@ -20,7 +20,11 @@ const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 export class PlayersPage extends Component {
     componentWillMount() {
         this.props.showLoader();
-        this.props.getPlayersRequest(this.props.dateByType);
+        this.props.getPlayersRequest(
+            this.props.dateByType,
+            this.props.dateByStartDate,
+            this.props.dateByEndDate
+        );
     }
 
     handleView = id => {
@@ -203,11 +207,14 @@ const mapStateToProps = state => ({
         sortBy: state.players.listSort
     }),
     loading: state.players.loading,
-    dateByType: state.players.dateByType
+    dateByType: state.players.dateByType,
+    dateByStartDate: state.players.dateByStartDate,
+    dateByEndDate: state.players.dateByEndDate
 });
 
 const mapDispatchToProps = dispatch => ({
-    getPlayersRequest: dateByType => dispatch(getPlayersRequest(dateByType)),
+    getPlayersRequest: (dateByType, dateByStartDate, dateByEndDate) =>
+        dispatch(getPlayersRequest(dateByType, dateByStartDate, dateByEndDate)),
     viewPlayerRequest: id => dispatch(viewPlayerRequest(id)),
     viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
