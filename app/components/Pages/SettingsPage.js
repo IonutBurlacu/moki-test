@@ -156,14 +156,7 @@ export class SettingsPage extends Component {
         return (
             <div className="container container-with-title">
                 <Header
-                    leftButton={
-                        <button
-                            type="button"
-                            onClick={this.handleContactSupport}
-                        >
-                            Contact Support
-                        </button>
-                    }
+                    leftButton={<div />}
                     rightButton={
                         <button
                             type="button"
