@@ -14,6 +14,10 @@ class LoginPage extends Component {
         shell.openExternal('https://moki.technology/pages/contact-us');
     };
 
+    handleVideoTutorials = () => {
+        shell.openExternal('https://www.moki.technology/tutorials');
+    };
+
     render() {
         return (
             <div className="container">
@@ -26,7 +30,14 @@ class LoginPage extends Component {
                             Contact Support
                         </button>
                     }
-                    rightButton={<div />}
+                    rightButton={
+                        <button
+                            type="button"
+                            onClick={this.handleVideoTutorials}
+                        >
+                            Video Tutorials
+                        </button>
+                    }
                 />
                 <div className="content">
                     <PageTitle title="Login" />

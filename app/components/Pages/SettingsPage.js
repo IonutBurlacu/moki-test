@@ -111,6 +111,10 @@ export class SettingsPage extends Component {
         shell.openExternal('https://moki.technology/pages/contact-us');
     };
 
+    handleVideoTutorials = () => {
+        shell.openExternal('https://www.moki.technology/tutorials');
+    };
+
     handleTimeRangeChange = event => {
         this.setState({
             [event.target.name]: parseInt(event.target.value, 10)
@@ -160,7 +164,14 @@ export class SettingsPage extends Component {
                             Contact Support
                         </button>
                     }
-                    rightButton={<div />}
+                    rightButton={
+                        <button
+                            type="button"
+                            onClick={this.handleVideoTutorials}
+                        >
+                            Video Tutorials
+                        </button>
+                    }
                 />
                 <PageTitle title="Settings" />
                 {!this.props.loading ? (
