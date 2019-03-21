@@ -110,15 +110,15 @@ export class PairBandsPage extends Component {
                                                     ) : moment()
                                                         .utc()
                                                         .local()
-                                                        .unix() -
-                                                        moment
-                                                            .utc(
-                                                                player.band
-                                                                    .last_pair_at
-                                                            )
-                                                            .local()
-                                                            .unix() >
-                                                    60 ? (
+                                                        .diff(
+                                                            moment
+                                                                .utc(
+                                                                    player.band
+                                                                        .last_pair_at
+                                                                )
+                                                                .local(),
+                                                            'seconds'
+                                                        ) > 60 ? (
                                                         <span className="subtitle red">
                                                             Last Paired:{' '}
                                                             {moment
