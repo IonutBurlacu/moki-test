@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { shell } from 'electron';
 import { setActiveMenu } from '../actions/footer';
 import playersIcon from '../images/players_icon.png';
 import playersIconActive from '../images/players_icon_active.png';
@@ -16,6 +17,28 @@ import settingsIconActive from '../images/settings_icon_active.png';
 export class Footer extends Component {
     handleClick = menu => {
         this.props.setActiveMenu(menu);
+    };
+
+    handlePlayersClick = event => {
+        event.preventDefault();
+        shell.openExternal('https://moki.technology/pages/tutorials#players');
+    };
+
+    handleTeamsClick = event => {
+        event.preventDefault();
+        shell.openExternal('https://moki.technology/pages/tutorials#teams');
+    };
+
+    handleChallengesClick = event => {
+        event.preventDefault();
+        shell.openExternal(
+            'https://moki.technology/pages/tutorials#challenges'
+        );
+    };
+
+    handleReportsClick = event => {
+        event.preventDefault();
+        shell.openExternal('https://moki.technology/pages/tutorials#reports');
     };
 
     render() {

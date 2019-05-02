@@ -6,6 +6,10 @@
     margin: 0;
     padding: 15px 30px;
     width: 100%;
+
+    li {
+        position: relative;
+    }
 }
 
 .footer__menu-item {
@@ -30,4 +34,49 @@
 
 .footer__text {
     font-size: 2vmin;
+}
+
+.tooltip {
+    border: 2px solid #74ef5c;
+    color: #74ef5c;
+    display: inline-block;
+    font-weight: bold;
+    height: 4vmin;
+    position: absolute;
+    right: -3vmin;
+    text-align: center;
+    top: 0;
+    width: 4vmin;
+}
+
+.tooltip-wrapper {
+    display: none;
+}
+
+.tooltip:hover .tooltip-wrapper {
+    display: block;
+}
+
+.tooltip-wrapper {
+    left: -5vmin;
+    padding-bottom: 3vmin;
+    position: absolute;
+    top: -19vmin;
+    z-index: 999;
+}
+
+.tooltip-content {
+    align-items: center;
+    background: #000;
+    color: white;
+    display: flex;
+    font-weight: normal;
+    height: 16vmin;
+    justify-content: center;
+    padding: 2vmin;
+    min-width: 50vmin;
+
+    a {
+        color: #0095ff;
+    }
 }
