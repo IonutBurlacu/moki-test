@@ -15,6 +15,7 @@ import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
 import ConfirmDeleteModal from './SettingsPage/ConfirmDeleteModal';
+import SettingsHeader from './SettingsPage/SettingsHeader';
 import AccountModal from './SettingsPage/AccountModal';
 import { setActiveMenu } from '../../actions/footer';
 import HideTotalCheckbox from './SettingsPage/HideTotalCheckbox';
@@ -166,9 +167,10 @@ export class SettingsPage extends Component {
                         </button>
                     }
                 />
-                <PageTitle title="Settings" />
+                <PageTitle title="Help & Settings" />
                 {!this.props.loading ? (
                     <div className="content">
+                        <SettingsHeader title="Find video tutorials, FAQ's and technical support at our" />
                         <div className="table-wrapper settings-table-wrapper">
                             <table className="table settings-table">
                                 <tbody>

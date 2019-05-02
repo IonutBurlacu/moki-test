@@ -151,7 +151,7 @@ export class Footer extends Component {
                             className="footer__icon"
                             alt="settings-icon"
                         />
-                        <span className="footer__text">Settings</span>
+                        <span className="footer__text">Help & Settings</span>
                     </Link>
                 </li>
             </ul>
