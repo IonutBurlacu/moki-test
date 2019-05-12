@@ -4,7 +4,8 @@ import {
     changePassword,
     deleteAccount,
     changeSetting,
-    getSettings
+    getSettings,
+    forgotPassword
 } from './auth';
 import {
     challengesFetchList,
@@ -65,6 +66,7 @@ import {
 export default function* sagas() {
     yield [
         fork(takeLatest, 'LOGIN_REQUEST', login),
+        fork(takeLatest, 'FORGOT_PASSWORD_REQUEST', forgotPassword),
         fork(takeLatest, 'CHANGE_PASSWORD_REQUEST', changePassword),
         fork(takeLatest, 'DELETE_ACCOUNT_REQUEST', deleteAccount),
         fork(takeLatest, 'CHANGE_SETTING_REQUEST', changeSetting),

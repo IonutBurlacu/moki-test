@@ -7,6 +7,7 @@ import PublicRoute from './routers/PublicRoute';
 import PrivateRoute from './routers/PrivateRoute';
 import NotFoundPage from './components/Pages/NotFoundPage';
 import LoginPage from './components/Pages/LoginPage';
+import ForgotPasswordPage from './components/Pages/ForgotPasswordPage';
 import PlayersPage from './components/Pages/PlayersPage';
 import TeamsPage from './components/Pages/TeamsPage';
 import ChallengesPage from './components/Pages/ChallengesPage';
@@ -79,6 +80,11 @@ export default () => (
                 component={DownloadCsvPage}
             />
             <PublicRoute path="/login" component={LoginPage} exact />
+            <PublicRoute
+                path="/forgot_password"
+                component={ForgotPasswordPage}
+                exact
+            />
             <Route component={NotFoundPage} />
         </Switch>
         <NFCListener />

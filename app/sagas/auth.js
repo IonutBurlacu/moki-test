@@ -154,3 +154,33 @@ export function* getSettings() {
         type: 'HIDE_LOADER'
     });
 }
+
+export function* forgotPassword(action) {
+    try {
+        const response = yield call(AuthAPI.forgotPassword, {}, action.email);
+
+        const decoded = decrypt(response.data);
+
+        yield put({
+            type: 'HIDE_LOADER'
+        });
+
+        yield put({
+            type: 'SHOW_ALERT',
+            message: decoded.message
+        });
+
+        yield put(push('/login'));
+    } catch (error) {
+        const decoded = decrypt(error.message);
+
+        yield put({
+            type: 'SHOW_ALERT',
+            message: decoded.message
+        });
+
+        yield put({
+            type: 'HIDE_LOADER'
+        });
+    }
+}

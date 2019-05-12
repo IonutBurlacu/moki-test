@@ -58,3 +58,8 @@ export const getSettings = (
     minHourId,
     maxHourId
 });
+
+export const forgotPasswordRequest = email => ({
+    type: 'FORGOT_PASSWORD_REQUEST',
+    email
+});

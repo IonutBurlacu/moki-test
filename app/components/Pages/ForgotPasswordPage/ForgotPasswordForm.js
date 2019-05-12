@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Link from 'react-router-dom/Link';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
-import { loginRequest } from '../../../actions/auth';
+import { forgotPasswordRequest } from '../../../actions/auth';
 
-export class LoginForm extends Component {
+export class ForgotPasswordForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            password: ''
+            email: ''
         };
     }
 
@@ -21,11 +19,11 @@ export class LoginForm extends Component {
     };
 
     handleSubmit = () => {
-        if (this.state.email === '' || this.state.password === '') {
+        if (this.state.email === '') {
             this.props.showAlert('All fields are required.');
         } else {
             this.props.showLoader();
-            this.props.loginRequest(this.state.email, this.state.password);
+            this.props.forgotPasswordRequest(this.state.email);
         }
     };
 
@@ -33,7 +31,7 @@ export class LoginForm extends Component {
         return (
             <div className="login-form">
                 <h1 className="login-form__title">
-                    Please enter details to get started
+                    Please enter your email address
                 </h1>
                 <form action="">
                     <div className="login-form__separator" />
@@ -49,18 +47,6 @@ export class LoginForm extends Component {
                             onChange={this.handleInputChange}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password" className="form-label">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            className="form-input"
-                            id="password"
-                            name="password"
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
                     <div className="login-form__separator" />
                     <button
                         type="button"
@@ -69,12 +55,6 @@ export class LoginForm extends Component {
                     >
                         Done
                     </button>
-                    <Link
-                        className="forgot-password-link"
-                        to="/forgot_password"
-                    >
-                        Forgot password?
-                    </Link>
                 </form>
             </div>
         );
@@ -84,10 +64,11 @@ export class LoginForm extends Component {
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     showAlert: message => dispatch(showAlert(message)),
-    loginRequest: (email, password) => dispatch(loginRequest(email, password))
+    forgotPasswordRequest: (email, className) =>
+        dispatch(forgotPasswordRequest(email, className))
 });
 
 export default connect(
     undefined,
     mapDispatchToProps
-)(LoginForm);
+)(ForgotPasswordForm);

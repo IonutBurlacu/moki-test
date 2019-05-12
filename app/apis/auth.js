@@ -86,4 +86,32 @@ export default class AuthAPI {
             }
         });
     }
+
+    static forgotPassword(headers = {}, email) {
+        const encrypted = encrypt({
+            email
+        });
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: `${host}${root}/reset_password`,
+                headers: {
+                    ...headers
+                },
+                data: {
+                    encrypted
+                }
+            })
+                .then(response => {
+                    resolve({ error: false, data: response.data });
+                    return true;
+                })
+                .catch(error => {
+                    reject({
+                        error: true,
+                        message: error.response.data
+                    });
+                });
+        });
+    }
 }

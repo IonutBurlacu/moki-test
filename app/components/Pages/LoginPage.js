@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Link from 'react-router-dom/Link';
 import { shell } from 'electron';
 import Footer from '../Footer';
 import Loader from '../Loader';
