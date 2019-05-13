@@ -108,17 +108,18 @@ export class PairBandsPage extends Component {
                                                             Last Paired: Never
                                                         </span>
                                                     ) : moment()
-                                                        .utc()
-                                                        .local()
-                                                        .diff(
-                                                            moment
-                                                                .utc(
-                                                                    player.band
-                                                                        .last_pair_at
-                                                                )
-                                                                .local(),
-                                                            'minutes'
-                                                        ) > 10 ? (
+                                                          .utc()
+                                                          .local()
+                                                          .diff(
+                                                              moment
+                                                                  .utc(
+                                                                      player
+                                                                          .band
+                                                                          .last_pair_at
+                                                                  )
+                                                                  .local(),
+                                                              'minutes'
+                                                          ) > 10 ? (
                                                         <span className="subtitle red">
                                                             Last Paired:{' '}
                                                             {moment
@@ -216,13 +217,13 @@ export class PairBandsPage extends Component {
                                                                     : player.current_steps
                                                                 : player.current_steps >
                                                                   0
-                                                                    ? Math.round(
-                                                                          ((player.previous_steps -
-                                                                              player.current_steps) *
-                                                                              100) /
-                                                                              player.previous_steps
-                                                                      )
-                                                                    : 100}
+                                                                ? Math.round(
+                                                                      ((player.previous_steps -
+                                                                          player.current_steps) *
+                                                                          100) /
+                                                                          player.previous_steps
+                                                                  )
+                                                                : 100}
                                                             %
                                                         </span>
                                                     </td>

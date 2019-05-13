@@ -105,16 +105,19 @@ export class TeamChart extends Component {
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    <span className="percentage">
-                                        {totalOverview > totalOverviewPrevious
-                                            ? totalOverviewPrevious > 0
-                                                ? (
-                                                      (totalOverview * 100) /
-                                                          totalOverviewPrevious -
-                                                      100
-                                                  ).toFixed(0)
-                                                : totalOverview
-                                            : totalOverview > 0
+                                    {totalOverviewPrevious > 0 ? (
+                                        <span className="percentage">
+                                            {totalOverview >
+                                            totalOverviewPrevious
+                                                ? totalOverviewPrevious > 0
+                                                    ? (
+                                                          (totalOverview *
+                                                              100) /
+                                                              totalOverviewPrevious -
+                                                          100
+                                                      ).toFixed(0)
+                                                    : totalOverview
+                                                : totalOverview > 0
                                                 ? (
                                                       ((totalOverviewPrevious -
                                                           totalOverview) *
@@ -122,8 +125,11 @@ export class TeamChart extends Component {
                                                       totalOverviewPrevious
                                                   ).toFixed(0)
                                                 : 100}
-                                        %
-                                    </span>
+                                            %
+                                        </span>
+                                    ) : (
+                                        <span className="percentage">NA</span>
+                                    )}
                                 </span>
                             ) : (
                                 <span className="positive">
