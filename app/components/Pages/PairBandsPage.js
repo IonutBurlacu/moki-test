@@ -28,7 +28,7 @@ export class PairBandsPage extends Component {
         this.props.showLoader();
         this.props.getPlayersRequest('today');
         this.state.playerId = this.props.match.params.id
-            ? parseInt(this.props.match.params.id)
+            ? parseInt(this.props.match.params.id, 10)
             : null;
     }
 
@@ -117,8 +117,8 @@ export class PairBandsPage extends Component {
                                                                         .last_pair_at
                                                                 )
                                                                 .local(),
-                                                            'seconds'
-                                                        ) > 60 ? (
+                                                            'minutes'
+                                                        ) > 10 ? (
                                                         <span className="subtitle red">
                                                             Last Paired:{' '}
                                                             {moment
