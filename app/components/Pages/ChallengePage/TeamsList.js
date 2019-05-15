@@ -35,15 +35,16 @@ export class TeamsList extends Component {
                                 key={item.id}
                             >
                                 <td style={{ width: '14vmin' }}>
-                                    <img
-                                        src={
-                                            item.avatar
-                                                ? `${s3URL}${item.avatar}`
-                                                : defaultAvatar
-                                        }
-                                        alt="avatar"
-                                        className="avatar"
-                                    />
+                                    <div className="avatar">
+                                        <img
+                                            src={
+                                                item.avatar
+                                                    ? `${s3URL}${item.avatar}`
+                                                    : defaultAvatar
+                                            }
+                                            alt="avatar"
+                                        />
+                                    </div>
                                 </td>
                                 <td style={{ width: '53.76vmin' }}>
                                     <h1 className="title">{item.name}</h1>
@@ -66,8 +67,8 @@ export class TeamsList extends Component {
                                                 item.percentage < 20
                                                     ? 'filler red'
                                                     : item.percentage < 70
-                                                        ? 'filler cyan'
-                                                        : 'filler green'
+                                                    ? 'filler cyan'
+                                                    : 'filler green'
                                             }
                                             style={{
                                                 width: `${item.percentage}%`

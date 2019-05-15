@@ -52,15 +52,16 @@ export class TeamsList extends Component {
                         {this.props.items.map(item => (
                             <tr key={item.id}>
                                 <td>
-                                    <img
-                                        src={
-                                            item.avatar
-                                                ? `${s3URL}${item.avatar}`
-                                                : defaultAvatar
-                                        }
-                                        className="avatar"
-                                        alt="avatar"
-                                    />
+                                    <div className="avatar">
+                                        <img
+                                            src={
+                                                item.avatar
+                                                    ? `${s3URL}${item.avatar}`
+                                                    : defaultAvatar
+                                            }
+                                            alt="avatar"
+                                        />
+                                    </div>
                                 </td>
                                 <td>
                                     <h1 className="title">{item.name}</h1>

@@ -10,15 +10,16 @@ export default class PageHeader extends Component {
             <div className="page-header">
                 <div className="col left">
                     <div className="left-side">
-                        <img
-                            src={
-                                this.props.player.avatar
-                                    ? `${s3URL}${this.props.player.avatar}`
-                                    : defaultAvatar
-                            }
-                            className="avatar"
-                            alt="avatar"
-                        />
+                        <div className="avatar">
+                            <img
+                                src={
+                                    this.props.player.avatar
+                                        ? `${s3URL}${this.props.player.avatar}`
+                                        : defaultAvatar
+                                }
+                                alt="avatar"
+                            />
+                        </div>
                     </div>
                     <div className="right-side">
                         <h3 className="title">

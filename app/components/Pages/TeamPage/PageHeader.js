@@ -12,15 +12,16 @@ export default class PageHeader extends Component {
             <div className="page-header">
                 <div className="col left">
                     <div className="left-side">
-                        <img
-                            src={
-                                team.avatar
-                                    ? `${s3URL}${team.avatar}`
-                                    : defaultAvatar
-                            }
-                            className="avatar"
-                            alt="avatar"
-                        />
+                        <div className="avatar">
+                            <img
+                                src={
+                                    team.avatar
+                                        ? `${s3URL}${team.avatar}`
+                                        : defaultAvatar
+                                }
+                                alt="avatar"
+                            />
+                        </div>
                     </div>
                     <div className="right-side">
                         <h3 className="title">{team.name}</h3>

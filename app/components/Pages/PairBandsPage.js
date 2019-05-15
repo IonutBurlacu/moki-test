@@ -78,17 +78,18 @@ export class PairBandsPage extends Component {
                                                 }
                                             >
                                                 <td>
-                                                    <img
-                                                        src={
-                                                            player.avatar
-                                                                ? `${s3URL}${
-                                                                      player.avatar
-                                                                  }`
-                                                                : defaultAvatar
-                                                        }
-                                                        className="avatar"
-                                                        alt="avatar"
-                                                    />
+                                                    <div className="avatar">
+                                                        <img
+                                                            src={
+                                                                player.avatar
+                                                                    ? `${s3URL}${
+                                                                          player.avatar
+                                                                      }`
+                                                                    : defaultAvatar
+                                                            }
+                                                            alt="avatar"
+                                                        />
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <h1 className="title">

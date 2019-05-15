@@ -12,15 +12,18 @@ export default class PageHeader extends Component {
             <div className="page-header">
                 <div className="col left">
                     <div className="left-side">
-                        <img
-                            src={
-                                this.props.challenge.avatar
-                                    ? `${s3URL}${this.props.challenge.avatar}`
-                                    : defaultAvatar
-                            }
-                            alt="avatar"
-                            className="avatar"
-                        />
+                        <div className="avatar">
+                            <img
+                                src={
+                                    this.props.challenge.avatar
+                                        ? `${s3URL}${
+                                              this.props.challenge.avatar
+                                          }`
+                                        : defaultAvatar
+                                }
+                                alt="avatar"
+                            />
+                        </div>
                     </div>
                     <div className="right-side">
                         <h3 className="title">{this.props.challenge.name}</h3>

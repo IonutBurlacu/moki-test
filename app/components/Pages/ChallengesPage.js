@@ -55,17 +55,18 @@ export class ChallengesPage extends Component {
                                     {challenges.map(challenge => (
                                         <tr key={challenge.id}>
                                             <td>
-                                                <img
-                                                    src={
-                                                        challenge.avatar
-                                                            ? `${s3URL}${
-                                                                  challenge.avatar
-                                                              }`
-                                                            : defaultAvatar
-                                                    }
-                                                    className="avatar"
-                                                    alt="avatar"
-                                                />
+                                                <div className="avatar">
+                                                    <img
+                                                        src={
+                                                            challenge.avatar
+                                                                ? `${s3URL}${
+                                                                      challenge.avatar
+                                                                  }`
+                                                                : defaultAvatar
+                                                        }
+                                                        alt="avatar"
+                                                    />
+                                                </div>
                                             </td>
                                             <td
                                                 onClick={() =>

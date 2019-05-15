@@ -159,15 +159,16 @@ export class AddPlayerForm extends Component {
                     <form action="">
                         <div className="top-side">
                             <div className="left-side">
-                                <img
-                                    src={
-                                        this.state.filePreview
-                                            ? this.state.filePreview
-                                            : this.state.defaultAvatar.file
-                                    }
-                                    className="avatar"
-                                    alt="avatar"
-                                />
+                                <div className="avatar">
+                                    <img
+                                        src={
+                                            this.state.filePreview
+                                                ? this.state.filePreview
+                                                : this.state.defaultAvatar.file
+                                        }
+                                        alt="avatar"
+                                    />
+                                </div>
                                 <label
                                     htmlFor="avatar"
                                     className="edit-photo-button"

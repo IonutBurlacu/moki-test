@@ -75,17 +75,18 @@ export class EditChallengeForm extends Component {
                 <div className="challenge-form">
                     <form action="">
                         <div className="left-side">
-                            <img
-                                src={
-                                    this.state.filePreview
-                                        ? this.state.filePreview
-                                        : this.state.avatar
-                                        ? `${s3URL}${this.state.avatar}`
-                                        : defaultAvatar
-                                }
-                                className="avatar"
-                                alt="avatar"
-                            />
+                            <div className="avatar">
+                                <img
+                                    src={
+                                        this.state.filePreview
+                                            ? this.state.filePreview
+                                            : this.state.avatar
+                                            ? `${s3URL}${this.state.avatar}`
+                                            : defaultAvatar
+                                    }
+                                    alt="avatar"
+                                />
+                            </div>
                             <label
                                 htmlFor="avatar"
                                 className="edit-photo-button"

@@ -35,17 +35,18 @@ export class PlayersListModal extends Component {
                                                     width: '14vmin'
                                                 }}
                                             >
-                                                <img
-                                                    src={
-                                                        item.avatar
-                                                            ? `${s3URL}${
-                                                                  item.avatar
-                                                              }`
-                                                            : defaultAvatar
-                                                    }
-                                                    className="avatar"
-                                                    alt="avatar"
-                                                />
+                                                <div className="avatar">
+                                                    <img
+                                                        src={
+                                                            item.avatar
+                                                                ? `${s3URL}${
+                                                                      item.avatar
+                                                                  }`
+                                                                : defaultAvatar
+                                                        }
+                                                        alt="avatar"
+                                                    />
+                                                </div>
                                             </td>
                                             <td>
                                                 <h1 className="title">

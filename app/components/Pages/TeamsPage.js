@@ -56,17 +56,18 @@ export class TeamsPage extends Component {
                                     {teams.map(team => (
                                         <tr key={team.id}>
                                             <td>
-                                                <img
-                                                    src={
-                                                        team.avatar
-                                                            ? `${s3URL}${
-                                                                  team.avatar
-                                                              }`
-                                                            : defaultAvatar
-                                                    }
-                                                    className="avatar"
-                                                    alt="avatar"
-                                                />
+                                                <div className="avatar">
+                                                    <img
+                                                        src={
+                                                            team.avatar
+                                                                ? `${s3URL}${
+                                                                      team.avatar
+                                                                  }`
+                                                                : defaultAvatar
+                                                        }
+                                                        alt="avatar"
+                                                    />
+                                                </div>
                                             </td>
                                             <td
                                                 onClick={() =>

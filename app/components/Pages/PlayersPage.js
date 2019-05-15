@@ -63,17 +63,18 @@ export class PlayersPage extends Component {
                                     {players.map(player => (
                                         <tr key={player.id}>
                                             <td>
-                                                <img
-                                                    src={
-                                                        player.avatar
-                                                            ? `${s3URL}${
-                                                                  player.avatar
-                                                              }`
-                                                            : defaultAvatar
-                                                    }
-                                                    className="avatar"
-                                                    alt="avatar"
-                                                />
+                                                <div className="avatar">
+                                                    <img
+                                                        src={
+                                                            player.avatar
+                                                                ? `${s3URL}${
+                                                                      player.avatar
+                                                                  }`
+                                                                : defaultAvatar
+                                                        }
+                                                        alt="avatar"
+                                                    />
+                                                </div>
                                             </td>
                                             <td
                                                 onClick={() =>

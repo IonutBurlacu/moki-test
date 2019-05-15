@@ -32,17 +32,18 @@ export class SyncBandsPage extends Component {
                                 <li key={key} className="sync-body">
                                     <div className="top">
                                         <div className="left">
-                                            <img
-                                                src={
-                                                    sync.avatar
-                                                        ? `${s3URL}${
-                                                              sync.avatar
-                                                          }`
-                                                        : defaultAvatar
-                                                }
-                                                className="avatar"
-                                                alt="avatar"
-                                            />
+                                            <div className="avatar">
+                                                <img
+                                                    src={
+                                                        sync.avatar
+                                                            ? `${s3URL}${
+                                                                  sync.avatar
+                                                              }`
+                                                            : defaultAvatar
+                                                    }
+                                                    alt="avatar"
+                                                />
+                                            </div>
                                         </div>
                                         <div className="right">
                                             <h1 className="title">
