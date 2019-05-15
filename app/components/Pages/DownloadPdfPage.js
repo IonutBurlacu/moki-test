@@ -155,7 +155,9 @@ export class DownloadPdfPage extends Component {
                                             >
                                                 <span className="percentage-icon" />
                                                 <span className="percentage">
-                                                    {team.percentage}%
+                                                    {team.percentage !== -1
+                                                        ? `${team.percentage}%`
+                                                        : 'NA'}
                                                 </span>
                                             </td>
                                             <td className="align-right">
@@ -202,7 +204,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getDownloadPdfTeamsRequest: (dateByType, dateByStartDate, dateByEndDate) =>
         dispatch(
-            getDownloadPdfTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
+            getDownloadPdfTeamsRequest(
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
+            )
         ),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     addTeamToDownloadPdf: teamId => dispatch(addTeamToDownloadPdf(teamId)),

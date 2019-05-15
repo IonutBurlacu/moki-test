@@ -39,16 +39,17 @@ export default (
                 items: action.teams.map(team => ({
                     ...team,
                     percentage:
-                        team.previous_steps - team.current_steps !== 0
-                            ? team.current_steps > team.previous_steps
-                                ? team.previous_steps > 0
-                                    ? Math.round(
-                                          (team.current_steps * 100) /
-                                              team.previous_steps -
-                                              100
-                                      )
-                                    : team.current_steps
-                                : team.current_steps > 0
+                        team.previous_steps > 0
+                            ? team.previous_steps - team.current_steps !== 0
+                                ? team.current_steps > team.previous_steps
+                                    ? team.previous_steps > 0
+                                        ? Math.round(
+                                              (team.current_steps * 100) /
+                                                  team.previous_steps -
+                                                  100
+                                          )
+                                        : team.current_steps
+                                    : team.current_steps > 0
                                     ? Math.round(
                                           ((team.previous_steps -
                                               team.current_steps) *
@@ -56,7 +57,8 @@ export default (
                                               team.previous_steps
                                       )
                                     : 100
-                            : 0
+                                : 0
+                            : -1
                 })),
                 loading: false
             };

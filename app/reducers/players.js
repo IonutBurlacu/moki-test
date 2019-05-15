@@ -42,16 +42,17 @@ export default (
                 items: action.players.map(player => ({
                     ...player,
                     percentage:
-                        player.previous_steps - player.current_steps !== 0
-                            ? player.current_steps > player.previous_steps
-                                ? player.previous_steps > 0
-                                    ? Math.round(
-                                          (player.current_steps * 100) /
-                                              player.previous_steps -
-                                              100
-                                      )
-                                    : player.current_steps
-                                : player.current_steps > 0
+                        player.previous_steps > 0
+                            ? player.previous_steps - player.current_steps !== 0
+                                ? player.current_steps > player.previous_steps
+                                    ? player.previous_steps > 0
+                                        ? Math.round(
+                                              (player.current_steps * 100) /
+                                                  player.previous_steps -
+                                                  100
+                                          )
+                                        : player.current_steps
+                                    : player.current_steps > 0
                                     ? Math.round(
                                           ((player.previous_steps -
                                               player.current_steps) *
@@ -59,7 +60,8 @@ export default (
                                               player.previous_steps
                                       )
                                     : 100
-                            : 0,
+                                : 0
+                            : -1,
                     age: moment().diff(moment(player.birthday), 'year')
                 })),
                 teams: action.teams,
@@ -326,11 +328,10 @@ export default (
                 items: [
                     ...state.items
                         .filter(player => player.id !== currentPlayer.id)
-                        .map(
-                            player =>
-                                player.band && player.band.id === action.band.id
-                                    ? { ...player, band: null }
-                                    : player
+                        .map(player =>
+                            player.band && player.band.id === action.band.id
+                                ? { ...player, band: null }
+                                : player
                         ),
                     currentPlayer
                 ]

@@ -141,7 +141,9 @@ export class TeamsPage extends Component {
                                             >
                                                 <span className="percentage-icon" />
                                                 <span className="percentage">
-                                                    {team.percentage}%
+                                                    {team.percentage !== -1
+                                                        ? `${team.percentage}%`
+                                                        : 'NA'}
                                                 </span>
                                             </td>
                                             <td className="align-right">

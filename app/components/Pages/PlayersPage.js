@@ -166,7 +166,11 @@ export class PlayersPage extends Component {
                                             >
                                                 <span className="percentage-icon" />
                                                 <span className="percentage">
-                                                    {player.percentage}%
+                                                    {player.percentage !== -1
+                                                        ? `${
+                                                              player.percentage
+                                                          }%`
+                                                        : 'NA'}
                                                 </span>
                                             </td>
                                             <td className="align-right">

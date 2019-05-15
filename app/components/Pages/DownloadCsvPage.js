@@ -155,7 +155,9 @@ export class DownloadCsvPage extends Component {
                                             >
                                                 <span className="percentage-icon" />
                                                 <span className="percentage">
-                                                    {team.percentage}%
+                                                    {team.percentage !== -1
+                                                        ? `${team.percentage}%`
+                                                        : 'NA'}
                                                 </span>
                                             </td>
                                             <td className="align-right">
@@ -202,7 +204,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getDownloadCsvTeamsRequest: (dateByType, dateByStartDate, dateByEndDate) =>
         dispatch(
-            getDownloadCsvTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
+            getDownloadCsvTeamsRequest(
+                dateByType,
+                dateByStartDate,
+                dateByEndDate
+            )
         ),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     addTeamToDownloadCsv: teamId => dispatch(addTeamToDownloadCsv(teamId)),
