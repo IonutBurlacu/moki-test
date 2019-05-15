@@ -13,7 +13,7 @@ class LoginPage extends Component {
     };
 
     handleVideoTutorials = () => {
-        shell.openExternal('https://www.moki.technology/tutorials');
+        shell.openExternal('https://moki.technology/pages/faq');
     };
 
     render() {
