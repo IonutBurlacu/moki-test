@@ -170,8 +170,8 @@ export class NFCListener extends Component {
                             // Send the steps to the server
                             this.props.syncBandRequest(
                                 this.state.uuid,
-                                this.state.allSteps.sort(
-                                    (a, b) => (a.date > b.date ? 1 : -1)
+                                this.state.allSteps.sort((a, b) =>
+                                    a.date > b.date ? 1 : -1
                                 ),
                                 (responseAsHex[0] / 9) * 100
                             );
@@ -239,7 +239,7 @@ export class NFCListener extends Component {
                             stepsForDay.steps.push({
                                 hour_id: key * 8 + j,
                                 steps: stepsForHour
-                            })
+                            });
                         }
                     }
                 });

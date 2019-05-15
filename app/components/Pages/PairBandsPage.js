@@ -104,7 +104,7 @@ export class PairBandsPage extends Component {
                                                             to Pair
                                                         </span>
                                                     ) : player.band === null ? (
-                                                        <span className="subtitle red">
+                                                        <span className="subtitle grey">
                                                             Last Paired: Never
                                                         </span>
                                                     ) : moment()

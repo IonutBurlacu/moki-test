@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isBoolean } from 'util';
 import host from '../constants/serverUrl';
 import encrypt from '../utils/encrypt';
 
@@ -62,6 +63,9 @@ export default class AuthAPI {
     }
 
     static changeSetting(headers = {}, settingName, settingValue) {
+        if (isBoolean(settingValue)) {
+            settingValue = settingValue ? 1 : 0;
+        }
         const encrypted = encrypt({
             [settingName]: settingValue
         });
