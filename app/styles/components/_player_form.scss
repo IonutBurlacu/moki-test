@@ -6,13 +6,6 @@
     justify-content: center;
     padding: 3vmin 0;
 
-    .delete-button {
-        background: transparent;
-        border: none;
-        color: #6ee05d;
-        font-size: 3vmin;
-    }
-
     form {
         width: 160vmin;
 
@@ -167,4 +160,19 @@
     .center-side {
         flex: 1;
     }
+}
+
+.delete-wrapper {
+    background: #393d84;
+    display: flex;
+    justify-content: center;
+    padding: 2.5vmin;
+}
+
+.delete-button {
+    background: transparent;
+    border: 1px solid #6ee05d;
+    color: #6ee05d;
+    font-size: 3vmin;
+    padding: 0.8vmin 3vmin;
 }

@@ -5,8 +5,15 @@ import EditChallengeForm from './EditChallengePage/EditChallengeForm';
 import TeamsList from './EditChallengePage/TeamsList';
 import PlayersList from './EditChallengePage/PlayersList';
 import Alert from '../Alert';
+import { deleteChallengeRequest } from '../../actions/challenges';
+import { showLoader } from '../../actions/loader';
 
 export class EditChallengePage extends Component {
+    handleDelete = () => {
+        this.props.showLoader();
+        this.props.deleteChallengeRequest(this.props.match.params.id);
+    };
+
     render() {
         return (
             <div className="container">
@@ -26,6 +33,15 @@ export class EditChallengePage extends Component {
                                 id={this.props.match.params.id}
                             />
                         )}
+                        <div className="delete-wrapper">
+                            <button
+                                type="button"
+                                className="delete-button"
+                                onClick={() => this.handleDelete()}
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 ) : (
                     <div className="content" />
@@ -43,4 +59,12 @@ const mapStateToProps = state => ({
     players: state.challenges.players
 });
 
-export default connect(mapStateToProps)(EditChallengePage);
+const mapDispatchToProps = dispatch => ({
+    deleteChallengeRequest: id => dispatch(deleteChallengeRequest(id)),
+    showLoader: () => dispatch(showLoader())
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(EditChallengePage);

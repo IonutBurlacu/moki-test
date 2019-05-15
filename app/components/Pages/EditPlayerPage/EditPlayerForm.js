@@ -7,10 +7,7 @@ import moment from 'moment';
 import AutoSuggestInput from '../../AutoSuggestInput';
 import AutoSuggestTags from '../../AutoSuggestTags';
 import { Header } from '../../Header';
-import {
-    updatePlayerRequest,
-    deletePlayerRequest
-} from '../../../actions/players';
+import { updatePlayerRequest } from '../../../actions/players';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import defaultAvatar from '../../../images/default_avatar.png';
@@ -87,11 +84,6 @@ export class EditPlayerForm extends Component {
         this.setState({
             tags
         });
-    };
-
-    handleDelete = () => {
-        this.props.showLoader();
-        this.props.deletePlayerRequest(this.props.id);
     };
 
     render() {
@@ -265,7 +257,7 @@ export class EditPlayerForm extends Component {
                                         id="firstName"
                                         name="first_name"
                                         autoComplete="off"
-                                        readOnly="true"
+                                        readOnly
                                         onClick={this.toggleCalendar}
                                         value={moment(
                                             this.state.birthday
@@ -349,13 +341,6 @@ export class EditPlayerForm extends Component {
                             </div>
                         </div>
                     </form>
-                    <button
-                        type="button"
-                        className="delete-button"
-                        onClick={() => this.handleDelete()}
-                    >
-                        Delete
-                    </button>
                 </div>
             </div>
         );
@@ -372,7 +357,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     updatePlayerRequest: (player, id) =>
         dispatch(updatePlayerRequest(player, id)),
-    deletePlayerRequest: id => dispatch(deletePlayerRequest(id)),
     showLoader: () => dispatch(showLoader()),
     showAlert: message => dispatch(showAlert(message))
 });

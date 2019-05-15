@@ -287,7 +287,7 @@ export class AddPlayerForm extends Component {
                                         id="firstName"
                                         name="first_name"
                                         autoComplete="off"
-                                        readOnly="true"
+                                        readOnly
                                         onClick={this.toggleCalendar}
                                         value={moment(
                                             this.state.birthday

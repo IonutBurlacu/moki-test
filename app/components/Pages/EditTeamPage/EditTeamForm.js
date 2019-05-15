@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import { Header } from '../../Header';
-import { updateTeamRequest, deleteTeamRequest } from '../../../actions/teams';
+import { updateTeamRequest } from '../../../actions/teams';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import defaultAvatar from '../../../images/default_avatar.png';
@@ -49,11 +49,6 @@ export class EditTeamForm extends Component {
                 filePreview: URL.createObjectURL(file)
             });
         }
-    };
-
-    handleDelete = () => {
-        this.props.showLoader();
-        this.props.deleteTeamRequest(this.props.id);
     };
 
     render() {
@@ -115,13 +110,6 @@ export class EditTeamForm extends Component {
                             </div>
                         </div>
                     </form>
-                    <button
-                        type="button"
-                        className="delete-button"
-                        onClick={() => this.handleDelete()}
-                    >
-                        Delete
-                    </button>
                 </div>
             </div>
         );
@@ -134,7 +122,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     updateTeamRequest: (team, id) => dispatch(updateTeamRequest(team, id)),
-    deleteTeamRequest: id => dispatch(deleteTeamRequest(id)),
     showLoader: () => dispatch(showLoader()),
     showAlert: message => dispatch(showAlert(message))
 });
