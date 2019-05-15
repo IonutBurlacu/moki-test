@@ -5,36 +5,57 @@ import BandsAPI from '../apis/bands';
 
 export function* pairBand(action) {
     const token = yield select(getToken);
-    const response = yield call(
-        BandsAPI.pair,
-        { Authorization: token },
-        action
-    );
 
-    const decoded = decrypt(response.data);
+    try {
+        const response = yield call(
+            BandsAPI.pair,
+            { Authorization: token },
+            action
+        );
 
-    if (decoded.status) {
+        const decoded = decrypt(response.data);
+
+        if (decoded.status) {
+            yield put({
+                type: 'PAIR_BAND_TO_PLAYER',
+                id: action.id,
+                band: decoded.band
+            });
+
+            yield put({
+                type: 'PAIR_BAND'
+            });
+
+            yield put({
+                type: 'PLAY_PAIR_SOUND'
+            });
+
+            yield put({
+                type: 'SHOW_ALERT',
+                message: decoded.message
+            });
+        } else {
+            yield put({
+                type: 'PAIR_BAND'
+            });
+
+            yield put({
+                type: 'PLAY_FAIL_SOUND'
+            });
+
+            yield put({
+                type: 'SHOW_ALERT',
+                message: decoded.message
+            });
+        }
+
         yield put({
-            type: 'PAIR_BAND_TO_PLAYER',
-            id: action.id,
-            band: decoded.band
+            type: 'HIDE_LOADER'
         });
-
-        yield put({
-            type: 'PAIR_BAND'
-        });
-
-        yield put({
-            type: 'PLAY_PAIR_SOUND'
-        });
-
+    } catch (error) {
         yield put({
             type: 'SHOW_ALERT',
-            message: decoded.message
-        });
-    } else {
-        yield put({
-            type: 'PAIR_BAND'
+            message: 'Server error.'
         });
 
         yield put({
@@ -42,40 +63,55 @@ export function* pairBand(action) {
         });
 
         yield put({
-            type: 'SHOW_ALERT',
-            message: decoded.message
+            type: 'HIDE_LOADER'
         });
     }
-
-    yield put({
-        type: 'HIDE_LOADER'
-    });
 }
 
 export function* syncBand(action) {
     const token = yield select(getToken);
-    const response = yield call(
-        BandsAPI.sync,
-        { Authorization: token },
-        action
-    );
+    try {
+        const response = yield call(
+            BandsAPI.sync,
+            { Authorization: token },
+            action
+        );
 
-    const decoded = decrypt(response.data);
+        const decoded = decrypt(response.data);
 
-    if (decoded.status) {
+        if (decoded.status) {
+            yield put({
+                type: 'SYNC_BAND',
+                player: decoded.player,
+                totalSteps: decoded.totalSteps,
+                batteryLevel: action.batteryLevel
+            });
+
+            yield put({
+                type: 'PLAY_SYNC_SOUND'
+            });
+        } else {
+            yield put({
+                type: 'SYNC_BAND_FAILED'
+            });
+
+            yield put({
+                type: 'PLAY_FAIL_SOUND'
+            });
+
+            yield put({
+                type: 'SHOW_ALERT',
+                message: decoded.message
+            });
+        }
+
         yield put({
-            type: 'SYNC_BAND',
-            player: decoded.player,
-            totalSteps: decoded.totalSteps,
-            batteryLevel: action.batteryLevel
+            type: 'HIDE_LOADER'
         });
-
+    } catch (error) {
         yield put({
-            type: 'PLAY_SYNC_SOUND'
-        });
-    } else {
-        yield put({
-            type: 'SYNC_BAND_FAILED'
+            type: 'SHOW_ALERT',
+            message: 'Server error.'
         });
 
         yield put({
@@ -83,12 +119,7 @@ export function* syncBand(action) {
         });
 
         yield put({
-            type: 'SHOW_ALERT',
-            message: decoded.message
+            type: 'HIDE_LOADER'
         });
     }
-
-    yield put({
-        type: 'HIDE_LOADER'
-    });
 }
