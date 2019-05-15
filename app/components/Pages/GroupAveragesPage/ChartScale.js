@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { shell } from 'electron';
 
 export class ChartScale extends Component {
+    handleScaleClick = () => {
+        shell.openExternal('https://www.moki.technology/scale');
+    };
+
     render() {
         const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
         const LABELS = [
@@ -16,7 +21,12 @@ export class ChartScale extends Component {
                 <div className="chart-scale">
                     <div className="chart-scale-header">
                         <p>Moki Scale</p>
-                        <span className="tooltip">?</span>
+                        <span
+                            className="tooltip"
+                            onClick={this.handleScaleClick}
+                        >
+                            ?
+                        </span>
                     </div>
                     <div className="chart-scale-body">
                         {COLORS.reverse().map((color, index) => (
