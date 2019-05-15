@@ -175,7 +175,7 @@ export class AddChallengeForm extends Component {
                                     htmlFor="targetSteps"
                                     className="form-label required"
                                 >
-                                    Distance
+                                    Steps
                                 </label>
                                 <input
                                     type="number"

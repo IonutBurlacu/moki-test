@@ -80,8 +80,8 @@ export class EditChallengeForm extends Component {
                                     this.state.filePreview
                                         ? this.state.filePreview
                                         : this.state.avatar
-                                            ? `${s3URL}${this.state.avatar}`
-                                            : defaultAvatar
+                                        ? `${s3URL}${this.state.avatar}`
+                                        : defaultAvatar
                                 }
                                 className="avatar"
                                 alt="avatar"
@@ -119,7 +119,7 @@ export class EditChallengeForm extends Component {
                                     htmlFor="targetSteps"
                                     className="form-label"
                                 >
-                                    Distance
+                                    Steps
                                 </label>
                                 <input
                                     type="number"
