@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
+import Store from 'electron-store';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import { loginRequest } from '../../../actions/auth';
+
+const store = new Store();
 
 export class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            email: store.get('email', ''),
             password: ''
         };
     }
@@ -24,6 +27,7 @@ export class LoginForm extends Component {
         if (this.state.email === '' || this.state.password === '') {
             this.props.showAlert('All fields are required.');
         } else {
+            store.set('email', this.state.email);
             this.props.showLoader();
             this.props.loginRequest(this.state.email, this.state.password);
         }
@@ -46,6 +50,7 @@ export class LoginForm extends Component {
                             className="form-input"
                             id="email"
                             name="email"
+                            value={this.state.email}
                             onChange={this.handleInputChange}
                         />
                     </div>
