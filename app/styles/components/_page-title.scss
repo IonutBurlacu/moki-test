@@ -30,6 +30,7 @@
         font-size: 3.5vmin;
         font-weight: normal;
         margin-bottom: 3vmin;
+        margin-top: 3vmin;
         position: relative;
     }
 
@@ -44,5 +45,10 @@
 
 .reports-page-title-big {
     flex-direction: column;
-    height: 25vmin;
+    height: 23vmin;
+
+    h1 {
+        line-height: 1;
+        margin-top: 0;
+    }
 }
