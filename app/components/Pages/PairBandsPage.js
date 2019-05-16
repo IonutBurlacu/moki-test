@@ -48,9 +48,9 @@ export class PairBandsPage extends Component {
                     leftButton={<div />}
                     rightButton={<Link to="/players">Done</Link>}
                 />
+                <PageTitle title="Pair Bands" isGreen />
                 {!loading ? (
                     <div className="content">
-                        <PageTitle title="Pair Bands" isGreen />
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>

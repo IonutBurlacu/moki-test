@@ -24,9 +24,9 @@ export class SyncBandsPage extends Component {
                     leftButton={<Link to="/players">Back</Link>}
                     rightButton={<div />}
                 />
+                <PageTitle title="Recording Steps" isGreen />
                 {!this.props.loading ? (
                     <div className="content">
-                        <PageTitle title="Recording Steps" isGreen />
                         <ul className="syncs-wrapper">
                             {this.props.syncs.map((sync, key) => (
                                 <li key={key} className="sync-body">
