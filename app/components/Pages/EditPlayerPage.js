@@ -8,10 +8,25 @@ import Alert from '../Alert';
 import { deletePlayerRequest } from '../../actions/players';
 import { showLoader } from '../../actions/loader';
 
+const { dialog } = require('electron').remote;
+
 export class EditPlayerPage extends Component {
     handleDelete = () => {
-        this.props.showLoader();
-        this.props.deletePlayerRequest(this.props.match.params.id);
+        dialog.showMessageBox(
+            null,
+            {
+                type: 'question',
+                buttons: ['Cancel', 'Yes'],
+                title: 'Confirm',
+                message: 'Are you sure you want to delete this Player?'
+            },
+            response => {
+                if (response === 1) {
+                    this.props.showLoader();
+                    this.props.deletePlayerRequest(this.props.match.params.id);
+                }
+            }
+        );
     };
 
     render() {

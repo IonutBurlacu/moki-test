@@ -8,10 +8,27 @@ import Alert from '../Alert';
 import { deleteChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
 
+const { dialog } = require('electron').remote;
+
 export class EditChallengePage extends Component {
     handleDelete = () => {
-        this.props.showLoader();
-        this.props.deleteChallengeRequest(this.props.match.params.id);
+        dialog.showMessageBox(
+            null,
+            {
+                type: 'question',
+                buttons: ['Cancel', 'Yes'],
+                title: 'Confirm',
+                message: 'Are you sure you want to delete this Challenge?'
+            },
+            response => {
+                if (response === 1) {
+                    this.props.showLoader();
+                    this.props.deleteChallengeRequest(
+                        this.props.match.params.id
+                    );
+                }
+            }
+        );
     };
 
     render() {

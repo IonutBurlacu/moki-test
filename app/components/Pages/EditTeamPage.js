@@ -8,10 +8,25 @@ import Alert from '../Alert';
 import { deleteTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
 
+const { dialog } = require('electron').remote;
+
 export class EditTeamPage extends Component {
     handleDelete = () => {
-        this.props.showLoader();
-        this.props.deleteTeamRequest(this.props.match.params.id);
+        dialog.showMessageBox(
+            null,
+            {
+                type: 'question',
+                buttons: ['Cancel', 'Yes'],
+                title: 'Confirm',
+                message: 'Are you sure you want to delete this Team?'
+            },
+            response => {
+                if (response === 1) {
+                    this.props.showLoader();
+                    this.props.deleteTeamRequest(this.props.match.params.id);
+                }
+            }
+        );
     };
 
     render() {
