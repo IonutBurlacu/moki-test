@@ -163,7 +163,7 @@ export class SettingsPage extends Component {
                             type="button"
                             onClick={this.handleVideoTutorials}
                         >
-                            Video Tutorials
+                            Help Centre
                         </button>
                     }
                 />
