@@ -197,7 +197,8 @@ export class SettingsPage extends Component {
                                     <tr>
                                         <td>
                                             <span className="setting-label">
-                                                Time Range
+                                                Time Range Displayed on Today
+                                                Graph
                                             </span>
                                         </td>
                                         <td className="align-right switch-column">
