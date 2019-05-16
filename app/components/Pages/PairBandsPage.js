@@ -105,9 +105,20 @@ export class PairBandsPage extends Component {
                                                             to Pair
                                                         </span>
                                                     ) : player.band === null ? (
-                                                        <span className="subtitle grey">
-                                                            Last Paired: Never
-                                                        </span>
+                                                        player.current_steps ===
+                                                            0 &&
+                                                        player.previous_steps ===
+                                                            0 ? (
+                                                            <span className="subtitle grey">
+                                                                Last Paired:
+                                                                Never
+                                                            </span>
+                                                        ) : (
+                                                            <span className="subtitle grey">
+                                                                Last Paired: Not
+                                                                Currently Paired
+                                                            </span>
+                                                        )
                                                     ) : moment()
                                                           .utc()
                                                           .local()
