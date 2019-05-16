@@ -3,10 +3,10 @@ const getFilteredPlayers = (players, { filterByValues, sortBy }) =>
         .filter(player => {
             if (filterByValues.length) {
                 const teamIds = player.teams.map(team => team.id);
-                return (
-                    filterByValues.filter(teamId => teamIds.includes(teamId))
-                        .length === filterByValues.length
+                const teamIdsIncluding = filterByValues.filter(teamId =>
+                    teamIds.includes(teamId)
                 );
+                return teamIdsIncluding.length > 0;
             }
             return true;
         })
