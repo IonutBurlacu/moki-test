@@ -1,5 +1,7 @@
 .table-wrapper {
     // padding: 0 3vmin;
+    position: relative;
+    z-index: 998;
 }
 
 .table {

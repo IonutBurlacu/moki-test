@@ -163,16 +163,19 @@
 }
 
 .delete-wrapper {
-    background: #393d84;
+    background: #ff2e5b;
     display: flex;
     justify-content: center;
+    margin-top: -1px;
     padding: 2.5vmin;
+    position: relative;
+    z-index: 999;
 }
 
 .delete-button {
     background: transparent;
-    border: 1px solid #6ee05d;
-    color: #6ee05d;
+    border: 1px solid white;
+    color: white;
     font-size: 3vmin;
     padding: 0.8vmin 3vmin;
 }
