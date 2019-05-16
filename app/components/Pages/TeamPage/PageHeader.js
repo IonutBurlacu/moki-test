@@ -8,20 +8,19 @@ const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 export default class PageHeader extends Component {
     render() {
         const { team } = this.props;
+        const imageSource = team.avatar
+            ? `${s3URL}${team.avatar}`
+            : defaultAvatar;
         return (
             <div className="page-header">
                 <div className="col left">
                     <div className="left-side">
-                        <div className="avatar">
-                            <img
-                                src={
-                                    team.avatar
-                                        ? `${s3URL}${team.avatar}`
-                                        : defaultAvatar
-                                }
-                                alt="avatar"
-                            />
-                        </div>
+                        <div
+                            className="avatar"
+                            style={{
+                                backgroundImage: `url('${imageSource}')`
+                            }}
+                        />
                     </div>
                     <div className="right-side">
                         <h3 className="title">{team.name}</h3>

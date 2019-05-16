@@ -53,108 +53,120 @@ export class TeamsPage extends Component {
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>
-                                    {teams.map(team => (
-                                        <tr key={team.id}>
-                                            <td>
-                                                <div className="avatar">
-                                                    <img
-                                                        src={
-                                                            team.avatar
-                                                                ? `${s3URL}${
-                                                                      team.avatar
-                                                                  }`
-                                                                : defaultAvatar
-                                                        }
-                                                        alt="avatar"
+                                    {teams.map(team => {
+                                        const imageSource = team.avatar
+                                            ? `${s3URL}${team.avatar}`
+                                            : defaultAvatar;
+                                        return (
+                                            <tr key={team.id}>
+                                                <td>
+                                                    <div
+                                                        className="avatar"
+                                                        style={{
+                                                            backgroundImage:
+                                                                `url(${ 
+                                                                imageSource 
+                                                                })`
+                                                        }}
                                                     />
-                                                </div>
-                                            </td>
-                                            <td
-                                                onClick={() =>
-                                                    this.handleView(team.id)
-                                                }
-                                            >
-                                                <h1 className="title">
-                                                    {team.name}
-                                                </h1>
-                                                <span className="subtitle">
-                                                    Last Sync:{' '}
-                                                    {team.last_sync_at === null
-                                                        ? 'Never'
-                                                        : moment
-                                                              .utc(
-                                                                  team.last_sync_at
-                                                              )
-                                                              .local()
-                                                              .format(
-                                                                  'DD/MM/YYYY \\at HH.mma'
-                                                              )}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                {team.challenges.length > 0 ? (
+                                                </td>
+                                                <td
+                                                    onClick={() =>
+                                                        this.handleView(team.id)
+                                                    }
+                                                >
+                                                    <h1 className="title">
+                                                        {team.name}
+                                                    </h1>
+                                                    <span className="subtitle">
+                                                        Last Sync:{' '}
+                                                        {team.last_sync_at ===
+                                                        null
+                                                            ? 'Never'
+                                                            : moment
+                                                                  .utc(
+                                                                      team.last_sync_at
+                                                                  )
+                                                                  .local()
+                                                                  .format(
+                                                                      'DD/MM/YYYY \\at HH.mma'
+                                                                  )}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {team.challenges.length >
+                                                    0 ? (
+                                                        <img
+                                                            src={
+                                                                challengesIconWide
+                                                            }
+                                                            className="icon"
+                                                            alt="icon"
+                                                        />
+                                                    ) : (
+                                                        ''
+                                                    )}
+                                                    <span className="icon-label">
+                                                        {team.challenges.map(
+                                                            item => (
+                                                                <span
+                                                                    key={
+                                                                        item.id
+                                                                    }
+                                                                    onClick={() =>
+                                                                        this.handleChallengeView(
+                                                                            item.id
+                                                                        )
+                                                                    }
+                                                                    className="table-link"
+                                                                >
+                                                                    {item.name}
+                                                                </span>
+                                                            )
+                                                        )}
+                                                    </span>
+                                                </td>
+                                                <td>
                                                     <img
-                                                        src={challengesIconWide}
+                                                        src={playersIconWide}
                                                         className="icon"
                                                         alt="icon"
-                                                    />
-                                                ) : (
-                                                    ''
-                                                )}
-                                                <span className="icon-label">
-                                                    {team.challenges.map(
-                                                        item => (
-                                                            <span
-                                                                key={item.id}
-                                                                onClick={() =>
-                                                                    this.handleChallengeView(
-                                                                        item.id
-                                                                    )
-                                                                }
-                                                                className="table-link"
-                                                            >
-                                                                {item.name}
-                                                            </span>
-                                                        )
-                                                    )}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <img
-                                                    src={playersIconWide}
-                                                    className="icon"
-                                                    alt="icon"
-                                                />{' '}
-                                                <span className="icon-label">
-                                                    {team.players_count} Player
-                                                    {team.players_count !== 1
-                                                        ? 's'
-                                                        : ''}
-                                                </span>
-                                            </td>
-                                            <td
-                                                className={
-                                                    team.current_steps <
-                                                    team.previous_steps
-                                                        ? 'negative align-right'
-                                                        : 'positive align-right'
-                                                }
-                                            >
-                                                <span className="percentage-icon" />
-                                                <span className="percentage">
-                                                    {team.percentage !== -1
-                                                        ? `${team.percentage}%`
-                                                        : 'NA'}
-                                                </span>
-                                            </td>
-                                            <td className="align-right">
-                                                <h1 className="title">
-                                                    {team.current_steps.toLocaleString()}
-                                                    <small>steps</small>
-                                                </h1>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                                    />{' '}
+                                                    <span className="icon-label">
+                                                        {team.players_count}{' '}
+                                                        Player
+                                                        {team.players_count !==
+                                                        1
+                                                            ? 's'
+                                                            : ''}
+                                                    </span>
+                                                </td>
+                                                <td
+                                                    className={
+                                                        team.current_steps <
+                                                        team.previous_steps
+                                                            ? 'negative align-right'
+                                                            : 'positive align-right'
+                                                    }
+                                                >
+                                                    <span className="percentage-icon" />
+                                                    <span className="percentage">
+                                                        {team.percentage !== -1
+                                                            ? `${
+                                                                  team.percentage
+                                                              }%`
+                                                            : 'NA'}
+                                                    </span>
+                                                </td>
+                                                <td className="align-right">
+                                                    <h1 className="title">
+                                                        {team.current_steps.toLocaleString()}
+                                                        <small>steps</small>
+                                                    </h1>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                     {teams.length === 0 ? (
                                         <tr className="no-items-row">
                                             <td>

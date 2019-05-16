@@ -103,6 +103,11 @@ export class EditPlayerForm extends Component {
             { value: 'male', label: 'Boy' },
             { value: 'female', label: 'Girl' }
         ];
+        const imageSource = this.state.filePreview
+            ? this.state.filePreview
+            : this.state.avatar
+            ? `${s3URL}${this.state.avatar}`
+            : defaultAvatar;
         return (
             <div>
                 <Header
@@ -117,18 +122,12 @@ export class EditPlayerForm extends Component {
                     <form action="">
                         <div className="top-side">
                             <div className="left-side">
-                                <div className="avatar">
-                                    <img
-                                        src={
-                                            this.state.filePreview
-                                                ? this.state.filePreview
-                                                : this.state.avatar
-                                                ? `${s3URL}${this.state.avatar}`
-                                                : defaultAvatar
-                                        }
-                                        alt="avatar"
-                                    />
-                                </div>
+                                <div
+                                    className="avatar"
+                                    style={{
+                                        backgroundImage: `url('${imageSource}')`
+                                    }}
+                                />
                                 <label
                                     htmlFor="avatar"
                                     className="edit-photo-button"

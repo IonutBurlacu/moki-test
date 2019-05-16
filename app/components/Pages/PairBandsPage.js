@@ -61,200 +61,208 @@ export class PairBandsPage extends Component {
                                                 player.id ===
                                                     this.state.playerId
                                         )
-                                        .map(player => (
-                                            <tr
-                                                onClick={() =>
-                                                    this.markAsSelected(
+                                        .map(player => {
+                                            const imageSource = player.avatar
+                                                ? `${s3URL}${player.avatar}`
+                                                : defaultAvatar;
+                                            return (
+                                                <tr
+                                                    onClick={() =>
+                                                        this.markAsSelected(
+                                                            player.id
+                                                        )
+                                                    }
+                                                    key={player.id}
+                                                    className={
+                                                        this.props
+                                                            .selectedPlayerId ===
                                                         player.id
-                                                    )
-                                                }
-                                                key={player.id}
-                                                className={
-                                                    this.props
-                                                        .selectedPlayerId ===
-                                                    player.id
-                                                        ? 'selected'
-                                                        : ''
-                                                }
-                                            >
-                                                <td>
-                                                    <div className="avatar">
-                                                        <img
-                                                            src={
-                                                                player.avatar
-                                                                    ? `${s3URL}${
-                                                                          player.avatar
-                                                                      }`
-                                                                    : defaultAvatar
-                                                            }
-                                                            alt="avatar"
+                                                            ? 'selected'
+                                                            : ''
+                                                    }
+                                                >
+                                                    <td>
+                                                        <div
+                                                            className="avatar"
+                                                            style={{
+                                                                backgroundImage: `url('${imageSource}')`
+                                                            }}
                                                         />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <h1 className="title">
-                                                        {`${
-                                                            player.first_name
-                                                        } ${player.last_name}`}
-                                                    </h1>
-                                                    {this.props
-                                                        .selectedPlayerId ===
-                                                    player.id ? (
-                                                        <span className="subtitle cyan">
-                                                            Tap Band on Reader
-                                                            to Pair
-                                                        </span>
-                                                    ) : player.band === null ? (
-                                                        player.current_steps ===
-                                                            0 &&
-                                                        player.previous_steps ===
-                                                            0 ? (
-                                                            <span className="subtitle grey">
-                                                                Last Paired:
-                                                                Never
+                                                    </td>
+                                                    <td>
+                                                        <h1 className="title">
+                                                            {`${
+                                                                player.first_name
+                                                            } ${
+                                                                player.last_name
+                                                            }`}
+                                                        </h1>
+                                                        {this.props
+                                                            .selectedPlayerId ===
+                                                        player.id ? (
+                                                            <span className="subtitle cyan">
+                                                                Tap Band on
+                                                                Reader to Pair
+                                                            </span>
+                                                        ) : player.band ===
+                                                          null ? (
+                                                            player.current_steps ===
+                                                                0 &&
+                                                            player.previous_steps ===
+                                                                0 ? (
+                                                                <span className="subtitle grey">
+                                                                    Last Paired:
+                                                                    Never
+                                                                </span>
+                                                            ) : (
+                                                                <span className="subtitle grey">
+                                                                    Last Paired:
+                                                                    Not
+                                                                    Currently
+                                                                    Paired
+                                                                </span>
+                                                            )
+                                                        ) : moment()
+                                                              .utc()
+                                                              .local()
+                                                              .diff(
+                                                                  moment
+                                                                      .utc(
+                                                                          player
+                                                                              .band
+                                                                              .last_pair_at
+                                                                      )
+                                                                      .local(),
+                                                                  'minutes'
+                                                              ) > 10 ? (
+                                                            <span className="subtitle red">
+                                                                Last Paired:{' '}
+                                                                {moment
+                                                                    .utc(
+                                                                        player
+                                                                            .band
+                                                                            .last_pair_at
+                                                                    )
+                                                                    .local()
+                                                                    .format(
+                                                                        'DD/MM/YYYY \\at HH.mma'
+                                                                    )}
                                                             </span>
                                                         ) : (
-                                                            <span className="subtitle grey">
-                                                                Last Paired: Not
-                                                                Currently Paired
+                                                            <span className="subtitle green">
+                                                                Last Paired:
+                                                                Just Now
                                                             </span>
-                                                        )
-                                                    ) : moment()
-                                                          .utc()
-                                                          .local()
-                                                          .diff(
-                                                              moment
-                                                                  .utc(
-                                                                      player
-                                                                          .band
-                                                                          .last_pair_at
-                                                                  )
-                                                                  .local(),
-                                                              'minutes'
-                                                          ) > 10 ? (
-                                                        <span className="subtitle red">
-                                                            Last Paired:{' '}
-                                                            {moment
-                                                                .utc(
-                                                                    player.band
-                                                                        .last_pair_at
-                                                                )
-                                                                .local()
-                                                                .format(
-                                                                    'DD/MM/YYYY \\at HH.mma'
-                                                                )}
-                                                        </span>
-                                                    ) : (
-                                                        <span className="subtitle green">
-                                                            Last Paired: Just
-                                                            Now
-                                                        </span>
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {player.challenges.length >
-                                                    0 ? (
-                                                        <img
-                                                            src={
-                                                                challengesIconWide
-                                                            }
-                                                            className="icon"
-                                                            alt="icon"
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
-                                                    <span className="icon-label">
+                                                        )}
+                                                    </td>
+                                                    <td>
                                                         {player.challenges
-                                                            .reduce(
-                                                                (
-                                                                    string,
-                                                                    item
-                                                                ) =>
-                                                                    `${string +
-                                                                        item.name}, `,
-                                                                ''
-                                                            )
-                                                            .slice(0, -2)}
-                                                    </span>
-                                                </td>
-                                                <td className="align-right">
-                                                    {player.teams.length > 0 ? (
-                                                        <img
-                                                            src={teamsIconWide}
-                                                            className="icon"
-                                                            alt="icon"
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
+                                                            .length > 0 ? (
+                                                            <img
+                                                                src={
+                                                                    challengesIconWide
+                                                                }
+                                                                className="icon"
+                                                                alt="icon"
+                                                            />
+                                                        ) : (
+                                                            ''
+                                                        )}
+                                                        <span className="icon-label">
+                                                            {player.challenges
+                                                                .reduce(
+                                                                    (
+                                                                        string,
+                                                                        item
+                                                                    ) =>
+                                                                        `${string +
+                                                                            item.name}, `,
+                                                                    ''
+                                                                )
+                                                                .slice(0, -2)}
+                                                        </span>
+                                                    </td>
+                                                    <td className="align-right">
+                                                        {player.teams.length >
+                                                        0 ? (
+                                                            <img
+                                                                src={
+                                                                    teamsIconWide
+                                                                }
+                                                                className="icon"
+                                                                alt="icon"
+                                                            />
+                                                        ) : (
+                                                            ''
+                                                        )}
 
-                                                    <span className="icon-label">
-                                                        {player.teams
-                                                            .reduce(
-                                                                (
-                                                                    string,
-                                                                    item
-                                                                ) =>
-                                                                    `${string +
-                                                                        item.name}, `,
-                                                                ''
-                                                            )
-                                                            .slice(0, -2)}
-                                                    </span>
-                                                </td>
-                                                {player.previous_steps -
-                                                    player.current_steps !==
-                                                0 ? (
-                                                    <td
-                                                        className={
-                                                            player.previous_steps >
-                                                            player.current_steps
-                                                                ? 'negative align-right'
-                                                                : 'positive align-right'
-                                                        }
-                                                    >
-                                                        <span className="percentage-icon" />
-                                                        <span className="percentage">
-                                                            {player.current_steps >
-                                                            player.previous_steps
-                                                                ? player.previous_steps >
-                                                                  0
+                                                        <span className="icon-label">
+                                                            {player.teams
+                                                                .reduce(
+                                                                    (
+                                                                        string,
+                                                                        item
+                                                                    ) =>
+                                                                        `${string +
+                                                                            item.name}, `,
+                                                                    ''
+                                                                )
+                                                                .slice(0, -2)}
+                                                        </span>
+                                                    </td>
+                                                    {player.previous_steps -
+                                                        player.current_steps !==
+                                                    0 ? (
+                                                        <td
+                                                            className={
+                                                                player.previous_steps >
+                                                                player.current_steps
+                                                                    ? 'negative align-right'
+                                                                    : 'positive align-right'
+                                                            }
+                                                        >
+                                                            <span className="percentage-icon" />
+                                                            <span className="percentage">
+                                                                {player.current_steps >
+                                                                player.previous_steps
+                                                                    ? player.previous_steps >
+                                                                      0
+                                                                        ? Math.round(
+                                                                              (player.current_steps *
+                                                                                  100) /
+                                                                                  player.previous_steps -
+                                                                                  100
+                                                                          )
+                                                                        : player.current_steps
+                                                                    : player.current_steps >
+                                                                      0
                                                                     ? Math.round(
-                                                                          (player.current_steps *
+                                                                          ((player.previous_steps -
+                                                                              player.current_steps) *
                                                                               100) /
-                                                                              player.previous_steps -
-                                                                              100
+                                                                              player.previous_steps
                                                                       )
-                                                                    : player.current_steps
-                                                                : player.current_steps >
-                                                                  0
-                                                                ? Math.round(
-                                                                      ((player.previous_steps -
-                                                                          player.current_steps) *
-                                                                          100) /
-                                                                          player.previous_steps
-                                                                  )
-                                                                : 100}
-                                                            %
-                                                        </span>
+                                                                    : 100}
+                                                                %
+                                                            </span>
+                                                        </td>
+                                                    ) : (
+                                                        <td className="positive align-right">
+                                                            <span className="percentage-icon" />
+                                                            <span className="percentage">
+                                                                0%
+                                                            </span>
+                                                        </td>
+                                                    )}
+                                                    <td className="align-right">
+                                                        <h1 className="title">
+                                                            {player.current_steps.toLocaleString()}
+                                                            <small>steps</small>
+                                                        </h1>
                                                     </td>
-                                                ) : (
-                                                    <td className="positive align-right">
-                                                        <span className="percentage-icon" />
-                                                        <span className="percentage">
-                                                            0%
-                                                        </span>
-                                                    </td>
-                                                )}
-                                                <td className="align-right">
-                                                    <h1 className="title">
-                                                        {player.current_steps.toLocaleString()}
-                                                        <small>steps</small>
-                                                    </h1>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                                </tr>
+                                            );
+                                        })}
                                     {players.length === 0 ? (
                                         <tr className="no-items-row">
                                             <td>

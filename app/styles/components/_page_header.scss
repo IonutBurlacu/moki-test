@@ -48,20 +48,12 @@
     }
 
     .avatar {
+        background-size: cover;
         border-radius: 50%;
         height: 13vmin;
         overflow: hidden;
         position: relative;
         width: 13vmin;
-
-        img {
-            left: 50%;
-            max-height: 13vmin;
-            max-width: 13vmin;
-            position: absolute;
-            top: 50%;
-            transform: translateX(-50%) translateY(-50%);
-        }
     }
 
     .steps {

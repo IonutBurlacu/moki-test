@@ -30,59 +30,59 @@ export class TeamsListModal extends Component {
                         <div className="table-wrapper">
                             <table className="table">
                                 <tbody>
-                                    {this.props.teams.map(item => (
-                                        <tr key={item.id}>
-                                            <td
-                                                style={{
-                                                    width: '14vmin'
-                                                }}
-                                            >
-                                                <div className="avatar">
-                                                    <img
-                                                        src={
-                                                            item.avatar
-                                                                ? `${s3URL}${
-                                                                      item.avatar
-                                                                  }`
-                                                                : defaultAvatar
-                                                        }
-                                                        alt="avatar"
-                                                    />
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h1 className="title">
-                                                    {item.name}
-                                                </h1>
-                                                <span className="subtitle">
-                                                    Last Sync:{' '}
-                                                    {item.last_sync_at === null
-                                                        ? 'Never'
-                                                        : moment
-                                                              .utc(
-                                                                  item.last_sync_at
-                                                              )
-                                                              .local()
-                                                              .format(
-                                                                  'DD/MM/YYYY \\at HH.mma'
-                                                              )}
-                                                </span>
-                                            </td>
-                                            <td className="align-right">
-                                                <button
-                                                    type="button"
-                                                    className="green-button"
-                                                    onClick={() =>
-                                                        this.attachChallengeToTeam(
-                                                            item.id
-                                                        )
-                                                    }
+                                    {this.props.teams.map(item => {
+                                        const imageSource = item.avatar
+                                            ? `${s3URL}${item.avatar}`
+                                            : defaultAvatar;
+                                        return (
+                                            <tr key={item.id}>
+                                                <td
+                                                    style={{
+                                                        width: '14vmin'
+                                                    }}
                                                 >
-                                                    Add
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                                    <div
+                                                        className="avatar"
+                                                        style={{
+                                                            backgroundImage: `url('${imageSource}')`
+                                                        }}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <h1 className="title">
+                                                        {item.name}
+                                                    </h1>
+                                                    <span className="subtitle">
+                                                        Last Sync:{' '}
+                                                        {item.last_sync_at ===
+                                                        null
+                                                            ? 'Never'
+                                                            : moment
+                                                                  .utc(
+                                                                      item.last_sync_at
+                                                                  )
+                                                                  .local()
+                                                                  .format(
+                                                                      'DD/MM/YYYY \\at HH.mma'
+                                                                  )}
+                                                    </span>
+                                                </td>
+                                                <td className="align-right">
+                                                    <button
+                                                        type="button"
+                                                        className="green-button"
+                                                        onClick={() =>
+                                                            this.attachChallengeToTeam(
+                                                                item.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Add
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>

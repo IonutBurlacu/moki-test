@@ -28,106 +28,115 @@ export class SyncBandsPage extends Component {
                 {!this.props.loading ? (
                     <div className="content">
                         <ul className="syncs-wrapper">
-                            {this.props.syncs.map((sync, key) => (
-                                <li key={key} className="sync-body">
-                                    <div className="top">
-                                        <div className="left">
-                                            <div className="avatar">
-                                                <img
-                                                    src={
-                                                        sync.avatar
-                                                            ? `${s3URL}${
-                                                                  sync.avatar
-                                                              }`
-                                                            : defaultAvatar
-                                                    }
-                                                    alt="avatar"
+                            {this.props.syncs.map((sync, key) => {
+                                const imageSource = sync.avatar
+                                    ? `${s3URL}${sync.avatar}`
+                                    : defaultAvatar;
+                                return (
+                                    <li key={key} className="sync-body">
+                                        <div className="top">
+                                            <div className="left">
+                                                <div
+                                                    className="avatar"
+                                                    style={{
+                                                        backgroundImage: `url('${imageSource}')`
+                                                    }}
                                                 />
                                             </div>
+                                            <div className="right">
+                                                <h1 className="title">
+                                                    <span
+                                                        className="name"
+                                                        onClick={() =>
+                                                            this.handleView(
+                                                                sync.id
+                                                            )
+                                                        }
+                                                    >{`${
+                                                        sync.first_name
+                                                    } `}</span>
+                                                    <span className="added">
+                                                        added
+                                                    </span>
+                                                </h1>
+                                                <h3 className="subtitle">
+                                                    {this.props.hide_totals
+                                                        ? '--- '
+                                                        : `${parseInt(
+                                                              sync.steps,
+                                                              10
+                                                          ).toLocaleString()} `}
+                                                    <span>steps</span>
+                                                </h3>
+                                            </div>
                                         </div>
-                                        <div className="right">
-                                            <h1 className="title">
-                                                <span
-                                                    className="name"
-                                                    onClick={() =>
-                                                        this.handleView(sync.id)
-                                                    }
-                                                >{`${sync.first_name} `}</span>
-                                                <span className="added">
-                                                    added
-                                                </span>
-                                            </h1>
-                                            <h3 className="subtitle">
-                                                {this.props.hide_totals
-                                                    ? '--- '
-                                                    : `${parseInt(
-                                                          sync.steps,
-                                                          10
-                                                      ).toLocaleString()} `}
-                                                <span>steps</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="separator" />
-                                    {sync.steps === 0 ? (
-                                        <ul className="challenges-list">
-                                            <li>
-                                                No steps found on this band.
-                                            </li>
-                                        </ul>
-                                    ) : sync.challenges.length > 0 ? (
-                                        <ul className="challenges-list">
-                                            {sync.challenges.map(challenge => (
-                                                <li
-                                                    key={challenge.id}
-                                                    className={
-                                                        challenge.target_steps -
-                                                            challenge.progress <=
-                                                        0
-                                                            ? 'finished'
-                                                            : ''
-                                                    }
-                                                >
-                                                    {challenge.target_steps -
-                                                        challenge.progress <=
-                                                    0 ? (
-                                                        <span>
-                                                            {challenge.name} -
-                                                            Complete!
-                                                        </span>
-                                                    ) : (
-                                                        <span>
-                                                            {`${
-                                                                challenge.name
-                                                            } - `}
-                                                            {challenge.target_steps -
-                                                                challenge.progress}{' '}
-                                                            <small>steps</small>{' '}
-                                                            to go
-                                                        </span>
-                                                    )}
+                                        <div className="separator" />
+                                        {sync.steps === 0 ? (
+                                            <ul className="challenges-list">
+                                                <li>
+                                                    No steps found on this band.
                                                 </li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                        <ul className="challenges-list">
-                                            <li>
-                                                Player doesn't have any
-                                                challenges
-                                            </li>
-                                        </ul>
-                                    )}
-                                    {sync.batteryLevel <= 33 ? (
-                                        <p className="battery-status">
-                                            Band battery may need to be replaced
-                                            soon
-                                        </p>
-                                    ) : (
-                                        ''
-                                    )}
-                                    <div className="separator" />
-                                </li>
-                            ))}
+                                            </ul>
+                                        ) : sync.challenges.length > 0 ? (
+                                            <ul className="challenges-list">
+                                                {sync.challenges.map(
+                                                    challenge => (
+                                                        <li
+                                                            key={challenge.id}
+                                                            className={
+                                                                challenge.target_steps -
+                                                                    challenge.progress <=
+                                                                0
+                                                                    ? 'finished'
+                                                                    : ''
+                                                            }
+                                                        >
+                                                            {challenge.target_steps -
+                                                                challenge.progress <=
+                                                            0 ? (
+                                                                <span>
+                                                                    {
+                                                                        challenge.name
+                                                                    }{' '}
+                                                                    - Complete!
+                                                                </span>
+                                                            ) : (
+                                                                <span>
+                                                                    {`${
+                                                                        challenge.name
+                                                                    } - `}
+                                                                    {challenge.target_steps -
+                                                                        challenge.progress}{' '}
+                                                                    <small>
+                                                                        steps
+                                                                    </small>{' '}
+                                                                    to go
+                                                                </span>
+                                                            )}
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        ) : (
+                                            <ul className="challenges-list">
+                                                <li>
+                                                    Player doesn't have any
+                                                    challenges
+                                                </li>
+                                            </ul>
+                                        )}
+                                        {sync.batteryLevel <= 33 ? (
+                                            <p className="battery-status">
+                                                Band battery may need to be
+                                                replaced soon
+                                            </p>
+                                        ) : (
+                                            ''
+                                        )}
+                                        <div className="separator" />
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 ) : (

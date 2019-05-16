@@ -48,21 +48,13 @@
     }
 
     .avatar {
+        background-size: cover;
         border-radius: 50%;
         height: 9vmin;
         overflow: hidden;
         position: relative;
         vertical-align: middle;
         width: 9vmin;
-
-        img {
-            left: 50%;
-            max-height: 9vmin;
-            max-width: 9vmin;
-            position: absolute;
-            top: 50%;
-            transform: translateX(-50%) translateY(-50%);
-        }
     }
 
     .title {

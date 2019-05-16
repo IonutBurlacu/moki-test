@@ -96,6 +96,9 @@ export class AddChallengeForm extends Component {
             { value: 'player', label: 'Player' },
             { value: 'team', label: 'Team' }
         ];
+        const imageSource = this.state.filePreview
+            ? this.state.filePreview
+            : this.state.defaultAvatar.file;
         return (
             <div>
                 <Header
@@ -109,16 +112,12 @@ export class AddChallengeForm extends Component {
                 <div className="challenge-form">
                     <form action="">
                         <div className="left-side">
-                            <div className="avatar">
-                                <img
-                                    src={
-                                        this.state.filePreview
-                                            ? this.state.filePreview
-                                            : this.state.defaultAvatar.file
-                                    }
-                                    alt="avatar"
-                                />
-                            </div>
+                            <div
+                                className="avatar"
+                                style={{
+                                    backgroundImage: `url('${imageSource}')`
+                                }}
+                            />
                             <label
                                 htmlFor="avatar"
                                 className="edit-photo-button"

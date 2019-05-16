@@ -83,6 +83,9 @@ export class AddTeamForm extends Component {
     };
 
     render() {
+        const imageSource = this.state.filePreview
+            ? this.state.filePreview
+            : this.state.defaultAvatar.file;
         return (
             <div>
                 <Header
@@ -96,16 +99,12 @@ export class AddTeamForm extends Component {
                 <div className="team-form">
                     <form action="">
                         <div className="left-side">
-                            <div className="avatar">
-                                <img
-                                    src={
-                                        this.state.filePreview
-                                            ? this.state.filePreview
-                                            : this.state.defaultAvatar.file
-                                    }
-                                    alt="avatar"
-                                />
-                            </div>
+                            <div
+                                className="avatar"
+                                style={{
+                                    backgroundImage: `url('${imageSource}')`
+                                }}
+                            />
                             <label
                                 htmlFor="avatar"
                                 className="edit-photo-button"

@@ -29,41 +29,44 @@ export class PlayersList extends Component {
                 </div>
                 <table className="table">
                     <tbody>
-                        {this.props.items.map(item => (
-                            <tr
-                                key={item.id}
-                                onClick={() => this.handleView(item.id)}
-                            >
-                                <td>
-                                    <div className="avatar">
-                                        <img
-                                            src={
-                                                item.avatar
-                                                    ? `${s3URL}${item.avatar}`
-                                                    : defaultAvatar
-                                            }
-                                            alt="avatar"
+                        {this.props.items.map(item => {
+                            const imageSource = item.avatar
+                                ? `${s3URL}${item.avatar}`
+                                : defaultAvatar;
+                            return (
+                                <tr
+                                    key={item.id}
+                                    onClick={() => this.handleView(item.id)}
+                                >
+                                    <td>
+                                        <div
+                                            className="avatar"
+                                            style={{
+                                                backgroundImage: `url('${imageSource}')`
+                                            }}
                                         />
-                                    </div>
-                                </td>
-                                <td>
-                                    <h1 className="title">
-                                        {`${item.first_name} ${item.last_name}`}
-                                    </h1>
-                                    <span className="subtitle">
-                                        Last Sync:{' '}
-                                        {item.last_sync_at === null
-                                            ? 'Never'
-                                            : moment
-                                                  .utc(item.last_sync_at)
-                                                  .local()
-                                                  .format(
-                                                      'DD/MM/YYYY \\at HH.mma'
-                                                  )}
-                                    </span>
-                                </td>
-                            </tr>
-                        ))}
+                                    </td>
+                                    <td>
+                                        <h1 className="title">
+                                            {`${item.first_name} ${
+                                                item.last_name
+                                            }`}
+                                        </h1>
+                                        <span className="subtitle">
+                                            Last Sync:{' '}
+                                            {item.last_sync_at === null
+                                                ? 'Never'
+                                                : moment
+                                                      .utc(item.last_sync_at)
+                                                      .local()
+                                                      .format(
+                                                          'DD/MM/YYYY \\at HH.mma'
+                                                      )}
+                                        </span>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                         {this.props.items.length === 0 ? (
                             <tr className="no-items-row">
                                 <td>
