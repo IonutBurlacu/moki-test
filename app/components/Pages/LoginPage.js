@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { shell } from 'electron';
-import Footer from '../Footer';
 import Loader from '../Loader';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
@@ -20,14 +19,7 @@ class LoginPage extends Component {
         return (
             <div className="container">
                 <Header
-                    leftButton={
-                        <button
-                            type="button"
-                            onClick={this.handleContactSupport}
-                        >
-                            Contact Support
-                        </button>
-                    }
+                    leftButton={<div />}
                     rightButton={
                         <button
                             type="button"

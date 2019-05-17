@@ -1,5 +1,6 @@
 .ReactModalPortal {
     position: fixed;
+    z-index: 1000;
 }
 
 .overlay {
@@ -24,6 +25,7 @@
 .modal-alert {
     height: 40%;
     width: 30%;
+    z-index: 1000;
 
     .message {
         color: white;
