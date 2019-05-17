@@ -33,7 +33,7 @@ class LoginPage extends Component {
                             type="button"
                             onClick={this.handleVideoTutorials}
                         >
-                            Video Tutorials
+                            Help Centre
                         </button>
                     }
                 />
@@ -43,7 +43,6 @@ class LoginPage extends Component {
                 </div>
                 <Alert />
                 <Loader />
-                <Footer />
             </div>
         );
     }
