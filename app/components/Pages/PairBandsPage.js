@@ -182,7 +182,7 @@ export class PairBandsPage extends Component {
                                                                 .slice(0, -2)}
                                                         </span>
                                                     </td>
-                                                    <td className="align-right">
+                                                    <td>
                                                         {player.teams.length >
                                                         0 ? (
                                                             <img
