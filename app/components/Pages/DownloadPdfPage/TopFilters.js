@@ -18,7 +18,7 @@ import DateBy from '../../DateBy';
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
         if (this.props.downloadPdf.teamId === null) {
-            this.props.showAlert('Select at least one team.');
+            this.props.showAlert('Please select at least one Team.');
             return;
         }
         const encrypted = encrypt({

@@ -66,7 +66,7 @@ export class NFCListener extends Component {
                     } else {
                         this.props.playFailSound();
                         this.props.showAlert(
-                            'Select a player from the list to pair a band.'
+                            'Please select a Player from the list to pair a Band.'
                         );
                     }
                 } else if (this.props.battery_reading) {
@@ -85,12 +85,14 @@ export class NFCListener extends Component {
             });
 
             reader.on('error', err => {
-                this.props.showAlert('Error while reading the band.');
+                this.props.showAlert(
+                    'There was a problem reading this Band. Please check your internet connection and try again. If the problem persists please contact support via the online Help Centre.'
+                );
                 console.log(`${reader.reader.name}  an error occurred`, err);
             });
 
             reader.on('end', () => {
-                this.props.showAlert('NFC Reader disconnected.');
+                this.props.showAlert('The Moki Reader has been disconnected.');
                 console.log(`${reader.reader.name}  device removed`);
             });
         });

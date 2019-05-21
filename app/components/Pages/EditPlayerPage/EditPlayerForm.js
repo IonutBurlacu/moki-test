@@ -35,7 +35,7 @@ export class EditPlayerForm extends Component {
             this.state.year === '' ||
             this.state.birthday === ''
         ) {
-            this.props.showAlert('All fields are required.');
+            this.props.showAlert('Please complete all the required fields.');
         } else {
             this.props.showLoader();
             this.props.updatePlayerRequest(this.state, this.props.id);
@@ -60,7 +60,9 @@ export class EditPlayerForm extends Component {
             .substr(file.name.lastIndexOf('\\') + 1)
             .split('.')[1];
         if (!imageExtensions.includes(extension)) {
-            this.props.showAlert('Invalid image format.');
+            this.props.showAlert(
+                'There was a problem with your image format. For best results use a square .jpg or .png image file.'
+            );
         } else {
             this.setState({
                 file,

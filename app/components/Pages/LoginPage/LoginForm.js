@@ -25,7 +25,7 @@ export class LoginForm extends Component {
 
     handleSubmit = () => {
         if (this.state.email === '' || this.state.password === '') {
-            this.props.showAlert('All fields are required.');
+            this.props.showAlert('Please complete all the required fields.');
         } else {
             store.set('email', this.state.email);
             this.props.showLoader();

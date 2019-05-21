@@ -27,11 +27,13 @@ export class ChangePasswordModal extends Component {
             this.state.new_password === '' ||
             this.state.confirm_new_password === ''
         ) {
-            this.props.showAlert('All fields are required.');
+            this.props.showAlert('Please complete all the required fields.');
         } else if (
             this.state.new_password !== this.state.confirm_new_password
         ) {
-            this.props.showAlert('Passwords must match.');
+            this.props.showAlert(
+                'The two passwords you entered don’t appear to match.'
+            );
         } else {
             this.props.showLoader();
             this.props.changePasswordRequest(

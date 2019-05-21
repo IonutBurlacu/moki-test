@@ -21,7 +21,7 @@ export class ConfirmDeleteModal extends Component {
 
     handleDelete = () => {
         if (this.state.password === '') {
-            this.props.showAlert('Password field is required.');
+            this.props.showAlert('Please enter a valid password.');
         } else {
             this.props.showLoader();
             this.props.closeModal();

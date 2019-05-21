@@ -20,7 +20,7 @@ export class ForgotPasswordForm extends Component {
 
     handleSubmit = () => {
         if (this.state.email === '') {
-            this.props.showAlert('All fields are required.');
+            this.props.showAlert('Please complete all the required fields.');
         } else {
             this.props.showLoader();
             this.props.forgotPasswordRequest(this.state.email);

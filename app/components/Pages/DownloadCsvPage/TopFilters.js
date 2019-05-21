@@ -18,7 +18,7 @@ import {
 export class TopFilters extends Component {
     handleDownloadCSV = () => {
         if (this.props.downloadCsv.teamId === null) {
-            this.props.showAlert('Select at least one team.');
+            this.props.showAlert('Please select at least one Team.');
             return;
         }
         const encrypted = encrypt({
