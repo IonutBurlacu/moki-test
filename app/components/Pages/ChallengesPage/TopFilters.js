@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import SortBy from './SortBy';
-import DateBy from '../../DateBy';
 import FilterBy from './FilterBy';
 import {
     changeChallengesDateByType,
@@ -18,18 +17,7 @@ export class TopFilters extends Component {
                 <div className="left-side">
                     <SortBy />
                 </div>
-                <div className="center-side">
-                    <DateBy
-                        startDate={this.props.dateByStartDate}
-                        endDate={this.props.dateByEndDate}
-                        dateSelectOpen={this.props.dateSelectOpen}
-                        fetchNewData={this.props.getChallengesRequest}
-                        changeDateType={this.props.changeChallengesDateByType}
-                        openMenu={this.props.openChallengesMenu}
-                        closeMenu={this.props.closeChallengesMenu}
-                        type={this.props.dateByType}
-                    />
-                </div>
+                <div className="center-side" />
                 <div className="right-side">
                     <FilterBy />
                 </div>

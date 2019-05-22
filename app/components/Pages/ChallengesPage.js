@@ -106,8 +106,8 @@ export class ChallengesPage extends Component {
                                                                 {`${
                                                                     challenge.players_count
                                                                 } Player`}
-                                                                {challenge.players_count >
-                                                                1
+                                                                {challenge.players_count !==
+                                                                0
                                                                     ? 's'
                                                                     : ''}
                                                             </span>
@@ -146,10 +146,16 @@ export class ChallengesPage extends Component {
                                                     )}
                                                 </td>
                                                 <td className="align-right">
-                                                    <h1 className="title">
-                                                        {challenge.current_steps.toLocaleString()}
-                                                        <small>steps</small>
-                                                    </h1>
+                                                    {challenge.completed > 0 ? (
+                                                        <h1 className="title complete">
+                                                            Complete!
+                                                        </h1>
+                                                    ) : (
+                                                        <h1 className="title">
+                                                            {challenge.target_steps.toLocaleString()}
+                                                            <small>steps</small>
+                                                        </h1>
+                                                    )}
                                                 </td>
                                             </tr>
                                         );
