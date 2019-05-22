@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Alert from '../components/Alert';
+import Confirm from '../components/Confirm';
 import Loader from '../components/Loader';
 import PairSound from '../components/PairSound';
 import FailSound from '../components/FailSound';
@@ -48,6 +49,7 @@ export const PrivateRoute = ({
                 >
                     <Component {...props} />
                     <Alert />
+                    <Confirm />
                     <Loader />
                     <PairSound />
                     <FailSound />

@@ -4,29 +4,18 @@ import Footer from '../Footer';
 import EditChallengeForm from './EditChallengePage/EditChallengeForm';
 import TeamsList from './EditChallengePage/TeamsList';
 import PlayersList from './EditChallengePage/PlayersList';
-import Alert from '../Alert';
 import { deleteChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
-
-const { dialog } = require('electron').remote;
+import { showConfirm, hideConfirm } from '../../actions/confirm';
 
 export class EditChallengePage extends Component {
     handleDelete = () => {
-        dialog.showMessageBox(
-            null,
-            {
-                type: 'question',
-                buttons: ['Cancel', 'Yes'],
-                title: 'Confirm',
-                message: 'Are you sure you want to delete this Challenge?'
-            },
-            response => {
-                if (response === 1) {
-                    this.props.showLoader();
-                    this.props.deleteChallengeRequest(
-                        this.props.match.params.id
-                    );
-                }
+        this.props.showConfirm(
+            'Are you sure you want to delete this Challenge?',
+            () => {
+                this.props.showLoader();
+                this.props.hideConfirm();
+                this.props.deleteChallengeRequest(this.props.match.params.id);
             }
         );
     };
@@ -78,7 +67,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     deleteChallengeRequest: id => dispatch(deleteChallengeRequest(id)),
-    showLoader: () => dispatch(showLoader())
+    showLoader: () => dispatch(showLoader()),
+    hideConfirm: () => dispatch(hideConfirm()),
+    showConfirm: (message, doConfirm) =>
+        dispatch(showConfirm(message, doConfirm))
 });
 
 export default connect(

@@ -7,24 +7,16 @@ import ChallengesList from './EditTeamPage/ChallengesList';
 import Alert from '../Alert';
 import { deleteTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
-
-const { dialog } = require('electron').remote;
+import { showConfirm, hideConfirm } from '../../actions/confirm';
 
 export class EditTeamPage extends Component {
     handleDelete = () => {
-        dialog.showMessageBox(
-            null,
-            {
-                type: 'question',
-                buttons: ['Cancel', 'Yes'],
-                title: 'Confirm',
-                message: 'Are you sure you want to delete this Team?'
-            },
-            response => {
-                if (response === 1) {
-                    this.props.showLoader();
-                    this.props.deleteTeamRequest(this.props.match.params.id);
-                }
+        this.props.showConfirm(
+            'Are you sure you want to delete this Team?',
+            () => {
+                this.props.showLoader();
+                this.props.hideConfirm();
+                this.props.deleteTeamRequest(this.props.match.params.id);
             }
         );
     };
@@ -79,7 +71,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     deleteTeamRequest: id => dispatch(deleteTeamRequest(id)),
-    showLoader: () => dispatch(showLoader())
+    showLoader: () => dispatch(showLoader()),
+    hideConfirm: () => dispatch(hideConfirm()),
+    showConfirm: (message, doConfirm) =>
+        dispatch(showConfirm(message, doConfirm))
 });
 
 export default connect(

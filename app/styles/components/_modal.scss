@@ -35,6 +35,19 @@
     }
 }
 
+.modal-confirm {
+    height: 40%;
+    width: 30%;
+    z-index: 1000;
+
+    .message {
+        color: white;
+        font-size: 2.5vmin;
+        padding: 2vmin;
+        text-align: center;
+    }
+}
+
 .modal-wrapper {
     display: flex;
     flex-direction: column;
@@ -185,6 +198,15 @@
 
 .cancel-button {
     background: #fe335e;
+    border: 1px solid white;
+    color: white;
+    font-size: 3vmin;
+    padding: 1.5vmin;
+    width: 100%;
+}
+
+.no-button {
+    background: transparent;
     border: 1px solid white;
     color: white;
     font-size: 3vmin;

@@ -5,6 +5,7 @@ import challengesReducer from './challenges';
 import teamsReducer from './teams';
 import playersReducer from './players';
 import alertReducer from './alert';
+import confirmReducer from './confirm';
 import bandsReducer from './bands';
 import reportsReducer from './reports';
 import soundsReducer from './sounds';
@@ -13,6 +14,7 @@ import footerReducer from './footer';
 export default combineReducers({
     auth: authReducer,
     alert: alertReducer,
+    confirm: confirmReducer,
     loader: loaderReducer,
     challenges: challengesReducer,
     bands: bandsReducer,
