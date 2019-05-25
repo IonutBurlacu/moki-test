@@ -86,11 +86,15 @@ export function* changePassword(action) {
     }
 }
 
-export function* deleteAccount() {
+export function* deleteAccount(action) {
     const token = yield select(getToken);
-    const response = yield call(AuthAPI.deleteAccount, {
-        Authorization: token
-    });
+    const response = yield call(
+        AuthAPI.deleteAccount,
+        {
+            Authorization: token
+        },
+        action.password
+    );
 
     sessionStorage.setItem('Authorization', null);
 
@@ -102,14 +106,16 @@ export function* deleteAccount() {
     });
 
     yield put({
-        type: 'DELETE_ACCOUNT'
-    });
-
-    yield put({
         type: 'HIDE_LOADER'
     });
 
-    yield put(push('/login'));
+    if (decoded.success) {
+        yield put({
+            type: 'DELETE_ACCOUNT'
+        });
+
+        yield put(push('/login'));
+    }
 }
 
 export function* changeSetting(action) {

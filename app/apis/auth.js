@@ -52,12 +52,18 @@ export default class AuthAPI {
         });
     }
 
-    static deleteAccount(headers = {}) {
+    static deleteAccount(headers = {}, password) {
+        const encrypted = encrypt({
+            password
+        });
         return axios({
             method: 'post',
             url: `${host}${root}/delete_account`,
             headers: {
                 ...headers
+            },
+            data: {
+                encrypted
             }
         });
     }

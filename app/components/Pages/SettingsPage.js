@@ -14,7 +14,7 @@ import {
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
-import ConfirmDeleteModal from './SettingsPage/ConfirmDeleteModal';
+import ConfirmDeleteDatabaseModal from './SettingsPage/ConfirmDeleteDatabaseModal';
 import SettingsHeader from './SettingsPage/SettingsHeader';
 import AccountModal from './SettingsPage/AccountModal';
 import { setActiveMenu } from '../../actions/footer';
@@ -30,7 +30,7 @@ export class SettingsPage extends Component {
             max_hour_id: props.max_hour_id,
             importModalIsOpen: false,
             accountModalIsOpen: false,
-            confirmModalIsOpen: false
+            deleteDatabaseConfirmModalIsOpen: false
         };
     }
 
@@ -55,12 +55,12 @@ export class SettingsPage extends Component {
         this.setState({ accountModalIsOpen: false });
     };
 
-    openConfirmModal = () => {
-        this.setState({ confirmModalIsOpen: true });
+    openDeleteDatabaseConfirmModal = () => {
+        this.setState({ deleteDatabaseConfirmModalIsOpen: true });
     };
 
-    closeConfirmModal = () => {
-        this.setState({ confirmModalIsOpen: false });
+    closeDeleteDatabaseConfirmModal = () => {
+        this.setState({ deleteDatabaseConfirmModalIsOpen: false });
     };
 
     logout = () => {
@@ -75,7 +75,7 @@ export class SettingsPage extends Component {
     };
 
     handleDeleteDatabase = () => {
-        this.openConfirmModal();
+        this.openDeleteDatabaseConfirmModal();
     };
 
     handleExportCsv = () => {
@@ -348,9 +348,9 @@ export class SettingsPage extends Component {
                     modalIsOpen={this.state.accountModalIsOpen}
                     closeModal={this.closeAccountModal}
                 />
-                <ConfirmDeleteModal
-                    modalIsOpen={this.state.confirmModalIsOpen}
-                    closeModal={this.closeConfirmModal}
+                <ConfirmDeleteDatabaseModal
+                    modalIsOpen={this.state.deleteDatabaseConfirmModalIsOpen}
+                    closeModal={this.closeDeleteDatabaseConfirmModal}
                 />
                 <Footer />
             </div>

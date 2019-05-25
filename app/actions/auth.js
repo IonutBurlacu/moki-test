@@ -22,8 +22,9 @@ export const changePasswordRequest = (oldPassword, newPassword) => ({
     newPassword
 });
 
-export const deleteAccountRequest = () => ({
-    type: 'DELETE_ACCOUNT_REQUEST'
+export const deleteAccountRequest = password => ({
+    type: 'DELETE_ACCOUNT_REQUEST',
+    password
 });
 
 export const deleteAccount = () => ({

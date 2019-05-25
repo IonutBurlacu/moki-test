@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
-import { showLoader } from '../../../actions/loader';
-import { deleteAccountRequest } from '../../../actions/auth';
 import ChangePasswordModal from './ChangePasswordModal';
+import ConfirmDeleteAccountModal from './ConfirmDeleteAccountModal';
 
 export class AccountModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            changePasswordModalIsOpen: false
+            changePasswordModalIsOpen: false,
+            deleteAccountConfirmModalIsOpen: false
         };
     }
 
@@ -21,10 +21,12 @@ export class AccountModal extends Component {
         this.setState({ changePasswordModalIsOpen: false });
     };
 
-    handleDeleteAccount = () => {
-        this.props.closeModal();
-        this.props.showLoader();
-        this.props.deleteAccountRequest();
+    openDeleteAccountConfirmModal = () => {
+        this.setState({ deleteAccountConfirmModalIsOpen: true });
+    };
+
+    closeDeleteAccountConfirmModal = () => {
+        this.setState({ deleteAccountConfirmModalIsOpen: false });
     };
 
     render() {
@@ -80,7 +82,7 @@ export class AccountModal extends Component {
                         </button>
                         <button
                             type="button"
-                            onClick={this.handleDeleteAccount}
+                            onClick={this.openDeleteAccountConfirmModal}
                             className="cancel-button"
                         >
                             Delete Account
@@ -90,6 +92,10 @@ export class AccountModal extends Component {
                 <ChangePasswordModal
                     modalIsOpen={this.state.changePasswordModalIsOpen}
                     closeModal={this.closeChangePasswordModal}
+                />
+                <ConfirmDeleteAccountModal
+                    modalIsOpen={this.state.deleteAccountConfirmModalIsOpen}
+                    closeModal={this.closeDeleteAccountConfirmModal}
                 />
             </Modal>
         );
@@ -102,12 +108,4 @@ const mapStateToProps = state => ({
     schoolName: state.auth.schoolName
 });
 
-const mapDispatchToProps = dispatch => ({
-    showLoader: () => dispatch(showLoader()),
-    deleteAccountRequest: () => dispatch(deleteAccountRequest())
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AccountModal);
+export default connect(mapStateToProps)(AccountModal);

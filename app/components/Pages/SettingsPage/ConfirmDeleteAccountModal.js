@@ -3,9 +3,9 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
-import { deleteDatabaseRequest } from '../../../actions/players';
+import { deleteAccountRequest } from '../../../actions/auth';
 
-export class ConfirmDeleteModal extends Component {
+export class ConfirmDeleteAccountModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +25,7 @@ export class ConfirmDeleteModal extends Component {
         } else {
             this.props.showLoader();
             this.props.closeModal();
-            this.props.deleteDatabaseRequest(this.state.password);
+            this.props.deleteAccountRequest(this.state.password);
         }
     };
 
@@ -51,7 +51,8 @@ export class ConfirmDeleteModal extends Component {
                     <div className="modal-body">
                         <div className="modal-content">
                             <p>
-                            This will permanently delete all your data. Consider exporting your data before doing this.
+                                This will permanently delete your account.
+                                Consider exporting your data before doing this.
                             </p>
                             <div className="input-row">
                                 <label htmlFor="password">Password</label>
@@ -89,10 +90,10 @@ export class ConfirmDeleteModal extends Component {
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     showAlert: message => dispatch(showAlert(message)),
-    deleteDatabaseRequest: password => dispatch(deleteDatabaseRequest(password))
+    deleteAccountRequest: password => dispatch(deleteAccountRequest(password))
 });
 
 export default connect(
     undefined,
     mapDispatchToProps
-)(ConfirmDeleteModal);
+)(ConfirmDeleteAccountModal);
