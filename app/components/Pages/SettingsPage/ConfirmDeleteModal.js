@@ -51,8 +51,7 @@ export class ConfirmDeleteModal extends Component {
                     <div className="modal-body">
                         <div className="modal-content">
                             <p>
-                                Please enter your password before deleting
-                                database.
+                            This will permanently delete all your data. Consider exporting your data before doing this.
                             </p>
                             <div className="input-row">
                                 <label htmlFor="password">Password</label>
