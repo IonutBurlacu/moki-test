@@ -124,4 +124,14 @@ export default class AuthAPI {
                 });
         });
     }
+
+    static getVersion(headers = {}) {
+        return axios({
+            method: 'get',
+            url: `${host}${root}/app_version`,
+            headers: {
+                ...headers
+            }
+        });
+    }
 }

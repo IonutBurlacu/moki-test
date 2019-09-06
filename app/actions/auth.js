@@ -64,3 +64,12 @@ export const forgotPasswordRequest = email => ({
     type: 'FORGOT_PASSWORD_REQUEST',
     email
 });
+
+export const getVersionRequest = () => ({
+    type: 'GET_VERSION_REQUEST'
+});
+
+export const getVersion = version => ({
+    type: 'GET_VERSION',
+    version
+});

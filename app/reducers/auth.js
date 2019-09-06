@@ -4,7 +4,8 @@ export default (
         hide_totals: false,
         min_hour_id: null,
         max_hour_id: null,
-        loading: true
+        loading: true,
+        version: ''
     },
     action
 ) => {
@@ -38,6 +39,11 @@ export default (
                 min_hour_id: action.minHourId,
                 max_hour_id: action.maxHourId,
                 loading: false
+            };
+        case 'GET_VERSION':
+            return {
+                ...state,
+                version: action.version
             };
         default:
             return state;

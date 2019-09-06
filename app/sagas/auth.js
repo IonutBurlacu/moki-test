@@ -3,6 +3,7 @@ import { push } from 'react-router-redux';
 import { getToken } from '../selectors/auth';
 import decrypt from '../utils/decrypt';
 import AuthAPI from '../apis/auth';
+import appVersion from '../constants/appVersion';
 
 export function* login(action) {
     try {
@@ -187,6 +188,29 @@ export function* forgotPassword(action) {
 
         yield put({
             type: 'HIDE_LOADER'
+        });
+    }
+}
+
+export function* getVersion() {
+    const response = yield call(AuthAPI.getVersion);
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'GET_VERSION',
+        version: decoded.version
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+
+    if (appVersion !== decoded.version) {
+        yield put({
+            type: 'SHOW_ALERT',
+            message:
+                'There is a new version of the app released. Please update your app.'
         });
     }
 }
