@@ -12,6 +12,7 @@ import getFilteredPlayers from '../../selectors/players';
 import defaultAvatar from '../../images/default_avatar.png';
 import challengesIconWide from '../../images/challenges_icon_wide.png';
 import teamsIconWide from '../../images/teams_icon_wide.png';
+import TopFilters from './PairBandsPage/TopFilters';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -49,6 +50,7 @@ export class PairBandsPage extends Component {
                     rightButton={<Link to="/players">Done</Link>}
                 />
                 <PageTitle title="Pair Bands" isGreen />
+                <TopFilters />
                 {!loading ? (
                     <div className="content">
                         <div className="table-wrapper">
@@ -289,10 +291,13 @@ export class PairBandsPage extends Component {
 
 const mapStateToProps = state => ({
     players: getFilteredPlayers(state.players.items, {
-        filterByValues: [],
-        sortBy: 'name_asc'
+        filterByValues: state.players.listFilterValues,
+        sortBy: state.players.listSort
     }),
     loading: state.players.loading,
+    dateByType: state.players.dateByType,
+    dateByStartDate: state.players.dateByStartDate,
+    dateByEndDate: state.players.dateByEndDate,
     selectedPlayerId: state.bands.selectedPlayerId
 });
 
