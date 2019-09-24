@@ -52,7 +52,7 @@ export class ImportDatabaseModal extends Component {
             >
                 <div className="modal-wrapper">
                     <div className="modal-header">
-                        <span>Import Database</span>
+                        <span>Bulk Add or Edit Players</span>
                         <button
                             type="button"
                             onClick={this.props.closeModal}

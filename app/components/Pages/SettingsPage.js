@@ -285,7 +285,7 @@ export class SettingsPage extends Component {
                                                 className="setting-button"
                                                 type="button"
                                             >
-                                                Import Database
+                                                Bulk Add or Edit Players
                                             </button>
                                         </td>
                                         <td className="align-right">
