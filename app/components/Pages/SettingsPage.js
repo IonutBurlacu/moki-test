@@ -288,17 +288,7 @@ export class SettingsPage extends Component {
                                                 Bulk Add or Edit Players
                                             </button>
                                         </td>
-                                        <td className="align-right">
-                                            <button
-                                                className="green-button"
-                                                type="button"
-                                                onClick={
-                                                    this.handleDownloadTemplate
-                                                }
-                                            >
-                                                Download Template
-                                            </button>
-                                        </td>
+                                        <td />
                                     </tr>
                                     <tr onClick={this.openAccountModal}>
                                         <td>
