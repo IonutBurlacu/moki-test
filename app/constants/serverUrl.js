@@ -1,6 +1,6 @@
 let serverUrl;
 if (process.env.NODE_ENV === 'production') {
-    serverUrl = 'http://ec2-34-255-2-8.eu-west-1.compute.amazonaws.com';
+    serverUrl = 'https://app.moki.technology';
 } else {
     serverUrl = 'http://local.moki.com';
 }

@@ -55,7 +55,7 @@ export function* pairBand(action) {
     } catch (error) {
         yield put({
             type: 'SHOW_ALERT',
-            message: 'Server error.'
+            message: 'There was a problem connecting to the Moki servers. Please keep your Band pressed against the Reader for longer or check your internet connection.'
         });
 
         yield put({
@@ -111,7 +111,7 @@ export function* syncBand(action) {
     } catch (error) {
         yield put({
             type: 'SHOW_ALERT',
-            message: 'Server error.'
+            message: 'There was a problem connecting to the Moki servers. Please keep your Band pressed against the Reader for longer or check your internet connection.'
         });
 
         yield put({
