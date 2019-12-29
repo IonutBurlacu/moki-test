@@ -8,6 +8,7 @@ import LoginForm from './LoginPage/LoginForm';
 import Alert from '../Alert';
 import { showLoader } from '../../actions/loader';
 import { getVersionRequest } from '../../actions/auth';
+import host from '../../constants/serverUrl';
 
 import appVersion from '../../constants/appVersion';
 
@@ -43,6 +44,7 @@ class LoginPage extends Component {
                     <PageTitle title="Login" />
                     <LoginForm history={this.props.history} />
                     <p className="current-app-version">{`App version: ${appVersion}`}</p>
+                    <p className="current-app-version">{`App version: ${host}`}</p>
                 </div>
                 <Alert />
                 <Loader />

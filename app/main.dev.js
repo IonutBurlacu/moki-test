@@ -15,15 +15,15 @@ import MenuBuilder from './menu';
 
 let mainWindow = null;
 
-if (process.env.NODE_ENV === 'production') {
+if (
+    process.env.NODE_ENV === 'production' ||
+    process.env.NODE_ENV === 'development'
+) {
     const sourceMapSupport = require('source-map-support');
     sourceMapSupport.install();
 }
 
-if (
-    process.env.NODE_ENV === 'development' ||
-    process.env.DEBUG_PROD === 'true'
-) {
+if (process.env.NODE_ENV === 'local' || process.env.DEBUG_PROD === 'true') {
     require('electron-debug')();
     const path = require('path');
     const p = path.join(__dirname, '..', 'app', 'node_modules');
@@ -55,10 +55,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-    if (
-        process.env.NODE_ENV === 'development' ||
-        process.env.DEBUG_PROD === 'true'
-    ) {
+    if (process.env.NODE_ENV === 'local' || process.env.DEBUG_PROD === 'true') {
         await installExtensions();
     }
 
