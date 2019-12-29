@@ -65,6 +65,18 @@ app.on('ready', async () => {
         minHeight: 700
     });
 
+    if (process.env.NODE_ENV === 'local') {
+        mainWindow.setTitle('Moki Local');
+        mainWindow.on('page-title-updated', e => {
+            e.preventDefault();
+        });
+    } else if (process.env.NODE_ENV === 'development') {
+        mainWindow.setTitle('Moki Dev');
+        mainWindow.on('page-title-updated', e => {
+            e.preventDefault();
+        });
+    }
+
     mainWindow.loadURL(`file://${__dirname}/app.html`);
 
     // @TODO: Use 'ready-to-show' event
