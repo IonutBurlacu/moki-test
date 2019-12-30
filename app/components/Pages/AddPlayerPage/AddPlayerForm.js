@@ -75,8 +75,6 @@ export class AddPlayerForm extends Component {
         if (
             this.state.first_name === '' ||
             this.state.last_name === '' ||
-            this.state.grade === '' ||
-            this.state.year === '' ||
             this.state.birthday === ''
         ) {
             this.props.showAlert('Please complete all the required fields.');
@@ -219,7 +217,7 @@ export class AddPlayerForm extends Component {
                                 <div className="form-group">
                                     <label
                                         htmlFor="teamId"
-                                        className="form-label required"
+                                        className="form-label"
                                     >
                                         Class
                                     </label>
@@ -237,7 +235,7 @@ export class AddPlayerForm extends Component {
                                 <div className="form-group">
                                     <label
                                         htmlFor="year"
-                                        className="form-label required"
+                                        className="form-label"
                                     >
                                         Year
                                     </label>
@@ -367,6 +365,11 @@ export class AddPlayerForm extends Component {
                                 />
                             </div>
                         </div>
+                        <div className="required-label-wrapper">
+                            <span className="required-label">
+                                * These fields are required
+                            </span>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -386,7 +389,4 @@ const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddPlayerForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddPlayerForm);

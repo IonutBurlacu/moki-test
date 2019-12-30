@@ -206,10 +206,18 @@ export default (
                     ...state.player,
                     grade: action.grades.find(
                         grade => grade.id == state.player.grade_id
-                    ).name,
+                    )
+                        ? action.grades.find(
+                              grade => grade.id == state.player.grade_id
+                          ).name
+                        : '',
                     year: action.years.find(
                         year => year.id == state.player.year_id
-                    ).name
+                    )
+                        ? action.years.find(
+                              year => year.id == state.player.year_id
+                          ).name
+                        : ''
                 },
                 grades: action.grades,
                 years: action.years,
