@@ -25,9 +25,13 @@ class LoginPage extends Component {
         shell.openExternal('https://moki.technology/pages/faq');
     };
 
+    handleSignUp = () => {
+        shell.openExternal('https://app.moki.technology/register');
+    };
+
     render() {
         return (
-            <div className="container">
+            <div className="container container-light">
                 <Header
                     leftButton={<div />}
                     rightButton={
@@ -40,9 +44,19 @@ class LoginPage extends Component {
                     }
                 />
                 <div className="content">
-                    <PageTitle title="Login" />
+                    <PageTitle title="Hello!" />
                     <LoginForm history={this.props.history} />
-                    <p className="current-app-version">{`App version: ${appVersion}`}</p>
+                    <p className="sign-up-wrapper">
+                        Don't have an account yet?{' '}
+                        <button
+                            type="button"
+                            className="sign-up-button"
+                            onClick={this.handleSignUp}
+                        >
+                            Sign Up
+                        </button>
+                    </p>
+                    <p className="current-app-version">{`Moki App Version: ${appVersion}`}</p>
                 </div>
                 <Alert />
                 <Loader />

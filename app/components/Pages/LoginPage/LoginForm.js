@@ -36,11 +36,7 @@ export class LoginForm extends Component {
     render() {
         return (
             <div className="login-form">
-                <h1 className="login-form__title">
-                    Please enter details to get started
-                </h1>
                 <form action="">
-                    <div className="login-form__separator" />
                     <div className="form-group">
                         <label htmlFor="email" className="form-label">
                             Email
@@ -66,20 +62,21 @@ export class LoginForm extends Component {
                             onChange={this.handleInputChange}
                         />
                     </div>
-                    <div className="login-form__separator" />
-                    <button
-                        type="button"
-                        className="login-form__button"
-                        onClick={this.handleSubmit}
-                    >
-                        Done
-                    </button>
-                    <Link
-                        className="forgot-password-link"
-                        to="/forgot_password"
-                    >
-                        Forgot password?
-                    </Link>
+                    <div className="login-buttons">
+                        <button
+                            type="button"
+                            className="login-form__button"
+                            onClick={this.handleSubmit}
+                        >
+                            Log in
+                        </button>
+                        <Link
+                            className="forgot-password-link"
+                            to="/forgot_password"
+                        >
+                            Forgot password?
+                        </Link>
+                    </div>
                 </form>
             </div>
         );
@@ -92,7 +89,4 @@ const mapDispatchToProps = dispatch => ({
     loginRequest: (email, password) => dispatch(loginRequest(email, password))
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(LoginForm);
+export default connect(undefined, mapDispatchToProps)(LoginForm);
