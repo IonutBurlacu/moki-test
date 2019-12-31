@@ -63,10 +63,7 @@ export class TeamsPage extends Component {
                                                     <div
                                                         className="avatar"
                                                         style={{
-                                                            backgroundImage:
-                                                                `url(${ 
-                                                                imageSource 
-                                                                })`
+                                                            backgroundImage: `url(${imageSource})`
                                                         }}
                                                     />
                                                 </td>
@@ -152,9 +149,7 @@ export class TeamsPage extends Component {
                                                     <span className="percentage-icon" />
                                                     <span className="percentage">
                                                         {team.percentage !== -1
-                                                            ? `${
-                                                                  team.percentage
-                                                              }%`
+                                                            ? `${team.percentage}%`
                                                             : 'NA'}
                                                     </span>
                                                 </td>
@@ -171,7 +166,14 @@ export class TeamsPage extends Component {
                                         <tr className="no-items-row">
                                             <td>
                                                 <span>
-                                                    There are no teams yet.
+                                                    This list is looking very
+                                                    empty!{' '}
+                                                    <Link
+                                                        to="/teams/add"
+                                                        className="no-items-row-button"
+                                                    >
+                                                        Add Teams here
+                                                    </Link>
                                                 </span>
                                             </td>
                                         </tr>
@@ -210,7 +212,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TeamsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamsPage);

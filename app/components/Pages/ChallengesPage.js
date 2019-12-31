@@ -103,9 +103,7 @@ export class ChallengesPage extends Component {
                                                                 alt="icon"
                                                             />
                                                             <span className="icon-label">
-                                                                {`${
-                                                                    challenge.players_count
-                                                                } Player`}
+                                                                {`${challenge.players_count} Player`}
                                                                 {challenge.players_count !==
                                                                 0
                                                                     ? 's'
@@ -164,7 +162,14 @@ export class ChallengesPage extends Component {
                                         <tr className="no-items-row">
                                             <td>
                                                 <span>
-                                                    There are no challenges yet.
+                                                    This list is looking very
+                                                    empty!{' '}
+                                                    <Link
+                                                        to="/challenges/add"
+                                                        className="no-items-row-button"
+                                                    >
+                                                        Add Challenges here
+                                                    </Link>
                                                 </span>
                                             </td>
                                         </tr>
@@ -201,7 +206,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ChallengesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengesPage);

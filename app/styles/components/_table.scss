@@ -208,13 +208,26 @@
     .no-items-row {
         border-bottom: none;
 
+        &:hover {
+            background: transparent;
+        }
+
         td {
-            padding: 3vmin 0;
+            padding: 5vmin 0;
             text-align: center;
 
             span {
-                color: #858696;
-                font-size: 2vmin;
+                color: #bfc0c5;
+                font-size: 2.4vmin;
+            }
+
+            .no-items-row-button {
+                background: transparent;
+                border: none;
+                color: $greenText;
+                font-size: 2.4vmin;
+                padding: 0;
+                text-decoration: none;
             }
         }
     }

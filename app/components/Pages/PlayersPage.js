@@ -82,9 +82,7 @@ export class PlayersPage extends Component {
                                                     }
                                                 >
                                                     <h1 className="title">
-                                                        {`${
-                                                            player.first_name
-                                                        } ${player.last_name}`}
+                                                        {`${player.first_name} ${player.last_name}`}
                                                     </h1>
                                                     <span className="subtitle">
                                                         Last Sync:{' '}
@@ -177,9 +175,7 @@ export class PlayersPage extends Component {
                                                     <span className="percentage">
                                                         {player.percentage !==
                                                         -1
-                                                            ? `${
-                                                                  player.percentage
-                                                              }%`
+                                                            ? `${player.percentage}%`
                                                             : 'NA'}
                                                     </span>
                                                 </td>
@@ -196,7 +192,14 @@ export class PlayersPage extends Component {
                                         <tr className="no-items-row">
                                             <td>
                                                 <span>
-                                                    There are no players yet.
+                                                    This list is looking very
+                                                    empty!{' '}
+                                                    <Link
+                                                        to="/players/add"
+                                                        className="no-items-row-button"
+                                                    >
+                                                        Add Players here
+                                                    </Link>
                                                 </span>
                                             </td>
                                         </tr>
@@ -236,7 +239,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PlayersPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayersPage);
