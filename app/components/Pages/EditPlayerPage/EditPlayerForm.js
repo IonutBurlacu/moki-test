@@ -143,12 +143,6 @@ export class EditPlayerForm extends Component {
                             </div>
                             <div className="center-side">
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="firstName"
-                                        className="form-label required"
-                                    >
-                                        First Name
-                                    </label>
                                     <input
                                         type="text"
                                         className="form-input"
@@ -158,14 +152,14 @@ export class EditPlayerForm extends Component {
                                         onChange={this.handleInputChange}
                                         value={this.state.first_name}
                                     />
-                                </div>
-                                <div className="form-group">
                                     <label
-                                        htmlFor="lastName"
+                                        htmlFor="firstName"
                                         className="form-label required"
                                     >
-                                        Surname
+                                        First Name
                                     </label>
+                                </div>
+                                <div className="form-group">
                                     <input
                                         type="text"
                                         className="form-input"
@@ -174,15 +168,16 @@ export class EditPlayerForm extends Component {
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
                                         value={this.state.last_name}
+                                        placeholder=" "
                                     />
+                                    <label
+                                        htmlFor="lastName"
+                                        className="form-label required"
+                                    >
+                                        Surname
+                                    </label>
                                 </div>
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="teamId"
-                                        className="form-label"
-                                    >
-                                        Class
-                                    </label>
                                     <AutoSuggestInput
                                         className="autosuggest"
                                         handleChange={
@@ -193,16 +188,22 @@ export class EditPlayerForm extends Component {
                                         defaultValue={this.state.grade_id}
                                         defaultLabel={this.state.grade}
                                     />
+                                    <label
+                                        htmlFor="teamId"
+                                        className="form-label"
+                                        style={{
+                                            color:
+                                                this.state.grade !== ''
+                                                    ? '#74ef5c'
+                                                    : '#bfc0c5'
+                                        }}
+                                    >
+                                        Class
+                                    </label>
                                 </div>
                             </div>
                             <div className="right-side">
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="year"
-                                        className="form-label"
-                                    >
-                                        Year
-                                    </label>
                                     <AutoSuggestInput
                                         className="autosuggest"
                                         handleChange={
@@ -213,14 +214,20 @@ export class EditPlayerForm extends Component {
                                         defaultValue={this.state.year_id}
                                         defaultLabel={this.state.year}
                                     />
+                                    <label
+                                        htmlFor="year"
+                                        className="form-label"
+                                        style={{
+                                            color:
+                                                this.state.year !== ''
+                                                    ? '#74ef5c'
+                                                    : '#bfc0c5'
+                                        }}
+                                    >
+                                        Year
+                                    </label>
                                 </div>
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="teamId"
-                                        className="form-label required"
-                                    >
-                                        Gender
-                                    </label>
                                     <Select
                                         value={genderOptions.find(
                                             gender =>
@@ -242,14 +249,14 @@ export class EditPlayerForm extends Component {
                                         }}
                                         name="gender"
                                     />
+                                    <label
+                                        htmlFor="teamId"
+                                        className="form-label form-label-filled required"
+                                    >
+                                        Gender
+                                    </label>
                                 </div>
                                 <div className="form-group datepicker-form-group">
-                                    <label
-                                        htmlFor="birthday"
-                                        className="form-label required"
-                                    >
-                                        D.O.B.
-                                    </label>
                                     <input
                                         type="text"
                                         className="form-input"
@@ -261,7 +268,14 @@ export class EditPlayerForm extends Component {
                                         value={moment(
                                             this.state.birthday
                                         ).format('YYYY-MM-DD')}
+                                        placeholder=" "
                                     />
+                                    <label
+                                        htmlFor="birthday"
+                                        className="form-label required"
+                                    >
+                                        D.O.B.
+                                    </label>
                                     {this.state.calendar_show ? (
                                         <Calendar
                                             onChange={this.onDateChange}
@@ -287,6 +301,7 @@ export class EditPlayerForm extends Component {
                                     name="free_school_meals"
                                     checked={this.state.free_school_meals}
                                     onChange={this.handleInputChange}
+                                    placeholder=" "
                                 />
                                 <label
                                     className="form-label form-label-checkbox"

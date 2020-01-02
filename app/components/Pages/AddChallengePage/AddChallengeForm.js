@@ -135,12 +135,6 @@ export class AddChallengeForm extends Component {
                         </div>
                         <div className="right-side">
                             <div className="form-group">
-                                <label
-                                    htmlFor="name"
-                                    className="form-label required"
-                                >
-                                    Name
-                                </label>
                                 <input
                                     type="text"
                                     className="form-input"
@@ -148,12 +142,16 @@ export class AddChallengeForm extends Component {
                                     name="name"
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
+                                    placeholder=" "
                                 />
+                                <label
+                                    htmlFor="name"
+                                    className="form-label required"
+                                >
+                                    Name
+                                </label>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="Type" className="form-label">
-                                    Type
-                                </label>
                                 <Select
                                     defaultValue={options[0]}
                                     isClearable={false}
@@ -171,14 +169,14 @@ export class AddChallengeForm extends Component {
                                     }}
                                     name="type"
                                 />
+                                <label
+                                    htmlFor="Type"
+                                    className="form-label form-label-filled"
+                                >
+                                    Type
+                                </label>
                             </div>
                             <div className="form-group">
-                                <label
-                                    htmlFor="targetSteps"
-                                    className="form-label required"
-                                >
-                                    Steps
-                                </label>
                                 <input
                                     type="number"
                                     className="form-input"
@@ -186,7 +184,14 @@ export class AddChallengeForm extends Component {
                                     name="target_steps"
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
+                                    placeholder=" "
                                 />
+                                <label
+                                    htmlFor="targetSteps"
+                                    className="form-label required"
+                                >
+                                    Steps
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -220,7 +225,4 @@ const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddChallengeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddChallengeForm);

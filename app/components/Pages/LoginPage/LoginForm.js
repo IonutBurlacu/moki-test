@@ -38,9 +38,6 @@ export class LoginForm extends Component {
             <div className="login-form">
                 <form action="">
                     <div className="form-group">
-                        <label htmlFor="email" className="form-label">
-                            Email
-                        </label>
                         <input
                             type="text"
                             className="form-input"
@@ -48,19 +45,24 @@ export class LoginForm extends Component {
                             name="email"
                             value={this.state.email}
                             onChange={this.handleInputChange}
+                            placeholder=" "
                         />
+                        <label htmlFor="email" className="form-label">
+                            Email
+                        </label>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password" className="form-label">
-                            Password
-                        </label>
                         <input
                             type="password"
                             className="form-input"
                             id="password"
                             name="password"
                             onChange={this.handleInputChange}
+                            placeholder=" "
                         />
+                        <label htmlFor="password" className="form-label">
+                            Password
+                        </label>
                     </div>
                     <div className="login-buttons">
                         <button

@@ -122,12 +122,6 @@ export class AddTeamForm extends Component {
                         </div>
                         <div className="right-side">
                             <div className="form-group">
-                                <label
-                                    htmlFor="name"
-                                    className="form-label required"
-                                >
-                                    Name
-                                </label>
                                 <input
                                     type="text"
                                     className="form-input"
@@ -135,7 +129,14 @@ export class AddTeamForm extends Component {
                                     name="name"
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
+                                    placeholder=" "
                                 />
+                                <label
+                                    htmlFor="name"
+                                    className="form-label required"
+                                >
+                                    Name
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -151,7 +152,4 @@ const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message))
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(AddTeamForm);
+export default connect(undefined, mapDispatchToProps)(AddTeamForm);

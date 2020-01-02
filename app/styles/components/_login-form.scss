@@ -20,14 +20,19 @@
 .form-group {
     align-items: center;
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     margin-bottom: 10px;
     width: 100%;
 
     .form-label {
-        color: white;
+        color: #bfc0c5;
         font-size: 3.4vmin;
         width: 30%;
+    }
+
+    .form-label-filled {
+        color: $greenText;
     }
 
     .form-input {
@@ -37,6 +42,10 @@
         font-size: 3.4vmin;
         padding: 5px 10px;
         width: 65%;
+
+        &:not(:placeholder-shown) + .form-label {
+            color: $greenText;
+        }
     }
 
     .form-label.required::after {

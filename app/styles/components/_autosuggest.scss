@@ -1,45 +1,45 @@
 .react-autosuggest__input {
-  background: transparent;
-  border: 2px solid white;
-  color: $greenText;
-  font-size: 3.4vmin;
-  padding: 5px 10px;
-  width: 100%;
+    background: transparent;
+    border: 2px solid white;
+    color: $greenText;
+    font-size: 3.4vmin;
+    padding: 5px 10px;
+    width: 100%;
 }
 
 .react-autosuggest__container {
-  position: relative;
-  width: 65%;
+    position: relative;
+    width: 65%;
 }
 
 .react-autosuggest__suggestions-container {
-  background: #797992;
-  padding: 0 3vmin;
-  position: absolute;
-  width: 100%;
-  z-index: 999;
+    background: #797992;
+    padding: 0 3vmin;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
 }
 
 .react-autosuggest__suggestions-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .react-autosuggest__suggestion {
-  background: #797992;
-  border-bottom: 1px solid #a0a1ae;
-  color: #74ef5c;
-  cursor: pointer;
-  font-size: 3vmin;
-  padding: 8px 12px;
+    background: #797992;
+    border-bottom: 1px solid #a0a1ae;
+    color: #74ef5c;
+    cursor: pointer;
+    font-size: 3vmin;
+    padding: 8px 12px;
 
-  &:active,
-  &:hover {
-    background: #66667b;
-  }
+    &:active,
+    &:hover {
+        background: #66667b;
+    }
 
-  &:last-child {
-    border-bottom: none;
-  }
+    &:last-child {
+        border-bottom: none;
+    }
 }
