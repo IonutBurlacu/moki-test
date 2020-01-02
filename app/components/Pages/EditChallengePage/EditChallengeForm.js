@@ -105,7 +105,10 @@ export class EditChallengeForm extends Component {
                                     value={this.state.name}
                                     placeholder=" "
                                 />
-                                <label htmlFor="name" className="form-label">
+                                <label
+                                    htmlFor="name"
+                                    className="form-label required"
+                                >
                                     Name
                                 </label>
                             </div>
@@ -122,7 +125,7 @@ export class EditChallengeForm extends Component {
                                 />
                                 <label
                                     htmlFor="targetSteps"
-                                    className="form-label"
+                                    className="form-label required"
                                 >
                                     Steps
                                 </label>

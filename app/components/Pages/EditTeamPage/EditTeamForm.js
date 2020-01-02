@@ -106,7 +106,10 @@ export class EditTeamForm extends Component {
                                     value={this.state.name}
                                     placeholder=" "
                                 />
-                                <label htmlFor="name" className="form-label">
+                                <label
+                                    htmlFor="name"
+                                    className="form-label required"
+                                >
                                     Name
                                 </label>
                             </div>
