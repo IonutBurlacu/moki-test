@@ -26,60 +26,12 @@ export class ReportsPage extends Component {
                     <div className="report-sections">
                         <div className="report-section">
                             <div className="report-section-title">
-                                <p>Player Averages</p>
+                                <p>Overview</p>
                             </div>
                             <div className="report-section-body">
                                 <p className="report-section-description">
-                                    All Players in your team ranked in order of
-                                    average daily steps. See the difference
-                                    between most and least active.
-                                </p>
-                                <img
-                                    src={playerAveragesIcon}
-                                    className="report-section-icon"
-                                    alt="players-averages"
-                                />
-                                <Link
-                                    to="/reports/player_averages"
-                                    className="report-section-button"
-                                >
-                                    <span>View</span>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="report-section">
-                            <div className="report-section-title">
-                                <p className="report-section-description">
-                                    Group Averages
-                                </p>
-                            </div>
-                            <div className="report-section-body">
-                                <p className="report-section-description">
-                                    See the average steps taken by any team and
-                                    the groups within it, including boys and
-                                    girls, SEN and Pupil Premium.
-                                </p>
-                                <img
-                                    src={groupAveragesIcon}
-                                    className="report-section-icon"
-                                    alt="group-averages"
-                                />
-                                <Link
-                                    to="/reports/group_averages"
-                                    className="report-section-button"
-                                >
-                                    <span>View</span>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="report-section">
-                            <div className="report-section-title">
-                                <p>Total Steps</p>
-                            </div>
-                            <div className="report-section-body">
-                                <p className="report-section-description">
-                                    Compare a Teams total and average steps
-                                    across any selected time frame.
+                                    View total steps, MVPA and Moki Grade across
+                                    your entire school.
                                 </p>
                                 <img
                                     src={totalStepsIcon}
@@ -90,7 +42,54 @@ export class ReportsPage extends Component {
                                     to="/reports/total_steps"
                                     className="report-section-button"
                                 >
-                                    <span>View</span>
+                                    <span>Show Report</span>
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="report-section">
+                            <div className="report-section-title">
+                                <p className="report-section-description">
+                                    Group Averages
+                                </p>
+                            </div>
+                            <div className="report-section-body">
+                                <p className="report-section-description">
+                                    Compare the daily average of girls, boys,
+                                    SEN, Pupil Premium etc.
+                                </p>
+                                <img
+                                    src={groupAveragesIcon}
+                                    className="report-section-icon"
+                                    alt="group-averages"
+                                />
+                                <Link
+                                    to="/reports/group_averages"
+                                    className="report-section-button"
+                                >
+                                    <span>Show Report</span>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="report-section">
+                            <div className="report-section-title">
+                                <p>Player Variation</p>
+                            </div>
+                            <div className="report-section-body">
+                                <p className="report-section-description">
+                                    See the daily average difference between the
+                                    most and least active.
+                                </p>
+                                <img
+                                    src={playerAveragesIcon}
+                                    className="report-section-icon"
+                                    alt="players-averages"
+                                />
+                                <Link
+                                    to="/reports/player_averages"
+                                    className="report-section-button"
+                                >
+                                    <span>Show Report</span>
                                 </Link>
                             </div>
                         </div>
@@ -100,9 +99,7 @@ export class ReportsPage extends Component {
                             </div>
                             <div className="report-section-body">
                                 <p className="report-section-description">
-                                    Want to print the whole Report? Click here
-                                    to select a Team and download all three
-                                    reports as a PDF.
+                                    Download the full Report of any Team.
                                 </p>
                                 <img
                                     src={downloadPdfIcon}
@@ -113,7 +110,7 @@ export class ReportsPage extends Component {
                                     to="/reports/download_pdf"
                                     className="report-section-button"
                                 >
-                                    <span>View</span>
+                                    <span>Select Team</span>
                                 </Link>
                             </div>
                         </div>
@@ -130,7 +127,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(ReportsPage);
+export default connect(null, mapDispatchToProps)(ReportsPage);
