@@ -27,7 +27,11 @@ export class PairBandsPage extends Component {
     componentWillMount() {
         this.props.pairModeOn();
         this.props.showLoader();
-        this.props.getPlayersRequest('today');
+        this.props.getPlayersRequest(
+            this.props.dateByType,
+            this.props.dateByStartDate,
+            this.props.dateByEndDate
+        );
         this.state.playerId = this.props.match.params.id
             ? parseInt(this.props.match.params.id, 10)
             : null;
@@ -93,11 +97,7 @@ export class PairBandsPage extends Component {
                                                     </td>
                                                     <td>
                                                         <h1 className="title">
-                                                            {`${
-                                                                player.first_name
-                                                            } ${
-                                                                player.last_name
-                                                            }`}
+                                                            {`${player.first_name} ${player.last_name}`}
                                                         </h1>
                                                         {this.props
                                                             .selectedPlayerId ===
@@ -157,61 +157,6 @@ export class PairBandsPage extends Component {
                                                             </span>
                                                         )}
                                                     </td>
-                                                    <td>
-                                                        {player.challenges
-                                                            .length > 0 ? (
-                                                            <img
-                                                                src={
-                                                                    challengesIconWide
-                                                                }
-                                                                className="icon"
-                                                                alt="icon"
-                                                            />
-                                                        ) : (
-                                                            ''
-                                                        )}
-                                                        <span className="icon-label">
-                                                            {player.challenges
-                                                                .reduce(
-                                                                    (
-                                                                        string,
-                                                                        item
-                                                                    ) =>
-                                                                        `${string +
-                                                                            item.name}, `,
-                                                                    ''
-                                                                )
-                                                                .slice(0, -2)}
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        {player.teams.length >
-                                                        0 ? (
-                                                            <img
-                                                                src={
-                                                                    teamsIconWide
-                                                                }
-                                                                className="icon"
-                                                                alt="icon"
-                                                            />
-                                                        ) : (
-                                                            ''
-                                                        )}
-
-                                                        <span className="icon-label">
-                                                            {player.teams
-                                                                .reduce(
-                                                                    (
-                                                                        string,
-                                                                        item
-                                                                    ) =>
-                                                                        `${string +
-                                                                            item.name}, `,
-                                                                    ''
-                                                                )
-                                                                .slice(0, -2)}
-                                                        </span>
-                                                    </td>
                                                     {player.previous_steps -
                                                         player.current_steps !==
                                                     0 ? (
@@ -258,6 +203,12 @@ export class PairBandsPage extends Component {
                                                     )}
                                                     <td className="align-right">
                                                         <h1 className="title">
+                                                            {player.mvpa_time}
+                                                            <small>MVPA</small>
+                                                        </h1>
+                                                    </td>
+                                                    <td className="align-right">
+                                                        <h1 className="title">
                                                             {player.current_steps.toLocaleString()}
                                                             <small>steps</small>
                                                         </h1>
@@ -302,14 +253,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    getPlayersRequest: (dateByType, dateByStartDate, dateByEndDate) =>
+        dispatch(getPlayersRequest(dateByType, dateByStartDate, dateByEndDate)),
     pairModeOn: () => dispatch(pairModeOn()),
     pairModeOff: () => dispatch(pairModeOff()),
-    getPlayersRequest: dateByType => dispatch(getPlayersRequest(dateByType)),
     playerSelected: id => dispatch(playerSelected(id)),
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PairBandsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PairBandsPage);

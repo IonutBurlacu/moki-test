@@ -58,7 +58,17 @@ export default (
                                       )
                                     : 100
                                 : 0
-                            : -1
+                            : -1,
+                    mvpa_time:
+                        team.mvpa_minutes < 60
+                            ? moment('2020-01-01')
+                                  .startOf('day')
+                                  .minutes(team.mvpa_minutes)
+                                  .format('m[m]')
+                            : moment('2020-01-01')
+                                  .startOf('day')
+                                  .minutes(team.mvpa_minutes)
+                                  .format('H[h] m[m]')
                 })),
                 loading: false
             };

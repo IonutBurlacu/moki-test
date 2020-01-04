@@ -99,70 +99,6 @@ export class PlayersPage extends Component {
                                                                   )}
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    {player.challenges.length >
-                                                    0 ? (
-                                                        <img
-                                                            src={
-                                                                challengesIconWide
-                                                            }
-                                                            className="icon"
-                                                            alt="icon"
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
-                                                    <span className="icon-label">
-                                                        {player.challenges.map(
-                                                            item => (
-                                                                <span
-                                                                    key={
-                                                                        item.id
-                                                                    }
-                                                                    onClick={() =>
-                                                                        this.handleChallengeView(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                    className="table-link"
-                                                                >
-                                                                    {item.name}
-                                                                </span>
-                                                            )
-                                                        )}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    {player.teams.length > 0 ? (
-                                                        <img
-                                                            src={teamsIconWide}
-                                                            className="icon"
-                                                            alt="icon"
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
-
-                                                    <span className="icon-label">
-                                                        {player.teams.map(
-                                                            item => (
-                                                                <span
-                                                                    key={
-                                                                        item.id
-                                                                    }
-                                                                    onClick={() =>
-                                                                        this.handleTeamView(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                    className="table-link"
-                                                                >
-                                                                    {item.name}
-                                                                </span>
-                                                            )
-                                                        )}
-                                                    </span>
-                                                </td>
                                                 <td
                                                     className={
                                                         player.current_steps <
@@ -178,6 +114,12 @@ export class PlayersPage extends Component {
                                                             ? `${player.percentage}%`
                                                             : 'NA'}
                                                     </span>
+                                                </td>
+                                                <td className="align-right">
+                                                    <h1 className="title">
+                                                        {player.mvpa_time}
+                                                        <small>MVPA</small>
+                                                    </h1>
                                                 </td>
                                                 <td className="align-right">
                                                     <h1 className="title">

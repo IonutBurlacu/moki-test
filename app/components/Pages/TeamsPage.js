@@ -90,54 +90,6 @@ export class TeamsPage extends Component {
                                                                   )}
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    {team.challenges.length >
-                                                    0 ? (
-                                                        <img
-                                                            src={
-                                                                challengesIconWide
-                                                            }
-                                                            className="icon"
-                                                            alt="icon"
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
-                                                    <span className="icon-label">
-                                                        {team.challenges.map(
-                                                            item => (
-                                                                <span
-                                                                    key={
-                                                                        item.id
-                                                                    }
-                                                                    onClick={() =>
-                                                                        this.handleChallengeView(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                    className="table-link"
-                                                                >
-                                                                    {item.name}
-                                                                </span>
-                                                            )
-                                                        )}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <img
-                                                        src={playersIconWide}
-                                                        className="icon"
-                                                        alt="icon"
-                                                    />{' '}
-                                                    <span className="icon-label">
-                                                        {team.players_count}{' '}
-                                                        Player
-                                                        {team.players_count !==
-                                                        1
-                                                            ? 's'
-                                                            : ''}
-                                                    </span>
-                                                </td>
                                                 <td
                                                     className={
                                                         team.current_steps <
@@ -152,6 +104,12 @@ export class TeamsPage extends Component {
                                                             ? `${team.percentage}%`
                                                             : 'NA'}
                                                     </span>
+                                                </td>
+                                                <td className="align-right">
+                                                    <h1 className="title">
+                                                        {team.mvpa_time}
+                                                        <small>MVPA</small>
+                                                    </h1>
                                                 </td>
                                                 <td className="align-right">
                                                     <h1 className="title">

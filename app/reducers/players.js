@@ -62,6 +62,16 @@ export default (
                                     : 100
                                 : 0
                             : -1,
+                    mvpa_time:
+                        player.mvpa_minutes < 60
+                            ? moment('2020-01-01')
+                                  .startOf('day')
+                                  .minutes(player.mvpa_minutes)
+                                  .format('m[m]')
+                            : moment('2020-01-01')
+                                  .startOf('day')
+                                  .minutes(player.mvpa_minutes)
+                                  .format('H[h] m[m]'),
                     age: moment().diff(moment(player.birthday), 'year')
                 })),
                 teams: action.teams,
