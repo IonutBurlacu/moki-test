@@ -62,15 +62,7 @@ export class DownloadPdfPage extends Component {
                                             ? `${s3URL}${team.avatar}`
                                             : defaultAvatar;
                                         return (
-                                            <tr
-                                                key={team.id}
-                                                className={
-                                                    this.props.downloadPdf
-                                                        .teamId === team.id
-                                                        ? 'selected-tr'
-                                                        : ''
-                                                }
-                                            >
+                                            <tr key={team.id}>
                                                 <td>
                                                     <div
                                                         className="avatar"
@@ -79,13 +71,7 @@ export class DownloadPdfPage extends Component {
                                                         }}
                                                     />
                                                 </td>
-                                                <td
-                                                    onClick={() =>
-                                                        this.handleTeamClick(
-                                                            team.id
-                                                        )
-                                                    }
-                                                >
+                                                <td>
                                                     <h1 className="title">
                                                         {team.name}
                                                     </h1>
@@ -104,76 +90,24 @@ export class DownloadPdfPage extends Component {
                                                                   )}
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    {team.challenges.length >
-                                                    0 ? (
-                                                        <img
-                                                            src={
-                                                                challengesIconWide
-                                                            }
-                                                            className="icon"
-                                                            alt="icon"
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
-                                                    <span className="icon-label">
-                                                        {team.challenges.map(
-                                                            item => (
-                                                                <span
-                                                                    key={
-                                                                        item.id
-                                                                    }
-                                                                    onClick={() =>
-                                                                        this.handleChallengeView(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                    className="table-link"
-                                                                >
-                                                                    {item.name}
-                                                                </span>
-                                                            )
-                                                        )}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <img
-                                                        src={playersIconWide}
-                                                        className="icon"
-                                                        alt="icon"
-                                                    />{' '}
-                                                    <span className="icon-label">
-                                                        {team.players_count}{' '}
-                                                        Player
-                                                        {team.players_count !==
-                                                        1
-                                                            ? 's'
-                                                            : ''}
-                                                    </span>
-                                                </td>
                                                 <td
-                                                    className={
-                                                        team.current_steps <
-                                                        team.previous_steps
-                                                            ? 'negative align-right'
-                                                            : 'positive align-right'
+                                                    className="align-right"
+                                                    onClick={() =>
+                                                        this.handleTeamClick(
+                                                            team.id
+                                                        )
                                                     }
                                                 >
-                                                    <span className="percentage-icon" />
-                                                    <span className="percentage">
-                                                        {team.percentage !== -1
-                                                            ? `${
-                                                                  team.percentage
-                                                              }%`
-                                                            : 'NA'}
-                                                    </span>
-                                                </td>
-                                                <td className="align-right">
-                                                    <h1 className="title">
-                                                        {team.current_steps.toLocaleString()}
-                                                        <small>steps</small>
-                                                    </h1>
+                                                    {this.props.downloadPdf
+                                                        .teamId === team.id ? (
+                                                        <h1 className="title selected-title">
+                                                            Selected
+                                                        </h1>
+                                                    ) : (
+                                                        <h1 className="title">
+                                                            Select
+                                                        </h1>
+                                                    )}
                                                 </td>
                                             </tr>
                                         );
@@ -225,7 +159,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DownloadPdfPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DownloadPdfPage);
