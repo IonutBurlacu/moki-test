@@ -42,35 +42,39 @@ export default (
                 items: action.players.map(player => ({
                     ...player,
                     percentage:
-                        player.previous_steps > 0
-                            ? player.previous_steps - player.current_steps !== 0
-                                ? player.current_steps > player.previous_steps
-                                    ? player.previous_steps > 0
+                        player.grade_score_previous > 0
+                            ? player.grade_score_previous -
+                                  player.grade_score_current !==
+                              0
+                                ? player.grade_score_current >
+                                  player.grade_score_previous
+                                    ? player.grade_score_previous > 0
                                         ? Math.round(
-                                              (player.current_steps * 100) /
-                                                  player.previous_steps -
+                                              (player.grade_score_current *
+                                                  100) /
+                                                  player.grade_score_previous -
                                                   100
                                           )
-                                        : player.current_steps
-                                    : player.current_steps > 0
+                                        : player.grade_score_current
+                                    : player.grade_score_current > 0
                                     ? Math.round(
-                                          ((player.previous_steps -
-                                              player.current_steps) *
+                                          ((player.grade_score_previous -
+                                              player.grade_score_current) *
                                               100) /
-                                              player.previous_steps
+                                              player.grade_score_previous
                                       )
                                     : 100
                                 : 0
                             : -1,
                     mvpa_time:
-                        player.mvpa_minutes < 60
+                        player.mvpa_minutes_current < 60
                             ? moment('2020-01-01')
                                   .startOf('day')
-                                  .minutes(player.mvpa_minutes)
+                                  .minutes(player.mvpa_minutes_current)
                                   .format('m[m]')
                             : moment('2020-01-01')
                                   .startOf('day')
-                                  .minutes(player.mvpa_minutes)
+                                  .minutes(player.mvpa_minutes_current)
                                   .format('H[h] m[m]'),
                     age: moment().diff(moment(player.birthday), 'year')
                 })),

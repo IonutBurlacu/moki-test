@@ -13,6 +13,11 @@ import defaultAvatar from '../../images/default_avatar.png';
 import challengesIconWide from '../../images/challenges_icon_wide.png';
 import teamsIconWide from '../../images/teams_icon_wide.png';
 import TopFilters from './PairBandsPage/TopFilters';
+import A_grade from '../../images/A.png';
+import B_grade from '../../images/B.png';
+import C_grade from '../../images/C.png';
+import D_grade from '../../images/D.png';
+import E_grade from '../../images/E.png';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -47,6 +52,13 @@ export class PairBandsPage extends Component {
 
     render() {
         const { loading, players } = this.props;
+        const grades = {
+            A: A_grade,
+            B: B_grade,
+            C: C_grade,
+            D: D_grade,
+            E: E_grade
+        };
         return (
             <div className="container">
                 <Header
@@ -71,6 +83,8 @@ export class PairBandsPage extends Component {
                                             const imageSource = player.avatar
                                                 ? `${s3URL}${player.avatar}`
                                                 : defaultAvatar;
+                                            const gradeImage =
+                                                grades[player.grade_current];
                                             return (
                                                 <tr
                                                     onClick={() =>
@@ -157,50 +171,14 @@ export class PairBandsPage extends Component {
                                                             </span>
                                                         )}
                                                     </td>
-                                                    {player.previous_steps -
-                                                        player.current_steps !==
-                                                    0 ? (
-                                                        <td
-                                                            className={
-                                                                player.previous_steps >
-                                                                player.current_steps
-                                                                    ? 'negative align-right'
-                                                                    : 'positive align-right'
-                                                            }
-                                                        >
-                                                            <span className="percentage-icon" />
-                                                            <span className="percentage">
-                                                                {player.current_steps >
-                                                                player.previous_steps
-                                                                    ? player.previous_steps >
-                                                                      0
-                                                                        ? Math.round(
-                                                                              (player.current_steps *
-                                                                                  100) /
-                                                                                  player.previous_steps -
-                                                                                  100
-                                                                          )
-                                                                        : player.current_steps
-                                                                    : player.current_steps >
-                                                                      0
-                                                                    ? Math.round(
-                                                                          ((player.previous_steps -
-                                                                              player.current_steps) *
-                                                                              100) /
-                                                                              player.previous_steps
-                                                                      )
-                                                                    : 100}
-                                                                %
-                                                            </span>
-                                                        </td>
-                                                    ) : (
-                                                        <td className="positive align-right">
-                                                            <span className="percentage-icon" />
-                                                            <span className="percentage">
-                                                                0%
-                                                            </span>
-                                                        </td>
-                                                    )}
+                                                    <td className="">
+                                                        <h1 className="title">
+                                                            <small>
+                                                                Player Daily
+                                                                Average
+                                                            </small>
+                                                        </h1>
+                                                    </td>
                                                     <td className="align-right">
                                                         <h1 className="title">
                                                             {player.mvpa_time}
@@ -209,9 +187,32 @@ export class PairBandsPage extends Component {
                                                     </td>
                                                     <td className="align-right">
                                                         <h1 className="title">
-                                                            {player.current_steps.toLocaleString()}
+                                                            {player.daily_steps_current.toLocaleString()}
                                                             <small>steps</small>
                                                         </h1>
+                                                    </td>
+                                                    <td
+                                                        className={
+                                                            player.daily_steps_current <
+                                                            player.daily_steps_previous
+                                                                ? 'negative align-right'
+                                                                : 'positive align-right'
+                                                        }
+                                                    >
+                                                        <span className="percentage-icon" />
+                                                        <span className="percentage">
+                                                            {player.percentage !==
+                                                            -1
+                                                                ? `${player.percentage}%`
+                                                                : 'NA'}
+                                                        </span>
+                                                    </td>
+                                                    <td className="align-right">
+                                                        <img
+                                                            src={gradeImage}
+                                                            className="grade"
+                                                            alt="grade"
+                                                        />
                                                     </td>
                                                 </tr>
                                             );
