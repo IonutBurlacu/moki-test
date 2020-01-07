@@ -26,16 +26,6 @@ export default class PageHeader extends Component {
                         <h3 className="title">{team.name}</h3>
                     </div>
                 </div>
-                <div className="col column">
-                    <h1 className="steps">
-                        {team.total_steps.toLocaleString()}
-                        <small>steps</small>
-                    </h1>
-                    <span className="average">
-                        Average {parseInt(team.avg_steps, 10).toLocaleString()}{' '}
-                        per day
-                    </span>
-                </div>
                 <div className="col column right">
                     <div className="row">
                         <img

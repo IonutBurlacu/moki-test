@@ -98,8 +98,8 @@ export function* playerStats(action) {
         type: 'STATS_PLAYER',
         data: decoded.data,
         dateByType: action.dateByType,
-        dateByStartDate: action.dateByStartDate,
-        dateByEndDate: action.dateByEndDate
+        dateByStartDate: decoded.start_date,
+        dateByEndDate: decoded.end_date
     });
 
     yield put({

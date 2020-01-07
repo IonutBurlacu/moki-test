@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     ComposedChart,
-    Line,
     Bar,
     CartesianGrid,
     ResponsiveContainer,
@@ -10,18 +9,50 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { showLoader } from '../../../actions/loader';
 
 export class TeamChart extends Component {
+    getDateLegend = () => {
+        switch (this.props.dateByType) {
+            case 'today':
+                return moment().format('D MMMM YYYY');
+            case 'week':
+                return `${moment(this.props.dateByStartDate).format(
+                    'D'
+                )} - ${moment(this.props.dateByEndDate).format('D MMMM YYYY')}`;
+            case 'month':
+                return `${moment(this.props.dateByStartDate).format(
+                    'D'
+                )} - ${moment(this.props.dateByEndDate).format('D MMMM YYYY')}`;
+            case 'year':
+                return `${moment(this.props.dateByStartDate).format(
+                    'MMM'
+                )} - ${moment(this.props.dateByEndDate).format('MMM YYYY')}`;
+            case 'interval':
+                return `${moment(this.props.dateByStartDate).format(
+                    'D MMM YYYY'
+                )} - ${moment(this.props.dateByEndDate).format('D MMM YYYY')}`;
+            default:
+                return moment().format('D MMMM YYYY');
+        }
+    };
+
     render() {
-        const { totalOverview, totalOverviewPrevious } = this.props.team;
         return (
             <div className="chart-container">
+                <div className="legend">
+                    <p className="date">{this.getDateLegend()}</p>
+                </div>
                 <div className="chart">
-                    {this.props.team.data.length ? (
+                    {this.props.team.data.steps.length ? (
                         <ResponsiveContainer width="99%">
                             <ComposedChart
-                                data={this.props.team.data}
+                                data={
+                                    this.props.chartType === 'steps'
+                                        ? this.props.team.data.steps
+                                        : this.props.team.data.mvpa
+                                }
                                 margin={{
                                     top: 10,
                                     right: 15,
@@ -61,21 +92,14 @@ export class TeamChart extends Component {
                                 />
                                 <Tooltip />
                                 <Bar
-                                    dataKey="total_steps_overview"
-                                    name="Total"
+                                    dataKey="y_axis"
+                                    name={
+                                        this.props.chartType === 'steps'
+                                            ? 'Steps'
+                                            : 'MVPA'
+                                    }
                                     maxBarSize={70}
                                     fill="#23dec8"
-                                />
-                                <Line
-                                    type="monotone"
-                                    dataKey="total_steps_typical"
-                                    name="Typical"
-                                    stroke="#868797"
-                                    strokeWidth="2"
-                                    dot={{
-                                        stroke: '#868797',
-                                        strokeWidth: 5
-                                    }}
                                 />
                             </ComposedChart>
                         </ResponsiveContainer>
@@ -87,62 +111,29 @@ export class TeamChart extends Component {
                     <div className="chart-bottom-line">
                         <div className="left-side">
                             <span className="total">
-                                Typical:{' '}
+                                MVPA:{' '}
                                 <span className="number-grey">
-                                    {this.props.team.totalTypical.toLocaleString()}
+                                    {this.props.team.totalMvpa < 60
+                                        ? moment('2020-01-01')
+                                              .startOf('day')
+                                              .minutes(
+                                                  this.props.team.totalMvpa
+                                              )
+                                              .format('m[m]')
+                                        : moment('2020-01-01')
+                                              .startOf('day')
+                                              .minutes(
+                                                  this.props.team.totalMvpa
+                                              )
+                                              .format('H[h] m[m]')}
                                 </span>
-                                <span className="label-grey">steps</span>
                             </span>
-                        </div>
-                        <div className="center-side">
-                            <span>Trend:</span>
-                            {totalOverview - totalOverviewPrevious !== 0 ? (
-                                <span
-                                    className={
-                                        totalOverview > totalOverviewPrevious
-                                            ? 'positive'
-                                            : 'negative'
-                                    }
-                                >
-                                    <span className="percentage-icon" />
-                                    {totalOverviewPrevious > 0 ? (
-                                        <span className="percentage">
-                                            {totalOverview >
-                                            totalOverviewPrevious
-                                                ? totalOverviewPrevious > 0
-                                                    ? (
-                                                          (totalOverview *
-                                                              100) /
-                                                              totalOverviewPrevious -
-                                                          100
-                                                      ).toFixed(0)
-                                                    : totalOverview
-                                                : totalOverview > 0
-                                                ? (
-                                                      ((totalOverviewPrevious -
-                                                          totalOverview) *
-                                                          100) /
-                                                      totalOverviewPrevious
-                                                  ).toFixed(0)
-                                                : 100}
-                                            %
-                                        </span>
-                                    ) : (
-                                        <span className="percentage">NA</span>
-                                    )}
-                                </span>
-                            ) : (
-                                <span className="positive">
-                                    <span className="percentage-icon" />
-                                    <span className="percentage">0%</span>
-                                </span>
-                            )}
                         </div>
                         <div className="right-side">
                             <span className="total">
-                                Total:{' '}
+                                Steps:{' '}
                                 <span className="number-green">
-                                    {this.props.team.totalOverview.toLocaleString()}
+                                    {this.props.team.totalSteps.toLocaleString()}
                                 </span>
                                 <span className="label-green">steps</span>
                             </span>
@@ -155,14 +146,15 @@ export class TeamChart extends Component {
 }
 
 const mapStateToProps = state => ({
-    team: state.teams.team
+    team: state.teams.team,
+    dateByType: state.teams.dateByType,
+    dateByStartDate: state.teams.dateByStartDate,
+    dateByEndDate: state.teams.dateByEndDate,
+    chartType: state.teams.chartType
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TeamChart);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamChart);

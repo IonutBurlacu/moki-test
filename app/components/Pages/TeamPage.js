@@ -10,6 +10,7 @@ import TeamChart from './TeamPage/TeamChart';
 import PlayersList from './TeamPage/PlayersList';
 import ChallengesList from './TeamPage/ChallengesList';
 import TopFilters from './TeamPage/TopFilters';
+import SideDetails from '../SideDetails';
 
 export class TeamPage extends Component {
     handleEdit = id => {
@@ -42,8 +43,9 @@ export class TeamPage extends Component {
                     <div className="content">
                         <PageHeader team={this.props.team} />
                         <TopFilters />
-                        <div className="charts-container">
+                        <div className="charts-container chart-with-scale">
                             <TeamChart />
+                            <SideDetails />
                         </div>
                         <div className="two-sides">
                             <div className="side">
@@ -83,7 +85,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TeamPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamPage);

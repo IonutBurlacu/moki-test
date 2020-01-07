@@ -19,6 +19,7 @@ export default (
         dateByType: 'today',
         dateByStartDate: moment.utc().local(),
         dateByEndDate: moment.utc().local(),
+        chartType: 'steps',
         listSort: 'most_steps',
         listSortLabel: 'Most steps',
         listFilterValues: [],
@@ -26,6 +27,7 @@ export default (
         filterSelectOpen: false,
         sortSelectOpen: false,
         dateSelectChartOpen: false,
+        chartTypeSelectOpen: false,
         loading: false
     },
     action
@@ -126,18 +128,16 @@ export default (
                     ...action.player,
                     age: moment().diff(moment(action.player.birthday), 'year'),
                     data: action.player.data.current,
-                    totalOverview: action.player.data.current.reduce(
+                    totalSteps: action.player.data.current.steps.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps_overview,
+                            accumulator + currentValue.y_axis,
                         0
                     ),
-                    totalTypical: action.player.data.current.reduce(
+                    totalMvpa: action.player.data.current.mvpa.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps_typical,
+                            accumulator + currentValue.y_axis,
                         0
-                    ),
-                    totalOverviewPrevious:
-                        action.player.data.previous_total.previous_steps
+                    )
                 },
                 loading: false
             };
@@ -162,22 +162,20 @@ export default (
                 player: {
                     ...state.player,
                     data: action.data.current,
-                    totalOverview: action.data.current.reduce(
+                    totalSteps: action.data.current.steps.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps_overview,
+                            accumulator + currentValue.y_axis,
                         0
                     ),
-                    totalTypical: action.data.current.reduce(
+                    totalMvpa: action.data.current.mvpa.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps_typical,
+                            accumulator + currentValue.y_axis,
                         0
-                    ),
-                    totalOverviewPrevious:
-                        action.data.previous_total.previous_steps
+                    )
                 },
                 dateByType: action.dateByType,
-                dateByStartDate: action.dateByStartDate,
-                dateByEndDate: action.dateByEndDate,
+                dateByStartDate: moment(action.dateByStartDate).hour(12),
+                dateByEndDate: moment(action.dateByEndDate).hour(12),
                 loading: false
             };
         case 'CREATE_PLAYER_REQUEST':
@@ -374,6 +372,7 @@ export default (
                 filterSelectOpen: false,
                 sortSelectOpen: false,
                 dateSelectChartOpen: false,
+                chartTypeSelectOpen: false,
                 [action.menu]: true
             };
         case 'CLOSE_PLAYERS_MENU':
@@ -387,7 +386,13 @@ export default (
                 dateSelectOpen: false,
                 filterSelectOpen: false,
                 sortSelectOpen: false,
-                dateSelectChartOpen: false
+                dateSelectChartOpen: false,
+                chartTypeSelectOpen: false
+            };
+        case 'CHANGE_PLAYERS_CHART_TYPE':
+            return {
+                ...state,
+                chartType: action.chartType
             };
         default:
             return state;

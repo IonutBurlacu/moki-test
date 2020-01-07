@@ -212,3 +212,8 @@ export const closePlayersMenu = menu => ({
 export const closeAllPlayersMenu = () => ({
     type: 'CLOSE_ALL_PLAYERS_MENU'
 });
+
+export const changePlayersChartType = chartType => ({
+    type: 'CHANGE_PLAYERS_CHART_TYPE',
+    chartType
+});

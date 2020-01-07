@@ -10,6 +10,7 @@ import PlayerChart from './PlayerPage/PlayerChart';
 import TeamsList from './PlayerPage/TeamsList';
 import ChallengesList from './PlayerPage/ChallengesList';
 import TopFilters from './PlayerPage/TopFilters';
+import SideDetails from '../SideDetails';
 
 export class PlayerPage extends Component {
     handleEdit = id => {
@@ -42,8 +43,9 @@ export class PlayerPage extends Component {
                     <div className="content">
                         <PageHeader player={this.props.player} />
                         <TopFilters />
-                        <div className="charts-container">
+                        <div className="charts-container chart-with-scale">
                             <PlayerChart />
+                            <SideDetails />
                         </div>
                         <div className="two-sides">
                             <div className="side">
@@ -83,7 +85,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PlayerPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerPage);

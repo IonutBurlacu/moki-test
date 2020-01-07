@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     ComposedChart,
-    Line,
     Bar,
     CartesianGrid,
     ResponsiveContainer,
@@ -10,18 +9,50 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { showLoader } from '../../../actions/loader';
 
 export class PlayerChart extends Component {
+    getDateLegend = () => {
+        switch (this.props.dateByType) {
+            case 'today':
+                return moment().format('D MMMM YYYY');
+            case 'week':
+                return `${moment(this.props.dateByStartDate).format(
+                    'D'
+                )} - ${moment(this.props.dateByEndDate).format('D MMMM YYYY')}`;
+            case 'month':
+                return `${moment(this.props.dateByStartDate).format(
+                    'D'
+                )} - ${moment(this.props.dateByEndDate).format('D MMMM YYYY')}`;
+            case 'year':
+                return `${moment(this.props.dateByStartDate).format(
+                    'MMM'
+                )} - ${moment(this.props.dateByEndDate).format('MMM YYYY')}`;
+            case 'interval':
+                return `${moment(this.props.dateByStartDate).format(
+                    'D MMM YYYY'
+                )} - ${moment(this.props.dateByEndDate).format('D MMM YYYY')}`;
+            default:
+                return moment().format('D MMMM YYYY');
+        }
+    };
+
     render() {
-        const { totalOverview, totalOverviewPrevious } = this.props.player;
         return (
             <div className="chart-container">
+                <div className="legend">
+                    <p className="date">{this.getDateLegend()}</p>
+                </div>
                 <div className="chart">
-                    {this.props.player.data.length ? (
+                    {this.props.player.data.steps.length ? (
                         <ResponsiveContainer width="99%">
                             <ComposedChart
-                                data={this.props.player.data}
+                                data={
+                                    this.props.chartType === 'steps'
+                                        ? this.props.player.data.steps
+                                        : this.props.player.data.mvpa
+                                }
                                 margin={{
                                     top: 10,
                                     right: 15,
@@ -61,21 +92,14 @@ export class PlayerChart extends Component {
                                 />
                                 <Tooltip />
                                 <Bar
-                                    dataKey="total_steps_overview"
-                                    name="Total"
+                                    dataKey="y_axis"
+                                    name={
+                                        this.props.chartType === 'steps'
+                                            ? 'Steps'
+                                            : 'MVPA'
+                                    }
                                     maxBarSize={70}
                                     fill="#23dec8"
-                                />
-                                <Line
-                                    type="monotone"
-                                    dataKey="total_steps_typical"
-                                    name="Typical"
-                                    stroke="#868797"
-                                    strokeWidth="2"
-                                    dot={{
-                                        stroke: '#868797',
-                                        strokeWidth: 5
-                                    }}
                                 />
                             </ComposedChart>
                         </ResponsiveContainer>
@@ -87,62 +111,29 @@ export class PlayerChart extends Component {
                     <div className="chart-bottom-line">
                         <div className="left-side">
                             <span className="total">
-                                Typical:{' '}
+                                MVPA:{' '}
                                 <span className="number-grey">
-                                    {this.props.player.totalTypical.toLocaleString()}
+                                    {this.props.player.totalMvpa < 60
+                                        ? moment('2020-01-01')
+                                              .startOf('day')
+                                              .minutes(
+                                                  this.props.player.totalMvpa
+                                              )
+                                              .format('m[m]')
+                                        : moment('2020-01-01')
+                                              .startOf('day')
+                                              .minutes(
+                                                  this.props.player.totalMvpa
+                                              )
+                                              .format('H[h] m[m]')}
                                 </span>
-                                <span className="label-grey">steps</span>
                             </span>
-                        </div>
-                        <div className="center-side">
-                            <span>Trend:</span>
-                            {totalOverview - totalOverviewPrevious !== 0 ? (
-                                <span
-                                    className={
-                                        totalOverview > totalOverviewPrevious
-                                            ? 'positive'
-                                            : 'negative'
-                                    }
-                                >
-                                    <span className="percentage-icon" />
-                                    {totalOverviewPrevious > 0 ? (
-                                        <span className="percentage">
-                                            {totalOverview >
-                                            totalOverviewPrevious
-                                                ? totalOverviewPrevious > 0
-                                                    ? (
-                                                          (totalOverview *
-                                                              100) /
-                                                              totalOverviewPrevious -
-                                                          100
-                                                      ).toFixed(0)
-                                                    : totalOverview
-                                                : totalOverview > 0
-                                                ? (
-                                                      ((totalOverviewPrevious -
-                                                          totalOverview) *
-                                                          100) /
-                                                      totalOverviewPrevious
-                                                  ).toFixed(0)
-                                                : 100}
-                                            %
-                                        </span>
-                                    ) : (
-                                        <span className="percentage">NA</span>
-                                    )}
-                                </span>
-                            ) : (
-                                <span className="positive">
-                                    <span className="percentage-icon" />
-                                    <span className="percentage">0%</span>
-                                </span>
-                            )}
                         </div>
                         <div className="right-side">
                             <span className="total">
-                                Total:{' '}
+                                Steps:{' '}
                                 <span className="number-green">
-                                    {this.props.player.totalOverview.toLocaleString()}
+                                    {this.props.player.totalSteps.toLocaleString()}
                                 </span>
                                 <span className="label-green">steps</span>
                             </span>
@@ -155,14 +146,15 @@ export class PlayerChart extends Component {
 }
 
 const mapStateToProps = state => ({
-    player: state.players.player
+    player: state.players.player,
+    dateByType: state.players.dateByType,
+    dateByStartDate: state.players.dateByStartDate,
+    dateByEndDate: state.players.dateByEndDate,
+    chartType: state.players.chartType
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PlayerChart);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerChart);

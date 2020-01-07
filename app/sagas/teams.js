@@ -49,8 +49,8 @@ export function* teamStats(action) {
         type: 'STATS_TEAM',
         data: decoded.data,
         dateByType: action.dateByType,
-        dateByStartDate: action.dateByStartDate,
-        dateByEndDate: action.dateByEndDate
+        dateByStartDate: decoded.start_date,
+        dateByEndDate: decoded.end_date
     });
 
     yield put({

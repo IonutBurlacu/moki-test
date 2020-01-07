@@ -117,7 +117,6 @@ export class GroupAveragesChart extends Component {
                                 {this.props.groupAverages.data.map(
                                     (entry, index) => {
                                         let color;
-                                        console.log(entry);
                                         if (
                                             entry.avg_steps <
                                             this.props.scales.first_step
@@ -161,7 +160,4 @@ const mapStateToProps = state => ({
     scales: state.reports.scales
 });
 
-export default connect(
-    mapStateToProps,
-    null
-)(GroupAveragesChart);
+export default connect(mapStateToProps, null)(GroupAveragesChart);

@@ -182,3 +182,8 @@ export const closeTeamsMenu = menu => ({
 export const closeAllTeamsMenu = () => ({
     type: 'CLOSE_ALL_TEAMS_MENU'
 });
+
+export const changeTeamsChartType = chartType => ({
+    type: 'CHANGE_TEAMS_CHART_TYPE',
+    chartType
+});
