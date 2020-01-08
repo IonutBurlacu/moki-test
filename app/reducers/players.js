@@ -5,6 +5,7 @@ export default (
         items: [],
         player: {
             data: [],
+            average: [],
             overview: [],
             typical: [],
             totalOverview: 0,
@@ -128,6 +129,27 @@ export default (
                     ...action.player,
                     age: moment().diff(moment(action.player.birthday), 'year'),
                     data: action.player.data.current,
+                    average: {
+                        grade: action.player.data.average.grade,
+                        daily_steps: action.player.data.average.daily_steps,
+                        mvpa_time:
+                            action.player.data.average.mvpa_minutes < 60
+                                ? moment('2020-01-01')
+                                      .startOf('day')
+                                      .minutes(
+                                          action.player.data.average
+                                              .mvpa_minutes
+                                      )
+                                      .format('m[m]')
+                                : moment('2020-01-01')
+                                      .startOf('day')
+                                      .minutes(
+                                          action.player.data.average
+                                              .mvpa_minutes
+                                      )
+                                      .format('H[h] m[m]')
+                    },
+                    previous: action.player.data.previous,
                     totalSteps: action.player.data.current.steps.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.y_axis,
@@ -162,6 +184,21 @@ export default (
                 player: {
                     ...state.player,
                     data: action.data.current,
+                    average: {
+                        grade: action.data.average.grade,
+                        daily_steps: action.data.average.daily_steps,
+                        mvpa_time:
+                            action.data.average.mvpa_minutes < 60
+                                ? moment('2020-01-01')
+                                      .startOf('day')
+                                      .minutes(action.data.average.mvpa_minutes)
+                                      .format('m[m]')
+                                : moment('2020-01-01')
+                                      .startOf('day')
+                                      .minutes(action.data.average.mvpa_minutes)
+                                      .format('H[h] m[m]')
+                    },
+                    previous: action.data.previous,
                     totalSteps: action.data.current.steps.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.y_axis,

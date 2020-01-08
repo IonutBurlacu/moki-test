@@ -45,7 +45,13 @@ export class TeamPage extends Component {
                         <TopFilters />
                         <div className="charts-container chart-with-scale">
                             <TeamChart />
-                            <SideDetails />
+                            <SideDetails
+                                daily_steps={
+                                    this.props.team.average.daily_steps
+                                }
+                                mvpa_time={this.props.team.average.mvpa_time}
+                                grade={this.props.team.average.grade}
+                            />
                         </div>
                         <div className="two-sides">
                             <div className="side">

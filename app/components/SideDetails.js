@@ -10,16 +10,27 @@ import MVPA from '../images/MVPA.png';
 
 export class SideDetails extends Component {
     render() {
+        const grades = {
+            A: A_grade,
+            B: B_grade,
+            C: C_grade,
+            D: D_grade,
+            E: E_grade
+        };
+        const gradeImage = grades[this.props.grade];
+        const gradeTextClass = `grade-text grade-text-${this.props.grade}`;
         return (
             <div className="side-details-container">
                 <p className="title">Player Daily Average</p>
-                <img src={A_grade} alt="" className="grade" />
-                <p className="grade-text grade-text-A">Moki Grade</p>
+                <img src={gradeImage} alt="" className="grade" />
+                <p className={gradeTextClass}>Moki Grade</p>
                 <div className="separator"></div>
                 <div className="details-box">
                     <img src={Steps} alt="" className="steps" />
                     <div className="right-side">
-                        <p className="top-text">2,321</p>
+                        <p className="top-text">
+                            {this.props.daily_steps.toLocaleString()}
+                        </p>
                         <p className="bottom-text">steps</p>
                     </div>
                 </div>
@@ -27,7 +38,7 @@ export class SideDetails extends Component {
                 <div className="details-box">
                     <img src={MVPA} alt="" className="mvpa" />
                     <div className="right-side">
-                        <p className="top-text">16m</p>
+                        <p className="top-text">{this.props.mvpa_time}</p>
                         <p className="bottom-text">MVPA</p>
                     </div>
                 </div>

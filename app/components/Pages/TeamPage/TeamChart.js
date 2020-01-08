@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { showLoader } from '../../../actions/loader';
+import duration from '../../../utils/duration';
 
 export class TeamChart extends Component {
     getDateLegend = () => {
@@ -113,19 +114,7 @@ export class TeamChart extends Component {
                             <span className="total">
                                 MVPA:{' '}
                                 <span className="number-grey">
-                                    {this.props.team.totalMvpa < 60
-                                        ? moment('2020-01-01')
-                                              .startOf('day')
-                                              .minutes(
-                                                  this.props.team.totalMvpa
-                                              )
-                                              .format('m[m]')
-                                        : moment('2020-01-01')
-                                              .startOf('day')
-                                              .minutes(
-                                                  this.props.team.totalMvpa
-                                              )
-                                              .format('H[h] m[m]')}
+                                    {duration(this.props.team.totalMvpa)}
                                 </span>
                             </span>
                         </div>

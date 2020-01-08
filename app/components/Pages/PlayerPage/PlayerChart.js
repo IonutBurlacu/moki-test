@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { showLoader } from '../../../actions/loader';
+import duration from '../../../utils/duration';
 
 export class PlayerChart extends Component {
     getDateLegend = () => {
@@ -113,21 +114,62 @@ export class PlayerChart extends Component {
                             <span className="total">
                                 MVPA:{' '}
                                 <span className="number-grey">
-                                    {this.props.player.totalMvpa < 60
-                                        ? moment('2020-01-01')
-                                              .startOf('day')
-                                              .minutes(
-                                                  this.props.player.totalMvpa
-                                              )
-                                              .format('m[m]')
-                                        : moment('2020-01-01')
-                                              .startOf('day')
-                                              .minutes(
-                                                  this.props.player.totalMvpa
-                                              )
-                                              .format('H[h] m[m]')}
+                                    {duration(this.props.player.totalMvpa)}
                                 </span>
                             </span>
+                            {this.props.player.totalMvpa -
+                                this.props.player.previous.mvpa !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.player.totalMvpa >
+                                        this.props.player.previous.mvpa
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    {this.props.player.previous.mvpa > 0 ? (
+                                        <span className="percentage">
+                                            {this.props.player.totalMvpa >
+                                            this.props.player.previous.mvpa
+                                                ? this.props.player.previous
+                                                      .mvpa > 0
+                                                    ? (
+                                                          (this.props.player
+                                                              .totalMvpa *
+                                                              100) /
+                                                              this.props.player
+                                                                  .previous
+                                                                  .mvpa -
+                                                          100
+                                                      ).toFixed(0)
+                                                    : this.props.player
+                                                          .totalMvpa
+                                                : this.props.player.totalMvpa >
+                                                  0
+                                                ? (
+                                                      ((this.props.player
+                                                          .previous.mvpa -
+                                                          this.props.player
+                                                              .totalMvpa) *
+                                                          100) /
+                                                      this.props.player.previous
+                                                          .mvpa
+                                                  ).toFixed(0)
+                                                : 100}
+                                            %
+                                        </span>
+                                    ) : (
+                                        <span className="percentage">NA</span>
+                                    )}
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                         <div className="right-side">
                             <span className="total">
@@ -137,6 +179,59 @@ export class PlayerChart extends Component {
                                 </span>
                                 <span className="label-green">steps</span>
                             </span>
+                            {this.props.player.totalSteps -
+                                this.props.player.previous.steps !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.player.totalSteps >
+                                        this.props.player.previous.steps
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    {this.props.player.previous.steps > 0 ? (
+                                        <span className="percentage">
+                                            {this.props.player.totalSteps >
+                                            this.props.player.previous.steps
+                                                ? this.props.player.previous
+                                                      .steps > 0
+                                                    ? (
+                                                          (this.props.player
+                                                              .totalSteps *
+                                                              100) /
+                                                              this.props.player
+                                                                  .previous
+                                                                  .steps -
+                                                          100
+                                                      ).toFixed(0)
+                                                    : this.props.player
+                                                          .totalSteps
+                                                : this.props.player.totalSteps >
+                                                  0
+                                                ? (
+                                                      ((this.props.player
+                                                          .previous.steps -
+                                                          this.props.player
+                                                              .totalSteps) *
+                                                          100) /
+                                                      this.props.player.previous
+                                                          .steps
+                                                  ).toFixed(0)
+                                                : 100}
+                                            %
+                                        </span>
+                                    ) : (
+                                        <span className="percentage">NA</span>
+                                    )}
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>

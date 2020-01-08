@@ -120,6 +120,25 @@ export default (
                 team: {
                     ...action.team,
                     data: action.team.data.current,
+                    average: {
+                        grade: action.team.data.average.grade,
+                        daily_steps: action.team.data.average.daily_steps,
+                        mvpa_time:
+                            action.team.data.average.mvpa_minutes < 60
+                                ? moment('2020-01-01')
+                                      .startOf('day')
+                                      .minutes(
+                                          action.team.data.average.mvpa_minutes
+                                      )
+                                      .format('m[m]')
+                                : moment('2020-01-01')
+                                      .startOf('day')
+                                      .minutes(
+                                          action.team.data.average.mvpa_minutes
+                                      )
+                                      .format('H[h] m[m]')
+                    },
+                    previous: action.team.data.previous,
                     totalSteps: action.team.data.current.steps.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.y_axis,
@@ -154,6 +173,30 @@ export default (
                 team: {
                     ...state.team,
                     data: action.data.current,
+                    average: {
+                        grade: action.data.average.grade,
+                        daily_steps: Math.round(
+                            action.data.average.daily_steps /
+                                state.team.players.length
+                        ),
+                        mvpa_time:
+                            action.data.average.mvpa_minutes < 60
+                                ? moment('2020-01-01')
+                                      .startOf('day')
+                                      .minutes(
+                                          action.data.average.mvpa_minutes /
+                                              state.team.players.length
+                                      )
+                                      .format('m[m]')
+                                : moment('2020-01-01')
+                                      .startOf('day')
+                                      .minutes(
+                                          action.data.average.mvpa_minutes /
+                                              state.team.players.length
+                                      )
+                                      .format('H[h] m[m]')
+                    },
+                    previous: action.data.previous,
                     totalSteps: action.data.current.steps.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.y_axis,

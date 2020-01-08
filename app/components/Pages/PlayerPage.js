@@ -45,7 +45,13 @@ export class PlayerPage extends Component {
                         <TopFilters />
                         <div className="charts-container chart-with-scale">
                             <PlayerChart />
-                            <SideDetails />
+                            <SideDetails
+                                daily_steps={
+                                    this.props.player.average.daily_steps
+                                }
+                                mvpa_time={this.props.player.average.mvpa_time}
+                                grade={this.props.player.average.grade}
+                            />
                         </div>
                         <div className="two-sides">
                             <div className="side">
