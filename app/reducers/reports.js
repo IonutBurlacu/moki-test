@@ -14,7 +14,10 @@ export default (
             dateSelectOpen: false
         },
         groupAverages: {
-            data: [],
+            data: {
+                steps: [],
+                mvpa: []
+            },
             teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),

@@ -91,7 +91,16 @@ export class PlayerChart extends Component {
                                         return number.toString();
                                     }}
                                 />
-                                <Tooltip />
+                                <Tooltip
+                                    cursor={false}
+                                    formatter={value =>
+                                        this.props.chartType === 'steps'
+                                            ? new Intl.NumberFormat(
+                                                  'en'
+                                              ).format(value)
+                                            : duration(value)
+                                    }
+                                />
                                 <Bar
                                     dataKey="y_axis"
                                     name={

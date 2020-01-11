@@ -60,7 +60,7 @@ export default (
                                           )
                                         : player.grade_score_current
                                     : player.grade_score_current > 0
-                                    ? Math.round(
+                                    ? -Math.round(
                                           ((player.grade_score_previous -
                                               player.grade_score_current) *
                                               100) /
@@ -69,16 +69,6 @@ export default (
                                     : 100
                                 : 0
                             : -1,
-                    mvpa_time:
-                        player.mvpa_minutes_current < 60
-                            ? moment('2020-01-01')
-                                  .startOf('day')
-                                  .minutes(player.mvpa_minutes_current)
-                                  .format('m[m]')
-                            : moment('2020-01-01')
-                                  .startOf('day')
-                                  .minutes(player.mvpa_minutes_current)
-                                  .format('H[h] m[m]'),
                     age: moment().diff(moment(player.birthday), 'year')
                 })),
                 teams: action.teams,

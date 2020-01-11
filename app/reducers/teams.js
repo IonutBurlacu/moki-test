@@ -54,7 +54,7 @@ export default (
                                           )
                                         : team.grade_score_current
                                     : team.grade_score_current > 0
-                                    ? Math.round(
+                                    ? -Math.round(
                                           ((team.grade_score_previous -
                                               team.grade_score_current) *
                                               100) /
@@ -62,17 +62,7 @@ export default (
                                       )
                                     : 100
                                 : 0
-                            : -1,
-                    mvpa_time:
-                        team.mvpa_minutes_current < 60
-                            ? moment('2020-01-01')
-                                  .startOf('day')
-                                  .minutes(team.mvpa_minutes_current)
-                                  .format('m[m]')
-                            : moment('2020-01-01')
-                                  .startOf('day')
-                                  .minutes(team.mvpa_minutes_current)
-                                  .format('H[h] m[m]')
+                            : -1
                 })),
                 loading: false
             };

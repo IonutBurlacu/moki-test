@@ -18,6 +18,7 @@ import B_grade from '../../images/B.png';
 import C_grade from '../../images/C.png';
 import D_grade from '../../images/D.png';
 import E_grade from '../../images/E.png';
+import duration from '../../utils/duration';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -113,7 +114,9 @@ export class TeamsPage extends Component {
                                                 </td>
                                                 <td className="align-right">
                                                     <h1 className="title">
-                                                        {team.mvpa_time}
+                                                        {duration(
+                                                            team.mvpa_minutes_current
+                                                        )}
                                                         <small>MVPA</small>
                                                     </h1>
                                                 </td>
@@ -134,7 +137,9 @@ export class TeamsPage extends Component {
                                                     <span className="percentage-icon" />
                                                     <span className="percentage">
                                                         {team.percentage !== -1
-                                                            ? `${team.percentage}%`
+                                                            ? `${Math.abs(
+                                                                  team.percentage
+                                                              )}%`
                                                             : 'NA'}
                                                     </span>
                                                 </td>

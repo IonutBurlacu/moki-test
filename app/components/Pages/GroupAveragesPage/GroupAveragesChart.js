@@ -73,7 +73,7 @@ export class GroupAveragesChart extends Component {
                 <div className="chart">
                     <ResponsiveContainer width="99%">
                         <BarChart
-                            data={this.props.groupAverages.data}
+                            data={this.props.groupAverages.data.steps}
                             barCategoryGap={5}
                             margin={{
                                 top: 10,
@@ -83,7 +83,7 @@ export class GroupAveragesChart extends Component {
                             }}
                         >
                             <CartesianGrid stroke="#53535d" vertical={false} />
-                            <XAxis dataKey="tag_name" stroke="#f6f6f7" />
+                            <XAxis dataKey="x_axis" stroke="#f6f6f7" />
                             <YAxis
                                 stroke="#f6f6f7"
                                 tickFormatter={number => {
@@ -110,30 +110,30 @@ export class GroupAveragesChart extends Component {
                                 }
                             />
                             <Bar
-                                dataKey="avg_steps"
+                                dataKey="y_axis"
                                 name="Average Day"
                                 maxBarSize={70}
                             >
-                                {this.props.groupAverages.data.map(
+                                {this.props.groupAverages.data.steps.map(
                                     (entry, index) => {
                                         let color;
                                         if (
-                                            entry.avg_steps <
+                                            entry.y_axis <
                                             this.props.scales.first_step
                                         ) {
                                             color = COLORS[0];
                                         } else if (
-                                            entry.avg_steps <
+                                            entry.y_axis <
                                             this.props.scales.second_step
                                         ) {
                                             color = COLORS[1];
                                         } else if (
-                                            entry.avg_steps <
+                                            entry.y_axis <
                                             this.props.scales.third_step
                                         ) {
                                             color = COLORS[2];
                                         } else if (
-                                            entry.avg_steps <
+                                            entry.y_axis <
                                             this.props.scales.fourth_step
                                         ) {
                                             color = COLORS[3];

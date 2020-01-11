@@ -18,6 +18,7 @@ import B_grade from '../../images/B.png';
 import C_grade from '../../images/C.png';
 import D_grade from '../../images/D.png';
 import E_grade from '../../images/E.png';
+import duration from '../../utils/duration';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -181,7 +182,9 @@ export class PairBandsPage extends Component {
                                                     </td>
                                                     <td className="align-right">
                                                         <h1 className="title">
-                                                            {player.mvpa_time}
+                                                            {duration(
+                                                                player.mvpa_minutes_current
+                                                            )}
                                                             <small>MVPA</small>
                                                         </h1>
                                                     </td>
@@ -203,7 +206,9 @@ export class PairBandsPage extends Component {
                                                         <span className="percentage">
                                                             {player.percentage !==
                                                             -1
-                                                                ? `${player.percentage}%`
+                                                                ? `${Math.abs(
+                                                                      player.percentage
+                                                                  )}%`
                                                                 : 'NA'}
                                                         </span>
                                                     </td>
