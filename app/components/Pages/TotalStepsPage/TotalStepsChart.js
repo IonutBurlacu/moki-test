@@ -10,7 +10,7 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import playersIcon from '../../../images/players_icon_active.png';
 import duration from '../../../utils/duration';
 import dateLegend from '../../../utils/dateLegend';
 import tickFormatter from '../../../utils/tickFormatter';
@@ -25,29 +25,44 @@ export class TotalStepsChart extends Component {
                 : this.props.totalSteps.data.mvpa;
         return (
             <div className="chart-container">
-                <div className="legend">
-                    {this.props.totalSteps.teamId && this.props.teams.length ? (
-                        <div>
-                            <p className="team">
-                                {
-                                    this.props.teams.find(
-                                        team =>
-                                            team.id ===
-                                            this.props.totalSteps.teamId
-                                    ).name
-                                }
-                            </p>
-                            <p className="date">
-                                {dateLegend(
-                                    this.props.totalSteps.dateByType,
-                                    this.props.totalSteps.dateByStartDate,
-                                    this.props.totalSteps.dateByEndDate
-                                )}
-                            </p>
-                        </div>
-                    ) : (
-                        ''
-                    )}
+                <div className="chart-top-bar">
+                    <div className="legend">
+                        {this.props.selectedTeam ? (
+                            <div>
+                                <p className="team">
+                                    {this.props.selectedTeam
+                                        ? this.props.selectedTeam.name
+                                        : ''}
+                                </p>
+                                <p className="date">
+                                    {dateLegend(
+                                        this.props.totalSteps.dateByType,
+                                        this.props.totalSteps.dateByStartDate,
+                                        this.props.totalSteps.dateByEndDate
+                                    )}
+                                </p>
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                    <div className="players">
+                        <img
+                            src={playersIcon}
+                            className="players-icon"
+                            alt="players-icon"
+                        />
+                        <span className="players-number">
+                            {this.props.selectedTeam
+                                ? this.props.selectedTeam.players_count
+                                : 0}{' '}
+                            Player
+                            {this.props.selectedTeam &&
+                            this.props.selectedTeam.players_count !== 1
+                                ? 's'
+                                : ''}
+                        </span>
+                    </div>
                 </div>
                 <div className="chart">
                     <ResponsiveContainer width="99%">
@@ -69,107 +84,16 @@ export class TotalStepsChart extends Component {
                             />
                             <Tooltip
                                 cursor={false}
-                                labelFormatter={label => {
-                                    const weekDays = [
-                                        'MON',
-                                        'TUE',
-                                        'WED',
-                                        'THU',
-                                        'FRI',
-                                        'SAT',
-                                        'SUN'
-                                    ];
-                                    switch (this.props.totalSteps.dateByType) {
-                                        case 'today':
-                                            return moment().format(
-                                                'DD/MM/YYYY'
-                                            );
-                                        case 'week':
-                                            return moment()
-                                                .startOf('isoWeek')
-                                                .day(
-                                                    weekDays.indexOf(label) + 1
-                                                )
-                                                .format('DD/MM/YYYY');
-                                        case 'month':
-                                            return moment()
-                                                .startOf('month')
-                                                .date(label)
-                                                .format('DD/MM/YYYY');
-                                        case 'year':
-                                            return moment()
-                                                .startOf('year')
-                                                .month(label)
-                                                .startOf('month')
-                                                .format('MMM YYYY');
-                                        case 'interval':
-                                            if (
-                                                this.props.totalSteps.dateByEndDate.diff(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate,
-                                                    'months'
-                                                ) >= 1
-                                            ) {
-                                                return moment(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate
-                                                )
-                                                    .startOf('year')
-                                                    .month(label)
-                                                    .startOf('month')
-                                                    .format('MMM YYYY');
-                                            }
-                                            if (
-                                                this.props.totalSteps.dateByEndDate.diff(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate,
-                                                    'weeks'
-                                                ) >= 1
-                                            ) {
-                                                return moment(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate
-                                                )
-                                                    .startOf('month')
-                                                    .date(label)
-                                                    .format('DD/MM/YYYY');
-                                            }
-                                            if (
-                                                this.props.totalSteps.dateByEndDate.diff(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate,
-                                                    'days'
-                                                ) >= 1
-                                            ) {
-                                                return moment(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate
-                                                )
-                                                    .startOf('isoWeek')
-                                                    .day(
-                                                        weekDays.indexOf(
-                                                            label
-                                                        ) + 1
-                                                    )
-                                                    .format('DD/MM/YYYY');
-                                            }
-                                            return moment(
-                                                this.props.totalSteps
-                                                    .dateByStartDate
-                                            ).format('DD/MM/YYYY');
-
-                                        default:
-                                            return moment().format(
-                                                'DD/MM/YYYY'
-                                            );
-                                    }
-                                }}
                                 formatter={value =>
-                                    new Intl.NumberFormat('en').format(value)
+                                    this.props.totalSteps.chartType === 'steps'
+                                        ? new Intl.NumberFormat('en').format(
+                                              value
+                                          )
+                                        : duration(value)
                                 }
                             />
                             <Bar
-                                dataKey="total_steps_overview"
+                                dataKey="y_axis"
                                 name="Total Steps"
                                 maxBarSize={70}
                             >
@@ -351,7 +275,9 @@ const mapStateToProps = state => ({
     teams: state.reports.teams,
     totalSteps: state.reports.totalSteps,
     scales: state.reports.scales,
-    loading: state.reports.loading
+    selectedTeam: state.reports.teams.find(
+        team => team.id === state.reports.totalSteps.teamId
+    )
 });
 
 export default connect(mapStateToProps, null)(TotalStepsChart);

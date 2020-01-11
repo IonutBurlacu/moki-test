@@ -7,7 +7,6 @@ import encrypt from '../../../utils/encrypt';
 import { showLoader, hideLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import {
-    getDownloadPdfTeamsRequest,
     changeDownloadPdfTeamsDateByType,
     openDownloadPdfMenu,
     closeDownloadPdfMenu
@@ -52,9 +51,7 @@ export class TopFilters extends Component {
                     .join('_');
                 link.setAttribute(
                     'download',
-                    `MOKI_${teamName}_all_reports_${
-                        this.props.downloadPdf.dateByType
-                    }.pdf`
+                    `MOKI_${teamName}_all_reports_${this.props.downloadPdf.dateByType}.pdf`
                 );
                 document.body.appendChild(link);
                 link.click();
@@ -69,15 +66,12 @@ export class TopFilters extends Component {
     render() {
         return (
             <div className="top-filters">
-                <div className="left-side">
-                    <SortBy />
-                </div>
+                <div className="left-side"></div>
                 <div className="center-side">
                     <DateBy
                         startDate={this.props.downloadPdf.dateByStartDate}
                         endDate={this.props.downloadPdf.dateByEndDate}
                         dateSelectOpen={this.props.downloadPdf.dateSelectOpen}
-                        fetchNewData={this.props.getDownloadPdfTeamsRequest}
                         changeDateType={
                             this.props.changeDownloadPdfTeamsDateByType
                         }
@@ -128,18 +122,7 @@ const mapDispatchToProps = dispatch => ({
                 dateByStartDate,
                 dateByEndDate
             )
-        ),
-    getDownloadPdfTeamsRequest: (
-        dateByType,
-        dateByStartDate = moment.utc().local(),
-        dateByEndDate = moment.utc().local()
-    ) =>
-        dispatch(
-            getDownloadPdfTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TopFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(TopFilters);

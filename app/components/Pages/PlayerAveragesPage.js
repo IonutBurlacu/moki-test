@@ -8,7 +8,7 @@ import { showLoader } from '../../actions/loader';
 import { getPlayerAveragesRequest } from '../../actions/reports';
 import PlayerAveragesChart from './PlayerAveragesPage/PlayerAveragesChart';
 import TopFilters from './PlayerAveragesPage/TopFilters';
-import { ChartScale } from './PlayerAveragesPage/ChartScale';
+import SideDetails from '../SideDetails';
 
 export class PlayerAveragesPage extends Component {
     componentWillMount() {
@@ -34,7 +34,18 @@ export class PlayerAveragesPage extends Component {
                         <TopFilters />
                         <div className="chart-with-scale">
                             <PlayerAveragesChart />
-                            <ChartScale />
+                            <SideDetails
+                                extraStyle={{ marginTop: '5vmin' }}
+                                daily_steps={
+                                    this.props.playerAverages.average
+                                        .daily_steps
+                                }
+                                mvpa_minutes={
+                                    this.props.playerAverages.average
+                                        .mvpa_minutes
+                                }
+                                grade={this.props.playerAverages.average.grade}
+                            />
                         </div>
                         <p className="below-chart">PLAYERS</p>
                     </div>

@@ -8,7 +8,7 @@ import { showLoader } from '../../actions/loader';
 import { getTotalStepsRequest } from '../../actions/reports';
 import TotalStepsChart from './TotalStepsPage/TotalStepsChart';
 import TopFilters from './TotalStepsPage/TopFilters';
-import { ChartScale } from './TotalStepsPage/ChartScale';
+import SideDetails from '../SideDetails';
 
 export class TotalStepsPage extends Component {
     componentWillMount() {
@@ -30,11 +30,20 @@ export class TotalStepsPage extends Component {
                 />
                 {!this.props.loading ? (
                     <div className="content">
-                        <PageTitle title="Total Steps" />
+                        <PageTitle title="Overview" />
                         <TopFilters />
                         <div className="charts-container chart-with-scale">
                             <TotalStepsChart />
-                            <ChartScale />
+                            <SideDetails
+                                extraStyle={{ marginTop: '5vmin' }}
+                                daily_steps={
+                                    this.props.totalSteps.average.daily_steps
+                                }
+                                mvpa_minutes={
+                                    this.props.totalSteps.average.mvpa_minutes
+                                }
+                                grade={this.props.totalSteps.average.grade}
+                            />
                         </div>
                     </div>
                 ) : (

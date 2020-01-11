@@ -21,6 +21,38 @@ export function* getReportsTeams() {
     });
 }
 
+export function* getTotalSteps(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        ReportsAPI.totalSteps,
+        {
+            Authorization: token
+        },
+        action.teamId,
+        action.dateByType,
+        moment(action.dateByStartDate).format('YYYY-MM-DD'),
+        moment(action.dateByEndDate).format('YYYY-MM-DD')
+    );
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'GET_TOTAL_STEPS',
+        data: decoded.data,
+        average: decoded.average,
+        teamId: decoded.team_id,
+        dateByType: action.dateByType,
+        dateByStartDate: decoded.start_date,
+        dateByEndDate: decoded.end_date,
+        scales: decoded.scales,
+        playersCount: decoded.players_count
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
 export function* getPlayerAverages(action) {
     const token = yield select(getToken);
     const response = yield call(
@@ -39,6 +71,7 @@ export function* getPlayerAverages(action) {
     yield put({
         type: 'GET_PLAYER_AVERAGES',
         data: decoded.data,
+        average: decoded.average,
         teamId: decoded.team_id,
         dateByType: action.dateByType,
         dateByStartDate: decoded.start_date,
@@ -69,67 +102,12 @@ export function* getGroupAverages(action) {
     yield put({
         type: 'GET_GROUP_AVERAGES',
         data: decoded.data,
+        average: decoded.average,
         teamId: decoded.team_id,
         dateByType: action.dateByType,
         dateByStartDate: decoded.start_date,
         dateByEndDate: decoded.end_date,
         scales: decoded.scales
-    });
-
-    yield put({
-        type: 'HIDE_LOADER'
-    });
-}
-
-export function* getTotalSteps(action) {
-    const token = yield select(getToken);
-    const response = yield call(
-        ReportsAPI.totalSteps,
-        {
-            Authorization: token
-        },
-        action.teamId,
-        action.dateByType,
-        moment(action.dateByStartDate).format('YYYY-MM-DD'),
-        moment(action.dateByEndDate).format('YYYY-MM-DD')
-    );
-
-    const decoded = decrypt(response.data);
-
-    yield put({
-        type: 'GET_TOTAL_STEPS',
-        data: decoded.data,
-        teamId: decoded.team_id,
-        dateByType: action.dateByType,
-        dateByStartDate: decoded.start_date,
-        dateByEndDate: decoded.end_date,
-        scales: decoded.scales,
-        playersCount: decoded.players_count
-    });
-
-    yield put({
-        type: 'HIDE_LOADER'
-    });
-}
-
-export function* getDownloadPdfTeams(action) {
-    const token = yield select(getToken);
-    const response = yield call(
-        TeamsAPI.get,
-        { Authorization: token },
-        action.dateByType,
-        moment(action.dateByStartDate).format('YYYY-MM-DD'),
-        moment(action.dateByEndDate).format('YYYY-MM-DD')
-    );
-
-    const decoded = decrypt(response.data);
-
-    yield put({
-        type: 'GET_DOWNLOAD_PDF_TEAMS',
-        teams: decoded.teams,
-        dateByType: action.dateByType,
-        dateByStartDate: action.dateByStartDate,
-        dateByEndDate: action.dateByEndDate
     });
 
     yield put({

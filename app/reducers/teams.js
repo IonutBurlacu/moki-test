@@ -152,10 +152,7 @@ export default (
                     data: action.data.current,
                     average: {
                         grade: action.data.average.grade,
-                        daily_steps: Math.round(
-                            action.data.average.daily_steps /
-                                state.team.players.length
-                        ),
+                        daily_steps: action.data.average.daily_steps,
                         mvpa_minutes: action.data.average.mvpa_minutes
                     },
                     previous: action.data.previous,

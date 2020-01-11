@@ -21,7 +21,10 @@ export class SideDetails extends Component {
         const gradeImage = grades[this.props.grade];
         const gradeTextClass = `grade-text grade-text-${this.props.grade}`;
         return (
-            <div className="side-details-container">
+            <div
+                className="side-details-container"
+                style={this.props.extraStyle}
+            >
                 <p className="title">Player Daily Average</p>
                 <img src={gradeImage} alt="" className="grade" />
                 <p className={gradeTextClass}>Moki Grade</p>

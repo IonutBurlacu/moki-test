@@ -46,8 +46,10 @@ export class DateBy extends Component {
     handleDateSelectChange = dateByType => {
         this.props.closeMenu('dateSelectOpen');
         this.props.changeDateType(dateByType);
-        this.props.showLoader();
-        this.props.fetchNewData(dateByType);
+        if (this.props.fetchNewData) {
+            this.props.showLoader();
+            this.props.fetchNewData(dateByType);
+        }
     };
 
     handleDateRangeSelect = ranges => {
@@ -195,7 +197,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(DateBy);
+export default connect(null, mapDispatchToProps)(DateBy);

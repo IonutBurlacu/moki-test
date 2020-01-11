@@ -5,10 +5,7 @@ import moment from 'moment';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import PageTitle from './DownloadPdfPage/PageTitle';
-import {
-    getDownloadPdfTeamsRequest,
-    addTeamToDownloadPdf
-} from '../../actions/reports';
+import { addTeamToDownloadPdf } from '../../actions/reports';
 import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
 import getFilteredTeams from '../../selectors/teams';
@@ -20,15 +17,6 @@ import TopFilters from './DownloadPdfPage/TopFilters';
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class DownloadPdfPage extends Component {
-    componentWillMount() {
-        this.props.showLoader();
-        this.props.getDownloadPdfTeamsRequest(
-            this.props.downloadPdf.dateByType,
-            this.props.downloadPdf.dateByStartDate,
-            this.props.downloadPdf.dateByEndDate
-        );
-    }
-
     handleChallengeView = id => {
         this.props.viewChallengeRequest(id);
         this.props.showLoader();
@@ -137,23 +125,12 @@ export class DownloadPdfPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    teams: getFilteredTeams(state.reports.downloadPdf.teams, {
-        filterByValues: [],
-        sortBy: state.reports.downloadPdf.listSort
-    }),
+    teams: state.reports.teams,
     downloadPdf: state.reports.downloadPdf,
     loading: state.reports.loading
 });
 
 const mapDispatchToProps = dispatch => ({
-    getDownloadPdfTeamsRequest: (dateByType, dateByStartDate, dateByEndDate) =>
-        dispatch(
-            getDownloadPdfTeamsRequest(
-                dateByType,
-                dateByStartDate,
-                dateByEndDate
-            )
-        ),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     addTeamToDownloadPdf: teamId => dispatch(addTeamToDownloadPdf(teamId)),
     showLoader: () => dispatch(showLoader())

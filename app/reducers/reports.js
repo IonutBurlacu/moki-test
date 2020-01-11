@@ -9,6 +9,11 @@ export default (
                 steps: [],
                 mvpa: []
             },
+            average: {
+                daily_steps: 0,
+                mvpa_minutes: 0,
+                grade: 'E'
+            },
             teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
@@ -22,6 +27,11 @@ export default (
             data: {
                 steps: [],
                 mvpa: []
+            },
+            average: {
+                daily_steps: 0,
+                mvpa_minutes: 0,
+                grade: 'E'
             },
             teamId: null,
             dateByType: 'today',
@@ -37,6 +47,15 @@ export default (
                 steps: [],
                 mvpa: []
             },
+            previous: {
+                steps: 0,
+                mvpa: 0
+            },
+            average: {
+                daily_steps: 0,
+                mvpa_minutes: 0,
+                grade: 'E'
+            },
             teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
@@ -50,7 +69,6 @@ export default (
             totalMvpa: 0
         },
         downloadPdf: {
-            teams: [],
             teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
@@ -93,12 +111,14 @@ export default (
                 loading: true
             };
         case 'GET_PLAYER_AVERAGES':
+            console.log(action);
             return {
                 ...state,
                 playerAverages: {
                     ...state.playerAverages,
                     teamId: action.teamId,
                     data: action.data,
+                    average: action.average,
                     dateByType: action.dateByType,
                     dateByStartDate: moment(action.dateByStartDate).hour(12),
                     dateByEndDate: moment(action.dateByEndDate).hour(12)
@@ -168,6 +188,7 @@ export default (
                     ...state.groupAverages,
                     teamId: action.teamId,
                     data: action.data,
+                    average: action.average,
                     dateByType: action.dateByType,
                     dateByStartDate: moment(action.dateByStartDate).hour(12),
                     dateByEndDate: moment(action.dateByEndDate).hour(12)
@@ -238,6 +259,7 @@ export default (
                     teamId: action.teamId,
                     data: action.data.current,
                     previous: action.data.previous,
+                    average: action.average,
                     dateByType: action.dateByType,
                     dateByStartDate: moment(action.dateByStartDate).hour(12),
                     dateByEndDate: moment(action.dateByEndDate).hour(12),

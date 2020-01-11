@@ -23,8 +23,7 @@ export class PlayerAveragesChart extends Component {
             <div className="chart-container">
                 <div className="chart-top-bar">
                     <div className="legend">
-                        {this.props.playerAverages.teamId &&
-                        this.props.teams.length ? (
+                        {this.props.selectedTeam ? (
                             <div>
                                 <p className="team">
                                     {this.props.selectedTeam

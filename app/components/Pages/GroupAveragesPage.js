@@ -8,7 +8,7 @@ import { showLoader } from '../../actions/loader';
 import { getGroupAveragesRequest } from '../../actions/reports';
 import GroupAveragesChart from './GroupAveragesPage/GroupAveragesChart';
 import TopFilters from './GroupAveragesPage/TopFilters';
-import { ChartScale } from './GroupAveragesPage/ChartScale';
+import SideDetails from '../SideDetails';
 
 export class GroupAveragesPage extends Component {
     componentWillMount() {
@@ -34,7 +34,17 @@ export class GroupAveragesPage extends Component {
                         <TopFilters />
                         <div className="chart-with-scale">
                             <GroupAveragesChart />
-                            <ChartScale />
+                            <SideDetails
+                                extraStyle={{ marginTop: '5vmin' }}
+                                daily_steps={
+                                    this.props.groupAverages.average.daily_steps
+                                }
+                                mvpa_minutes={
+                                    this.props.groupAverages.average
+                                        .mvpa_minutes
+                                }
+                                grade={this.props.groupAverages.average.grade}
+                            />
                         </div>
                     </div>
                 ) : (
