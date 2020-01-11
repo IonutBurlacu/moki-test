@@ -30,8 +30,8 @@ export class GroupAveragesPage extends Component {
                 />
                 {!this.props.loading ? (
                     <div className="content">
-                        <TopFilters />
                         <PageTitle title="Group Averages" />
+                        <TopFilters />
                         <div className="chart-with-scale">
                             <GroupAveragesChart />
                             <ChartScale />
@@ -69,7 +69,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(GroupAveragesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupAveragesPage);

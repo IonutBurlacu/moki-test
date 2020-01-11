@@ -30,8 +30,8 @@ export class TotalStepsPage extends Component {
                 />
                 {!this.props.loading ? (
                     <div className="content">
-                        <TopFilters />
                         <PageTitle title="Total Steps" />
+                        <TopFilters />
                         <div className="charts-container chart-with-scale">
                             <TotalStepsChart />
                             <ChartScale />
@@ -53,7 +53,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
-    getTotalStepsRequest: (teamId, dateByType, dateByStartDate, dateByEndDate) =>
+    getTotalStepsRequest: (
+        teamId,
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
+    ) =>
         dispatch(
             getTotalStepsRequest(
                 teamId,
@@ -64,7 +69,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TotalStepsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TotalStepsPage);

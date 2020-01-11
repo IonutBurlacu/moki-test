@@ -49,7 +49,9 @@ export class TeamPage extends Component {
                                 daily_steps={
                                     this.props.team.average.daily_steps
                                 }
-                                mvpa_time={this.props.team.average.mvpa_time}
+                                mvpa_minutes={
+                                    this.props.team.average.mvpa_minutes
+                                }
                                 grade={this.props.team.average.grade}
                             />
                         </div>

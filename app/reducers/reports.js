@@ -5,13 +5,18 @@ export default (
         teams: [],
         scales: null,
         playerAverages: {
-            data: [],
+            data: {
+                steps: [],
+                mvpa: []
+            },
             teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
             dateByEndDate: moment.utc().local(),
+            chartType: 'steps',
             teamSelectOpen: false,
-            dateSelectOpen: false
+            dateSelectOpen: false,
+            chartTypeSelectOpen: false
         },
         groupAverages: {
             data: {
@@ -22,23 +27,27 @@ export default (
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
             dateByEndDate: moment.utc().local(),
+            chartType: 'steps',
             teamSelectOpen: false,
-            dateSelectOpen: false
+            dateSelectOpen: false,
+            chartTypeSelectOpen: false
         },
         totalSteps: {
             data: {
-                current: []
+                steps: [],
+                mvpa: []
             },
             teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
             dateByEndDate: moment.utc().local(),
+            chartType: 'steps',
             playersCount: 0,
             teamSelectOpen: false,
             dateSelectOpen: false,
-            totalOverview: 0,
-            totalTypical: 0,
-            totalOverviewPrevious: 0
+            chartTypeSelectOpen: false,
+            totalSteps: 0,
+            totalMvpa: 0
         },
         downloadPdf: {
             teams: [],
@@ -139,6 +148,14 @@ export default (
                     [action.menu]: false
                 }
             };
+        case 'CHANGE_PLAYER_AVERAGES_CHART_TYPE':
+            return {
+                ...state,
+                playerAverages: {
+                    ...state.playerAverages,
+                    chartType: action.chartType
+                }
+            };
         case 'GET_GROUP_AVERAGES_REQUEST':
             return {
                 ...state,
@@ -200,6 +217,14 @@ export default (
                     [action.menu]: false
                 }
             };
+        case 'CHANGE_GROUP_AVERAGES_CHART_TYPE':
+            return {
+                ...state,
+                groupAverages: {
+                    ...state.groupAverages,
+                    chartType: action.chartType
+                }
+            };
         case 'GET_TOTAL_STEPS_REQUEST':
             return {
                 ...state,
@@ -211,23 +236,22 @@ export default (
                 totalSteps: {
                     ...state.totalSteps,
                     teamId: action.teamId,
-                    data: action.data,
+                    data: action.data.current,
+                    previous: action.data.previous,
                     dateByType: action.dateByType,
                     dateByStartDate: moment(action.dateByStartDate).hour(12),
                     dateByEndDate: moment(action.dateByEndDate).hour(12),
                     playersCount: action.playersCount,
-                    totalOverview: action.data.current.reduce(
+                    totalSteps: action.data.current.steps.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps_overview,
+                            accumulator + currentValue.y_axis,
                         0
                     ),
-                    totalTypical: action.data.current.reduce(
+                    totalMvpa: action.data.current.mvpa.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.total_steps_typical,
+                            accumulator + currentValue.y_axis,
                         0
-                    ),
-                    totalOverviewPrevious:
-                        action.data.previous_total.previous_steps
+                    )
                 },
                 groupAverages: {
                     ...state.groupAverages,
@@ -263,6 +287,7 @@ export default (
                     ...state.totalSteps,
                     teamSelectOpen: false,
                     dateSelectOpen: false,
+                    chartTypeSelectOpen: false,
                     [action.menu]: true
                 }
             };
@@ -272,6 +297,14 @@ export default (
                 totalSteps: {
                     ...state.totalSteps,
                     [action.menu]: false
+                }
+            };
+        case 'CHANGE_TOTAL_STEPS_CHART_TYPE':
+            return {
+                ...state,
+                totalSteps: {
+                    ...state.totalSteps,
+                    chartType: action.chartType
                 }
             };
         case 'GET_DOWNLOAD_PDF_TEAMS_REQUEST':
@@ -504,7 +537,8 @@ export default (
                 totalSteps: {
                     ...state.totalSteps,
                     teamSelectOpen: false,
-                    dateSelectOpen: false
+                    dateSelectOpen: false,
+                    chartTypeSelectOpen: false
                 },
                 downloadPdf: {
                     ...state.downloadPdf,

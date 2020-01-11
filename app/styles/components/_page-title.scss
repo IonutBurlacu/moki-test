@@ -19,11 +19,34 @@
 
 .reports-page-title {
     align-items: center;
-    background: #1f1f42;
+    background: #3a3f82;
     display: flex;
     height: 7.5vmin;
     justify-content: center;
+    padding: 0 4vmin;
     width: 100%;
+
+    .left-side,
+    .center-side,
+    .right-side {
+        display: flex;
+        flex: 1;
+    }
+
+    .left-side {
+        .filter-wrapper {
+            margin-right: 2vmin;
+        }
+
+        .filter-select-list-wrapper {
+            left: -26px;
+            right: inherit;
+        }
+    }
+
+    .center-side {
+        justify-content: center;
+    }
 
     h1 {
         color: white;

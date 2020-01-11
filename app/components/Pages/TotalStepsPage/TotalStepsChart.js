@@ -11,45 +11,18 @@ import {
 } from 'recharts';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import duration from '../../../utils/duration';
+import dateLegend from '../../../utils/dateLegend';
+import tickFormatter from '../../../utils/tickFormatter';
 
 const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
 export class TotalStepsChart extends Component {
-    getDateLegend = () => {
-        switch (this.props.totalSteps.dateByType) {
-            case 'today':
-                return moment().format('D MMMM YYYY');
-            case 'week':
-                return `${moment(this.props.totalSteps.dateByStartDate).format(
-                    'D'
-                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
-                    'D MMMM YYYY'
-                )}`;
-            case 'month':
-                return `${moment(this.props.totalSteps.dateByStartDate).format(
-                    'D'
-                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
-                    'D MMMM YYYY'
-                )}`;
-            case 'year':
-                return `${moment(this.props.totalSteps.dateByStartDate).format(
-                    'MMM'
-                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
-                    'MMM YYYY'
-                )}`;
-            case 'interval':
-                return `${moment(this.props.totalSteps.dateByStartDate).format(
-                    'D MMM YYYY'
-                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
-                    'D MMM YYYY'
-                )}`;
-            default:
-                return moment().format('D MMMM YYYY');
-        }
-    };
-
     render() {
-        const { totalOverview, totalOverviewPrevious } = this.props.totalSteps;
+        const chartData =
+            this.props.totalSteps.chartType === 'steps'
+                ? this.props.totalSteps.data.steps
+                : this.props.totalSteps.data.mvpa;
         return (
             <div className="chart-container">
                 <div className="legend">
@@ -64,7 +37,13 @@ export class TotalStepsChart extends Component {
                                     ).name
                                 }
                             </p>
-                            <p className="date">{this.getDateLegend()}</p>
+                            <p className="date">
+                                {dateLegend(
+                                    this.props.totalSteps.dateByType,
+                                    this.props.totalSteps.dateByStartDate,
+                                    this.props.totalSteps.dateByEndDate
+                                )}
+                            </p>
                         </div>
                     ) : (
                         ''
@@ -73,7 +52,7 @@ export class TotalStepsChart extends Component {
                 <div className="chart">
                     <ResponsiveContainer width="99%">
                         <ComposedChart
-                            data={this.props.totalSteps.data.current}
+                            data={chartData}
                             barCategoryGap={5}
                             margin={{
                                 top: 10,
@@ -86,22 +65,7 @@ export class TotalStepsChart extends Component {
                             <XAxis dataKey="x_axis" stroke="#f6f6f7" />
                             <YAxis
                                 stroke="#f6f6f7"
-                                tickFormatter={number => {
-                                    if (number > 1000000000) {
-                                        return `${(
-                                            number / 1000000000
-                                        ).toString()}B`;
-                                    }
-                                    if (number > 1000000) {
-                                        return `${(
-                                            number / 1000000
-                                        ).toString()}M`;
-                                    }
-                                    if (number > 1000) {
-                                        return `${(number / 1000).toString()}K`;
-                                    }
-                                    return number.toString();
-                                }}
+                                tickFormatter={tickFormatter}
                             />
                             <Tooltip
                                 cursor={false}
@@ -209,45 +173,41 @@ export class TotalStepsChart extends Component {
                                 name="Total Steps"
                                 maxBarSize={70}
                             >
-                                {this.props.totalSteps.data.current.map(
-                                    (entry, index) => {
-                                        let color;
-                                        if (
-                                            entry.total_steps_overview <
-                                            this.props.scales.first_step *
-                                                this.props.totalSteps
-                                                    .playersCount
-                                        ) {
-                                            color = COLORS[0];
-                                        } else if (
-                                            entry.total_steps_overview <
-                                            this.props.scales.second_step *
-                                                this.props.totalSteps
-                                                    .playersCount
-                                        ) {
-                                            color = COLORS[1];
-                                        } else if (
-                                            entry.total_steps_overview <
-                                            this.props.scales.third_step *
-                                                this.props.totalSteps
-                                                    .playersCount
-                                        ) {
-                                            color = COLORS[2];
-                                        } else if (
-                                            entry.total_steps_overview <
-                                            this.props.scales.fourth_step *
-                                                this.props.totalSteps
-                                                    .playersCount
-                                        ) {
-                                            color = COLORS[3];
-                                        } else {
-                                            color = COLORS[4];
-                                        }
-                                        return (
-                                            <Cell key={index} fill={color} />
-                                        );
-                                    }
-                                )}
+                                {chartData.map((entry, index) => {
+                                    const color = COLORS[4];
+                                    // if (
+                                    //     entry.total_steps_overview <
+                                    //     this.props.scales.first_step *
+                                    //         this.props.totalSteps
+                                    //             .playersCount
+                                    // ) {
+                                    //     color = COLORS[0];
+                                    // } else if (
+                                    //     entry.total_steps_overview <
+                                    //     this.props.scales.second_step *
+                                    //         this.props.totalSteps
+                                    //             .playersCount
+                                    // ) {
+                                    //     color = COLORS[1];
+                                    // } else if (
+                                    //     entry.total_steps_overview <
+                                    //     this.props.scales.third_step *
+                                    //         this.props.totalSteps
+                                    //             .playersCount
+                                    // ) {
+                                    //     color = COLORS[2];
+                                    // } else if (
+                                    //     entry.total_steps_overview <
+                                    //     this.props.scales.fourth_step *
+                                    //         this.props.totalSteps
+                                    //             .playersCount
+                                    // ) {
+                                    //     color = COLORS[3];
+                                    // } else {
+                                    //     color = COLORS[4];
+                                    // }
+                                    return <Cell key={index} fill={color} />;
+                                })}
                             </Bar>
                         </ComposedChart>
                     </ResponsiveContainer>
@@ -256,42 +216,51 @@ export class TotalStepsChart extends Component {
                     <div className="chart-bottom-line">
                         <div className="left-side">
                             <span className="total">
-                                Typical:{' '}
+                                MVPA:{' '}
                                 <span className="number-grey">
-                                    {this.props.totalSteps.totalTypical.toLocaleString()}
+                                    {duration(this.props.totalSteps.totalMvpa)}
                                 </span>
-                                <span className="label-grey">steps</span>
                             </span>
-                        </div>
-                        <div className="center-side">
-                            <span>Trend:</span>
-                            {totalOverview - totalOverviewPrevious !== 0 ? (
+                            {this.props.totalSteps.totalMvpa -
+                                this.props.totalSteps.previous.mvpa !==
+                            0 ? (
                                 <span
                                     className={
-                                        totalOverview > totalOverviewPrevious
+                                        this.props.totalSteps.totalMvpa >
+                                        this.props.totalSteps.previous.mvpa
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {totalOverviewPrevious > 0 ? (
+                                    {this.props.totalSteps.previous.mvpa > 0 ? (
                                         <span className="percentage">
-                                            {totalOverview >
-                                            totalOverviewPrevious
-                                                ? totalOverviewPrevious > 0
+                                            {this.props.totalSteps.totalMvpa >
+                                            this.props.totalSteps.previous.mvpa
+                                                ? this.props.totalSteps.previous
+                                                      .mvpa > 0
                                                     ? (
-                                                          (totalOverview *
+                                                          (this.props.totalSteps
+                                                              .totalMvpa *
                                                               100) /
-                                                              totalOverviewPrevious -
+                                                              this.props
+                                                                  .totalSteps
+                                                                  .previous
+                                                                  .mvpa -
                                                           100
                                                       ).toFixed(0)
-                                                    : totalOverview
-                                                : totalOverview > 0
+                                                    : this.props.totalSteps
+                                                          .totalMvpa
+                                                : this.props.totalSteps
+                                                      .totalMvpa > 0
                                                 ? (
-                                                      ((totalOverviewPrevious -
-                                                          totalOverview) *
+                                                      ((this.props.totalSteps
+                                                          .previous.mvpa -
+                                                          this.props.totalSteps
+                                                              .totalMvpa) *
                                                           100) /
-                                                      totalOverviewPrevious
+                                                      this.props.totalSteps
+                                                          .previous.mvpa
                                                   ).toFixed(0)
                                                 : 100}
                                             %
@@ -309,12 +278,67 @@ export class TotalStepsChart extends Component {
                         </div>
                         <div className="right-side">
                             <span className="total">
-                                Total:{' '}
+                                Steps:{' '}
                                 <span className="number-green">
-                                    {this.props.totalSteps.totalOverview.toLocaleString()}
+                                    {this.props.totalSteps.totalSteps.toLocaleString()}
                                 </span>
                                 <span className="label-green">steps</span>
                             </span>
+                            {this.props.totalSteps.totalSteps -
+                                this.props.totalSteps.previous.steps !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.totalSteps.totalSteps >
+                                        this.props.totalSteps.previous.steps
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    {this.props.totalSteps.previous.steps >
+                                    0 ? (
+                                        <span className="percentage">
+                                            {this.props.totalSteps.totalSteps >
+                                            this.props.totalSteps.previous.steps
+                                                ? this.props.totalSteps.previous
+                                                      .steps > 0
+                                                    ? (
+                                                          (this.props.totalSteps
+                                                              .totalSteps *
+                                                              100) /
+                                                              this.props
+                                                                  .totalSteps
+                                                                  .previous
+                                                                  .steps -
+                                                          100
+                                                      ).toFixed(0)
+                                                    : this.props.totalSteps
+                                                          .totalSteps
+                                                : this.props.totalSteps
+                                                      .totalSteps > 0
+                                                ? (
+                                                      ((this.props.totalSteps
+                                                          .previous.steps -
+                                                          this.props.totalSteps
+                                                              .totalSteps) *
+                                                          100) /
+                                                      this.props.totalSteps
+                                                          .previous.steps
+                                                  ).toFixed(0)
+                                                : 100}
+                                            %
+                                        </span>
+                                    ) : (
+                                        <span className="percentage">NA</span>
+                                    )}
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -326,10 +350,8 @@ export class TotalStepsChart extends Component {
 const mapStateToProps = state => ({
     teams: state.reports.teams,
     totalSteps: state.reports.totalSteps,
-    scales: state.reports.scales
+    scales: state.reports.scales,
+    loading: state.reports.loading
 });
 
-export default connect(
-    mapStateToProps,
-    null
-)(TotalStepsChart);
+export default connect(mapStateToProps, null)(TotalStepsChart);

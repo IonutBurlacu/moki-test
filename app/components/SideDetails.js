@@ -7,6 +7,7 @@ import D_grade from '../images/D.png';
 import E_grade from '../images/E.png';
 import Steps from '../images/Steps.png';
 import MVPA from '../images/MVPA.png';
+import duration from '../utils/duration';
 
 export class SideDetails extends Component {
     render() {
@@ -38,7 +39,9 @@ export class SideDetails extends Component {
                 <div className="details-box">
                     <img src={MVPA} alt="" className="mvpa" />
                     <div className="right-side">
-                        <p className="top-text">{this.props.mvpa_time}</p>
+                        <p className="top-text">
+                            {duration(this.props.mvpa_minutes)}
+                        </p>
                         <p className="bottom-text">MVPA</p>
                     </div>
                 </div>

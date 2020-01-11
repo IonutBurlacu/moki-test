@@ -9,41 +9,23 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { showLoader } from '../../../actions/loader';
 import duration from '../../../utils/duration';
+import dateLegend from '../../../utils/dateLegend';
+import tickFormatter from '../../../utils/tickFormatter';
 
 export class PlayerChart extends Component {
-    getDateLegend = () => {
-        switch (this.props.dateByType) {
-            case 'today':
-                return moment().format('D MMMM YYYY');
-            case 'week':
-                return `${moment(this.props.dateByStartDate).format(
-                    'D'
-                )} - ${moment(this.props.dateByEndDate).format('D MMMM YYYY')}`;
-            case 'month':
-                return `${moment(this.props.dateByStartDate).format(
-                    'D'
-                )} - ${moment(this.props.dateByEndDate).format('D MMMM YYYY')}`;
-            case 'year':
-                return `${moment(this.props.dateByStartDate).format(
-                    'MMM'
-                )} - ${moment(this.props.dateByEndDate).format('MMM YYYY')}`;
-            case 'interval':
-                return `${moment(this.props.dateByStartDate).format(
-                    'D MMM YYYY'
-                )} - ${moment(this.props.dateByEndDate).format('D MMM YYYY')}`;
-            default:
-                return moment().format('D MMMM YYYY');
-        }
-    };
-
     render() {
         return (
             <div className="chart-container">
                 <div className="legend">
-                    <p className="date">{this.getDateLegend()}</p>
+                    <p className="date">
+                        {dateLegend(
+                            this.props.dateByType,
+                            this.props.dateByStartDate,
+                            this.props.dateByEndDate
+                        )}
+                    </p>
                 </div>
                 <div className="chart">
                     {this.props.player.data.steps.length ? (
@@ -69,30 +51,49 @@ export class PlayerChart extends Component {
                                     dataKey="x_axis"
                                     stroke="#f6f6f7"
                                     interval={0}
+                                    tickFormatter={value => {
+                                        if (
+                                            this.props.dateByEndDate.diff(
+                                                this.props.dateByStartDate,
+                                                'days'
+                                            ) === 0
+                                        ) {
+                                            if (value % 2 === 0) {
+                                                return (value / 2)
+                                                    .toString()
+                                                    .padStart(2, '0');
+                                            }
+                                            return (
+                                                Math.floor(value / 2) + ':30'
+                                            );
+                                        }
+                                        return value;
+                                    }}
                                 />
                                 <YAxis
                                     stroke="#f6f6f7"
-                                    tickFormatter={number => {
-                                        if (number > 1000000000) {
-                                            return `${(
-                                                number / 1000000000
-                                            ).toString()}B`;
-                                        }
-                                        if (number > 1000000) {
-                                            return `${(
-                                                number / 1000000
-                                            ).toString()}M`;
-                                        }
-                                        if (number > 1000) {
-                                            return `${(
-                                                number / 1000
-                                            ).toString()}K`;
-                                        }
-                                        return number.toString();
-                                    }}
+                                    tickFormatter={tickFormatter}
                                 />
                                 <Tooltip
                                     cursor={false}
+                                    labelFormatter={value => {
+                                        if (
+                                            this.props.dateByEndDate.diff(
+                                                this.props.dateByStartDate,
+                                                'days'
+                                            ) === 0
+                                        ) {
+                                            if (value % 2 === 0) {
+                                                return (value / 2)
+                                                    .toString()
+                                                    .padStart(2, '0');
+                                            }
+                                            return (
+                                                Math.floor(value / 2) + ':30'
+                                            );
+                                        }
+                                        return value;
+                                    }}
                                     formatter={value =>
                                         this.props.chartType === 'steps'
                                             ? new Intl.NumberFormat(

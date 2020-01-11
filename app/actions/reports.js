@@ -47,6 +47,11 @@ export const closePlayerAveragesMenu = menu => ({
     menu
 });
 
+export const changePlayerAveragesChartType = chartType => ({
+    type: 'CHANGE_PLAYER_AVERAGES_CHART_TYPE',
+    chartType
+});
+
 export const getGroupAveragesRequest = (
     teamId,
     dateByType,
@@ -85,6 +90,11 @@ export const openGroupAveragesMenu = menu => ({
 export const closeGroupAveragesMenu = menu => ({
     type: 'CLOSE_GROUP_AVERAGES_MENU',
     menu
+});
+
+export const changeGroupAveragesChartType = chartType => ({
+    type: 'CHANGE_GROUP_AVERAGES_CHART_TYPE',
+    chartType
 });
 
 export const getTotalStepsRequest = (
@@ -127,6 +137,11 @@ export const openTotalStepsMenu = menu => ({
 export const closeTotalStepsMenu = menu => ({
     type: 'CLOSE_TOTAL_STEPS_MENU',
     menu
+});
+
+export const changeTotalStepsChartType = chartType => ({
+    type: 'CHANGE_TOTAL_STEPS_CHART_TYPE',
+    chartType
 });
 
 export const getDownloadPdfTeamsRequest = (

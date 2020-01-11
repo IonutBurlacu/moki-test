@@ -6,6 +6,7 @@ import encrypt from '../../../utils/encrypt';
 import { showLoader, hideLoader } from '../../../actions/loader';
 import TeamsFilter from './TeamsFilter';
 import DateBy from './DateBy';
+import ChartType from './ChartType';
 
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
@@ -40,9 +41,7 @@ export class TopFilters extends Component {
                 link.href = url;
                 link.setAttribute(
                     'download',
-                    `MOKI_${teamName}_group_averages_${
-                        this.props.groupAverages.dateByType
-                    }.pdf`
+                    `MOKI_${teamName}_group_averages_${this.props.groupAverages.dateByType}.pdf`
                 );
                 document.body.appendChild(link);
                 link.click();
@@ -58,7 +57,7 @@ export class TopFilters extends Component {
         return (
             <div className="top-filters">
                 <div className="left-side">
-                    <TeamsFilter />
+                    <ChartType />
                 </div>
                 <div className="center-side">
                     <DateBy />
@@ -90,7 +89,4 @@ const mapDispatchToProps = dispatch => ({
     hideLoader: () => dispatch(hideLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TopFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(TopFilters);

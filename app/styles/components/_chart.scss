@@ -137,7 +137,12 @@
     .chart-container {
         flex: 1;
 
+        .chart-top-bar {
+            display: flex;
+        }
+
         .legend {
+            flex: 1;
             padding: 1vmin 0 1vmin 10vmin;
 
             .team {
@@ -151,6 +156,22 @@
                 color: white;
                 font-size: 2.5vmin;
                 margin: 0;
+            }
+        }
+
+        .players {
+            align-items: center;
+            display: flex;
+            flex: 1;
+            justify-content: flex-end;
+            padding: 1vmin 4vmin 1vmin 0;
+
+            .players-icon {
+                height: 5vmin;
+            }
+
+            .players-number {
+                color: white;
             }
         }
 

@@ -9,41 +9,23 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { showLoader } from '../../../actions/loader';
 import duration from '../../../utils/duration';
+import dateLegend from '../../../utils/dateLegend';
+import tickFormatter from '../../../utils/tickFormatter';
 
 export class TeamChart extends Component {
-    getDateLegend = () => {
-        switch (this.props.dateByType) {
-            case 'today':
-                return moment().format('D MMMM YYYY');
-            case 'week':
-                return `${moment(this.props.dateByStartDate).format(
-                    'D'
-                )} - ${moment(this.props.dateByEndDate).format('D MMMM YYYY')}`;
-            case 'month':
-                return `${moment(this.props.dateByStartDate).format(
-                    'D'
-                )} - ${moment(this.props.dateByEndDate).format('D MMMM YYYY')}`;
-            case 'year':
-                return `${moment(this.props.dateByStartDate).format(
-                    'MMM'
-                )} - ${moment(this.props.dateByEndDate).format('MMM YYYY')}`;
-            case 'interval':
-                return `${moment(this.props.dateByStartDate).format(
-                    'D MMM YYYY'
-                )} - ${moment(this.props.dateByEndDate).format('D MMM YYYY')}`;
-            default:
-                return moment().format('D MMMM YYYY');
-        }
-    };
-
     render() {
         return (
             <div className="chart-container">
                 <div className="legend">
-                    <p className="date">{this.getDateLegend()}</p>
+                    <p className="date">
+                        {dateLegend(
+                            this.props.dateByType,
+                            this.props.dateByStartDate,
+                            this.props.dateByEndDate
+                        )}
+                    </p>
                 </div>
                 <div className="chart">
                     {this.props.team.data.steps.length ? (
@@ -72,24 +54,7 @@ export class TeamChart extends Component {
                                 />
                                 <YAxis
                                     stroke="#f6f6f7"
-                                    tickFormatter={number => {
-                                        if (number > 1000000000) {
-                                            return `${(
-                                                number / 1000000000
-                                            ).toString()}B`;
-                                        }
-                                        if (number > 1000000) {
-                                            return `${(
-                                                number / 1000000
-                                            ).toString()}M`;
-                                        }
-                                        if (number > 1000) {
-                                            return `${(
-                                                number / 1000
-                                            ).toString()}K`;
-                                        }
-                                        return number.toString();
-                                    }}
+                                    tickFormatter={tickFormatter}
                                 />
                                 <Tooltip
                                     cursor={false}
@@ -126,6 +91,57 @@ export class TeamChart extends Component {
                                     {duration(this.props.team.totalMvpa)}
                                 </span>
                             </span>
+                            {this.props.team.totalMvpa -
+                                this.props.team.previous.mvpa !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.team.totalMvpa >
+                                        this.props.team.previous.mvpa
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    {this.props.team.previous.mvpa > 0 ? (
+                                        <span className="percentage">
+                                            {this.props.team.totalMvpa >
+                                            this.props.team.previous.mvpa
+                                                ? this.props.team.previous
+                                                      .mvpa > 0
+                                                    ? (
+                                                          (this.props.team
+                                                              .totalMvpa *
+                                                              100) /
+                                                              this.props.team
+                                                                  .previous
+                                                                  .mvpa -
+                                                          100
+                                                      ).toFixed(0)
+                                                    : this.props.team.totalMvpa
+                                                : this.props.team.totalMvpa > 0
+                                                ? (
+                                                      ((this.props.team.previous
+                                                          .mvpa -
+                                                          this.props.team
+                                                              .totalMvpa) *
+                                                          100) /
+                                                      this.props.team.previous
+                                                          .mvpa
+                                                  ).toFixed(0)
+                                                : 100}
+                                            %
+                                        </span>
+                                    ) : (
+                                        <span className="percentage">NA</span>
+                                    )}
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                         <div className="right-side">
                             <span className="total">
@@ -135,6 +151,57 @@ export class TeamChart extends Component {
                                 </span>
                                 <span className="label-green">steps</span>
                             </span>
+                            {this.props.team.totalSteps -
+                                this.props.team.previous.steps !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.team.totalSteps >
+                                        this.props.team.previous.steps
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    {this.props.team.previous.steps > 0 ? (
+                                        <span className="percentage">
+                                            {this.props.team.totalSteps >
+                                            this.props.team.previous.steps
+                                                ? this.props.team.previous
+                                                      .steps > 0
+                                                    ? (
+                                                          (this.props.team
+                                                              .totalSteps *
+                                                              100) /
+                                                              this.props.team
+                                                                  .previous
+                                                                  .steps -
+                                                          100
+                                                      ).toFixed(0)
+                                                    : this.props.team.totalSteps
+                                                : this.props.team.totalSteps > 0
+                                                ? (
+                                                      ((this.props.team.previous
+                                                          .steps -
+                                                          this.props.team
+                                                              .totalSteps) *
+                                                          100) /
+                                                      this.props.team.previous
+                                                          .steps
+                                                  ).toFixed(0)
+                                                : 100}
+                                            %
+                                        </span>
+                                    ) : (
+                                        <span className="percentage">NA</span>
+                                    )}
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>

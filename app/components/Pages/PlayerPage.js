@@ -49,7 +49,9 @@ export class PlayerPage extends Component {
                                 daily_steps={
                                     this.props.player.average.daily_steps
                                 }
-                                mvpa_time={this.props.player.average.mvpa_time}
+                                mvpa_minutes={
+                                    this.props.player.average.mvpa_minutes
+                                }
                                 grade={this.props.player.average.grade}
                             />
                         </div>

@@ -122,22 +122,7 @@ export default (
                     average: {
                         grade: action.player.data.average.grade,
                         daily_steps: action.player.data.average.daily_steps,
-                        mvpa_time:
-                            action.player.data.average.mvpa_minutes < 60
-                                ? moment('2020-01-01')
-                                      .startOf('day')
-                                      .minutes(
-                                          action.player.data.average
-                                              .mvpa_minutes
-                                      )
-                                      .format('m[m]')
-                                : moment('2020-01-01')
-                                      .startOf('day')
-                                      .minutes(
-                                          action.player.data.average
-                                              .mvpa_minutes
-                                      )
-                                      .format('H[h] m[m]')
+                        mvpa_minutes: action.player.data.average.mvpa_minutes
                     },
                     previous: action.player.data.previous,
                     totalSteps: action.player.data.current.steps.reduce(
@@ -177,16 +162,7 @@ export default (
                     average: {
                         grade: action.data.average.grade,
                         daily_steps: action.data.average.daily_steps,
-                        mvpa_time:
-                            action.data.average.mvpa_minutes < 60
-                                ? moment('2020-01-01')
-                                      .startOf('day')
-                                      .minutes(action.data.average.mvpa_minutes)
-                                      .format('m[m]')
-                                : moment('2020-01-01')
-                                      .startOf('day')
-                                      .minutes(action.data.average.mvpa_minutes)
-                                      .format('H[h] m[m]')
+                        mvpa_minutes: action.data.average.mvpa_minutes
                     },
                     previous: action.data.previous,
                     totalSteps: action.data.current.steps.reduce(
