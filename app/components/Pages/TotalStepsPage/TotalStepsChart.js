@@ -64,7 +64,7 @@ export class TotalStepsChart extends Component {
                         </span>
                     </div>
                 </div>
-                <div className="chart">
+                <div className="chart" style={{ height: '42vmin' }}>
                     <ResponsiveContainer width="99%">
                         <ComposedChart
                             data={chartData}
@@ -77,13 +77,50 @@ export class TotalStepsChart extends Component {
                             }}
                         >
                             <CartesianGrid stroke="#53535d" vertical={false} />
-                            <XAxis dataKey="x_axis" stroke="#f6f6f7" />
+                            <XAxis
+                                dataKey="x_axis"
+                                stroke="#f6f6f7"
+                                tickFormatter={value => {
+                                    if (
+                                        this.props.totalSteps.dateByEndDate.diff(
+                                            this.props.totalSteps
+                                                .dateByStartDate,
+                                            'days'
+                                        ) === 0
+                                    ) {
+                                        if (value % 2 === 0) {
+                                            return (value / 2)
+                                                .toString()
+                                                .padStart(2, '0');
+                                        }
+                                        return Math.floor(value / 2) + ':30';
+                                    }
+                                    return value;
+                                }}
+                            />
                             <YAxis
                                 stroke="#f6f6f7"
                                 tickFormatter={tickFormatter}
                             />
                             <Tooltip
                                 cursor={false}
+                                labelFormatter={value => {
+                                    if (
+                                        this.props.totalSteps.dateByEndDate.diff(
+                                            this.props.totalSteps
+                                                .dateByStartDate,
+                                            'days'
+                                        ) === 0
+                                    ) {
+                                        if (value % 2 === 0) {
+                                            return (value / 2)
+                                                .toString()
+                                                .padStart(2, '0');
+                                        }
+                                        return Math.floor(value / 2) + ':30';
+                                    }
+                                    return value;
+                                }}
                                 formatter={value =>
                                     this.props.totalSteps.chartType === 'steps'
                                         ? new Intl.NumberFormat('en').format(
@@ -100,43 +137,8 @@ export class TotalStepsChart extends Component {
                                         : 'MVPA'
                                 }
                                 maxBarSize={70}
-                            >
-                                {chartData.map((entry, index) => {
-                                    const color = COLORS[4];
-                                    // if (
-                                    //     entry.total_steps_overview <
-                                    //     this.props.scales.first_step *
-                                    //         this.props.totalSteps
-                                    //             .playersCount
-                                    // ) {
-                                    //     color = COLORS[0];
-                                    // } else if (
-                                    //     entry.total_steps_overview <
-                                    //     this.props.scales.second_step *
-                                    //         this.props.totalSteps
-                                    //             .playersCount
-                                    // ) {
-                                    //     color = COLORS[1];
-                                    // } else if (
-                                    //     entry.total_steps_overview <
-                                    //     this.props.scales.third_step *
-                                    //         this.props.totalSteps
-                                    //             .playersCount
-                                    // ) {
-                                    //     color = COLORS[2];
-                                    // } else if (
-                                    //     entry.total_steps_overview <
-                                    //     this.props.scales.fourth_step *
-                                    //         this.props.totalSteps
-                                    //             .playersCount
-                                    // ) {
-                                    //     color = COLORS[3];
-                                    // } else {
-                                    //     color = COLORS[4];
-                                    // }
-                                    return <Cell key={index} fill={color} />;
-                                })}
-                            </Bar>
+                                fill="#23dec8"
+                            />
                         </ComposedChart>
                     </ResponsiveContainer>
                 </div>

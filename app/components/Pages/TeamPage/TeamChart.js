@@ -51,6 +51,24 @@ export class TeamChart extends Component {
                                     dataKey="x_axis"
                                     stroke="#f6f6f7"
                                     interval={0}
+                                    tickFormatter={value => {
+                                        if (
+                                            this.props.dateByEndDate.diff(
+                                                this.props.dateByStartDate,
+                                                'days'
+                                            ) === 0
+                                        ) {
+                                            if (value % 2 === 0) {
+                                                return (value / 2)
+                                                    .toString()
+                                                    .padStart(2, '0');
+                                            }
+                                            return (
+                                                Math.floor(value / 2) + ':30'
+                                            );
+                                        }
+                                        return value;
+                                    }}
                                 />
                                 <YAxis
                                     stroke="#f6f6f7"
@@ -58,6 +76,24 @@ export class TeamChart extends Component {
                                 />
                                 <Tooltip
                                     cursor={false}
+                                    labelFormatter={value => {
+                                        if (
+                                            this.props.dateByEndDate.diff(
+                                                this.props.dateByStartDate,
+                                                'days'
+                                            ) === 0
+                                        ) {
+                                            if (value % 2 === 0) {
+                                                return (value / 2)
+                                                    .toString()
+                                                    .padStart(2, '0');
+                                            }
+                                            return (
+                                                Math.floor(value / 2) + ':30'
+                                            );
+                                        }
+                                        return value;
+                                    }}
                                     formatter={value =>
                                         this.props.chartType === 'steps'
                                             ? new Intl.NumberFormat(

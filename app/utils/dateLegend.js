@@ -4,18 +4,13 @@ export default (type, startDate, endDate) => {
     switch (type) {
         case 'today':
             return moment().format('D MMMM YYYY');
-        case 'week':
-            return `${moment(startDate).format('D')} - ${moment(endDate).format(
-                'D MMMM YYYY'
-            )}`;
-        case 'month':
-            return `${moment(startDate).format('D')} - ${moment(endDate).format(
-                'D MMMM YYYY'
-            )}`;
-        case 'year':
-            return `${moment(startDate).format('MMM')} - ${moment(
-                endDate
-            ).format('MMM YYYY')}`;
+        case 'yesterday':
+            return moment(startDate).format('D MMMM YYYY');
+        case 'last_7_days':
+        case 'last_30_days':
+        case 'last_90_days':
+        case 'week_to_date':
+        case 'month_to_date':
         case 'interval':
             return `${moment(startDate).format('D MMM YYYY')} - ${moment(
                 endDate
