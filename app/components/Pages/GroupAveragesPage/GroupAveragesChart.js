@@ -100,35 +100,15 @@ export class GroupAveragesChart extends Component {
                                 maxBarSize={70}
                             >
                                 {this.props.groupAverages.data.steps.map(
-                                    (entry, index) => {
-                                        let color;
-                                        if (
-                                            entry.y_axis <
-                                            this.props.scales.first_step
-                                        ) {
-                                            color = COLORS[0];
-                                        } else if (
-                                            entry.y_axis <
-                                            this.props.scales.second_step
-                                        ) {
-                                            color = COLORS[1];
-                                        } else if (
-                                            entry.y_axis <
-                                            this.props.scales.third_step
-                                        ) {
-                                            color = COLORS[2];
-                                        } else if (
-                                            entry.y_axis <
-                                            this.props.scales.fourth_step
-                                        ) {
-                                            color = COLORS[3];
-                                        } else {
-                                            color = COLORS[4];
-                                        }
-                                        return (
-                                            <Cell key={index} fill={color} />
-                                        );
-                                    }
+                                    (entry, index) => (
+                                        <Cell
+                                            key={index}
+                                            fill={
+                                                this.props.groupAverages.data
+                                                    .grades[index]
+                                            }
+                                        />
+                                    )
                                 )}
                             </Bar>
                         </BarChart>

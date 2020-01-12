@@ -11,8 +11,6 @@ const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class TeamsList extends Component {
     handleView = id => {
-        this.props.viewTeamRequest(id);
-        this.props.showLoader();
         this.props.push(`/teams/view/${id}`);
     };
 
@@ -120,7 +118,4 @@ const mapDispatchToProps = dispatch => ({
     push: path => dispatch(push(path))
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(TeamsList);
+export default connect(undefined, mapDispatchToProps)(TeamsList);

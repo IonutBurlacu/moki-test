@@ -6,7 +6,6 @@ import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
 import { getPlayersRequest, viewPlayerRequest } from '../../actions/players';
-import { viewTeamRequest } from '../../actions/teams';
 import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
 import getFilteredPlayers from '../../selectors/players';
@@ -32,8 +31,6 @@ export class PlayersPage extends Component {
     };
 
     handleTeamView = id => {
-        this.props.viewTeamRequest(id);
-        this.props.showLoader();
         this.props.history.push(`/teams/view/${id}`);
     };
 
@@ -197,7 +194,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(
             viewPlayerRequest(id, dateByType, dateByStartDate, dateByEndDate)
         ),
-    viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     showLoader: () => dispatch(showLoader())
 });

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { viewTeamRequest } from '../../../actions/teams';
 import { showLoader } from '../../../actions/loader';
 import defaultAvatar from '../../../images/default_avatar.png';
 import teamsListIcon from '../../../images/teams_list_icon.png';
@@ -11,8 +10,6 @@ const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class TeamsList extends Component {
     handleView = id => {
-        this.props.viewTeamRequest(id);
-        this.props.showLoader();
         this.props.push(`/teams/view/${id}`);
     };
 
@@ -82,12 +79,8 @@ export class TeamsList extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     showLoader: () => dispatch(showLoader()),
     push: path => dispatch(push(path))
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(TeamsList);
+export default connect(undefined, mapDispatchToProps)(TeamsList);

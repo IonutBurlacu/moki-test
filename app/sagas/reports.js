@@ -41,7 +41,7 @@ export function* getTotalSteps(action) {
         data: decoded.data,
         average: decoded.average,
         teamId: decoded.team_id,
-        dateByType: action.dateByType,
+        dateByType: decoded.type,
         dateByStartDate: decoded.start_date,
         dateByEndDate: decoded.end_date,
         scales: decoded.scales,
@@ -73,7 +73,7 @@ export function* getPlayerAverages(action) {
         data: decoded.data,
         average: decoded.average,
         teamId: decoded.team_id,
-        dateByType: action.dateByType,
+        dateByType: decoded.type,
         dateByStartDate: decoded.start_date,
         dateByEndDate: decoded.end_date,
         scales: decoded.scales
@@ -104,7 +104,7 @@ export function* getGroupAverages(action) {
         data: decoded.data,
         average: decoded.average,
         teamId: decoded.team_id,
-        dateByType: action.dateByType,
+        dateByType: decoded.type,
         dateByStartDate: decoded.start_date,
         dateByEndDate: decoded.end_date,
         scales: decoded.scales

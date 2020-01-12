@@ -104,35 +104,15 @@ export class PlayerAveragesChart extends Component {
                                 maxBarSize={70}
                             >
                                 {this.props.playerAverages.data.steps.map(
-                                    (entry, index) => {
-                                        let color;
-                                        if (
-                                            entry.avg_steps <
-                                            this.props.scales.first_step
-                                        ) {
-                                            color = COLORS[0];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.second_step
-                                        ) {
-                                            color = COLORS[1];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.third_step
-                                        ) {
-                                            color = COLORS[2];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.fourth_step
-                                        ) {
-                                            color = COLORS[3];
-                                        } else {
-                                            color = COLORS[4];
-                                        }
-                                        return (
-                                            <Cell key={index} fill={color} />
-                                        );
-                                    }
+                                    (entry, index) => (
+                                        <Cell
+                                            key={index}
+                                            fill={
+                                                this.props.playerAverages.data
+                                                    .grades[index]
+                                            }
+                                        />
+                                    )
                                 )}
                             </Bar>
                         </BarChart>

@@ -9,7 +9,6 @@ import {
     getChallengesRequest,
     viewChallengeRequest
 } from '../../actions/challenges';
-import { viewTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
 import defaultAvatar from '../../images/default_avatar.png';
 import teamsIconWide from '../../images/teams_icon_wide.png';
@@ -32,8 +31,6 @@ export class ChallengesPage extends Component {
     };
 
     handleTeamView = id => {
-        this.props.viewTeamRequest(id);
-        this.props.showLoader();
         this.props.history.push(`/teams/view/${id}`);
     };
 
@@ -202,7 +199,6 @@ const mapDispatchToProps = dispatch => ({
     getChallengesRequest: dateByType =>
         dispatch(getChallengesRequest(dateByType)),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
-    viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     showLoader: () => dispatch(showLoader())
 });
 
