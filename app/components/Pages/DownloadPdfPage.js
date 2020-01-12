@@ -6,23 +6,13 @@ import Footer from '../Footer';
 import { Header } from '../Header';
 import PageTitle from './DownloadPdfPage/PageTitle';
 import { addTeamToDownloadPdf } from '../../actions/reports';
-import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
-import getFilteredTeams from '../../selectors/teams';
 import defaultAvatar from '../../images/default_avatar.png';
-import challengesIconWide from '../../images/challenges_icon_wide.png';
-import playersIconWide from '../../images/players_icon_wide.png';
 import TopFilters from './DownloadPdfPage/TopFilters';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class DownloadPdfPage extends Component {
-    handleChallengeView = id => {
-        this.props.viewChallengeRequest(id);
-        this.props.showLoader();
-        this.props.history.push(`/challenges/view/${id}`);
-    };
-
     handleTeamClick = teamId => {
         if (this.props.downloadPdf.teamId === teamId) {
             this.props.addTeamToDownloadPdf(null);
@@ -131,7 +121,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     addTeamToDownloadPdf: teamId => dispatch(addTeamToDownloadPdf(teamId)),
     showLoader: () => dispatch(showLoader())
 });

@@ -79,7 +79,6 @@ export default (
             sortSelectOpen: false
         },
         downloadCsv: {
-            teams: [],
             teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
@@ -329,45 +328,6 @@ export default (
                     chartType: action.chartType
                 }
             };
-        case 'GET_DOWNLOAD_PDF_TEAMS_REQUEST':
-            return {
-                ...state,
-                loading: true
-            };
-        case 'GET_DOWNLOAD_PDF_TEAMS':
-            return {
-                ...state,
-                downloadPdf: {
-                    ...state.downloadPdf,
-                    teams: action.teams,
-                    dateByType: action.dateByType
-                },
-                groupAverages: {
-                    ...state.groupAverages,
-                    dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate).hour(12),
-                    dateByEndDate: moment(action.dateByEndDate).hour(12)
-                },
-                totalSteps: {
-                    ...state.totalSteps,
-                    dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate).hour(12),
-                    dateByEndDate: moment(action.dateByEndDate).hour(12)
-                },
-                playerAverages: {
-                    ...state.playerAverages,
-                    dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate).hour(12),
-                    dateByEndDate: moment(action.dateByEndDate).hour(12)
-                },
-                downloadCsv: {
-                    ...state.downloadCsv,
-                    dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate).hour(12),
-                    dateByEndDate: moment(action.dateByEndDate).hour(12)
-                },
-                loading: false
-            };
         case 'ADD_TEAM_TO_DOWNLOAD_PDF':
             return {
                 ...state,
@@ -412,68 +372,6 @@ export default (
                     ...state.downloadPdf,
                     [action.menu]: false
                 }
-            };
-        case 'GET_DOWNLOAD_CSV_TEAMS_REQUEST':
-            return {
-                ...state,
-                loading: true
-            };
-        case 'GET_DOWNLOAD_CSV_TEAMS':
-            return {
-                ...state,
-                downloadCsv: {
-                    ...state.downloadCsv,
-                    teams: action.teams.map(team => ({
-                        ...team,
-                        percentage:
-                            team.previous_steps > 0
-                                ? team.previous_steps - team.current_steps !== 0
-                                    ? team.current_steps > team.previous_steps
-                                        ? team.previous_steps > 0
-                                            ? Math.round(
-                                                  (team.current_steps * 100) /
-                                                      team.previous_steps -
-                                                      100
-                                              )
-                                            : team.current_steps
-                                        : team.current_steps > 0
-                                        ? Math.round(
-                                              ((team.previous_steps -
-                                                  team.current_steps) *
-                                                  100) /
-                                                  team.previous_steps
-                                          )
-                                        : 100
-                                    : 0
-                                : -1
-                    })),
-                    dateByType: action.dateByType
-                },
-                groupAverages: {
-                    ...state.groupAverages,
-                    dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate).hour(12),
-                    dateByEndDate: moment(action.dateByEndDate).hour(12)
-                },
-                totalSteps: {
-                    ...state.totalSteps,
-                    dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate).hour(12),
-                    dateByEndDate: moment(action.dateByEndDate).hour(12)
-                },
-                downloadPdf: {
-                    ...state.downloadPdf,
-                    dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate).hour(12),
-                    dateByEndDate: moment(action.dateByEndDate).hour(12)
-                },
-                playerAverages: {
-                    ...state.playerAverages,
-                    dateByType: action.dateByType,
-                    dateByStartDate: moment(action.dateByStartDate).hour(12),
-                    dateByEndDate: moment(action.dateByEndDate).hour(12)
-                },
-                loading: false
             };
         case 'ADD_TEAM_TO_DOWNLOAD_CSV':
             return {

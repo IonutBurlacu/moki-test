@@ -114,28 +114,3 @@ export function* getGroupAverages(action) {
         type: 'HIDE_LOADER'
     });
 }
-
-export function* getDownloadCsvTeams(action) {
-    const token = yield select(getToken);
-    const response = yield call(
-        TeamsAPI.get,
-        { Authorization: token },
-        action.dateByType,
-        moment(action.dateByStartDate).format('YYYY-MM-DD'),
-        moment(action.dateByEndDate).format('YYYY-MM-DD')
-    );
-
-    const decoded = decrypt(response.data);
-
-    yield put({
-        type: 'GET_DOWNLOAD_CSV_TEAMS',
-        teams: decoded.teams,
-        dateByType: action.dateByType,
-        dateByStartDate: action.dateByStartDate,
-        dateByEndDate: action.dateByEndDate
-    });
-
-    yield put({
-        type: 'HIDE_LOADER'
-    });
-}

@@ -182,23 +182,6 @@ export const closeDownloadPdfMenu = menu => ({
     menu
 });
 
-export const getDownloadCsvTeamsRequest = (
-    dateByType,
-    dateByStartDate,
-    dateByEndDate
-) => ({
-    type: 'GET_DOWNLOAD_CSV_TEAMS_REQUEST',
-    dateByType,
-    dateByStartDate,
-    dateByEndDate
-});
-
-export const getDownloadCsvTeams = (teams, dateByType) => ({
-    type: 'GET_DOWNLOAD_CSV_TEAMS',
-    teams,
-    dateByType
-});
-
 export const addTeamToDownloadCsv = teamId => ({
     type: 'ADD_TEAM_TO_DOWNLOAD_CSV',
     teamId

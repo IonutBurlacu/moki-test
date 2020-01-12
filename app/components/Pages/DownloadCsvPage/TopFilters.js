@@ -9,7 +9,6 @@ import { showAlert } from '../../../actions/alert';
 import SortBy from './SortBy';
 import DateBy from '../../DateBy';
 import {
-    getDownloadCsvTeamsRequest,
     changeDownloadCsvTeamsDateByType,
     openDownloadCsvMenu,
     closeDownloadCsvMenu
@@ -52,9 +51,7 @@ export class TopFilters extends Component {
                     .join('_');
                 link.setAttribute(
                     'download',
-                    `MOKI_export_${teamName}_${
-                        this.props.downloadCsv.dateByType
-                    }.csv`
+                    `MOKI_export_${teamName}_${this.props.downloadCsv.dateByType}.csv`
                 );
                 document.body.appendChild(link);
                 link.click();
@@ -69,15 +66,12 @@ export class TopFilters extends Component {
     render() {
         return (
             <div className="top-filters">
-                <div className="left-side">
-                    <SortBy />
-                </div>
+                <div className="left-side"></div>
                 <div className="center-side">
                     <DateBy
                         startDate={this.props.downloadCsv.dateByStartDate}
                         endDate={this.props.downloadCsv.dateByEndDate}
                         dateSelectOpen={this.props.downloadCsv.dateSelectOpen}
-                        fetchNewData={this.props.getDownloadCsvTeamsRequest}
                         changeDateType={
                             this.props.changeDownloadCsvTeamsDateByType
                         }
@@ -128,18 +122,7 @@ const mapDispatchToProps = dispatch => ({
                 dateByStartDate,
                 dateByEndDate
             )
-        ),
-    getDownloadCsvTeamsRequest: (
-        dateByType,
-        dateByStartDate = moment.utc().local(),
-        dateByEndDate = moment.utc().local()
-    ) =>
-        dispatch(
-            getDownloadCsvTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TopFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(TopFilters);

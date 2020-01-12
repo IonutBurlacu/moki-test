@@ -80,7 +80,6 @@ export default function* sagas() {
         fork(takeLatest, 'GET_PLAYER_AVERAGES_REQUEST', getPlayerAverages),
         fork(takeLatest, 'GET_GROUP_AVERAGES_REQUEST', getGroupAverages),
         fork(takeLatest, 'GET_TOTAL_STEPS_REQUEST', getTotalSteps),
-        fork(takeLatest, 'GET_DOWNLOAD_CSV_TEAMS_REQUEST', getDownloadCsvTeams),
 
         fork(takeLatest, 'GET_CHALLENGES_REQUEST', challengesFetchList),
         fork(takeLatest, 'CREATE_CHALLENGE_REQUEST', challengeCreate),

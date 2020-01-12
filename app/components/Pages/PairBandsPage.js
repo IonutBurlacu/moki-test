@@ -196,8 +196,8 @@ export class PairBandsPage extends Component {
                                                     </td>
                                                     <td
                                                         className={
-                                                            player.daily_steps_current <
-                                                            player.daily_steps_previous
+                                                            player.grade_score_current <
+                                                            player.grade_score_previous
                                                                 ? 'negative align-right'
                                                                 : 'positive align-right'
                                                         }

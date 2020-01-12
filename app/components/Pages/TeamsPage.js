@@ -128,8 +128,8 @@ export class TeamsPage extends Component {
                                                 </td>
                                                 <td
                                                     className={
-                                                        team.daily_steps_current <
-                                                        team.daily_steps_previous
+                                                        team.grade_score_current <
+                                                        team.grade_score_previous
                                                             ? 'negative align-right'
                                                             : 'positive align-right'
                                                     }
