@@ -94,7 +94,11 @@ export class TotalStepsChart extends Component {
                             />
                             <Bar
                                 dataKey="y_axis"
-                                name="Total Steps"
+                                name={
+                                    this.props.totalSteps.chartType === 'steps'
+                                        ? 'Steps'
+                                        : 'MVPA'
+                                }
                                 maxBarSize={70}
                             >
                                 {chartData.map((entry, index) => {

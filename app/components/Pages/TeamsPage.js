@@ -13,12 +13,8 @@ import defaultAvatar from '../../images/default_avatar.png';
 import challengesIconWide from '../../images/challenges_icon_wide.png';
 import playersIconWide from '../../images/players_icon_wide.png';
 import TopFilters from './TeamsPage/TopFilters';
-import A_grade from '../../images/A.png';
-import B_grade from '../../images/B.png';
-import C_grade from '../../images/C.png';
-import D_grade from '../../images/D.png';
-import E_grade from '../../images/E.png';
 import duration from '../../utils/duration';
+import gradeIcon from '../../utils/gradeIcon';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -33,8 +29,6 @@ export class TeamsPage extends Component {
     }
 
     handleView = id => {
-        this.props.viewTeamRequest(id);
-        this.props.showLoader();
         this.props.history.push(`/teams/view/${id}`);
     };
 
@@ -46,13 +40,6 @@ export class TeamsPage extends Component {
 
     render() {
         const { teams, loading } = this.props;
-        const grades = {
-            A: A_grade,
-            B: B_grade,
-            C: C_grade,
-            D: D_grade,
-            E: E_grade
-        };
         return (
             <div className="container container-with-title">
                 <Header
@@ -70,8 +57,6 @@ export class TeamsPage extends Component {
                                         const imageSource = team.avatar
                                             ? `${s3URL}${team.avatar}`
                                             : defaultAvatar;
-                                        const gradeImage =
-                                            grades[team.grade_current];
                                         return (
                                             <tr key={team.id}>
                                                 <td>
@@ -145,7 +130,9 @@ export class TeamsPage extends Component {
                                                 </td>
                                                 <td className="align-right">
                                                     <img
-                                                        src={gradeImage}
+                                                        src={gradeIcon(
+                                                            team.grade_current
+                                                        )}
                                                         className="grade"
                                                         alt="grade"
                                                     />

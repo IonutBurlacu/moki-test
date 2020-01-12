@@ -4,13 +4,23 @@ export default (
     state = {
         items: [],
         player: {
-            data: [],
-            average: [],
-            overview: [],
-            typical: [],
-            totalOverview: 0,
-            totalTypical: 0,
-            totalOverviewPrevious: 0
+            data: {
+                steps: [],
+                mvpa: []
+            },
+            average: {
+                daily_steps: 0,
+                mvpa_minutes: 0,
+                grade: 'E'
+            },
+            previous: {
+                steps: 0,
+                mvpa: 0
+            },
+            totalSteps: 0,
+            totalMVPA: 0,
+            teams: [],
+            challenges: []
         },
         grades: [],
         years: [],
@@ -71,6 +81,9 @@ export default (
                             : -1,
                     age: moment().diff(moment(player.birthday), 'year')
                 })),
+                dateByType: action.dateByType,
+                dateByStartDate: moment(action.dateByStartDate).hour(12),
+                dateByEndDate: moment(action.dateByEndDate).hour(12),
                 teams: action.teams,
                 loading: false
             };
@@ -119,11 +132,7 @@ export default (
                     ...action.player,
                     age: moment().diff(moment(action.player.birthday), 'year'),
                     data: action.player.data.current,
-                    average: {
-                        grade: action.player.data.average.grade,
-                        daily_steps: action.player.data.average.daily_steps,
-                        mvpa_minutes: action.player.data.average.mvpa_minutes
-                    },
+                    average: action.player.data.average,
                     previous: action.player.data.previous,
                     totalSteps: action.player.data.current.steps.reduce(
                         (accumulator, currentValue) =>
@@ -136,6 +145,9 @@ export default (
                         0
                     )
                 },
+                dateByType: action.dateByType,
+                dateByStartDate: moment(action.dateByStartDate).hour(12),
+                dateByEndDate: moment(action.dateByEndDate).hour(12),
                 loading: false
             };
         case 'DELETE_PLAYER_REQUEST':

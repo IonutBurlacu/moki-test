@@ -9,11 +9,19 @@ export const getPlayersRequest = (
     dateByEndDate
 });
 
-export const getPlayers = (players, grades, years) => ({
+export const getPlayers = (
+    players,
+    teams,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
     type: 'GET_PLAYERS',
     players,
-    grades,
-    years
+    teams,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const changePlayersDateByType = (
@@ -47,14 +55,30 @@ export const clearPlayersListFilter = () => ({
     type: 'CLEAR_PLAYERS_LIST_FILTER'
 });
 
-export const viewPlayerRequest = id => ({
+export const viewPlayerRequest = (
+    id,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
     type: 'VIEW_PLAYER_REQUEST',
-    id
+    id,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
-export const viewPlayer = player => ({
+export const viewPlayer = (
+    player,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
     type: 'VIEW_PLAYER',
-    player
+    player,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const statsPlayerRequest = (

@@ -24,7 +24,10 @@ export function* teamsFetchList(action) {
 
     yield put({
         type: 'GET_TEAMS',
-        teams: decoded.teams
+        teams: decoded.teams,
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
     });
 
     yield put({
@@ -48,9 +51,9 @@ export function* teamStats(action) {
     yield put({
         type: 'STATS_TEAM',
         data: decoded.data,
-        dateByType: action.dateByType,
-        dateByStartDate: decoded.start_date,
-        dateByEndDate: decoded.end_date
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
     });
 
     yield put({
@@ -141,7 +144,10 @@ export function* teamView(action) {
 
     yield put({
         type: 'VIEW_TEAM',
-        team: decoded.team
+        team: decoded.team,
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
     });
 
     yield put({

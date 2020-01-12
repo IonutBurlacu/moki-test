@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import Footer from '../Footer';
 import { Header } from '../Header';
-import { editTeamRequest } from '../../actions/teams';
+import { viewTeamRequest, editTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
 import PageHeader from './TeamPage/PageHeader';
 import TeamChart from './TeamPage/TeamChart';
@@ -13,6 +13,16 @@ import TopFilters from './TeamPage/TopFilters';
 import SideDetails from '../SideDetails';
 
 export class TeamPage extends Component {
+    componentWillMount() {
+        this.props.viewTeamRequest(
+            this.props.match.params.id,
+            this.props.dateByType,
+            this.props.dateByStartDate,
+            this.props.dateByEndDate
+        );
+        this.props.showLoader();
+    }
+
     handleEdit = id => {
         this.props.showLoader();
         this.props.editTeamRequest(id);
@@ -85,11 +95,18 @@ const mapStateToProps = state => ({
     team: state.teams.team,
     loading: state.teams.loading,
     players: state.teams.players,
-    challenges: state.teams.challenges
+    challenges: state.teams.challenges,
+    dateByType: state.teams.dateByType,
+    dateByStartDate: state.teams.dateByStartDate,
+    dateByEndDate: state.teams.dateByEndDate
 });
 
 const mapDispatchToProps = dispatch => ({
     editTeamRequest: id => dispatch(editTeamRequest(id)),
+    viewTeamRequest: (id, dateByType, dateByStartDate, dateByEndDate) =>
+        dispatch(
+            viewTeamRequest(id, dateByType, dateByStartDate, dateByEndDate)
+        ),
     showLoader: () => dispatch(showLoader())
 });
 

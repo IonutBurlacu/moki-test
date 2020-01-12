@@ -27,12 +27,18 @@ export class DateBy extends Component {
         switch (type) {
             case 'today':
                 return 'Today';
-            case 'week':
-                return 'This Week';
-            case 'month':
-                return 'This Month';
-            case 'year':
-                return 'This Year';
+            case 'yesterday':
+                return 'Yesterday';
+            case 'last_7_days':
+                return 'Last 7 days';
+            case 'last_30_days':
+                return 'Last 30 days';
+            case 'last_90_days':
+                return 'Last 90 days';
+            case 'week_to_date':
+                return 'Week to date';
+            case 'month_to_date':
+                return 'Month to date';
             case 'interval':
                 return 'Interval';
             default:
@@ -135,7 +141,7 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.totalSteps.dateByType === 'week'
+                                this.props.totalSteps.dateByType === 'yesterday'
                                     ? 'selected'
                                     : ''
                             }
@@ -143,15 +149,16 @@ export class DateBy extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleDateSelectChange('week')
+                                    this.handleDateSelectChange('yesterday')
                                 }
                             >
-                                This Week
+                                Yesterday
                             </button>
                         </li>
                         <li
                             className={
-                                this.props.totalSteps.dateByType === 'month'
+                                this.props.totalSteps.dateByType ===
+                                'last_7_days'
                                     ? 'selected'
                                     : ''
                             }
@@ -159,15 +166,16 @@ export class DateBy extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleDateSelectChange('month')
+                                    this.handleDateSelectChange('last_7_days')
                                 }
                             >
-                                This Month
+                                Last 7 days
                             </button>
                         </li>
                         <li
                             className={
-                                this.props.totalSteps.dateByType === 'year'
+                                this.props.totalSteps.dateByType ===
+                                'last_30_days'
                                     ? 'selected'
                                     : ''
                             }
@@ -175,10 +183,61 @@ export class DateBy extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleDateSelectChange('year')
+                                    this.handleDateSelectChange('last_30_days')
                                 }
                             >
-                                This Year
+                                Last 30 days
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.totalSteps.dateByType ===
+                                'last_90_days'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleDateSelectChange('last_90_days')
+                                }
+                            >
+                                Last 90 days
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.totalSteps.dateByType ===
+                                'week_to_date'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleDateSelectChange('week_to_date')
+                                }
+                            >
+                                Week to date
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.totalSteps.dateByType ===
+                                'month_to_date'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleDateSelectChange('month_to_date')
+                                }
+                            >
+                                Month to date
                             </button>
                         </li>
                         <li
@@ -236,7 +295,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DateBy);
+export default connect(mapStateToProps, mapDispatchToProps)(DateBy);

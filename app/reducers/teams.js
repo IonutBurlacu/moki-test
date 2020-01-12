@@ -4,12 +4,23 @@ export default (
     state = {
         items: [],
         team: {
-            data: [],
-            overview: [],
-            typical: [],
-            totalOverview: 0,
-            totalTypical: 0,
-            totalOverviewPrevious: 0
+            data: {
+                steps: [],
+                mvpa: []
+            },
+            average: {
+                daily_steps: 0,
+                mvpa_minutes: 0,
+                grade: 'E'
+            },
+            previous: {
+                steps: 0,
+                mvpa: 0
+            },
+            totalSteps: 0,
+            totalMVPA: 0,
+            players: [],
+            challenges: []
         },
         challenges: [],
         players: [],
@@ -64,6 +75,9 @@ export default (
                                 : 0
                             : -1
                 })),
+                dateByType: action.dateByType,
+                dateByStartDate: moment(action.dateByStartDate).hour(12),
+                dateByEndDate: moment(action.dateByEndDate).hour(12),
                 loading: false
             };
         case 'CHANGE_TEAMS_DATE_BY_TYPE':
@@ -127,6 +141,9 @@ export default (
                         0
                     )
                 },
+                dateByType: action.dateByType,
+                dateByStartDate: moment(action.dateByStartDate).hour(12),
+                dateByEndDate: moment(action.dateByEndDate).hour(12),
                 loading: false
             };
         case 'DELETE_TEAM_REQUEST':

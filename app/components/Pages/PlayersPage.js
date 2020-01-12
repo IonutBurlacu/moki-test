@@ -11,15 +11,9 @@ import { viewChallengeRequest } from '../../actions/challenges';
 import { showLoader } from '../../actions/loader';
 import getFilteredPlayers from '../../selectors/players';
 import defaultAvatar from '../../images/default_avatar.png';
-import challengesIconWide from '../../images/challenges_icon_wide.png';
-import teamsIconWide from '../../images/teams_icon_wide.png';
 import TopFilters from './PlayersPage/TopFilters';
-import A_grade from '../../images/A.png';
-import B_grade from '../../images/B.png';
-import C_grade from '../../images/C.png';
-import D_grade from '../../images/D.png';
-import E_grade from '../../images/E.png';
 import duration from '../../utils/duration';
+import gradeIcon from '../../utils/gradeIcon';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -34,8 +28,6 @@ export class PlayersPage extends Component {
     }
 
     handleView = id => {
-        this.props.viewPlayerRequest(id);
-        this.props.showLoader();
         this.props.history.push(`/players/view/${id}`);
     };
 
@@ -53,13 +45,6 @@ export class PlayersPage extends Component {
 
     render() {
         const { players, loading } = this.props;
-        const grades = {
-            A: A_grade,
-            B: B_grade,
-            C: C_grade,
-            D: D_grade,
-            E: E_grade
-        };
         return (
             <div className="container container-with-title">
                 <Header
@@ -77,8 +62,6 @@ export class PlayersPage extends Component {
                                         const imageSource = player.avatar
                                             ? `${s3URL}${player.avatar}`
                                             : defaultAvatar;
-                                        const gradeImage =
-                                            grades[player.grade_current];
                                         return (
                                             <tr key={player.id}>
                                                 <td>
@@ -155,7 +138,9 @@ export class PlayersPage extends Component {
                                                 </td>
                                                 <td className="align-right">
                                                     <img
-                                                        src={gradeImage}
+                                                        src={gradeIcon(
+                                                            player.grade_current
+                                                        )}
                                                         className="grade"
                                                         alt="grade"
                                                     />
@@ -208,7 +193,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getPlayersRequest: (dateByType, dateByStartDate, dateByEndDate) =>
         dispatch(getPlayersRequest(dateByType, dateByStartDate, dateByEndDate)),
-    viewPlayerRequest: id => dispatch(viewPlayerRequest(id)),
+    viewPlayerRequest: (id, dateByType, dateByStartDate, dateByEndDate) =>
+        dispatch(
+            viewPlayerRequest(id, dateByType, dateByStartDate, dateByEndDate)
+        ),
     viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     showLoader: () => dispatch(showLoader())

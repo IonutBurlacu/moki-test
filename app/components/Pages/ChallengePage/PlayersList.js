@@ -11,8 +11,6 @@ const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class PlayersList extends Component {
     handleView = id => {
-        this.props.viewPlayerRequest(id);
-        this.props.showLoader();
         this.props.push(`/players/view/${id}`);
     };
 
@@ -48,9 +46,7 @@ export class PlayersList extends Component {
                                     </td>
                                     <td style={{ width: '53.76vmin' }}>
                                         <h1 className="title">
-                                            {`${item.first_name} ${
-                                                item.last_name
-                                            }`}
+                                            {`${item.first_name} ${item.last_name}`}
                                         </h1>
                                         <span className="subtitle">
                                             Last Sync:{' '}
@@ -124,7 +120,4 @@ const mapDispatchToProps = dispatch => ({
     push: path => dispatch(push(path))
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(PlayersList);
+export default connect(undefined, mapDispatchToProps)(PlayersList);
