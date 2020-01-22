@@ -91,10 +91,8 @@ export class TeamsPage extends Component {
                                                     </span>
                                                 </td>
                                                 <td className="">
-                                                    <h1 className="title">
-                                                        <small>
-                                                            Player Daily Average
-                                                        </small>
+                                                    <h1 className="subtitle">
+                                                        Player Daily Average:
                                                     </h1>
                                                 </td>
                                                 <td className="align-right">
