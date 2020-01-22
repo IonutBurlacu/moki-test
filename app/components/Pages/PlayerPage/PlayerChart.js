@@ -51,7 +51,8 @@ export class PlayerChart extends Component {
                                     dataKey="x_axis"
                                     stroke="#f6f6f7"
                                     interval={0}
-                                    tickFormatter={value => {
+                                    tickFormatter={(value, index) => {
+                                        console.log(index);
                                         if (
                                             this.props.dateByEndDate.diff(
                                                 this.props.dateByStartDate,
@@ -66,6 +67,36 @@ export class PlayerChart extends Component {
                                             return (
                                                 Math.floor(value / 2) + ':30'
                                             );
+                                        }
+                                        if (
+                                            this.props.dateByType ===
+                                            'last_90_days'
+                                        ) {
+                                            const startOfWeekDate = this.props.dateByStartDate
+                                                .clone()
+                                                .week(value);
+                                            const endOfWeekDate = this.props.dateByStartDate
+                                                .clone()
+                                                .week(value);
+                                            if (
+                                                startOfWeekDate <
+                                                this.props.dateByStartDate
+                                            ) {
+                                                startOfWeekDate.add(1, 'year');
+                                            }
+                                            if (
+                                                endOfWeekDate <
+                                                this.props.dateByStartDate
+                                            ) {
+                                                endOfWeekDate.add(1, 'year');
+                                            }
+                                            return `${startOfWeekDate
+                                                .startOf('isoWeek')
+                                                .format(
+                                                    'D'
+                                                )} - ${endOfWeekDate
+                                                .endOf('isoWeek')
+                                                .format('D')}`;
                                         }
                                         return value;
                                     }}
