@@ -211,7 +211,7 @@ export class AddPlayerForm extends Component {
                                     />
                                     <label
                                         htmlFor="lastName"
-                                        className="form-label required"
+                                        className="form-label"
                                     >
                                         Surname
                                     </label>
