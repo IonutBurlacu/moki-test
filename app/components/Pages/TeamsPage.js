@@ -58,7 +58,12 @@ export class TeamsPage extends Component {
                                             ? `${s3URL}${team.avatar}`
                                             : defaultAvatar;
                                         return (
-                                            <tr key={team.id}>
+                                            <tr
+                                                key={team.id}
+                                                onClick={() =>
+                                                    this.handleView(team.id)
+                                                }
+                                            >
                                                 <td>
                                                     <div
                                                         className="avatar"
@@ -67,11 +72,7 @@ export class TeamsPage extends Component {
                                                         }}
                                                     />
                                                 </td>
-                                                <td
-                                                    onClick={() =>
-                                                        this.handleView(team.id)
-                                                    }
-                                                >
+                                                <td>
                                                     <h1 className="title">
                                                         {team.name}
                                                     </h1>

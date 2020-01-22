@@ -54,7 +54,14 @@ export class ChallengesPage extends Component {
                                             ? `${s3URL}${challenge.avatar}`
                                             : defaultAvatar;
                                         return (
-                                            <tr key={challenge.id}>
+                                            <tr
+                                                key={challenge.id}
+                                                onClick={() =>
+                                                    this.handleView(
+                                                        challenge.id
+                                                    )
+                                                }
+                                            >
                                                 <td>
                                                     <div
                                                         className="avatar"
@@ -63,13 +70,7 @@ export class ChallengesPage extends Component {
                                                         }}
                                                     />
                                                 </td>
-                                                <td
-                                                    onClick={() =>
-                                                        this.handleView(
-                                                            challenge.id
-                                                        )
-                                                    }
-                                                >
+                                                <td>
                                                     <h1 className="title">
                                                         {challenge.name}
                                                     </h1>
