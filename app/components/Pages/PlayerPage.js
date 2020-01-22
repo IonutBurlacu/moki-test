@@ -30,7 +30,6 @@ export class PlayerPage extends Component {
     };
 
     render() {
-        console.log(this.props.loading);
         return (
             <div className="container">
                 <Header
