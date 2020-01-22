@@ -178,56 +178,6 @@ export class EditPlayerForm extends Component {
                                     </label>
                                 </div>
                                 <div className="form-group">
-                                    <AutoSuggestInput
-                                        className="autosuggest"
-                                        handleChange={
-                                            this.handleSuggestionInputChange
-                                        }
-                                        items={grades}
-                                        name="grade"
-                                        defaultValue={this.state.grade_id}
-                                        defaultLabel={this.state.grade}
-                                    />
-                                    <label
-                                        htmlFor="teamId"
-                                        className="form-label"
-                                        style={{
-                                            color:
-                                                this.state.grade !== ''
-                                                    ? '#74ef5c'
-                                                    : '#bfc0c5'
-                                        }}
-                                    >
-                                        Class
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="right-side">
-                                <div className="form-group">
-                                    <AutoSuggestInput
-                                        className="autosuggest"
-                                        handleChange={
-                                            this.handleSuggestionInputChange
-                                        }
-                                        items={years}
-                                        name="year"
-                                        defaultValue={this.state.year_id}
-                                        defaultLabel={this.state.year}
-                                    />
-                                    <label
-                                        htmlFor="year"
-                                        className="form-label"
-                                        style={{
-                                            color:
-                                                this.state.year !== ''
-                                                    ? '#74ef5c'
-                                                    : '#bfc0c5'
-                                        }}
-                                    >
-                                        Year
-                                    </label>
-                                </div>
-                                <div className="form-group">
                                     <Select
                                         value={genderOptions.find(
                                             gender =>
@@ -256,6 +206,8 @@ export class EditPlayerForm extends Component {
                                         Gender
                                     </label>
                                 </div>
+                            </div>
+                            <div className="right-side">
                                 <div className="form-group datepicker-form-group">
                                     <input
                                         type="text"
@@ -289,6 +241,54 @@ export class EditPlayerForm extends Component {
                                     ) : (
                                         ''
                                     )}
+                                </div>
+                                <div className="form-group">
+                                    <AutoSuggestInput
+                                        className="autosuggest"
+                                        handleChange={
+                                            this.handleSuggestionInputChange
+                                        }
+                                        items={years}
+                                        name="year"
+                                        defaultValue={this.state.year_id}
+                                        defaultLabel={this.state.year}
+                                    />
+                                    <label
+                                        htmlFor="year"
+                                        className="form-label"
+                                        style={{
+                                            color:
+                                                this.state.year !== ''
+                                                    ? '#74ef5c'
+                                                    : '#bfc0c5'
+                                        }}
+                                    >
+                                        Year
+                                    </label>
+                                </div>
+                                <div className="form-group">
+                                    <AutoSuggestInput
+                                        className="autosuggest"
+                                        handleChange={
+                                            this.handleSuggestionInputChange
+                                        }
+                                        items={grades}
+                                        name="grade"
+                                        defaultValue={this.state.grade_id}
+                                        defaultLabel={this.state.grade}
+                                    />
+                                    <label
+                                        htmlFor="teamId"
+                                        className="form-label"
+                                        style={{
+                                            color:
+                                                this.state.grade !== ''
+                                                    ? '#74ef5c'
+                                                    : '#bfc0c5'
+                                        }}
+                                    >
+                                        Class
+                                    </label>
                                 </div>
                             </div>
                         </div>
