@@ -151,6 +151,7 @@ export class EditPlayerForm extends Component {
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
                                         value={this.state.first_name}
+                                        placeholder="Enter first name"
                                     />
                                     <label
                                         htmlFor="firstName"
@@ -168,7 +169,7 @@ export class EditPlayerForm extends Component {
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
                                         value={this.state.last_name}
-                                        placeholder=" "
+                                        placeholder="Enter surname"
                                     />
                                     <label
                                         htmlFor="lastName"
@@ -201,7 +202,7 @@ export class EditPlayerForm extends Component {
                                     />
                                     <label
                                         htmlFor="teamId"
-                                        className="form-label form-label-filled required"
+                                        className="form-label required"
                                     >
                                         Gender
                                     </label>
@@ -220,7 +221,7 @@ export class EditPlayerForm extends Component {
                                         value={moment(
                                             this.state.birthday
                                         ).format('YYYY-MM-DD')}
-                                        placeholder=" "
+                                        placeholder="Enter D.O.B."
                                     />
                                     <label
                                         htmlFor="birthday"

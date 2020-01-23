@@ -45,7 +45,7 @@ export class LoginForm extends Component {
                             name="email"
                             value={this.state.email}
                             onChange={this.handleInputChange}
-                            placeholder=" "
+                            placeholder="Enter email"
                         />
                         <label htmlFor="email" className="form-label">
                             Email
@@ -58,7 +58,7 @@ export class LoginForm extends Component {
                             id="password"
                             name="password"
                             onChange={this.handleInputChange}
-                            placeholder=" "
+                            placeholder="Enter password"
                         />
                         <label htmlFor="password" className="form-label">
                             Password

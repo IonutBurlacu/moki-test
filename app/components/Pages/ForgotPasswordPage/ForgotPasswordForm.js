@@ -42,7 +42,7 @@ export class ForgotPasswordForm extends Component {
                             id="email"
                             name="email"
                             onChange={this.handleInputChange}
-                            placeholder=" "
+                            placeholder="Enter email"
                         />
                         <label htmlFor="email" className="form-label required">
                             Email

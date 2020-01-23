@@ -142,7 +142,7 @@ export class AddChallengeForm extends Component {
                                     name="name"
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
-                                    placeholder=" "
+                                    placeholder="Enter name"
                                 />
                                 <label
                                     htmlFor="name"
@@ -169,10 +169,7 @@ export class AddChallengeForm extends Component {
                                     }}
                                     name="type"
                                 />
-                                <label
-                                    htmlFor="Type"
-                                    className="form-label form-label-filled"
-                                >
+                                <label htmlFor="Type" className="form-label">
                                     Type
                                 </label>
                             </div>
@@ -184,7 +181,7 @@ export class AddChallengeForm extends Component {
                                     name="target_steps"
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
-                                    placeholder=" "
+                                    placeholder="Enter steps"
                                 />
                                 <label
                                     htmlFor="targetSteps"

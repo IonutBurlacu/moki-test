@@ -129,7 +129,7 @@ export class AddTeamForm extends Component {
                                     name="name"
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
-                                    placeholder=" "
+                                    placeholder="Enter name"
                                 />
                                 <label
                                     htmlFor="name"

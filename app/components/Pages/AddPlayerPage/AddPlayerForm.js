@@ -190,7 +190,7 @@ export class AddPlayerForm extends Component {
                                         name="first_name"
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
-                                        placeholder=" "
+                                        placeholder="Enter first name"
                                     />
                                     <label
                                         htmlFor="firstName"
@@ -207,7 +207,7 @@ export class AddPlayerForm extends Component {
                                         name="last_name"
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
-                                        placeholder=" "
+                                        placeholder="Enter surname"
                                     />
                                     <label
                                         htmlFor="lastName"
@@ -236,7 +236,7 @@ export class AddPlayerForm extends Component {
                                     />
                                     <label
                                         htmlFor="teamId"
-                                        className="form-label form-label-filled required"
+                                        className="form-label required"
                                     >
                                         Gender
                                     </label>
@@ -285,6 +285,7 @@ export class AddPlayerForm extends Component {
                                         }
                                         items={years}
                                         name="year"
+                                        placeholder="Enter year"
                                     />
                                     <label
                                         htmlFor="year"
@@ -307,6 +308,7 @@ export class AddPlayerForm extends Component {
                                         }
                                         items={grades}
                                         name="grade"
+                                        placeholder="Enter class"
                                     />
                                     <label
                                         htmlFor="teamId"

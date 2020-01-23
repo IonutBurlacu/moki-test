@@ -104,7 +104,7 @@ export class EditTeamForm extends Component {
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
                                     value={this.state.name}
-                                    placeholder=" "
+                                    placeholder="Enter name"
                                 />
                                 <label
                                     htmlFor="name"
