@@ -47,17 +47,9 @@ export const getSettingsRequest = () => ({
     type: 'GET_SETTINGS_REQUEST'
 });
 
-export const getSettings = (
-    ignoreWeekend,
-    hideTotals,
-    minHourId,
-    maxHourId
-) => ({
+export const getSettings = hideTotals => ({
     type: 'GET_SETTINGS',
-    ignoreWeekend,
-    hideTotals,
-    minHourId,
-    maxHourId
+    hideTotals
 });
 
 export const forgotPasswordRequest = email => ({

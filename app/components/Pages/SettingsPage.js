@@ -15,15 +15,12 @@ import SettingsHeader from './SettingsPage/SettingsHeader';
 import AccountModal from './SettingsPage/AccountModal';
 import { setActiveMenu } from '../../actions/footer';
 import HideTotalCheckbox from './SettingsPage/HideTotalCheckbox';
-import IgnoreWeekendCheckbox from './SettingsPage/IgnoreWeekendCheckbox';
 
 export class SettingsPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            min_hour_id: props.min_hour_id,
-            max_hour_id: props.max_hour_id,
             importModalIsOpen: false,
             accountModalIsOpen: false,
             deleteDatabaseConfirmModalIsOpen: false
@@ -143,16 +140,6 @@ export class SettingsPage extends Component {
                                             <HideTotalCheckbox />
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <span className="setting-label">
-                                                Ignore Weekend Data
-                                            </span>
-                                        </td>
-                                        <td className="align-right switch-column">
-                                            <IgnoreWeekendCheckbox />
-                                        </td>
-                                    </tr>
                                     <tr onClick={this.handleReadBattery}>
                                         <td>
                                             <button
@@ -257,16 +244,13 @@ export class SettingsPage extends Component {
 
 const mapStateToProps = state => ({
     token: state.auth.token,
-    loading: state.auth.loading,
-    min_hour_id: state.auth.min_hour_id,
-    max_hour_id: state.auth.max_hour_id
+    loading: state.auth.loading
 });
 
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
     showLoader: () => dispatch(showLoader()),
     setActiveMenu: menu => dispatch(setActiveMenu(menu)),
-
     getSettingsRequest: () => dispatch(getSettingsRequest())
 });
 

@@ -151,10 +151,7 @@ export function* getSettings() {
 
     yield put({
         type: 'GET_SETTINGS',
-        ignoreWeekend: !!decoded.ignore_weekend,
-        hideTotals: !!decoded.hide_totals,
-        minHourId: decoded.min_hour_id,
-        maxHourId: decoded.max_hour_id
+        hideTotals: !!decoded.hide_totals
     });
 
     yield put({
