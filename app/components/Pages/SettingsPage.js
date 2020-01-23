@@ -6,11 +6,7 @@ import axios from 'axios';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
-import {
-    logout,
-    changeSettingRequest,
-    getSettingsRequest
-} from '../../actions/auth';
+import { logout, getSettingsRequest } from '../../actions/auth';
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
@@ -116,44 +112,7 @@ export class SettingsPage extends Component {
         shell.openExternal('https://www.moki.technology/tutorials');
     };
 
-    handleTimeRangeChange = event => {
-        this.setState({
-            [event.target.name]: parseInt(event.target.value, 10)
-        });
-        this.props.showLoader();
-        this.props.changeSettingRequest(
-            event.target.name,
-            parseInt(event.target.value, 10)
-        );
-    };
-
     render() {
-        const options = [
-            { id: 0, value: '00:00' },
-            { id: 2, value: '01:00' },
-            { id: 4, value: '02:00' },
-            { id: 6, value: '03:00' },
-            { id: 8, value: '04:00' },
-            { id: 10, value: '05:00' },
-            { id: 12, value: '06:00' },
-            { id: 14, value: '07:00' },
-            { id: 16, value: '08:00' },
-            { id: 18, value: '09:00' },
-            { id: 20, value: '10:00' },
-            { id: 22, value: '11:00' },
-            { id: 24, value: '12:00' },
-            { id: 26, value: '13:00' },
-            { id: 28, value: '14:00' },
-            { id: 30, value: '15:00' },
-            { id: 32, value: '16:00' },
-            { id: 34, value: '17:00' },
-            { id: 36, value: '18:00' },
-            { id: 38, value: '19:00' },
-            { id: 40, value: '20:00' },
-            { id: 42, value: '21:00' },
-            { id: 44, value: '22:00' },
-            { id: 46, value: '23:00' }
-        ];
         return (
             <div className="container container-with-title">
                 <Header
@@ -192,58 +151,6 @@ export class SettingsPage extends Component {
                                         </td>
                                         <td className="align-right switch-column">
                                             <IgnoreWeekendCheckbox />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span className="setting-label">
-                                                Time Range Displayed on Today
-                                                Graph
-                                            </span>
-                                        </td>
-                                        <td className="align-right switch-column">
-                                            <select
-                                                className="time-range-select"
-                                                name="min_hour_id"
-                                                onChange={
-                                                    this.handleTimeRangeChange
-                                                }
-                                            >
-                                                {options.map(option => (
-                                                    <option
-                                                        key={option.id}
-                                                        value={option.id}
-                                                        selected={
-                                                            this.props
-                                                                .min_hour_id ===
-                                                            option.id
-                                                        }
-                                                    >
-                                                        {option.value}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                            <select
-                                                className="time-range-select"
-                                                name="max_hour_id"
-                                                onChange={
-                                                    this.handleTimeRangeChange
-                                                }
-                                            >
-                                                {options.map(option => (
-                                                    <option
-                                                        key={option.id}
-                                                        value={option.id}
-                                                        selected={
-                                                            this.props
-                                                                .max_hour_id ===
-                                                            option.id
-                                                        }
-                                                    >
-                                                        {option.value}
-                                                    </option>
-                                                ))}
-                                            </select>
                                         </td>
                                     </tr>
                                     <tr onClick={this.handleReadBattery}>
@@ -359,12 +266,8 @@ const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
     showLoader: () => dispatch(showLoader()),
     setActiveMenu: menu => dispatch(setActiveMenu(menu)),
-    changeSettingRequest: (settingName, settingValue) =>
-        dispatch(changeSettingRequest(settingName, settingValue)),
+
     getSettingsRequest: () => dispatch(getSettingsRequest())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SettingsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage);
