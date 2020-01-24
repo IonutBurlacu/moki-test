@@ -123,10 +123,12 @@ export const createPlayerRequest = () => ({
     type: 'CREATE_PLAYER_REQUEST'
 });
 
-export const createPlayer = (grades, years) => ({
+export const createPlayer = (grades, years, tags, teams) => ({
     type: 'CREATE_PLAYER',
     grades,
-    years
+    years,
+    tags,
+    teams
 });
 
 export const insertPlayerRequest = player => ({
@@ -205,6 +207,16 @@ export const detachPlayerFromChallengeRequest = (challengeId, playerId) => ({
 export const detachPlayerFromChallenge = challengeId => ({
     type: 'DETACH_PLAYER_FROM_CHALLENGE',
     challengeId
+});
+
+export const attachNewPlayerToTeam = teamId => ({
+    type: 'ATTACH_NEW_PLAYER_TO_TEAM',
+    teamId
+});
+
+export const detachNewPlayerFromTeam = teamId => ({
+    type: 'DETACH_NEW_PLAYER_FROM_TEAM',
+    teamId
 });
 
 export const pairBandToPlayer = (id, band) => ({

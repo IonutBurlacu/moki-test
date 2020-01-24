@@ -91,7 +91,8 @@ export default class PlayersAPI {
             free_school_meals: player.free_school_meals,
             pupil_premium: player.pupil_premium,
             sen: player.sen,
-            tags: player.tags
+            tags: player.tags,
+            teams: player.teams.map(team => team.id)
         });
         formData.append('encrypted', encrypted);
         return axios.post(`${host}${root}/insert`, formData, {

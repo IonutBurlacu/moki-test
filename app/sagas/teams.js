@@ -61,6 +61,22 @@ export function* teamStats(action) {
     });
 }
 
+export function* teamCreate() {
+    const token = yield select(getToken);
+    const response = yield call(TeamsAPI.create, { Authorization: token });
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'CREATE_TEAM',
+        players: decoded.players
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
 export function* teamInsert(action) {
     const token = yield select(getToken);
     const response = yield call(

@@ -103,7 +103,7 @@ export class EditChallengeForm extends Component {
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
                                     value={this.state.name}
-                                    placeholder=" "
+                                    placeholder="Enter name"
                                 />
                                 <label
                                     htmlFor="name"
@@ -121,7 +121,7 @@ export class EditChallengeForm extends Component {
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
                                     value={this.state.target_steps}
-                                    placeholder=" "
+                                    placeholder="Enter steps"
                                 />
                                 <label
                                     htmlFor="targetSteps"

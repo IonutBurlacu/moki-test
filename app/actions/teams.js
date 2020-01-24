@@ -112,6 +112,15 @@ export const deleteTeam = id => ({
     id
 });
 
+export const createTeamRequest = () => ({
+    type: 'CREATE_TEAM_REQUEST'
+});
+
+export const createTeam = players => ({
+    type: 'CREATE_TEAM',
+    players
+});
+
 export const insertTeamRequest = team => ({
     type: 'INSERT_TEAM_REQUEST',
     team
@@ -186,6 +195,16 @@ export const detachTeamFromChallengeRequest = (challengeId, teamId) => ({
 export const detachTeamFromChallenge = challengeId => ({
     type: 'DETACH_TEAM_FROM_CHALLENGE',
     challengeId
+});
+
+export const attachNewTeamToPlayer = playerId => ({
+    type: 'ATTACH_NEW_TEAM_TO_PLAYER',
+    playerId
+});
+
+export const detachNewTeamFromPlayer = playerId => ({
+    type: 'DETACH_NEW_TEAM_FROM_PLAYER',
+    playerId
 });
 
 export const openTeamsMenu = menu => ({

@@ -12,6 +12,9 @@ export default (type, startDate, endDate) => {
         case 'week_to_date':
         case 'month_to_date':
         case 'interval':
+            if (endDate.diff(startDate, 'days') === 0) {
+                return moment(startDate).format('D MMMM YYYY');
+            }
             return `${moment(startDate).format('D MMM YYYY')} - ${moment(
                 endDate
             ).format('D MMM YYYY')}`;

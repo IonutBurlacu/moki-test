@@ -1,9 +1,6 @@
 export default (
     state = {
-        ignore_weekend: false,
         hide_totals: false,
-        min_hour_id: null,
-        max_hour_id: null,
         loading: true,
         version: ''
     },
@@ -35,9 +32,6 @@ export default (
             return {
                 ...state,
                 hide_totals: action.hideTotals,
-                ignore_weekend: action.ignoreWeekend,
-                min_hour_id: action.minHourId,
-                max_hour_id: action.maxHourId,
                 loading: false
             };
         case 'GET_VERSION':

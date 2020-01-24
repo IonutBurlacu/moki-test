@@ -110,7 +110,6 @@ export default (
                 loading: true
             };
         case 'GET_PLAYER_AVERAGES':
-            console.log(action);
             return {
                 ...state,
                 playerAverages: {
