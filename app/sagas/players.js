@@ -121,7 +121,8 @@ export function* playerCreate() {
         type: 'CREATE_PLAYER',
         grades: decoded.grades,
         years: decoded.years,
-        tags: decoded.tags
+        tags: decoded.tags,
+        teams: decoded.teams
     });
 
     yield put({

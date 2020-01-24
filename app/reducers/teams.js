@@ -22,6 +22,7 @@ export default (
             players: [],
             challenges: []
         },
+        new: { players: [] },
         challenges: [],
         players: [],
         dateByType: 'today',
@@ -189,9 +190,21 @@ export default (
                 dateByEndDate: moment(action.dateByEndDate).hour(12),
                 loading: false
             };
+        case 'CREATE_TEAM_REQUEST':
+            return {
+                ...state,
+                loading: true
+            };
+        case 'CREATE_TEAM':
+            return {
+                ...state,
+                players: action.players,
+                loading: false
+            };
         case 'INSERT_TEAM_REQUEST':
             return {
                 ...state,
+                new: { players: [] },
                 loading: true
             };
         case 'INSERT_TEAM':
@@ -320,6 +333,38 @@ export default (
                     )
                 ],
                 loading: false
+            };
+        case 'ATTACH_NEW_TEAM_TO_PLAYER':
+            return {
+                ...state,
+                new: {
+                    ...state.new,
+                    players: [
+                        ...state.new.players,
+                        state.players.find(
+                            player => player.id === action.playerId
+                        )
+                    ]
+                },
+                players: state.players.filter(
+                    player => player.id !== action.playerId
+                )
+            };
+        case 'DETACH_NEW_TEAM_FROM_PLAYER':
+            return {
+                ...state,
+                new: {
+                    ...state.new,
+                    players: state.new.players.filter(
+                        player => player.id !== action.playerId
+                    )
+                },
+                players: [
+                    ...state.players,
+                    state.new.players.find(
+                        player => player.id === action.playerId
+                    )
+                ]
             };
         case 'OPEN_TEAMS_MENU':
             return {

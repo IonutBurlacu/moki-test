@@ -6,6 +6,7 @@ import { Calendar } from 'react-date-range';
 import moment from 'moment';
 import AutoSuggestInput from '../../AutoSuggestInput';
 import AutoSuggestTags from '../../AutoSuggestTags';
+import TeamsList from './TeamsList';
 import { Header } from '../../Header';
 import { insertPlayerRequest } from '../../../actions/players';
 import { showLoader } from '../../../actions/loader';
@@ -72,15 +73,14 @@ export class AddPlayerForm extends Component {
     }
 
     addPlayer = () => {
-        if (
-            this.state.first_name === '' ||
-            this.state.last_name === '' ||
-            this.state.birthday === ''
-        ) {
+        if (this.state.first_name === '' || this.state.birthday === '') {
             this.props.showAlert('Please complete all the required fields.');
         } else {
             this.props.showLoader();
-            this.props.insertPlayerRequest(this.state);
+            this.props.insertPlayerRequest({
+                ...this.state,
+                teams: this.props.new.teams
+            });
         }
     };
 
@@ -389,6 +389,10 @@ export class AddPlayerForm extends Component {
                         </div>
                     </form>
                 </div>
+                <TeamsList
+                    items={this.props.new.teams}
+                    teams={this.props.teams}
+                />
             </div>
         );
     }
@@ -397,7 +401,9 @@ export class AddPlayerForm extends Component {
 const mapStateToProps = state => ({
     grades: state.players.grades,
     years: state.players.years,
-    tags: state.players.tags
+    tags: state.players.tags,
+    teams: state.players.teams,
+    new: state.players.new
 });
 
 const mapDispatchToProps = dispatch => ({

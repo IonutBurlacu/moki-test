@@ -22,6 +22,7 @@ export default (
             teams: [],
             challenges: []
         },
+        new: { teams: [] },
         grades: [],
         years: [],
         tags: [],
@@ -204,11 +205,13 @@ export default (
                 grades: action.grades,
                 years: action.years,
                 tags: action.tags,
+                teams: action.teams,
                 loading: false
             };
         case 'INSERT_PLAYER_REQUEST':
             return {
                 ...state,
+                new: { teams: [] },
                 loading: true
             };
         case 'INSERT_PLAYER':
@@ -352,6 +355,32 @@ export default (
                     )
                 ],
                 loading: false
+            };
+        case 'ATTACH_NEW_PLAYER_TO_TEAM':
+            return {
+                ...state,
+                new: {
+                    ...state.new,
+                    teams: [
+                        ...state.new.teams,
+                        state.teams.find(team => team.id === action.teamId)
+                    ]
+                },
+                teams: state.teams.filter(team => team.id !== action.teamId)
+            };
+        case 'DETACH_NEW_PLAYER_FROM_TEAM':
+            return {
+                ...state,
+                new: {
+                    ...state.new,
+                    teams: state.new.teams.filter(
+                        team => team.id !== action.teamId
+                    )
+                },
+                teams: [
+                    ...state.teams,
+                    state.new.teams.find(team => team.id === action.teamId)
+                ]
             };
         case 'PAIR_BAND_TO_PLAYER': {
             const currentPlayer = state.items.find(

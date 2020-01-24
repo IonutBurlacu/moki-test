@@ -61,6 +61,16 @@ export default class TeamsAPI {
         });
     }
 
+    static create(headers = {}) {
+        return axios({
+            method: 'get',
+            url: `${host}${root}/create`,
+            headers: {
+                ...headers
+            }
+        });
+    }
+
     static insert(headers = {}, team) {
         const formData = new FormData();
         if (team.file) {
@@ -69,7 +79,8 @@ export default class TeamsAPI {
             formData.append('default_avatar', team.default_avatar);
         }
         const encrypted = encrypt({
-            name: team.name
+            name: team.name,
+            players: team.players.map(player => player.id)
         });
         formData.append('encrypted', encrypted);
         return axios.post(`${host}${root}/insert`, formData, {

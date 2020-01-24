@@ -24,6 +24,7 @@ import {
 
 import {
     teamsFetchList,
+    teamCreate,
     teamInsert,
     teamEdit,
     teamUpdate,
@@ -110,6 +111,7 @@ export default function* sagas() {
         ),
 
         fork(takeLatest, 'GET_TEAMS_REQUEST', teamsFetchList),
+        fork(takeLatest, 'CREATE_TEAM_REQUEST', teamCreate),
         fork(takeLatest, 'INSERT_TEAM_REQUEST', teamInsert),
         fork(takeLatest, 'EDIT_TEAM_REQUEST', teamEdit),
         fork(takeLatest, 'UPDATE_TEAM_REQUEST', teamUpdate),
