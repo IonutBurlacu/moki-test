@@ -94,7 +94,7 @@ export class PlayersPage extends Component {
                                                     </span>
                                                 </td>
                                                 <td className="">
-                                                    <h1 className="subtitle">
+                                                    <h1 className="subtitle not-bold">
                                                         Player Daily Average:
                                                     </h1>
                                                 </td>

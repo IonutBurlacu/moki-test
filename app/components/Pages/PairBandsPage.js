@@ -160,11 +160,8 @@ export class PairBandsPage extends Component {
                                                         )}
                                                     </td>
                                                     <td className="">
-                                                        <h1 className="title">
-                                                            <small>
-                                                                Player Daily
-                                                                Average
-                                                            </small>
+                                                        <h1 className="subtitle not-bold">
+                                                            Player Daily Average
                                                         </h1>
                                                     </td>
                                                     <td className="align-right">
