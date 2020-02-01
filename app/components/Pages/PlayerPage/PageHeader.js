@@ -21,7 +21,7 @@ export default class PageHeader extends Component {
                         />
                     </div>
                     <div className="right-side">
-                        <h3 className="title">
+                        <h3 className="title not-bold">
                             {`${this.props.player.first_name} ${this.props.player.last_name}`}
                         </h3>
                         <span className="subtitle">
