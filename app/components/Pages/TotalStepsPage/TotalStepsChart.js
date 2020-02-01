@@ -147,7 +147,13 @@ export class TotalStepsChart extends Component {
                         <div className="left-side">
                             <span className="total">
                                 MVPA:{' '}
-                                <span className="number-grey">
+                                <span
+                                    className={
+                                        this.props.chartType === 'mvpa'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {duration(this.props.totalSteps.totalMvpa)}
                                 </span>
                             </span>
@@ -209,10 +215,24 @@ export class TotalStepsChart extends Component {
                         <div className="right-side">
                             <span className="total">
                                 Steps:{' '}
-                                <span className="number-green">
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {this.props.totalSteps.totalSteps.toLocaleString()}
                                 </span>
-                                <span className="label-green">steps</span>
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'label-green'
+                                            : 'label-grey'
+                                    }
+                                >
+                                    steps
+                                </span>
                             </span>
                             {this.props.totalSteps.totalSteps -
                                 this.props.totalSteps.previous.steps !==

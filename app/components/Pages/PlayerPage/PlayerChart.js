@@ -52,7 +52,6 @@ export class PlayerChart extends Component {
                                     stroke="#f6f6f7"
                                     interval={0}
                                     tickFormatter={(value, index) => {
-                                        console.log(index);
                                         if (
                                             this.props.dateByEndDate.diff(
                                                 this.props.dateByStartDate,
@@ -154,7 +153,13 @@ export class PlayerChart extends Component {
                         <div className="left-side">
                             <span className="total">
                                 MVPA:{' '}
-                                <span className="number-grey">
+                                <span
+                                    className={
+                                        this.props.chartType === 'mvpa'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {duration(this.props.player.totalMvpa)}
                                 </span>
                             </span>
@@ -215,10 +220,24 @@ export class PlayerChart extends Component {
                         <div className="right-side">
                             <span className="total">
                                 Steps:{' '}
-                                <span className="number-green">
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {this.props.player.totalSteps.toLocaleString()}
                                 </span>
-                                <span className="label-green">steps</span>
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'label-green'
+                                            : 'label-grey'
+                                    }
+                                >
+                                    steps
+                                </span>
                             </span>
                             {this.props.player.totalSteps -
                                 this.props.player.previous.steps !==

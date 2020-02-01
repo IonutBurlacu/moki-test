@@ -123,7 +123,13 @@ export class TeamChart extends Component {
                         <div className="left-side">
                             <span className="total">
                                 MVPA:{' '}
-                                <span className="number-grey">
+                                <span
+                                    className={
+                                        this.props.chartType === 'mvpa'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {duration(this.props.team.totalMvpa)}
                                 </span>
                             </span>
@@ -182,10 +188,24 @@ export class TeamChart extends Component {
                         <div className="right-side">
                             <span className="total">
                                 Steps:{' '}
-                                <span className="number-green">
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {this.props.team.totalSteps.toLocaleString()}
                                 </span>
-                                <span className="label-green">steps</span>
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'label-green'
+                                            : 'label-grey'
+                                    }
+                                >
+                                    steps
+                                </span>
                             </span>
                             {this.props.team.totalSteps -
                                 this.props.team.previous.steps !==
