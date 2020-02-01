@@ -105,7 +105,7 @@ export class PairBandsPage extends Component {
                                                             .selectedPlayerId ===
                                                         player.id ? (
                                                             <span className="subtitle cyan">
-                                                                Tap Band on
+                                                                Hold Band on
                                                                 Reader to Pair
                                                             </span>
                                                         ) : player.band ===
