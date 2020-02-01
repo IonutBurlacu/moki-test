@@ -86,7 +86,13 @@ export class TotalStepsChart extends Component {
                                             this.props.totalSteps
                                                 .dateByStartDate,
                                             'days'
-                                        ) === 0
+                                        ) === 0 &&
+                                        (this.props.totalSteps.dateByType ===
+                                            'today' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'yesterday' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'interval')
                                     ) {
                                         if (value % 2 === 0) {
                                             return (value / 2)
@@ -94,6 +100,38 @@ export class TotalStepsChart extends Component {
                                                 .padStart(2, '0');
                                         }
                                         return Math.floor(value / 2) + ':30';
+                                    }
+                                    if (
+                                        this.props.totalSteps.dateByType ===
+                                        'last_90_days'
+                                    ) {
+                                        const startOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        const endOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        if (
+                                            startOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            startOfWeekDate.add(1, 'year');
+                                        }
+                                        if (
+                                            endOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            endOfWeekDate.add(1, 'year');
+                                        }
+                                        return `${startOfWeekDate
+                                            .startOf('isoWeek')
+                                            .format(
+                                                'D'
+                                            )} - ${endOfWeekDate
+                                            .endOf('isoWeek')
+                                            .format('D')}`;
                                     }
                                     return value;
                                 }}
@@ -110,7 +148,13 @@ export class TotalStepsChart extends Component {
                                             this.props.totalSteps
                                                 .dateByStartDate,
                                             'days'
-                                        ) === 0
+                                        ) === 0 &&
+                                        (this.props.totalSteps.dateByType ===
+                                            'today' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'yesterday' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'interval')
                                     ) {
                                         if (value % 2 === 0) {
                                             return (value / 2)
@@ -118,6 +162,38 @@ export class TotalStepsChart extends Component {
                                                 .padStart(2, '0');
                                         }
                                         return Math.floor(value / 2) + ':30';
+                                    }
+                                    if (
+                                        this.props.totalSteps.dateByType ===
+                                        'last_90_days'
+                                    ) {
+                                        const startOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        const endOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        if (
+                                            startOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            startOfWeekDate.add(1, 'year');
+                                        }
+                                        if (
+                                            endOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            endOfWeekDate.add(1, 'year');
+                                        }
+                                        return `${startOfWeekDate
+                                            .startOf('isoWeek')
+                                            .format(
+                                                'D'
+                                            )} - ${endOfWeekDate
+                                            .endOf('isoWeek')
+                                            .format('D')}`;
                                     }
                                     return value;
                                 }}

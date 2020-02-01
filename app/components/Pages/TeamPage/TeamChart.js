@@ -56,7 +56,13 @@ export class TeamChart extends Component {
                                             this.props.dateByEndDate.diff(
                                                 this.props.dateByStartDate,
                                                 'days'
-                                            ) === 0
+                                            ) === 0 &&
+                                            (this.props.dateByType ===
+                                                'today' ||
+                                                this.props.dateByType ===
+                                                    'yesterday' ||
+                                                this.props.dateByType ===
+                                                    'interval')
                                         ) {
                                             if (value % 2 === 0) {
                                                 return (value / 2)
@@ -66,6 +72,36 @@ export class TeamChart extends Component {
                                             return (
                                                 Math.floor(value / 2) + ':30'
                                             );
+                                        }
+                                        if (
+                                            this.props.dateByType ===
+                                            'last_90_days'
+                                        ) {
+                                            const startOfWeekDate = this.props.dateByStartDate
+                                                .clone()
+                                                .week(value);
+                                            const endOfWeekDate = this.props.dateByStartDate
+                                                .clone()
+                                                .week(value);
+                                            if (
+                                                startOfWeekDate <
+                                                this.props.dateByStartDate
+                                            ) {
+                                                startOfWeekDate.add(1, 'year');
+                                            }
+                                            if (
+                                                endOfWeekDate <
+                                                this.props.dateByStartDate
+                                            ) {
+                                                endOfWeekDate.add(1, 'year');
+                                            }
+                                            return `${startOfWeekDate
+                                                .startOf('isoWeek')
+                                                .format(
+                                                    'D'
+                                                )} - ${endOfWeekDate
+                                                .endOf('isoWeek')
+                                                .format('D')}`;
                                         }
                                         return value;
                                     }}
@@ -81,7 +117,13 @@ export class TeamChart extends Component {
                                             this.props.dateByEndDate.diff(
                                                 this.props.dateByStartDate,
                                                 'days'
-                                            ) === 0
+                                            ) === 0 &&
+                                            (this.props.dateByType ===
+                                                'today' ||
+                                                this.props.dateByType ===
+                                                    'yesterday' ||
+                                                this.props.dateByType ===
+                                                    'interval')
                                         ) {
                                             if (value % 2 === 0) {
                                                 return (value / 2)
@@ -91,6 +133,36 @@ export class TeamChart extends Component {
                                             return (
                                                 Math.floor(value / 2) + ':30'
                                             );
+                                        }
+                                        if (
+                                            this.props.dateByType ===
+                                            'last_90_days'
+                                        ) {
+                                            const startOfWeekDate = this.props.dateByStartDate
+                                                .clone()
+                                                .week(value);
+                                            const endOfWeekDate = this.props.dateByStartDate
+                                                .clone()
+                                                .week(value);
+                                            if (
+                                                startOfWeekDate <
+                                                this.props.dateByStartDate
+                                            ) {
+                                                startOfWeekDate.add(1, 'year');
+                                            }
+                                            if (
+                                                endOfWeekDate <
+                                                this.props.dateByStartDate
+                                            ) {
+                                                endOfWeekDate.add(1, 'year');
+                                            }
+                                            return `${startOfWeekDate
+                                                .startOf('isoWeek')
+                                                .format(
+                                                    'D'
+                                                )} - ${endOfWeekDate
+                                                .endOf('isoWeek')
+                                                .format('D')}`;
                                         }
                                         return value;
                                     }}
