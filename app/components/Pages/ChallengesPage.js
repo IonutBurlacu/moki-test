@@ -103,7 +103,7 @@ export class ChallengesPage extends Component {
                                                             <span className="icon-label">
                                                                 {`${challenge.players_count} Player`}
                                                                 {challenge.players_count !==
-                                                                0
+                                                                1
                                                                     ? 's'
                                                                     : ''}
                                                             </span>
