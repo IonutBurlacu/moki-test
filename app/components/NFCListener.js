@@ -29,6 +29,8 @@ export class NFCListener extends Component {
 
         this.nfc = new NFC();
 
+        this.syncTimeout = null;
+
         this.state = {
             allSteps: [],
             uuid: ''
@@ -84,9 +86,14 @@ export class NFCListener extends Component {
                     this.props.playSyncSound();
                     this.readBatteryLevel(reader, card.uid);
                 } else {
-                    this.props.showLoader();
-                    this.setState({ uuid: card.uid });
-                    this.readDays(reader);
+                    if (this.syncTimeout === null) {
+                        this.syncTimeout = setTimeout(() => {
+                            this.syncTimeout = null;
+                        }, 1000);
+                        this.props.showLoader();
+                        this.setState({ uuid: card.uid });
+                        this.readDays(reader);
+                    }
                     this.props.push('/bands/sync');
                 }
             });
