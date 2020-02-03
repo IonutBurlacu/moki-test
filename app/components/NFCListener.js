@@ -52,6 +52,11 @@ export class NFCListener extends Component {
                 ]);
                 reader.transmit(turnOffBuzzer, 8);
 
+                // If the user is not logged in, skip all.
+                if (this.props.token === null) {
+                    return;
+                }
+
                 if (this.props.pairing) {
                     if (this.props.selectedPlayerId !== null) {
                         this.props.showLoader();
@@ -338,6 +343,7 @@ export class NFCListener extends Component {
 }
 
 const mapStateToProps = state => ({
+    token: state.auth.token,
     pairing: state.bands.pairing,
     battery_reading: state.bands.battery_reading,
     selectedPlayerId: state.bands.selectedPlayerId
