@@ -133,7 +133,7 @@ export class SettingsPage extends Component {
                                     <tr>
                                         <td>
                                             <span className="setting-label">
-                                                Hide Totals at Record Steps
+                                                Hide Step Totals at Sync
                                             </span>
                                         </td>
                                         <td className="align-right switch-column">
