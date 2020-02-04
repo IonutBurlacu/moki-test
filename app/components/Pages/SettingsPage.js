@@ -106,7 +106,7 @@ export class SettingsPage extends Component {
     };
 
     handleVideoTutorials = () => {
-        shell.openExternal('https://www.moki.technology/tutorials');
+        shell.openExternal('https://moki.technology/pages/help-centre');
     };
 
     render() {
