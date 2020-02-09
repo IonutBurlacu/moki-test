@@ -97,7 +97,11 @@ export class PairBandsPage extends Component {
                                                             }}
                                                         />
                                                     </td>
-                                                    <td>
+                                                    <td
+                                                        style={{
+                                                            width: '71vmin'
+                                                        }}
+                                                    >
                                                         <h1 className="title">
                                                             {`${player.first_name} ${player.last_name}`}
                                                         </h1>
@@ -159,9 +163,15 @@ export class PairBandsPage extends Component {
                                                             </span>
                                                         )}
                                                     </td>
-                                                    <td className="">
+                                                    <td
+                                                        className="align-center"
+                                                        style={{
+                                                            width: '30.2vmin'
+                                                        }}
+                                                    >
                                                         <h1 className="subtitle not-bold">
-                                                            Player Daily Average
+                                                            Player Daily
+                                                            Average:
                                                         </h1>
                                                     </td>
                                                     <td className="align-right">
