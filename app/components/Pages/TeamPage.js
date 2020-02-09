@@ -53,12 +53,12 @@ export class TeamPage extends Component {
                             <TeamChart />
                             <SideDetails
                                 daily_steps={
-                                    this.props.team.average.daily_steps
+                                    this.props.team.data.average.daily_steps
                                 }
                                 mvpa_minutes={
-                                    this.props.team.average.mvpa_minutes
+                                    this.props.team.data.average.mvpa_minutes
                                 }
-                                grade={this.props.team.average.grade}
+                                grade={this.props.team.data.average.grade}
                             />
                         </div>
                         <div className="two-sides">

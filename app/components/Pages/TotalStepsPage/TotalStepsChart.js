@@ -21,8 +21,8 @@ export class TotalStepsChart extends Component {
     render() {
         const chartData =
             this.props.totalSteps.chartType === 'steps'
-                ? this.props.totalSteps.data.steps
-                : this.props.totalSteps.data.mvpa;
+                ? this.props.totalSteps.data.current.steps
+                : this.props.totalSteps.data.current.mvpa;
         return (
             <div className="chart-container">
                 <div className="chart-top-bar">
@@ -234,30 +234,32 @@ export class TotalStepsChart extends Component {
                                 </span>
                             </span>
                             {this.props.totalSteps.totalMvpa -
-                                this.props.totalSteps.previous.mvpa !==
+                                this.props.totalSteps.data.previous.mvpa !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.totalSteps.totalMvpa >
-                                        this.props.totalSteps.previous.mvpa
+                                        this.props.totalSteps.data.previous.mvpa
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.totalSteps.previous.mvpa > 0 ? (
+                                    {this.props.totalSteps.data.previous.mvpa >
+                                    0 ? (
                                         <span className="percentage">
                                             {this.props.totalSteps.totalMvpa >
-                                            this.props.totalSteps.previous.mvpa
-                                                ? this.props.totalSteps.previous
-                                                      .mvpa > 0
+                                            this.props.totalSteps.data.previous
+                                                .mvpa
+                                                ? this.props.totalSteps.data
+                                                      .previous.mvpa > 0
                                                     ? (
                                                           (this.props.totalSteps
                                                               .totalMvpa *
                                                               100) /
                                                               this.props
                                                                   .totalSteps
-                                                                  .previous
+                                                                  .data.previous
                                                                   .mvpa -
                                                           100
                                                       ).toFixed(0)
@@ -267,11 +269,11 @@ export class TotalStepsChart extends Component {
                                                       .totalMvpa > 0
                                                 ? (
                                                       ((this.props.totalSteps
-                                                          .previous.mvpa -
+                                                          .data.previous.mvpa -
                                                           this.props.totalSteps
                                                               .totalMvpa) *
                                                           100) /
-                                                      this.props.totalSteps
+                                                      this.props.totalSteps.data
                                                           .previous.mvpa
                                                   ).toFixed(0)
                                                 : 100}
@@ -311,31 +313,33 @@ export class TotalStepsChart extends Component {
                                 </span>
                             </span>
                             {this.props.totalSteps.totalSteps -
-                                this.props.totalSteps.previous.steps !==
+                                this.props.totalSteps.data.previous.steps !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.totalSteps.totalSteps >
-                                        this.props.totalSteps.previous.steps
+                                        this.props.totalSteps.data.previous
+                                            .steps
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.totalSteps.previous.steps >
+                                    {this.props.totalSteps.data.previous.steps >
                                     0 ? (
                                         <span className="percentage">
                                             {this.props.totalSteps.totalSteps >
-                                            this.props.totalSteps.previous.steps
-                                                ? this.props.totalSteps.previous
-                                                      .steps > 0
+                                            this.props.totalSteps.data.previous
+                                                .steps
+                                                ? this.props.totalSteps.data
+                                                      .previous.steps > 0
                                                     ? (
                                                           (this.props.totalSteps
                                                               .totalSteps *
                                                               100) /
                                                               this.props
                                                                   .totalSteps
-                                                                  .previous
+                                                                  .data.previous
                                                                   .steps -
                                                           100
                                                       ).toFixed(0)
@@ -345,11 +349,11 @@ export class TotalStepsChart extends Component {
                                                       .totalSteps > 0
                                                 ? (
                                                       ((this.props.totalSteps
-                                                          .previous.steps -
+                                                          .data.previous.steps -
                                                           this.props.totalSteps
                                                               .totalSteps) *
                                                           100) /
-                                                      this.props.totalSteps
+                                                      this.props.totalSteps.data
                                                           .previous.steps
                                                   ).toFixed(0)
                                                 : 100}

@@ -66,8 +66,10 @@ export class PlayerAveragesChart extends Component {
                         <BarChart
                             data={
                                 this.props.playerAverages.chartType === 'steps'
-                                    ? this.props.playerAverages.data.steps
-                                    : this.props.playerAverages.data.mvpa
+                                    ? this.props.playerAverages.data.current
+                                          .steps
+                                    : this.props.playerAverages.data.current
+                                          .mvpa
                             }
                             barCategoryGap={5}
                             margin={{
@@ -103,13 +105,13 @@ export class PlayerAveragesChart extends Component {
                                 name="Average Day"
                                 maxBarSize={70}
                             >
-                                {this.props.playerAverages.data.steps.map(
+                                {this.props.playerAverages.data.current.steps.map(
                                     (entry, index) => (
                                         <Cell
                                             key={index}
                                             fill={
                                                 this.props.playerAverages.data
-                                                    .grades[index]
+                                                    .current.grades[index]
                                             }
                                         />
                                     )

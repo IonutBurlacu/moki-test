@@ -28,13 +28,13 @@ export class TeamChart extends Component {
                     </p>
                 </div>
                 <div className="chart">
-                    {this.props.team.data.steps.length ? (
+                    {this.props.team.data.current.steps.length ? (
                         <ResponsiveContainer width="99%">
                             <ComposedChart
                                 data={
                                     this.props.chartType === 'steps'
-                                        ? this.props.team.data.steps
-                                        : this.props.team.data.mvpa
+                                        ? this.props.team.data.current.steps
+                                        : this.props.team.data.current.mvpa
                                 }
                                 margin={{
                                     top: 10,
@@ -206,42 +206,42 @@ export class TeamChart extends Component {
                                 </span>
                             </span>
                             {this.props.team.totalMvpa -
-                                this.props.team.previous.mvpa !==
+                                this.props.team.data.previous.mvpa !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.team.totalMvpa >
-                                        this.props.team.previous.mvpa
+                                        this.props.team.data.previous.mvpa
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.team.previous.mvpa > 0 ? (
+                                    {this.props.team.data.previous.mvpa > 0 ? (
                                         <span className="percentage">
                                             {this.props.team.totalMvpa >
-                                            this.props.team.previous.mvpa
-                                                ? this.props.team.previous
+                                            this.props.team.data.previous.mvpa
+                                                ? this.props.team.data.previous
                                                       .mvpa > 0
                                                     ? (
                                                           (this.props.team
                                                               .totalMvpa *
                                                               100) /
                                                               this.props.team
-                                                                  .previous
+                                                                  .data.previous
                                                                   .mvpa -
                                                           100
                                                       ).toFixed(0)
                                                     : this.props.team.totalMvpa
                                                 : this.props.team.totalMvpa > 0
                                                 ? (
-                                                      ((this.props.team.previous
-                                                          .mvpa -
+                                                      ((this.props.team.data
+                                                          .previous.mvpa -
                                                           this.props.team
                                                               .totalMvpa) *
                                                           100) /
-                                                      this.props.team.previous
-                                                          .mvpa
+                                                      this.props.team.data
+                                                          .previous.mvpa
                                                   ).toFixed(0)
                                                 : 100}
                                             %
@@ -280,42 +280,42 @@ export class TeamChart extends Component {
                                 </span>
                             </span>
                             {this.props.team.totalSteps -
-                                this.props.team.previous.steps !==
+                                this.props.team.data.previous.steps !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.team.totalSteps >
-                                        this.props.team.previous.steps
+                                        this.props.team.data.previous.steps
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.team.previous.steps > 0 ? (
+                                    {this.props.team.data.previous.steps > 0 ? (
                                         <span className="percentage">
                                             {this.props.team.totalSteps >
-                                            this.props.team.previous.steps
-                                                ? this.props.team.previous
+                                            this.props.team.data.previous.steps
+                                                ? this.props.team.data.previous
                                                       .steps > 0
                                                     ? (
                                                           (this.props.team
                                                               .totalSteps *
                                                               100) /
                                                               this.props.team
-                                                                  .previous
+                                                                  .data.previous
                                                                   .steps -
                                                           100
                                                       ).toFixed(0)
                                                     : this.props.team.totalSteps
                                                 : this.props.team.totalSteps > 0
                                                 ? (
-                                                      ((this.props.team.previous
-                                                          .steps -
+                                                      ((this.props.team.data
+                                                          .previous.steps -
                                                           this.props.team
                                                               .totalSteps) *
                                                           100) /
-                                                      this.props.team.previous
-                                                          .steps
+                                                      this.props.team.data
+                                                          .previous.steps
                                                   ).toFixed(0)
                                                 : 100}
                                             %

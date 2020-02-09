@@ -5,17 +5,19 @@ export default (
         items: [],
         team: {
             data: {
-                steps: [],
-                mvpa: []
-            },
-            average: {
-                daily_steps: 0,
-                mvpa_minutes: 0,
-                grade: 'E'
-            },
-            previous: {
-                steps: 0,
-                mvpa: 0
+                current: {
+                    steps: [],
+                    mvpa: []
+                },
+                previous: {
+                    steps: 0,
+                    mvpa: 0
+                },
+                average: {
+                    daily_steps: 0,
+                    mvpa_minutes: 0,
+                    grade: 'E'
+                }
             },
             totalSteps: 0,
             totalMVPA: 0,
@@ -124,13 +126,7 @@ export default (
                 ...state,
                 team: {
                     ...action.team,
-                    data: action.team.data.current,
-                    average: {
-                        grade: action.team.data.average.grade,
-                        daily_steps: action.team.data.average.daily_steps,
-                        mvpa_minutes: action.team.data.average.mvpa_minutes
-                    },
-                    previous: action.team.data.previous,
+                    data: action.team.data,
                     totalSteps: action.team.data.current.steps.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.y_axis,
@@ -167,13 +163,7 @@ export default (
                 ...state,
                 team: {
                     ...state.team,
-                    data: action.data.current,
-                    average: {
-                        grade: action.data.average.grade,
-                        daily_steps: action.data.average.daily_steps,
-                        mvpa_minutes: action.data.average.mvpa_minutes
-                    },
-                    previous: action.data.previous,
+                    data: action.data,
                     totalSteps: action.data.current.steps.reduce(
                         (accumulator, currentValue) =>
                             accumulator + currentValue.y_axis,

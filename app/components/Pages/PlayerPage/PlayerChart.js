@@ -28,13 +28,13 @@ export class PlayerChart extends Component {
                     </p>
                 </div>
                 <div className="chart">
-                    {this.props.player.data.steps.length ? (
+                    {this.props.player.data.current.steps.length ? (
                         <ResponsiveContainer width="99%">
                             <ComposedChart
                                 data={
                                     this.props.chartType === 'steps'
-                                        ? this.props.player.data.steps
-                                        : this.props.player.data.mvpa
+                                        ? this.props.player.data.current.steps
+                                        : this.props.player.data.current.mvpa
                                 }
                                 margin={{
                                     top: 10,
@@ -206,29 +206,30 @@ export class PlayerChart extends Component {
                                 </span>
                             </span>
                             {this.props.player.totalMvpa -
-                                this.props.player.previous.mvpa !==
+                                this.props.player.data.previous.mvpa !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.player.totalMvpa >
-                                        this.props.player.previous.mvpa
+                                        this.props.player.data.previous.mvpa
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.player.previous.mvpa > 0 ? (
+                                    {this.props.player.data.previous.mvpa >
+                                    0 ? (
                                         <span className="percentage">
                                             {this.props.player.totalMvpa >
-                                            this.props.player.previous.mvpa
-                                                ? this.props.player.previous
-                                                      .mvpa > 0
+                                            this.props.player.data.previous.mvpa
+                                                ? this.props.player.data
+                                                      .previous.mvpa > 0
                                                     ? (
                                                           (this.props.player
                                                               .totalMvpa *
                                                               100) /
                                                               this.props.player
-                                                                  .previous
+                                                                  .data.previous
                                                                   .mvpa -
                                                           100
                                                       ).toFixed(0)
@@ -237,13 +238,13 @@ export class PlayerChart extends Component {
                                                 : this.props.player.totalMvpa >
                                                   0
                                                 ? (
-                                                      ((this.props.player
+                                                      ((this.props.player.data
                                                           .previous.mvpa -
                                                           this.props.player
                                                               .totalMvpa) *
                                                           100) /
-                                                      this.props.player.previous
-                                                          .mvpa
+                                                      this.props.player.data
+                                                          .previous.mvpa
                                                   ).toFixed(0)
                                                 : 100}
                                             %
@@ -282,29 +283,31 @@ export class PlayerChart extends Component {
                                 </span>
                             </span>
                             {this.props.player.totalSteps -
-                                this.props.player.previous.steps !==
+                                this.props.player.data.previous.steps !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.player.totalSteps >
-                                        this.props.player.previous.steps
+                                        this.props.player.data.previous.steps
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.player.previous.steps > 0 ? (
+                                    {this.props.player.data.previous.steps >
+                                    0 ? (
                                         <span className="percentage">
                                             {this.props.player.totalSteps >
-                                            this.props.player.previous.steps
-                                                ? this.props.player.previous
-                                                      .steps > 0
+                                            this.props.player.data.previous
+                                                .steps
+                                                ? this.props.player.data
+                                                      .previous.steps > 0
                                                     ? (
                                                           (this.props.player
                                                               .totalSteps *
                                                               100) /
                                                               this.props.player
-                                                                  .previous
+                                                                  .data.previous
                                                                   .steps -
                                                           100
                                                       ).toFixed(0)
@@ -313,13 +316,13 @@ export class PlayerChart extends Component {
                                                 : this.props.player.totalSteps >
                                                   0
                                                 ? (
-                                                      ((this.props.player
+                                                      ((this.props.player.data
                                                           .previous.steps -
                                                           this.props.player
                                                               .totalSteps) *
                                                           100) /
-                                                      this.props.player.previous
-                                                          .steps
+                                                      this.props.player.data
+                                                          .previous.steps
                                                   ).toFixed(0)
                                                 : 100}
                                             %
