@@ -102,7 +102,7 @@ export class SettingsPage extends Component {
     };
 
     handleContactSupport = () => {
-        shell.openExternal('https://moki.technology/pages/contact-us');
+        shell.openExternal('https://www.moki.technology/support');
     };
 
     handleVideoTutorials = () => {
