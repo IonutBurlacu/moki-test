@@ -57,12 +57,12 @@ export class PlayerPage extends Component {
                             <PlayerChart />
                             <SideDetails
                                 daily_steps={
-                                    this.props.player.average.daily_steps
+                                    this.props.player.data.average.daily_steps
                                 }
                                 mvpa_minutes={
-                                    this.props.player.average.mvpa_minutes
+                                    this.props.player.data.average.mvpa_minutes
                                 }
-                                grade={this.props.player.average.grade}
+                                grade={this.props.player.data.average.grade}
                             />
                         </div>
                         <div className="two-sides">

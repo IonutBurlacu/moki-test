@@ -35,18 +35,14 @@ export class TeamPage extends Component {
                 <Header
                     leftButton={<Link to="/bands/pair">Pair Bands</Link>}
                     rightButton={
-                        this.props.team.locked ? (
-                            ''
-                        ) : (
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    this.handleEdit(this.props.match.params.id)
-                                }
-                            >
-                                Edit
-                            </button>
-                        )
+                        <button
+                            type="button"
+                            onClick={() =>
+                                this.handleEdit(this.props.match.params.id)
+                            }
+                        >
+                            Edit
+                        </button>
                     }
                 />
                 {!this.props.loading ? (
@@ -57,12 +53,12 @@ export class TeamPage extends Component {
                             <TeamChart />
                             <SideDetails
                                 daily_steps={
-                                    this.props.team.average.daily_steps
+                                    this.props.team.data.average.daily_steps
                                 }
                                 mvpa_minutes={
-                                    this.props.team.average.mvpa_minutes
+                                    this.props.team.data.average.mvpa_minutes
                                 }
-                                grade={this.props.team.average.grade}
+                                grade={this.props.team.data.average.grade}
                             />
                         </div>
                         <div className="two-sides">

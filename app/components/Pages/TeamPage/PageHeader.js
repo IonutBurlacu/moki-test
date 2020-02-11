@@ -36,7 +36,7 @@ export default class PageHeader extends Component {
                         {team.players ? (
                             <span>
                                 {team.players.length} Player
-                                {team.players.length != 1 ? 's' : ''}
+                                {team.players.length !== 1 ? 's' : ''}
                             </span>
                         ) : (
                             ''

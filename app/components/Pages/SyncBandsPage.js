@@ -22,7 +22,7 @@ export class SyncBandsPage extends Component {
                     leftButton={<Link to="/players">Back</Link>}
                     rightButton={<div />}
                 />
-                <PageTitle title="Recording Steps" isGreen />
+                <PageTitle title="Sync Bands" isGreen />
                 {!this.props.loading ? (
                     <div className="content">
                         <ul className="syncs-wrapper">

@@ -2,7 +2,8 @@ export default (
     state = {
         hide_totals: false,
         loading: true,
-        version: ''
+        version: '',
+        token: null
     },
     action
 ) => {

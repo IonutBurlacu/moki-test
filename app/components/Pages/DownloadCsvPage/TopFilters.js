@@ -45,7 +45,7 @@ export class TopFilters extends Component {
                 );
                 const link = document.createElement('a');
                 link.href = url;
-                const teamName = this.props.downloadCsv.teams
+                const teamName = this.props.teams
                     .find(team => team.id === this.props.downloadCsv.teamId)
                     .name.split(' ')
                     .join('_');
@@ -102,6 +102,7 @@ export class TopFilters extends Component {
 
 const mapStateToProps = state => ({
     token: state.auth.token,
+    teams: state.reports.teams,
     downloadCsv: state.reports.downloadCsv
 });
 

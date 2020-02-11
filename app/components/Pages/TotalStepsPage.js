@@ -37,12 +37,14 @@ export class TotalStepsPage extends Component {
                             <SideDetails
                                 extraStyle={{ marginTop: '5vmin' }}
                                 daily_steps={
-                                    this.props.totalSteps.average.daily_steps
+                                    this.props.totalSteps.data.average
+                                        .daily_steps
                                 }
                                 mvpa_minutes={
-                                    this.props.totalSteps.average.mvpa_minutes
+                                    this.props.totalSteps.data.average
+                                        .mvpa_minutes
                                 }
-                                grade={this.props.totalSteps.average.grade}
+                                grade={this.props.totalSteps.data.average.grade}
                             />
                         </div>
                     </div>

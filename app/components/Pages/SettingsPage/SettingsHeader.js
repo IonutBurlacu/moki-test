@@ -3,7 +3,7 @@ import { shell } from 'electron';
 
 export default class SettingsHeader extends Component {
     handleHelpCentre = () => {
-        shell.openExternal('https://moki.technology/pages/faq');
+        shell.openExternal('https://moki.technology/pages/help-centre');
     };
 
     render() {

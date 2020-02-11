@@ -28,11 +28,7 @@ export class EditPlayerForm extends Component {
     }
 
     editPlayer = () => {
-        if (
-            this.state.first_name === '' ||
-            this.state.last_name === '' ||
-            this.state.birthday === ''
-        ) {
+        if (this.state.first_name === '' || this.state.birthday === '') {
             this.props.showAlert('Please complete all the required fields.');
         } else {
             this.props.showLoader();

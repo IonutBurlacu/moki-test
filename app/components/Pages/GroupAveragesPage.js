@@ -37,13 +37,16 @@ export class GroupAveragesPage extends Component {
                             <SideDetails
                                 extraStyle={{ marginTop: '5vmin' }}
                                 daily_steps={
-                                    this.props.groupAverages.average.daily_steps
+                                    this.props.groupAverages.data.average
+                                        .daily_steps
                                 }
                                 mvpa_minutes={
-                                    this.props.groupAverages.average
+                                    this.props.groupAverages.data.average
                                         .mvpa_minutes
                                 }
-                                grade={this.props.groupAverages.average.grade}
+                                grade={
+                                    this.props.groupAverages.data.average.grade
+                                }
                             />
                         </div>
                     </div>

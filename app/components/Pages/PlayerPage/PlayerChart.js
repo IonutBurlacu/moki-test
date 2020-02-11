@@ -28,13 +28,13 @@ export class PlayerChart extends Component {
                     </p>
                 </div>
                 <div className="chart">
-                    {this.props.player.data.steps.length ? (
+                    {this.props.player.data.current.steps.length ? (
                         <ResponsiveContainer width="99%">
                             <ComposedChart
                                 data={
                                     this.props.chartType === 'steps'
-                                        ? this.props.player.data.steps
-                                        : this.props.player.data.mvpa
+                                        ? this.props.player.data.current.steps
+                                        : this.props.player.data.current.mvpa
                                 }
                                 margin={{
                                     top: 10,
@@ -52,12 +52,17 @@ export class PlayerChart extends Component {
                                     stroke="#f6f6f7"
                                     interval={0}
                                     tickFormatter={(value, index) => {
-                                        console.log(index);
                                         if (
                                             this.props.dateByEndDate.diff(
                                                 this.props.dateByStartDate,
                                                 'days'
-                                            ) === 0
+                                            ) === 0 &&
+                                            (this.props.dateByType ===
+                                                'today' ||
+                                                this.props.dateByType ===
+                                                    'yesterday' ||
+                                                this.props.dateByType ===
+                                                    'interval')
                                         ) {
                                             if (value % 2 === 0) {
                                                 return (value / 2)
@@ -112,7 +117,13 @@ export class PlayerChart extends Component {
                                             this.props.dateByEndDate.diff(
                                                 this.props.dateByStartDate,
                                                 'days'
-                                            ) === 0
+                                            ) === 0 &&
+                                            (this.props.dateByType ===
+                                                'today' ||
+                                                this.props.dateByType ===
+                                                    'yesterday' ||
+                                                this.props.dateByType ===
+                                                    'interval')
                                         ) {
                                             if (value % 2 === 0) {
                                                 return (value / 2)
@@ -122,6 +133,36 @@ export class PlayerChart extends Component {
                                             return (
                                                 Math.floor(value / 2) + ':30'
                                             );
+                                        }
+                                        if (
+                                            this.props.dateByType ===
+                                            'last_90_days'
+                                        ) {
+                                            const startOfWeekDate = this.props.dateByStartDate
+                                                .clone()
+                                                .week(value);
+                                            const endOfWeekDate = this.props.dateByStartDate
+                                                .clone()
+                                                .week(value);
+                                            if (
+                                                startOfWeekDate <
+                                                this.props.dateByStartDate
+                                            ) {
+                                                startOfWeekDate.add(1, 'year');
+                                            }
+                                            if (
+                                                endOfWeekDate <
+                                                this.props.dateByStartDate
+                                            ) {
+                                                endOfWeekDate.add(1, 'year');
+                                            }
+                                            return `${startOfWeekDate
+                                                .startOf('isoWeek')
+                                                .format(
+                                                    'D'
+                                                )} - ${endOfWeekDate
+                                                .endOf('isoWeek')
+                                                .format('D')}`;
                                         }
                                         return value;
                                     }}
@@ -154,34 +195,41 @@ export class PlayerChart extends Component {
                         <div className="left-side">
                             <span className="total">
                                 MVPA:{' '}
-                                <span className="number-grey">
+                                <span
+                                    className={
+                                        this.props.chartType === 'mvpa'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {duration(this.props.player.totalMvpa)}
                                 </span>
                             </span>
                             {this.props.player.totalMvpa -
-                                this.props.player.previous.mvpa !==
+                                this.props.player.data.previous.mvpa !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.player.totalMvpa >
-                                        this.props.player.previous.mvpa
+                                        this.props.player.data.previous.mvpa
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.player.previous.mvpa > 0 ? (
+                                    {this.props.player.data.previous.mvpa >
+                                    0 ? (
                                         <span className="percentage">
                                             {this.props.player.totalMvpa >
-                                            this.props.player.previous.mvpa
-                                                ? this.props.player.previous
-                                                      .mvpa > 0
+                                            this.props.player.data.previous.mvpa
+                                                ? this.props.player.data
+                                                      .previous.mvpa > 0
                                                     ? (
                                                           (this.props.player
                                                               .totalMvpa *
                                                               100) /
                                                               this.props.player
-                                                                  .previous
+                                                                  .data.previous
                                                                   .mvpa -
                                                           100
                                                       ).toFixed(0)
@@ -190,13 +238,13 @@ export class PlayerChart extends Component {
                                                 : this.props.player.totalMvpa >
                                                   0
                                                 ? (
-                                                      ((this.props.player
+                                                      ((this.props.player.data
                                                           .previous.mvpa -
                                                           this.props.player
                                                               .totalMvpa) *
                                                           100) /
-                                                      this.props.player.previous
-                                                          .mvpa
+                                                      this.props.player.data
+                                                          .previous.mvpa
                                                   ).toFixed(0)
                                                 : 100}
                                             %
@@ -215,35 +263,51 @@ export class PlayerChart extends Component {
                         <div className="right-side">
                             <span className="total">
                                 Steps:{' '}
-                                <span className="number-green">
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {this.props.player.totalSteps.toLocaleString()}
                                 </span>
-                                <span className="label-green">steps</span>
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'label-green'
+                                            : 'label-grey'
+                                    }
+                                >
+                                    steps
+                                </span>
                             </span>
                             {this.props.player.totalSteps -
-                                this.props.player.previous.steps !==
+                                this.props.player.data.previous.steps !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.player.totalSteps >
-                                        this.props.player.previous.steps
+                                        this.props.player.data.previous.steps
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.player.previous.steps > 0 ? (
+                                    {this.props.player.data.previous.steps >
+                                    0 ? (
                                         <span className="percentage">
                                             {this.props.player.totalSteps >
-                                            this.props.player.previous.steps
-                                                ? this.props.player.previous
-                                                      .steps > 0
+                                            this.props.player.data.previous
+                                                .steps
+                                                ? this.props.player.data
+                                                      .previous.steps > 0
                                                     ? (
                                                           (this.props.player
                                                               .totalSteps *
                                                               100) /
                                                               this.props.player
-                                                                  .previous
+                                                                  .data.previous
                                                                   .steps -
                                                           100
                                                       ).toFixed(0)
@@ -252,13 +316,13 @@ export class PlayerChart extends Component {
                                                 : this.props.player.totalSteps >
                                                   0
                                                 ? (
-                                                      ((this.props.player
+                                                      ((this.props.player.data
                                                           .previous.steps -
                                                           this.props.player
                                                               .totalSteps) *
                                                           100) /
-                                                      this.props.player.previous
-                                                          .steps
+                                                      this.props.player.data
+                                                          .previous.steps
                                                   ).toFixed(0)
                                                 : 100}
                                             %

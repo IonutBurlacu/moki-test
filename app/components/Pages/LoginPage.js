@@ -22,7 +22,7 @@ class LoginPage extends Component {
     };
 
     handleVideoTutorials = () => {
-        shell.openExternal('https://moki.technology/pages/faq');
+        shell.openExternal('https://moki.technology/pages/help-centre');
     };
 
     handleSignUp = () => {

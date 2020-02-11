@@ -21,8 +21,8 @@ export class TotalStepsChart extends Component {
     render() {
         const chartData =
             this.props.totalSteps.chartType === 'steps'
-                ? this.props.totalSteps.data.steps
-                : this.props.totalSteps.data.mvpa;
+                ? this.props.totalSteps.data.current.steps
+                : this.props.totalSteps.data.current.mvpa;
         return (
             <div className="chart-container">
                 <div className="chart-top-bar">
@@ -86,7 +86,13 @@ export class TotalStepsChart extends Component {
                                             this.props.totalSteps
                                                 .dateByStartDate,
                                             'days'
-                                        ) === 0
+                                        ) === 0 &&
+                                        (this.props.totalSteps.dateByType ===
+                                            'today' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'yesterday' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'interval')
                                     ) {
                                         if (value % 2 === 0) {
                                             return (value / 2)
@@ -94,6 +100,38 @@ export class TotalStepsChart extends Component {
                                                 .padStart(2, '0');
                                         }
                                         return Math.floor(value / 2) + ':30';
+                                    }
+                                    if (
+                                        this.props.totalSteps.dateByType ===
+                                        'last_90_days'
+                                    ) {
+                                        const startOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        const endOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        if (
+                                            startOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            startOfWeekDate.add(1, 'year');
+                                        }
+                                        if (
+                                            endOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            endOfWeekDate.add(1, 'year');
+                                        }
+                                        return `${startOfWeekDate
+                                            .startOf('isoWeek')
+                                            .format(
+                                                'D'
+                                            )} - ${endOfWeekDate
+                                            .endOf('isoWeek')
+                                            .format('D')}`;
                                     }
                                     return value;
                                 }}
@@ -110,7 +148,13 @@ export class TotalStepsChart extends Component {
                                             this.props.totalSteps
                                                 .dateByStartDate,
                                             'days'
-                                        ) === 0
+                                        ) === 0 &&
+                                        (this.props.totalSteps.dateByType ===
+                                            'today' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'yesterday' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'interval')
                                     ) {
                                         if (value % 2 === 0) {
                                             return (value / 2)
@@ -118,6 +162,38 @@ export class TotalStepsChart extends Component {
                                                 .padStart(2, '0');
                                         }
                                         return Math.floor(value / 2) + ':30';
+                                    }
+                                    if (
+                                        this.props.totalSteps.dateByType ===
+                                        'last_90_days'
+                                    ) {
+                                        const startOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        const endOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        if (
+                                            startOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            startOfWeekDate.add(1, 'year');
+                                        }
+                                        if (
+                                            endOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            endOfWeekDate.add(1, 'year');
+                                        }
+                                        return `${startOfWeekDate
+                                            .startOf('isoWeek')
+                                            .format(
+                                                'D'
+                                            )} - ${endOfWeekDate
+                                            .endOf('isoWeek')
+                                            .format('D')}`;
                                     }
                                     return value;
                                 }}
@@ -147,35 +223,43 @@ export class TotalStepsChart extends Component {
                         <div className="left-side">
                             <span className="total">
                                 MVPA:{' '}
-                                <span className="number-grey">
+                                <span
+                                    className={
+                                        this.props.chartType === 'mvpa'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {duration(this.props.totalSteps.totalMvpa)}
                                 </span>
                             </span>
                             {this.props.totalSteps.totalMvpa -
-                                this.props.totalSteps.previous.mvpa !==
+                                this.props.totalSteps.data.previous.mvpa !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.totalSteps.totalMvpa >
-                                        this.props.totalSteps.previous.mvpa
+                                        this.props.totalSteps.data.previous.mvpa
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.totalSteps.previous.mvpa > 0 ? (
+                                    {this.props.totalSteps.data.previous.mvpa >
+                                    0 ? (
                                         <span className="percentage">
                                             {this.props.totalSteps.totalMvpa >
-                                            this.props.totalSteps.previous.mvpa
-                                                ? this.props.totalSteps.previous
-                                                      .mvpa > 0
+                                            this.props.totalSteps.data.previous
+                                                .mvpa
+                                                ? this.props.totalSteps.data
+                                                      .previous.mvpa > 0
                                                     ? (
                                                           (this.props.totalSteps
                                                               .totalMvpa *
                                                               100) /
                                                               this.props
                                                                   .totalSteps
-                                                                  .previous
+                                                                  .data.previous
                                                                   .mvpa -
                                                           100
                                                       ).toFixed(0)
@@ -185,11 +269,11 @@ export class TotalStepsChart extends Component {
                                                       .totalMvpa > 0
                                                 ? (
                                                       ((this.props.totalSteps
-                                                          .previous.mvpa -
+                                                          .data.previous.mvpa -
                                                           this.props.totalSteps
                                                               .totalMvpa) *
                                                           100) /
-                                                      this.props.totalSteps
+                                                      this.props.totalSteps.data
                                                           .previous.mvpa
                                                   ).toFixed(0)
                                                 : 100}
@@ -209,37 +293,53 @@ export class TotalStepsChart extends Component {
                         <div className="right-side">
                             <span className="total">
                                 Steps:{' '}
-                                <span className="number-green">
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
                                     {this.props.totalSteps.totalSteps.toLocaleString()}
                                 </span>
-                                <span className="label-green">steps</span>
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'label-green'
+                                            : 'label-grey'
+                                    }
+                                >
+                                    steps
+                                </span>
                             </span>
                             {this.props.totalSteps.totalSteps -
-                                this.props.totalSteps.previous.steps !==
+                                this.props.totalSteps.data.previous.steps !==
                             0 ? (
                                 <span
                                     className={
                                         this.props.totalSteps.totalSteps >
-                                        this.props.totalSteps.previous.steps
+                                        this.props.totalSteps.data.previous
+                                            .steps
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {this.props.totalSteps.previous.steps >
+                                    {this.props.totalSteps.data.previous.steps >
                                     0 ? (
                                         <span className="percentage">
                                             {this.props.totalSteps.totalSteps >
-                                            this.props.totalSteps.previous.steps
-                                                ? this.props.totalSteps.previous
-                                                      .steps > 0
+                                            this.props.totalSteps.data.previous
+                                                .steps
+                                                ? this.props.totalSteps.data
+                                                      .previous.steps > 0
                                                     ? (
                                                           (this.props.totalSteps
                                                               .totalSteps *
                                                               100) /
                                                               this.props
                                                                   .totalSteps
-                                                                  .previous
+                                                                  .data.previous
                                                                   .steps -
                                                           100
                                                       ).toFixed(0)
@@ -249,11 +349,11 @@ export class TotalStepsChart extends Component {
                                                       .totalSteps > 0
                                                 ? (
                                                       ((this.props.totalSteps
-                                                          .previous.steps -
+                                                          .data.previous.steps -
                                                           this.props.totalSteps
                                                               .totalSteps) *
                                                           100) /
-                                                      this.props.totalSteps
+                                                      this.props.totalSteps.data
                                                           .previous.steps
                                                   ).toFixed(0)
                                                 : 100}

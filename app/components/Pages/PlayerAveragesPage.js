@@ -37,14 +37,16 @@ export class PlayerAveragesPage extends Component {
                             <SideDetails
                                 extraStyle={{ marginTop: '5vmin' }}
                                 daily_steps={
-                                    this.props.playerAverages.average
+                                    this.props.playerAverages.data.average
                                         .daily_steps
                                 }
                                 mvpa_minutes={
-                                    this.props.playerAverages.average
+                                    this.props.playerAverages.data.average
                                         .mvpa_minutes
                                 }
-                                grade={this.props.playerAverages.average.grade}
+                                grade={
+                                    this.props.playerAverages.data.average.grade
+                                }
                             />
                         </div>
                         <p className="below-chart">PLAYERS</p>

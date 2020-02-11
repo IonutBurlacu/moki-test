@@ -72,7 +72,7 @@ export class TeamsPage extends Component {
                                                         }}
                                                     />
                                                 </td>
-                                                <td>
+                                                <td style={{ width: '71vmin' }}>
                                                     <h1 className="title">
                                                         {team.name}
                                                     </h1>
@@ -91,8 +91,13 @@ export class TeamsPage extends Component {
                                                                   )}
                                                     </span>
                                                 </td>
-                                                <td className="">
-                                                    <h1 className="subtitle">
+                                                <td
+                                                    className="align-center"
+                                                    style={{
+                                                        width: '30.2vmin'
+                                                    }}
+                                                >
+                                                    <h1 className="subtitle not-bold">
                                                         Player Daily Average:
                                                     </h1>
                                                 </td>

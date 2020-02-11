@@ -42,10 +42,8 @@ export default class PageHeader extends Component {
                         <div className="row">
                             <img src={playersIconWide} className="small-icon" />
                             <span>
-                                {`${
-                                    this.props.challenge.players.length
-                                } Player`}
-                                {this.props.challenge.players.length > 1
+                                {`${this.props.challenge.players.length} Player`}
+                                {this.props.challenge.players.length !== 1
                                     ? 's'
                                     : ''}
                             </span>
@@ -55,7 +53,7 @@ export default class PageHeader extends Component {
                             <img src={teamsIconWide} className="small-icon" />
                             <span>
                                 {`${this.props.challenge.teams.length} Team`}
-                                {this.props.challenge.teams.length > 1
+                                {this.props.challenge.teams.length !== 1
                                     ? 's'
                                     : ''}
                             </span>

@@ -97,7 +97,7 @@ export class PlayersList extends Component {
                             <tr className="no-items-row">
                                 <td>
                                     <span>
-                                        Challenge doesn't have any player yet.
+                                        Team doesn't have any Players yet.
                                     </span>
                                 </td>
                             </tr>

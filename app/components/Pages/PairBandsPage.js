@@ -97,7 +97,11 @@ export class PairBandsPage extends Component {
                                                             }}
                                                         />
                                                     </td>
-                                                    <td>
+                                                    <td
+                                                        style={{
+                                                            width: '71vmin'
+                                                        }}
+                                                    >
                                                         <h1 className="title">
                                                             {`${player.first_name} ${player.last_name}`}
                                                         </h1>
@@ -105,7 +109,7 @@ export class PairBandsPage extends Component {
                                                             .selectedPlayerId ===
                                                         player.id ? (
                                                             <span className="subtitle cyan">
-                                                                Tap Band on
+                                                                Hold Band on
                                                                 Reader to Pair
                                                             </span>
                                                         ) : player.band ===
@@ -159,12 +163,15 @@ export class PairBandsPage extends Component {
                                                             </span>
                                                         )}
                                                     </td>
-                                                    <td className="">
-                                                        <h1 className="title">
-                                                            <small>
-                                                                Player Daily
-                                                                Average
-                                                            </small>
+                                                    <td
+                                                        className="align-center"
+                                                        style={{
+                                                            width: '30.2vmin'
+                                                        }}
+                                                    >
+                                                        <h1 className="subtitle not-bold">
+                                                            Player Daily
+                                                            Average:
                                                         </h1>
                                                     </td>
                                                     <td className="align-right">
