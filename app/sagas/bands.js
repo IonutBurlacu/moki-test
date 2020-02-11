@@ -31,11 +31,12 @@ export function* pairBand(action) {
             //     type: 'PLAY_PAIR_SOUND'
             // });
 
-            // Removed by request. https://www.wunderlist.com/#/tasks/5633666242
-            // yield put({
-            //     type: 'SHOW_ALERT',
-            //     message: decoded.message
-            // });
+            if (decoded.message !== '') {
+                yield put({
+                    type: 'SHOW_ALERT',
+                    message: decoded.message
+                });
+            }
         } else {
             yield put({
                 type: 'PAIR_BAND'
