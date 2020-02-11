@@ -20,6 +20,7 @@ export class PairSound extends Component {
                 url={pairSound}
                 playStatus={this.props.playing}
                 playFromPosition={0}
+                volume={100}
                 onFinishedPlaying={this.handleFinishedPlaying}
             />
         );
@@ -34,7 +35,4 @@ const mapDispatchToProps = dispatch => ({
     stopPlaying: () => dispatch(stopPairSound())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PairSound);
+export default connect(mapStateToProps, mapDispatchToProps)(PairSound);

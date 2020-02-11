@@ -20,6 +20,7 @@ export class FailSound extends Component {
                 url={failSound}
                 playStatus={this.props.playing}
                 playFromPosition={0}
+                volume={100}
                 onFinishedPlaying={this.handleFinishedPlaying}
             />
         );
@@ -34,7 +35,4 @@ const mapDispatchToProps = dispatch => ({
     stopPlaying: () => dispatch(stopFailSound())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FailSound);
+export default connect(mapStateToProps, mapDispatchToProps)(FailSound);

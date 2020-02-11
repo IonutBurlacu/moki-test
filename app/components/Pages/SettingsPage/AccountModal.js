@@ -51,23 +51,23 @@ export class AccountModal extends Component {
                     <div className="modal-body">
                         <div className="modal-content">
                             <div className="account-row">
-                                <span className="label">Admin Name:</span>
+                                <span className="label">School:</span>
+                                <span className="value">
+                                    {this.props.schoolName}
+                                </span>
+                            </div>
+                            <div className="separator" />
+                            <div className="account-row">
+                                <span className="label">Contact:</span>
                                 <span className="value">
                                     {this.props.fullName}
                                 </span>
                             </div>
                             <div className="separator" />
                             <div className="account-row">
-                                <span className="label">Admin Email:</span>
+                                <span className="label">Email:</span>
                                 <span className="value">
                                     {this.props.email}
-                                </span>
-                            </div>
-                            <div className="separator" />
-                            <div className="account-row">
-                                <span className="label">Username:</span>
-                                <span className="value">
-                                    {this.props.schoolName}
                                 </span>
                             </div>
                         </div>
