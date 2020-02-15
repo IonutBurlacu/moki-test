@@ -14,7 +14,7 @@ export class PlayerAveragesPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getPlayerAveragesRequest(
-            this.props.playerAverages.teamId,
+            this.props.teamId,
             this.props.playerAverages.dateByType,
             this.props.playerAverages.dateByStartDate,
             this.props.playerAverages.dateByEndDate
@@ -62,6 +62,7 @@ export class PlayerAveragesPage extends Component {
 
 const mapStateToProps = state => ({
     loading: state.reports.loading,
+    teamId: state.reports.teamId,
     playerAverages: state.reports.playerAverages
 });
 

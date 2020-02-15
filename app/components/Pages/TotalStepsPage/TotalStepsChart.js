@@ -382,7 +382,7 @@ const mapStateToProps = state => ({
     totalSteps: state.reports.totalSteps,
     scales: state.reports.scales,
     selectedTeam: state.reports.teams.find(
-        team => team.id === state.reports.totalSteps.teamId
+        team => team.id === state.reports.teamId
     )
 });
 

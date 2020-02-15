@@ -14,7 +14,7 @@ const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class DownloadPdfPage extends Component {
     handleTeamClick = teamId => {
-        if (this.props.downloadPdf.teamId === teamId) {
+        if (this.props.teamId === teamId) {
             this.props.addTeamToDownloadPdf(null);
         } else {
             this.props.addTeamToDownloadPdf(teamId);
@@ -76,8 +76,8 @@ export class DownloadPdfPage extends Component {
                                                         )
                                                     }
                                                 >
-                                                    {this.props.downloadPdf
-                                                        .teamId === team.id ? (
+                                                    {this.props.teamId ===
+                                                    team.id ? (
                                                         <h1 className="title selected-title">
                                                             Selected
                                                         </h1>
@@ -115,6 +115,7 @@ export class DownloadPdfPage extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     teams: state.reports.teams,
     downloadPdf: state.reports.downloadPdf,
     loading: state.reports.loading

@@ -62,7 +62,7 @@ export class DateBy extends Component {
         this.props.closeGroupAveragesMenu('dateSelectOpen');
         this.props.showLoader();
         this.props.getGroupAveragesRequest(
-            this.props.groupAverages.teamId,
+            this.props.teamId,
             dateByType,
             this.props.groupAverages.dateByStartDate,
             this.props.groupAverages.dateByEndDate
@@ -82,7 +82,7 @@ export class DateBy extends Component {
                 this.props.closeGroupAveragesMenu('dateSelectOpen');
                 this.props.showLoader();
                 this.props.getGroupAveragesRequest(
-                    this.props.groupAverages.teamId,
+                    this.props.teamId,
                     'interval',
                     this.state.startDate,
                     this.state.endDate
@@ -276,6 +276,7 @@ export class DateBy extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     groupAverages: state.reports.groupAverages
 });
 

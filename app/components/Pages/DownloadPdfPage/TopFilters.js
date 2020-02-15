@@ -16,12 +16,12 @@ import DateBy from '../../DateBy';
 
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
-        if (this.props.downloadPdf.teamId === null) {
+        if (this.props.teamId === null) {
             this.props.showAlert('Please select at least one Team.');
             return;
         }
         const encrypted = encrypt({
-            team_id: this.props.downloadPdf.teamId,
+            team_id: this.props.teamId,
             type: this.props.downloadPdf.dateByType,
             start_date: this.props.downloadPdf.dateByStartDate,
             end_date: this.props.downloadPdf.dateByEndDate
@@ -46,7 +46,7 @@ export class TopFilters extends Component {
                 const link = document.createElement('a');
                 link.href = url;
                 const teamName = this.props.teams
-                    .find(team => team.id === this.props.downloadPdf.teamId)
+                    .find(team => team.id === this.props.teamId)
                     .name.split(' ')
                     .join('_');
                 link.setAttribute(
@@ -85,7 +85,7 @@ export class TopFilters extends Component {
                         <button
                             type="button"
                             className={
-                                this.props.downloadPdf.teamId !== null
+                                this.props.teamId !== null
                                     ? 'filter-button active'
                                     : 'filter-button'
                             }
@@ -101,6 +101,7 @@ export class TopFilters extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     token: state.auth.token,
     teams: state.reports.teams,
     downloadPdf: state.reports.downloadPdf
