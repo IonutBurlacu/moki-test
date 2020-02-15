@@ -67,6 +67,13 @@ app.on('ready', async () => {
         height: 700
     });
 
+    mainWindow.on('resize', () => {
+        setTimeout(() => {
+            const size = mainWindow.getSize();
+            mainWindow.setSize(size[0], parseInt((size[0] * 7) / 13, 10));
+        }, 0);
+    });
+
     if (process.env.NODE_ENV === 'local') {
         mainWindow.setTitle('Moki Local');
         mainWindow.on('page-title-updated', e => {
