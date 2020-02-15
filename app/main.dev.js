@@ -62,7 +62,9 @@ app.on('ready', async () => {
     mainWindow = new BrowserWindow({
         show: false,
         minWidth: 1300,
-        minHeight: 700
+        minHeight: 700,
+        width: 1300,
+        height: 700
     });
 
     if (process.env.NODE_ENV === 'local') {
