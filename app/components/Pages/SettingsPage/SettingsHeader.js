@@ -10,7 +10,11 @@ export default class SettingsHeader extends Component {
         return (
             <div className="reports-page-title reports-page-title-big">
                 <h1>{this.props.title}</h1>
-                <button type="button" onClick={this.handleHelpCentre}>
+                <button
+                    class="green-button"
+                    type="button"
+                    onClick={this.handleHelpCentre}
+                >
                     Help Centre
                 </button>
             </div>
