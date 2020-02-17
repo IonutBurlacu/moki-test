@@ -16,12 +16,12 @@ import {
 
 export class TopFilters extends Component {
     handleDownloadCSV = () => {
-        if (this.props.downloadCsv.teamId === null) {
+        if (this.props.teamId === null) {
             this.props.showAlert('Please select at least one Team.');
             return;
         }
         const encrypted = encrypt({
-            team_id: this.props.downloadCsv.teamId,
+            team_id: this.props.teamId,
             type: this.props.downloadCsv.dateByType,
             start_date: this.props.downloadCsv.dateByStartDate,
             end_date: this.props.downloadCsv.dateByEndDate
@@ -46,7 +46,7 @@ export class TopFilters extends Component {
                 const link = document.createElement('a');
                 link.href = url;
                 const teamName = this.props.teams
-                    .find(team => team.id === this.props.downloadCsv.teamId)
+                    .find(team => team.id === this.props.teamId)
                     .name.split(' ')
                     .join('_');
                 link.setAttribute(
@@ -85,7 +85,7 @@ export class TopFilters extends Component {
                         <button
                             type="button"
                             className={
-                                this.props.downloadCsv.teamId !== null
+                                this.props.teamId !== null
                                     ? 'filter-button active'
                                     : 'filter-button'
                             }
@@ -101,6 +101,7 @@ export class TopFilters extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     token: state.auth.token,
     teams: state.reports.teams,
     downloadCsv: state.reports.downloadCsv

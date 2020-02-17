@@ -14,7 +14,7 @@ export class TotalStepsPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getTotalStepsRequest(
-            this.props.totalSteps.teamId,
+            this.props.teamId,
             this.props.totalSteps.dateByType,
             this.props.totalSteps.dateByStartDate,
             this.props.totalSteps.dateByEndDate
@@ -59,6 +59,7 @@ export class TotalStepsPage extends Component {
 
 const mapStateToProps = state => ({
     loading: state.reports.loading,
+    teamId: state.reports.teamId,
     totalSteps: state.reports.totalSteps
 });
 

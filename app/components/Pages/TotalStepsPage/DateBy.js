@@ -62,7 +62,7 @@ export class DateBy extends Component {
         this.props.closeTotalStepsMenu('dateSelectOpen');
         this.props.showLoader();
         this.props.getTotalStepsRequest(
-            this.props.totalSteps.teamId,
+            this.props.teamId,
             dateByType,
             this.props.totalSteps.dateByStartDate,
             this.props.totalSteps.dateByEndDate
@@ -82,7 +82,7 @@ export class DateBy extends Component {
                 this.props.closeTotalStepsMenu('dateSelectOpen');
                 this.props.showLoader();
                 this.props.getTotalStepsRequest(
-                    this.props.totalSteps.teamId,
+                    this.props.teamId,
                     'interval',
                     this.state.startDate,
                     this.state.endDate
@@ -272,6 +272,7 @@ export class DateBy extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     totalSteps: state.reports.totalSteps
 });
 

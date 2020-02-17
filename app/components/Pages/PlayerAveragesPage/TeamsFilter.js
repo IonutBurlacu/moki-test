@@ -47,10 +47,9 @@ export class TeamsFilter extends Component {
                     }
                     onClick={this.handleTeamSelectMenu}
                 >
-                    {this.props.playerAverages.teamId && this.props.teams.length
+                    {this.props.teamId && this.props.teams.length
                         ? this.props.teams.find(
-                              team =>
-                                  team.id === this.props.playerAverages.teamId
+                              team => team.id === this.props.teamId
                           ).name
                         : 'Select team'}
                 </button>
@@ -76,7 +75,7 @@ export class TeamsFilter extends Component {
                             <li
                                 key={team.id}
                                 className={
-                                    this.props.playerAverages.teamId === team.id
+                                    this.props.teamId === team.id
                                         ? 'selected'
                                         : ''
                                 }
@@ -99,6 +98,7 @@ export class TeamsFilter extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     playerAverages: state.reports.playerAverages,
     teams: state.reports.teams
 });
@@ -123,7 +123,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TeamsFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamsFilter);

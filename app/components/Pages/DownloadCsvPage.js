@@ -22,7 +22,7 @@ export class DownloadCsvPage extends Component {
     }
 
     handleTeamClick = teamId => {
-        if (this.props.downloadCsv.teamId === teamId) {
+        if (this.props.teamId === teamId) {
             this.props.addTeamToDownloadCsv(null);
         } else {
             this.props.addTeamToDownloadCsv(teamId);
@@ -51,8 +51,8 @@ export class DownloadCsvPage extends Component {
                                             <tr
                                                 key={team.id}
                                                 className={
-                                                    this.props.downloadCsv
-                                                        .teamId === team.id
+                                                    this.props.teamId ===
+                                                    team.id
                                                         ? 'selected-tr'
                                                         : ''
                                                 }
@@ -92,8 +92,8 @@ export class DownloadCsvPage extends Component {
                                                         )
                                                     }
                                                 >
-                                                    {this.props.downloadCsv
-                                                        .teamId === team.id ? (
+                                                    {this.props.teamId ===
+                                                    team.id ? (
                                                         <h1 className="title selected-title">
                                                             Selected
                                                         </h1>
@@ -131,6 +131,7 @@ export class DownloadCsvPage extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     teams: state.reports.teams,
     downloadCsv: state.reports.downloadCsv,
     loading: state.reports.loading

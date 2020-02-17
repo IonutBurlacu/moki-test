@@ -4,6 +4,7 @@ export default (
     state = {
         teams: [],
         scales: null,
+        teamId: null,
         playerAverages: {
             data: {
                 current: {
@@ -16,7 +17,6 @@ export default (
                     grade: 'E'
                 }
             },
-            teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
             dateByEndDate: moment.utc().local(),
@@ -37,7 +37,6 @@ export default (
                     grade: 'E'
                 }
             },
-            teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
             dateByEndDate: moment.utc().local(),
@@ -62,7 +61,6 @@ export default (
                     grade: 'E'
                 }
             },
-            teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
             dateByEndDate: moment.utc().local(),
@@ -75,7 +73,6 @@ export default (
             totalMvpa: 0
         },
         downloadPdf: {
-            teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
             dateByEndDate: moment.utc().local(),
@@ -85,7 +82,6 @@ export default (
             sortSelectOpen: false
         },
         downloadCsv: {
-            teamId: null,
             dateByType: 'today',
             dateByStartDate: moment.utc().local(),
             dateByEndDate: moment.utc().local(),
@@ -118,9 +114,9 @@ export default (
         case 'GET_PLAYER_AVERAGES':
             return {
                 ...state,
+                teamId: action.teamId,
                 playerAverages: {
                     ...state.playerAverages,
-                    teamId: action.teamId,
                     data: action.data,
                     dateByType: action.dateByType,
                     dateByStartDate: moment(action.dateByStartDate).hour(12),
@@ -187,9 +183,9 @@ export default (
         case 'GET_GROUP_AVERAGES':
             return {
                 ...state,
+                teamId: action.teamId,
                 groupAverages: {
                     ...state.groupAverages,
-                    teamId: action.teamId,
                     data: action.data,
                     dateByType: action.dateByType,
                     dateByStartDate: moment(action.dateByStartDate).hour(12),
@@ -256,9 +252,9 @@ export default (
         case 'GET_TOTAL_STEPS':
             return {
                 ...state,
+                teamId: action.teamId,
                 totalSteps: {
                     ...state.totalSteps,
-                    teamId: action.teamId,
                     data: action.data,
                     dateByType: action.dateByType,
                     dateByStartDate: moment(action.dateByStartDate).hour(12),
@@ -332,9 +328,9 @@ export default (
         case 'ADD_TEAM_TO_DOWNLOAD_PDF':
             return {
                 ...state,
+                teamId: action.teamId,
                 downloadPdf: {
-                    ...state.downloadPdf,
-                    teamId: action.teamId
+                    ...state.downloadPdf
                 }
             };
         case 'CHANGE_DOWNLOAD_PDF_TEAMS_DATE_BY_TYPE':
@@ -377,9 +373,9 @@ export default (
         case 'ADD_TEAM_TO_DOWNLOAD_CSV':
             return {
                 ...state,
+                teamId: action.teamId,
                 downloadCsv: {
-                    ...state.downloadCsv,
-                    teamId: action.teamId
+                    ...state.downloadCsv
                 }
             };
         case 'CHANGE_DOWNLOAD_CSV_TEAMS_DATE_BY_TYPE':

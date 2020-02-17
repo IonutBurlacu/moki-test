@@ -130,7 +130,7 @@ const mapStateToProps = state => ({
     playerAverages: state.reports.playerAverages,
     scales: state.reports.scales,
     selectedTeam: state.reports.teams.find(
-        team => team.id === state.reports.playerAverages.teamId
+        team => team.id === state.reports.teamId
     )
 });
 

@@ -11,7 +11,7 @@ import ChartType from './ChartType';
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
         const encrypted = encrypt({
-            team_id: this.props.groupAverages.teamId,
+            team_id: this.props.teamId,
             type: this.props.groupAverages.dateByType,
             start_date: this.props.groupAverages.dateByStartDate,
             end_date: this.props.groupAverages.dateByEndDate
@@ -35,7 +35,7 @@ export class TopFilters extends Component {
                 );
                 const link = document.createElement('a');
                 const teamName = this.props.teams
-                    .find(team => team.id === this.props.groupAverages.teamId)
+                    .find(team => team.id === this.props.teamId)
                     .name.split(' ')
                     .join('_');
                 link.href = url;
@@ -79,6 +79,7 @@ export class TopFilters extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     token: state.auth.token,
     teams: state.reports.teams,
     groupAverages: state.reports.groupAverages

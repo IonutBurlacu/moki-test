@@ -14,7 +14,7 @@ export class GroupAveragesPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getGroupAveragesRequest(
-            this.props.groupAverages.teamId,
+            this.props.teamId,
             this.props.groupAverages.dateByType,
             this.props.groupAverages.dateByStartDate,
             this.props.groupAverages.dateByEndDate
@@ -61,6 +61,7 @@ export class GroupAveragesPage extends Component {
 
 const mapStateToProps = state => ({
     loading: state.reports.loading,
+    teamId: state.reports.teamId,
     groupAverages: state.reports.groupAverages
 });
 
