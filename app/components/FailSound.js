@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Sound from 'react-sound';
 import { connect } from 'react-redux';
 import { stopFailSound } from '../actions/sound';
-import failSound from '../sounds/Fail.wav';
+import failSound from '../sounds/Fail.mp3';
 
 export class FailSound extends Component {
     constructor(props) {

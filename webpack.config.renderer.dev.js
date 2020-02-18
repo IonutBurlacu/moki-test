@@ -170,6 +170,10 @@ export default merge.smart(baseConfig, {
             {
                 test: /\.(?:wav)$/,
                 use: 'url-loader'
+            },
+            {
+                test: /\.(?:mp3)$/,
+                use: 'url-loader'
             }
         ]
     },
