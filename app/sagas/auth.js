@@ -9,7 +9,7 @@ export function* login(action) {
     try {
         const response = yield call(
             AuthAPI.login,
-            {},
+            { 'App-Version': appVersion },
             action.email,
             action.password
         );

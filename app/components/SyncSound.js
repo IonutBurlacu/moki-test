@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Sound from 'react-sound';
 import { connect } from 'react-redux';
 import { stopSyncSound } from '../actions/sound';
-import syncSound from '../sounds/Sync.wav';
+import syncSound from '../sounds/Sync.mp3';
 
 export class SyncSound extends Component {
     constructor(props) {
