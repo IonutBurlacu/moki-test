@@ -134,7 +134,7 @@ export default (
                     ),
                     totalMvpa: action.team.data.current.mvpa.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.y_axis,
+                            accumulator + parseFloat(currentValue.y_axis),
                         0
                     )
                 },
@@ -171,7 +171,7 @@ export default (
                     ),
                     totalMvpa: action.data.current.mvpa.reduce(
                         (accumulator, currentValue) =>
-                            accumulator + currentValue.y_axis,
+                            accumulator + parseFloat(currentValue.y_axis),
                         0
                     )
                 },
