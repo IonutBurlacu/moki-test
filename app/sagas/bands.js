@@ -27,9 +27,10 @@ export function* pairBand(action) {
             });
 
             // Removed by request. https://www.wunderlist.com/#/tasks/5632771447
-            // yield put({
-            //     type: 'PLAY_PAIR_SOUND'
-            // });
+            // Added back on request.
+            yield put({
+                type: 'PLAY_PAIR_SOUND'
+            });
 
             if (decoded.message !== '') {
                 yield put({
