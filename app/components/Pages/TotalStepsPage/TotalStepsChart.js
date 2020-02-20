@@ -202,7 +202,9 @@ export class TotalStepsChart extends Component {
                                         ? new Intl.NumberFormat('en').format(
                                               value
                                           )
-                                        : duration(value)
+                                        : duration(
+                                              Math.round(parseFloat(value))
+                                          )
                                 }
                             />
                             <Bar
