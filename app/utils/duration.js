@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export default duration => {
-    const momentObject = moment.duration(duration, 'minutes');
+    const momentObject = moment.duration(Math.round(duration), 'minutes');
     if (duration > 1440) {
         return (
             momentObject.days() +
