@@ -6,10 +6,11 @@ import encrypt from '../utils/encrypt';
 const root = '/api/auth';
 
 export default class AuthAPI {
-    static login(headers = {}, email, password) {
+    static login(headers = {}, email, password, timezone) {
         const encrypted = encrypt({
             email,
-            password
+            password,
+            timezone
         });
         return new Promise((resolve, reject) => {
             axios({

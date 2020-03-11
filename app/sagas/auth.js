@@ -1,5 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import moment from 'moment-timezone';
 import { getToken } from '../selectors/auth';
 import decrypt from '../utils/decrypt';
 import AuthAPI from '../apis/auth';
@@ -7,11 +8,13 @@ import appVersion from '../constants/appVersion';
 
 export function* login(action) {
     try {
+        const timezone = moment.tz.guess();
         const response = yield call(
             AuthAPI.login,
             { 'App-Version': appVersion },
             action.email,
-            action.password
+            action.password,
+            timezone
         );
 
         const decoded = decrypt(response.data);

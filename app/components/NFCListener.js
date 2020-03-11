@@ -60,6 +60,7 @@ export class NFCListener extends Component {
                 if (this.props.pairing) {
                     if (this.props.selectedPlayerId !== null) {
                         this.props.showLoader();
+                        // this.resetSteps(reader, true);
                         this.writeCurrentDate(reader);
                         // Read the battery level.
                         reader
@@ -318,7 +319,7 @@ export class NFCListener extends Component {
     };
 
     resetSteps = (reader, setDate = true) => {
-        const data = Buffer.from([0x89, 0x00, 0x00, 0x00]);
+        const data = Buffer.from([0x88, 0x00, 0x00, 0x00]);
         reader
             .write(0xc2, data)
             .then(() => {
