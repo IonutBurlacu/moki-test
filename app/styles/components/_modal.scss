@@ -19,7 +19,7 @@
     position: absolute;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
-    width: 40%;
+    width: 44%;
 }
 
 .modal-alert {
@@ -91,7 +91,8 @@
         .separator {
             background: #77788a;
             height: 1px;
-            margin-bottom: 2vmin;
+            margin-bottom: 1vmin;
+            margin-top: 1vmin;
             width: 100%;
         }
 
@@ -134,6 +135,9 @@
         }
 
         .account-row {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: row;
             font-size: 3vmin;
             margin: 1vmin 0;
 
@@ -144,6 +148,10 @@
 
             .value {
                 color: #74ef5c;
+            }
+
+            img {
+                width: 20vmin;
             }
         }
 
@@ -163,6 +171,17 @@
                 padding: 5px 10px;
                 margin-bottom: 1.5vmin;
                 width: 100%;
+            }
+
+            .avatar {
+                background-size: cover;
+                border-radius: 50%;
+                height: 18vmin;
+                margin-bottom: 1vmin;
+                margin-top: 2vmin;
+                overflow: hidden;
+                position: relative;
+                width: 18vmin;
             }
         }
     }

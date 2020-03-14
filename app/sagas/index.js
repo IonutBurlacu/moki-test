@@ -3,6 +3,7 @@ import {
     login,
     changePassword,
     deleteAccount,
+    updateAvatar,
     changeSetting,
     getSettings,
     forgotPassword,
@@ -60,8 +61,7 @@ import {
     getReportsTeams,
     getPlayerAverages,
     getGroupAverages,
-    getTotalSteps,
-    getDownloadCsvTeams
+    getTotalSteps
 } from './reports';
 
 export default function* sagas() {
@@ -70,6 +70,7 @@ export default function* sagas() {
         fork(takeLatest, 'FORGOT_PASSWORD_REQUEST', forgotPassword),
         fork(takeLatest, 'CHANGE_PASSWORD_REQUEST', changePassword),
         fork(takeLatest, 'DELETE_ACCOUNT_REQUEST', deleteAccount),
+        fork(takeLatest, 'UPDATE_AVATAR_REQUEST', updateAvatar),
         fork(takeLatest, 'CHANGE_SETTING_REQUEST', changeSetting),
         fork(takeLatest, 'GET_SETTINGS_REQUEST', getSettings),
         fork(takeLatest, 'GET_VERSION_REQUEST', getVersion),

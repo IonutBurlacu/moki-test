@@ -4,12 +4,13 @@ export const loginRequest = (email, password) => ({
     password
 });
 
-export const login = (token, schoolName, fullName, email) => ({
+export const login = (token, schoolName, fullName, email, avatar) => ({
     type: 'LOGIN',
     token,
     schoolName,
     fullName,
-    email
+    email,
+    avatar
 });
 
 export const logout = () => ({
@@ -31,6 +32,16 @@ export const deleteAccount = () => ({
     type: 'DELETE_ACCOUNT'
 });
 
+export const updateAvatarRequest = school => ({
+    type: 'UPDATE_AVATAR_REQUEST',
+    school
+});
+
+export const updateAvatar = school => ({
+    type: 'UPDATE_AVATAR',
+    school
+});
+
 export const changeSettingRequest = (settingName, settingValue) => ({
     type: 'CHANGE_SETTING_REQUEST',
     settingName,
@@ -47,9 +58,19 @@ export const getSettingsRequest = () => ({
     type: 'GET_SETTINGS_REQUEST'
 });
 
-export const getSettings = hideTotals => ({
+export const getSettings = (
+    hideTotals,
+    schoolName,
+    fullName,
+    email,
+    avatar
+) => ({
     type: 'GET_SETTINGS',
-    hideTotals
+    hideTotals,
+    schoolName,
+    fullName,
+    email,
+    avatar
 });
 
 export const forgotPasswordRequest = email => ({

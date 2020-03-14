@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import ChangePasswordModal from './ChangePasswordModal';
+import ChangeAvatarModal from './ChangeAvatarModal';
 import ConfirmDeleteAccountModal from './ConfirmDeleteAccountModal';
+
+const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class AccountModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             changePasswordModalIsOpen: false,
+            changeAvatarModalIsOpen: false,
             deleteAccountConfirmModalIsOpen: false
         };
     }
@@ -19,6 +23,14 @@ export class AccountModal extends Component {
 
     closeChangePasswordModal = () => {
         this.setState({ changePasswordModalIsOpen: false });
+    };
+
+    openChangeAvatarModal = () => {
+        this.setState({ changeAvatarModalIsOpen: true });
+    };
+
+    closeChangeAvatarModal = () => {
+        this.setState({ changeAvatarModalIsOpen: false });
     };
 
     openDeleteAccountConfirmModal = () => {
@@ -70,6 +82,14 @@ export class AccountModal extends Component {
                                     {this.props.email}
                                 </span>
                             </div>
+                            <div className="separator" />
+                            <div className="account-row">
+                                <span className="label">Avatar:</span>
+                                <img
+                                    src={`${s3URL}${this.props.avatar}`}
+                                    alt=""
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="modal-footer two-buttons">
@@ -79,6 +99,13 @@ export class AccountModal extends Component {
                             className="button"
                         >
                             Change Password
+                        </button>
+                        <button
+                            type="button"
+                            onClick={this.openChangeAvatarModal}
+                            className="button"
+                        >
+                            Change Avatar
                         </button>
                         <button
                             type="button"
@@ -93,6 +120,10 @@ export class AccountModal extends Component {
                     modalIsOpen={this.state.changePasswordModalIsOpen}
                     closeModal={this.closeChangePasswordModal}
                 />
+                <ChangeAvatarModal
+                    modalIsOpen={this.state.changeAvatarModalIsOpen}
+                    closeModal={this.closeChangeAvatarModal}
+                />
                 <ConfirmDeleteAccountModal
                     modalIsOpen={this.state.deleteAccountConfirmModalIsOpen}
                     closeModal={this.closeDeleteAccountConfirmModal}
@@ -105,7 +136,8 @@ export class AccountModal extends Component {
 const mapStateToProps = state => ({
     email: state.auth.email,
     fullName: state.auth.fullName,
-    schoolName: state.auth.schoolName
+    schoolName: state.auth.schoolName,
+    avatar: state.auth.avatar
 });
 
 export default connect(mapStateToProps)(AccountModal);

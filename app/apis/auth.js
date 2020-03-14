@@ -69,6 +69,26 @@ export default class AuthAPI {
         });
     }
 
+    static updateAvatar(headers = {}, school) {
+        const formData = new FormData();
+        formData.append('avatar', school.file);
+        const encrypted = encrypt({
+            test: 'test'
+        });
+        formData.append('encrypted', encrypted);
+        // if (school.file) {
+
+        // } else {
+        //     formData.append('default_avatar', school.default_avatar);
+        // }
+        return axios.post(`${host}${root}/update_avatar`, formData, {
+            headers: {
+                ...headers,
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    }
+
     static changeSetting(headers = {}, settingName, settingValue) {
         if (isBoolean(settingValue)) {
             settingValue = settingValue ? 1 : 0;

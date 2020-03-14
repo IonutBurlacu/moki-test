@@ -26,7 +26,8 @@ export function* login(action) {
             token: decoded.token,
             schoolName: decoded.school_name,
             fullName: decoded.full_name,
-            email: decoded.email
+            email: decoded.email,
+            avatar: decoded.avatar
         });
 
         yield put({
@@ -122,6 +123,40 @@ export function* deleteAccount(action) {
     }
 }
 
+export function* updateAvatar(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        AuthAPI.updateAvatar,
+        {
+            Authorization: token
+        },
+        action.school
+    );
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+
+    if (decoded.success) {
+        yield put({
+            type: 'SHOW_ALERT',
+            message: decoded.message
+        });
+
+        yield put({
+            type: 'UPDATE_AVATAR',
+            avatar: decoded.avatar
+        });
+    } else {
+        yield put({
+            type: 'SHOW_ALERT',
+            message: 'Failed to save avatar.'
+        });
+    }
+}
+
 export function* changeSetting(action) {
     const token = yield select(getToken);
     yield call(
@@ -154,7 +189,11 @@ export function* getSettings() {
 
     yield put({
         type: 'GET_SETTINGS',
-        hideTotals: !!decoded.hide_totals
+        hideTotals: !!decoded.hide_totals,
+        schoolName: decoded.school_name,
+        fullName: decoded.full_name,
+        email: decoded.email,
+        avatar: decoded.avatar
     });
 
     yield put({

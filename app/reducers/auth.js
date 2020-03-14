@@ -13,12 +13,18 @@ export default (
                 token: action.token,
                 schoolName: action.schoolName,
                 fullName: action.fullName,
-                email: action.email
+                email: action.email,
+                avatar: action.avatar
             };
         case 'LOGOUT':
             return {};
         case 'DELETE_ACCOUNT':
             return {};
+        case 'UPDATE_AVATAR':
+            return {
+                ...state,
+                avatar: action.avatar
+            };
         case 'CHANGE_SETTING':
             return {
                 ...state,
@@ -33,6 +39,10 @@ export default (
             return {
                 ...state,
                 hide_totals: action.hideTotals,
+                schoolName: action.schoolName,
+                fullName: action.fullName,
+                email: action.email,
+                avatar: action.avatar,
                 loading: false
             };
         case 'GET_VERSION':
