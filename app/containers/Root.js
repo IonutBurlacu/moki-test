@@ -17,6 +17,8 @@ export class Root extends Component {
 
     render() {
         const { store, history } = this.props;
+        console.log(store);
+        console.log(history);
         return (
             <Provider store={store}>
                 <ConnectedRouter history={history}>
