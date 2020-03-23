@@ -4,10 +4,18 @@ export const loginRequest = (email, password) => ({
     password
 });
 
-export const login = (token, schoolName, fullName, email, avatar) => ({
+export const login = (
+    token,
+    schoolName,
+    schoolId,
+    fullName,
+    email,
+    avatar
+) => ({
     type: 'LOGIN',
     token,
     schoolName,
+    schoolId,
     fullName,
     email,
     avatar
@@ -61,6 +69,7 @@ export const getSettingsRequest = () => ({
 export const getSettings = (
     hideTotals,
     schoolName,
+    schoolId,
     fullName,
     email,
     avatar
@@ -68,6 +77,7 @@ export const getSettings = (
     type: 'GET_SETTINGS',
     hideTotals,
     schoolName,
+    schoolId,
     fullName,
     email,
     avatar

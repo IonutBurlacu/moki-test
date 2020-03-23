@@ -6,7 +6,7 @@ import axios from 'axios';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
-import { logout, getSettingsRequest } from '../../actions/auth';
+import { logout, getSettingsRequest, getSettings } from '../../actions/auth';
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
@@ -107,6 +107,10 @@ export class SettingsPage extends Component {
 
     handleVideoTutorials = () => {
         shell.openExternal('https://moki.technology/pages/help-centre');
+    };
+
+    handleSchoolUrl = () => {
+        shell.openExternal(`${host}/dashboard/school/${this.props.schoolId}`);
     };
 
     render() {
@@ -217,6 +221,17 @@ export class SettingsPage extends Component {
                                         </td>
                                         <td />
                                     </tr>
+                                    <tr onClick={this.handleSchoolUrl}>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                            >
+                                                School
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -244,7 +259,8 @@ export class SettingsPage extends Component {
 
 const mapStateToProps = state => ({
     token: state.auth.token,
-    loading: state.auth.loading
+    loading: state.auth.loading,
+    schoolId: state.auth.schoolId
 });
 
 const mapDispatchToProps = dispatch => ({

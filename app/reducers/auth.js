@@ -40,6 +40,7 @@ export default (
                 ...state,
                 hide_totals: action.hideTotals,
                 schoolName: action.schoolName,
+                schoolId: action.schoolId,
                 fullName: action.fullName,
                 email: action.email,
                 avatar: action.avatar,

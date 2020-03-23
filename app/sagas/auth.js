@@ -191,6 +191,7 @@ export function* getSettings() {
         type: 'GET_SETTINGS',
         hideTotals: !!decoded.hide_totals,
         schoolName: decoded.school_name,
+        schoolId: decoded.school_id,
         fullName: decoded.full_name,
         email: decoded.email,
         avatar: decoded.avatar
