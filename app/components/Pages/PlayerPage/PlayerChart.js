@@ -299,22 +299,6 @@ export class PlayerChart extends Component {
                                     {this.props.player.data.previous.steps >
                                     0 ? (
                                         <span className="percentage">
-                                            {console.log(
-                                                this.props.player.totalSteps
-                                            )}
-                                            {console.log(
-                                                this.props.player.data.previous
-                                                    .steps
-                                            )}
-                                            {console.log(
-                                                this.props.player.totalSteps >
-                                                    this.props.player.data
-                                                        .previous.steps
-                                            )}
-                                            {console.log(
-                                                this.props.player.data
-                                            )}
-                                            {console.log(this.props.player)}
                                             {this.props.player.totalSteps >
                                             this.props.player.data.previous
                                                 .steps
