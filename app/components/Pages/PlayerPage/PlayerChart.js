@@ -16,7 +16,6 @@ import tickFormatter from '../../../utils/tickFormatter';
 
 export class PlayerChart extends Component {
     render() {
-        console.log(this.props);
         return (
             <div className="chart-container">
                 <div className="legend">
