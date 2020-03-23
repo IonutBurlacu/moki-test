@@ -295,6 +295,7 @@ export class PlayerChart extends Component {
                                             : 'negative'
                                     }
                                 >
+                                    <span className="percentage-icon" />
                                     {this.props.player.data.previous.steps >
                                     0 ? (
                                         <span className="percentage">
