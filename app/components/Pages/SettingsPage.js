@@ -6,7 +6,7 @@ import axios from 'axios';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import { PageTitle } from '../PageTitle';
-import { logout, getSettingsRequest, getSettings } from '../../actions/auth';
+import { logout, getSettingsRequest } from '../../actions/auth';
 import host from '../../constants/serverUrl';
 import { showLoader } from '../../actions/loader';
 import ImportDatabaseModal from './SettingsPage/ImportDatabaseModal';
