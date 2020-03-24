@@ -66,7 +66,11 @@ export class PlayersPage extends Component {
                                                     this.handleView(player.id)
                                                 }
                                             >
-                                                <td>
+                                                <td
+                                                    style={{
+                                                        width: '7.5%'
+                                                    }}
+                                                >
                                                     <div
                                                         className="avatar"
                                                         style={{
@@ -76,7 +80,7 @@ export class PlayersPage extends Component {
                                                 </td>
                                                 <td
                                                     style={{
-                                                        width: '71.2vmin'
+                                                        width: '35.4%'
                                                     }}
                                                 >
                                                     <h1 className="title">
@@ -100,14 +104,20 @@ export class PlayersPage extends Component {
                                                 <td
                                                     className="align-center"
                                                     style={{
-                                                        width: '30.2vmin'
+                                                        width: '15.7%'
                                                     }}
                                                 >
                                                     <h1 className="subtitle not-bold">
                                                         Player Daily Average:
                                                     </h1>
                                                 </td>
-                                                <td className="align-right">
+                                                <td
+                                                    className="align-right"
+                                                    style={{
+                                                        width: '12.2%',
+                                                        textAlign: 'center'
+                                                    }}
+                                                >
                                                     <h1 className="title">
                                                         {duration(
                                                             player.mvpa_minutes_current
@@ -115,7 +125,13 @@ export class PlayersPage extends Component {
                                                         <small>MVPA</small>
                                                     </h1>
                                                 </td>
-                                                <td className="align-right">
+                                                <td
+                                                    className="align-right"
+                                                    style={{
+                                                        width: '12.2%',
+                                                        textAlign: 'center'
+                                                    }}
+                                                >
                                                     <h1 className="title">
                                                         {player.daily_steps_current.toLocaleString()}
                                                         <small>steps</small>
@@ -123,7 +139,8 @@ export class PlayersPage extends Component {
                                                 </td>
                                                 <td
                                                     style={{
-                                                        minWidth: '14vmin'
+                                                        width: '10%',
+                                                        textAlign: 'center'
                                                     }}
                                                     className={
                                                         player.grade_score_current <
@@ -142,7 +159,12 @@ export class PlayersPage extends Component {
                                                             : 'NA'}
                                                     </span>
                                                 </td>
-                                                <td className="align-right">
+                                                <td
+                                                    className="align-right"
+                                                    style={{
+                                                        minWidth: '7%'
+                                                    }}
+                                                >
                                                     <img
                                                         src={gradeIcon(
                                                             player.grade_current
