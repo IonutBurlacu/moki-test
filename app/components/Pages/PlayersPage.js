@@ -74,7 +74,11 @@ export class PlayersPage extends Component {
                                                         }}
                                                     />
                                                 </td>
-                                                <td style={{ width: '71vmin' }}>
+                                                <td
+                                                    style={{
+                                                        width: '71.2vmin'
+                                                    }}
+                                                >
                                                     <h1 className="title">
                                                         {`${player.first_name} ${player.last_name}`}
                                                     </h1>
@@ -118,6 +122,9 @@ export class PlayersPage extends Component {
                                                     </h1>
                                                 </td>
                                                 <td
+                                                    style={{
+                                                        minWidth: '14vmin'
+                                                    }}
                                                     className={
                                                         player.grade_score_current <
                                                         player.grade_score_previous
