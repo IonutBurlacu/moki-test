@@ -26,7 +26,7 @@ export class ReportsPage extends Component {
                     <div className="report-sections">
                         <div className="report-section">
                             <div className="report-section-title">
-                                <p>Overview</p>
+                                <p>Typical</p>
                             </div>
                             <div className="report-section-body">
                                 <p className="report-section-description">

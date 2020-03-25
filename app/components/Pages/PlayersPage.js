@@ -78,11 +78,7 @@ export class PlayersPage extends Component {
                                                         }}
                                                     />
                                                 </td>
-                                                <td
-                                                    style={{
-                                                        width: '35.4%'
-                                                    }}
-                                                >
+                                                <td style={{ width: '35.4%' }}>
                                                     <h1 className="title">
                                                         {`${player.first_name} ${player.last_name}`}
                                                     </h1>
@@ -112,10 +108,9 @@ export class PlayersPage extends Component {
                                                     </h1>
                                                 </td>
                                                 <td
-                                                    className="align-right"
+                                                    className="align-center"
                                                     style={{
-                                                        width: '12.2%',
-                                                        textAlign: 'center'
+                                                        width: '12.2%'
                                                     }}
                                                 >
                                                     <h1 className="title">
@@ -126,10 +121,9 @@ export class PlayersPage extends Component {
                                                     </h1>
                                                 </td>
                                                 <td
-                                                    className="align-right"
+                                                    className="align-center"
                                                     style={{
-                                                        width: '12.2%',
-                                                        textAlign: 'center'
+                                                        width: '12.2%'
                                                     }}
                                                 >
                                                     <h1 className="title">
@@ -138,16 +132,15 @@ export class PlayersPage extends Component {
                                                     </h1>
                                                 </td>
                                                 <td
-                                                    style={{
-                                                        width: '10%',
-                                                        textAlign: 'center'
-                                                    }}
                                                     className={
                                                         player.grade_score_current <
                                                         player.grade_score_previous
-                                                            ? 'negative align-right'
-                                                            : 'positive align-right'
+                                                            ? 'negative align-center'
+                                                            : 'positive align-center'
                                                     }
+                                                    style={{
+                                                        width: '10%'
+                                                    }}
                                                 >
                                                     <span className="percentage-icon" />
                                                     <span className="percentage">
@@ -162,7 +155,7 @@ export class PlayersPage extends Component {
                                                 <td
                                                     className="align-right"
                                                     style={{
-                                                        minWidth: '7%'
+                                                        width: '7%'
                                                     }}
                                                 >
                                                     <img
