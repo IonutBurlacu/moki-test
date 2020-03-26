@@ -109,6 +109,10 @@ export class SettingsPage extends Component {
         shell.openExternal('https://moki.technology/pages/help-centre');
     };
 
+    handleSchoolUrl = () => {
+        shell.openExternal(`${host}/dashboard/school/${this.props.schoolId}`);
+    };
+
     render() {
         return (
             <div className="container container-with-title">
@@ -217,6 +221,17 @@ export class SettingsPage extends Component {
                                         </td>
                                         <td />
                                     </tr>
+                                    <tr onClick={this.handleSchoolUrl}>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                            >
+                                                School
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -244,7 +259,8 @@ export class SettingsPage extends Component {
 
 const mapStateToProps = state => ({
     token: state.auth.token,
-    loading: state.auth.loading
+    loading: state.auth.loading,
+    schoolId: state.auth.schoolId
 });
 
 const mapDispatchToProps = dispatch => ({
