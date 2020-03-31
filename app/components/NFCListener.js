@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NFC } from 'nfc-pcsc';
+import usbDetect from 'usb-detection';
 import _ from 'lodash';
 import { push } from 'react-router-redux';
 import moment from 'moment';
@@ -27,14 +28,44 @@ export class NFCListener extends Component {
     constructor(props) {
         super(props);
 
-        this.nfc = new NFC();
-
+        usbDetect.startMonitoring();
+        usbDetect.find((err, devices) => {
+            for (let i = 0; i < devices.length; i++) {
+                if (
+                    devices[i].deviceName.includes('NFC Port') ||
+                    devices[i].deviceName.includes('ACR1252')
+                ) {
+                    this.initNFC();
+                }
+            }
+        });
+        usbDetect.on('add', device => {
+            if (
+                device.deviceName.includes('NFC Port') ||
+                device.deviceName.includes('ACR1252')
+            ) {
+                this.initNFC();
+                this.props.showAlert('The Moki Reader has been connected.');
+            }
+        });
+        usbDetect.on('remove', device => {
+            if (
+                device.deviceName.includes('NFC Port') ||
+                device.deviceName.includes('ACR1252')
+            ) {
+                this.nfc = null;
+            }
+        });
         this.syncTimeout = null;
 
         this.state = {
             allSteps: [],
             uuid: ''
         };
+    }
+
+    initNFC() {
+        this.nfc = new NFC();
 
         this.nfc.on('reader', reader => {
             console.log(`${reader.reader.name}  device attached`);

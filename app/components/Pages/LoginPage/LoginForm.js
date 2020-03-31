@@ -24,12 +24,18 @@ export class LoginForm extends Component {
     };
 
     handleSubmit = () => {
-        if (this.state.email === '' || this.state.password === '') {
-            this.props.showAlert('Please complete all the required fields.');
+        if (navigator.onLine) {
+            if (this.state.email === '' || this.state.password === '') {
+                this.props.showAlert(
+                    'Please complete all the required fields.'
+                );
+            } else {
+                store.set('email', this.state.email);
+                this.props.showLoader();
+                this.props.loginRequest(this.state.email, this.state.password);
+            }
         } else {
-            store.set('email', this.state.email);
-            this.props.showLoader();
-            this.props.loginRequest(this.state.email, this.state.password);
+            this.props.showAlert('No internet connection.');
         }
     };
 

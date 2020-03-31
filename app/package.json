@@ -15,6 +15,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "nfc-pcsc": "^0.6.2"
+    "nfc-pcsc": "^0.6.2",
+    "usb-detection": "^4.7.0"
   }
 }
