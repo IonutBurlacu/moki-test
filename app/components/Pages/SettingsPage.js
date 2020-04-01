@@ -227,7 +227,7 @@ export class SettingsPage extends Component {
                                                 className="setting-button"
                                                 type="button"
                                             >
-                                                School
+                                                Share Live Report
                                             </button>
                                         </td>
                                         <td />
