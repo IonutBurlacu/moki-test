@@ -62,7 +62,4 @@ const mapDispatchToProps = dispatch => ({
     batteryReadingModeOff: () => dispatch(batteryReadingModeOff())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ReadBatteryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ReadBatteryPage);

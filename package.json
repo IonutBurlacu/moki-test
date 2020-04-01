@@ -20,7 +20,6 @@
         "lint-styles": "stylelint --ignore-path .eslintignore '**/*.*(css|scss)' --syntax scss",
         "lint-styles-fix": "yarn --silent lint-styles --fix; exit 0",
         "package": "yarn build && electron-builder build --publish never",
-	"package-mac": "set CSC_IDENTITY_AUTO_DISCOVERY=false && set CSC_LINK="/Users/burlacuionutmihai/Desktop/CertificatesDevIDMoki1.p12" && set CSC_KEY_PASSWORD="Moki123!@#" && sudo yarn build-dev && sudo ./node_modules/.bin/electron-builder build --mac",
         "package-all": "yarn build && electron-builder build -mwl",
         "package-linux": "yarn build && electron-builder build --linux",
         "package-win": "yarn build && electron-builder build --win --ia32",
@@ -79,9 +78,9 @@
                 "nsis"
             ]
         },
-	"mac": {
-		"gatekeeperAssess": false
-	},
+        "mac": {
+            "gatekeeperAssess": false
+        },
         "linux": {
             "target": [
                 "deb",

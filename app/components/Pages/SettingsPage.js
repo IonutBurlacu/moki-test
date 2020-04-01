@@ -199,6 +199,17 @@ export class SettingsPage extends Component {
                                         </td>
                                         <td />
                                     </tr>
+                                    <tr onClick={this.handleSchoolUrl}>
+                                        <td>
+                                            <button
+                                                className="setting-button"
+                                                type="button"
+                                            >
+                                                Share Live Report
+                                            </button>
+                                        </td>
+                                        <td />
+                                    </tr>
                                     <tr onClick={this.logout}>
                                         <td>
                                             <button
@@ -217,17 +228,6 @@ export class SettingsPage extends Component {
                                                 type="button"
                                             >
                                                 Contact Support
-                                            </button>
-                                        </td>
-                                        <td />
-                                    </tr>
-                                    <tr onClick={this.handleSchoolUrl}>
-                                        <td>
-                                            <button
-                                                className="setting-button"
-                                                type="button"
-                                            >
-                                                School
                                             </button>
                                         </td>
                                         <td />
