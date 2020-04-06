@@ -30,7 +30,7 @@ export class TotalStepsPage extends Component {
                 />
                 {!this.props.loading ? (
                     <div className="content">
-                        <PageTitle title="Typical" />
+                        <PageTitle title="Overview" />
                         <TopFilters />
                         <div className="charts-container chart-with-scale">
                             <TotalStepsChart />
