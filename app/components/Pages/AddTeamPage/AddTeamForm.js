@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import { Header } from '../../Header';
+import PlayersList from './PlayersList';
 import { insertTeamRequest } from '../../../actions/teams';
 import { showLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
@@ -59,7 +60,10 @@ export class AddTeamForm extends Component {
             this.props.showAlert('Please complete all the required fields.');
         } else {
             this.props.showLoader();
-            this.props.insertTeamRequest(this.state);
+            this.props.insertTeamRequest({
+                ...this.state,
+                players: this.props.new.players
+            });
         }
     };
 
@@ -122,12 +126,6 @@ export class AddTeamForm extends Component {
                         </div>
                         <div className="right-side">
                             <div className="form-group">
-                                <label
-                                    htmlFor="name"
-                                    className="form-label required"
-                                >
-                                    Name
-                                </label>
                                 <input
                                     type="text"
                                     className="form-input"
@@ -135,15 +133,31 @@ export class AddTeamForm extends Component {
                                     name="name"
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
+                                    placeholder="Enter Team name"
                                 />
+                                <label
+                                    htmlFor="name"
+                                    className="form-label required"
+                                >
+                                    Name
+                                </label>
                             </div>
                         </div>
                     </form>
                 </div>
+                <PlayersList
+                    items={this.props.new.players}
+                    players={this.props.players}
+                />
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    players: state.teams.players,
+    new: state.teams.new
+});
 
 const mapDispatchToProps = dispatch => ({
     insertTeamRequest: team => dispatch(insertTeamRequest(team)),
@@ -151,7 +165,4 @@ const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message))
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(AddTeamForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTeamForm);

@@ -12,7 +12,7 @@ import { showConfirm, hideConfirm } from '../../actions/confirm';
 export class EditTeamPage extends Component {
     handleDelete = () => {
         this.props.showConfirm(
-            'Are you sure you want to delete this Team?',
+            'Are you sure you want to delete this Team? Players/Challenges will be automatically removed from the team.',
             () => {
                 this.props.showLoader();
                 this.props.hideConfirm();
@@ -77,7 +77,4 @@ const mapDispatchToProps = dispatch => ({
         dispatch(showConfirm(message, doConfirm))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditTeamPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditTeamPage);

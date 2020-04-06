@@ -12,8 +12,6 @@ const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class SyncBandsPage extends Component {
     handleView = id => {
-        this.props.viewPlayerRequest(id);
-        this.props.showLoader();
         this.props.history.push(`/players/view/${id}`);
     };
 
@@ -24,7 +22,7 @@ export class SyncBandsPage extends Component {
                     leftButton={<Link to="/players">Back</Link>}
                     rightButton={<div />}
                 />
-                <PageTitle title="Recording Steps" isGreen />
+                <PageTitle title="Sync Bands" isGreen />
                 {!this.props.loading ? (
                     <div className="content">
                         <ul className="syncs-wrapper">
@@ -52,9 +50,7 @@ export class SyncBandsPage extends Component {
                                                                 sync.id
                                                             )
                                                         }
-                                                    >{`${
-                                                        sync.first_name
-                                                    } `}</span>
+                                                    >{`${sync.first_name} `}</span>
                                                     <span className="added">
                                                         added
                                                     </span>
@@ -102,9 +98,7 @@ export class SyncBandsPage extends Component {
                                                                 </span>
                                                             ) : (
                                                                 <span>
-                                                                    {`${
-                                                                        challenge.name
-                                                                    } - `}
+                                                                    {`${challenge.name} - `}
                                                                     {challenge.target_steps -
                                                                         challenge.progress}{' '}
                                                                     <small>
@@ -159,7 +153,4 @@ const mapDispatchToProps = dispatch => ({
     viewPlayerRequest: id => dispatch(viewPlayerRequest(id))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SyncBandsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SyncBandsPage);

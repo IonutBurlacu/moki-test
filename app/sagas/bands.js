@@ -26,14 +26,18 @@ export function* pairBand(action) {
                 type: 'PAIR_BAND'
             });
 
+            // Removed by request. https://www.wunderlist.com/#/tasks/5632771447
+            // Added back on request.
             yield put({
                 type: 'PLAY_PAIR_SOUND'
             });
 
-            yield put({
-                type: 'SHOW_ALERT',
-                message: decoded.message
-            });
+            if (decoded.message !== '') {
+                yield put({
+                    type: 'SHOW_ALERT',
+                    message: decoded.message
+                });
+            }
         } else {
             yield put({
                 type: 'PAIR_BAND'
@@ -55,7 +59,8 @@ export function* pairBand(action) {
     } catch (error) {
         yield put({
             type: 'SHOW_ALERT',
-            message: 'There was a problem connecting to the Moki servers. Please keep your Band pressed against the Reader for longer or check your internet connection.'
+            message:
+                'There was a problem connecting to the Moki servers. Please keep your Band pressed against the Reader for longer or check your internet connection.'
         });
 
         yield put({
@@ -87,9 +92,10 @@ export function* syncBand(action) {
                 batteryLevel: action.batteryLevel
             });
 
-            yield put({
-                type: 'PLAY_SYNC_SOUND'
-            });
+            // Removed by request. https://www.wunderlist.com/#/tasks/5632771447
+            // yield put({
+            //     type: 'PLAY_SYNC_SOUND'
+            // });
         } else {
             yield put({
                 type: 'SYNC_BAND_FAILED'
@@ -111,7 +117,8 @@ export function* syncBand(action) {
     } catch (error) {
         yield put({
             type: 'SHOW_ALERT',
-            message: 'There was a problem connecting to the Moki servers. Please keep your Band pressed against the Reader for longer or check your internet connection.'
+            message:
+                'There was a problem connecting to the Moki servers. Please keep your Band pressed against the Reader for longer or check your internet connection.'
         });
 
         yield put({

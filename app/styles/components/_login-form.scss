@@ -1,5 +1,5 @@
 .login-form {
-    margin: 50px auto;
+    margin: 9vmin auto 50px auto;
     width: 64vmin;
 }
 
@@ -20,12 +20,13 @@
 .form-group {
     align-items: center;
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     margin-bottom: 10px;
     width: 100%;
 
     .form-label {
-        color: white;
+        color: #bfc0c5;
         font-size: 3.4vmin;
         width: 30%;
     }
@@ -37,6 +38,10 @@
         font-size: 3.4vmin;
         padding: 5px 10px;
         width: 65%;
+
+        &::placeholder {
+            color: #b6b7bd;
+        }
     }
 
     .form-label.required::after {
@@ -63,17 +68,44 @@
     }
 }
 
+.login-buttons {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 9vmin;
+}
+
 .login-form__button {
     background: transparent;
     border: 2px solid white;
     color: white;
     display: block;
     font-size: 3.4vmin;
-    margin-bottom: 2vmin;
+    margin-bottom: 3vmin;
+    padding: 0.8vmin;
     text-align: center;
     width: 30%;
 }
 
 .forgot-password-link {
-    color: white;
+    color: $greenText;
+    font-size: 2.4vmin;
+    text-decoration: none;
+}
+
+.sign-up-wrapper {
+    bottom: 0;
+    color: #bfc0c5;
+    font-size: 2.4vmin;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+
+    .sign-up-button {
+        background: transparent;
+        border: none;
+        color: $greenText;
+        padding: 0;
+    }
 }

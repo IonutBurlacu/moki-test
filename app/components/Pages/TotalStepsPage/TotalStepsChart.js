@@ -10,70 +10,64 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import playersIcon from '../../../images/players_icon_active.png';
+import duration from '../../../utils/duration';
+import dateLegend from '../../../utils/dateLegend';
+import tickFormatter from '../../../utils/tickFormatter';
 
 const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
 export class TotalStepsChart extends Component {
-    getDateLegend = () => {
-        switch (this.props.totalSteps.dateByType) {
-            case 'today':
-                return moment().format('D MMMM YYYY');
-            case 'week':
-                return `${moment(this.props.totalSteps.dateByStartDate).format(
-                    'D'
-                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
-                    'D MMMM YYYY'
-                )}`;
-            case 'month':
-                return `${moment(this.props.totalSteps.dateByStartDate).format(
-                    'D'
-                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
-                    'D MMMM YYYY'
-                )}`;
-            case 'year':
-                return `${moment(this.props.totalSteps.dateByStartDate).format(
-                    'MMM'
-                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
-                    'MMM YYYY'
-                )}`;
-            case 'interval':
-                return `${moment(this.props.totalSteps.dateByStartDate).format(
-                    'D MMM YYYY'
-                )} - ${moment(this.props.totalSteps.dateByEndDate).format(
-                    'D MMM YYYY'
-                )}`;
-            default:
-                return moment().format('D MMMM YYYY');
-        }
-    };
-
     render() {
-        const { totalOverview, totalOverviewPrevious } = this.props.totalSteps;
+        const chartData =
+            this.props.totalSteps.chartType === 'steps'
+                ? this.props.totalSteps.data.current.steps
+                : this.props.totalSteps.data.current.mvpa;
         return (
             <div className="chart-container">
-                <div className="legend">
-                    {this.props.totalSteps.teamId && this.props.teams.length ? (
-                        <div>
-                            <p className="team">
-                                {
-                                    this.props.teams.find(
-                                        team =>
-                                            team.id ===
-                                            this.props.totalSteps.teamId
-                                    ).name
-                                }
-                            </p>
-                            <p className="date">{this.getDateLegend()}</p>
-                        </div>
-                    ) : (
-                        ''
-                    )}
+                <div className="chart-top-bar">
+                    <div className="legend">
+                        {this.props.selectedTeam ? (
+                            <div>
+                                <p className="team">
+                                    {this.props.selectedTeam
+                                        ? this.props.selectedTeam.name
+                                        : ''}
+                                </p>
+                                <p className="date">
+                                    {dateLegend(
+                                        this.props.totalSteps.dateByType,
+                                        this.props.totalSteps.dateByStartDate,
+                                        this.props.totalSteps.dateByEndDate
+                                    )}
+                                </p>
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                    <div className="players">
+                        <img
+                            src={playersIcon}
+                            className="players-icon"
+                            alt="players-icon"
+                        />
+                        <span className="players-number">
+                            {this.props.selectedTeam
+                                ? this.props.selectedTeam.players_count
+                                : 0}{' '}
+                            Player
+                            {this.props.selectedTeam &&
+                            this.props.selectedTeam.players_count !== 1
+                                ? 's'
+                                : ''}
+                        </span>
+                    </div>
                 </div>
-                <div className="chart">
+                <div className="chart" style={{ height: '42vmin' }}>
                     <ResponsiveContainer width="99%">
                         <ComposedChart
-                            data={this.props.totalSteps.data.current}
+                            data={chartData}
                             barCategoryGap={5}
                             margin={{
                                 top: 10,
@@ -83,172 +77,146 @@ export class TotalStepsChart extends Component {
                             }}
                         >
                             <CartesianGrid stroke="#53535d" vertical={false} />
-                            <XAxis dataKey="x_axis" stroke="#f6f6f7" />
+                            <XAxis
+                                dataKey="x_axis"
+                                stroke="#f6f6f7"
+                                tickFormatter={value => {
+                                    if (
+                                        this.props.totalSteps.dateByEndDate.diff(
+                                            this.props.totalSteps
+                                                .dateByStartDate,
+                                            'days'
+                                        ) === 0 &&
+                                        (this.props.totalSteps.dateByType ===
+                                            'today' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'yesterday' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'interval')
+                                    ) {
+                                        if (value % 2 === 0) {
+                                            return (value / 2)
+                                                .toString()
+                                                .padStart(2, '0');
+                                        }
+                                        return Math.floor(value / 2) + ':30';
+                                    }
+                                    if (
+                                        this.props.totalSteps.dateByType ===
+                                        'last_90_days'
+                                    ) {
+                                        const startOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        const endOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        if (
+                                            startOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            startOfWeekDate.add(1, 'year');
+                                        }
+                                        if (
+                                            endOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            endOfWeekDate.add(1, 'year');
+                                        }
+                                        return `${startOfWeekDate
+                                            .startOf('isoWeek')
+                                            .format(
+                                                'D'
+                                            )} - ${endOfWeekDate
+                                            .endOf('isoWeek')
+                                            .format('D')}`;
+                                    }
+                                    return value;
+                                }}
+                            />
                             <YAxis
                                 stroke="#f6f6f7"
-                                tickFormatter={number => {
-                                    if (number > 1000000000) {
-                                        return `${(
-                                            number / 1000000000
-                                        ).toString()}B`;
-                                    }
-                                    if (number > 1000000) {
-                                        return `${(
-                                            number / 1000000
-                                        ).toString()}M`;
-                                    }
-                                    if (number > 1000) {
-                                        return `${(number / 1000).toString()}K`;
-                                    }
-                                    return number.toString();
-                                }}
+                                tickFormatter={tickFormatter}
                             />
                             <Tooltip
                                 cursor={false}
-                                labelFormatter={label => {
-                                    const weekDays = [
-                                        'MON',
-                                        'TUE',
-                                        'WED',
-                                        'THU',
-                                        'FRI',
-                                        'SAT',
-                                        'SUN'
-                                    ];
-                                    switch (this.props.totalSteps.dateByType) {
-                                        case 'today':
-                                            return moment().format(
-                                                'DD/MM/YYYY'
-                                            );
-                                        case 'week':
-                                            return moment()
-                                                .startOf('isoWeek')
-                                                .day(
-                                                    weekDays.indexOf(label) + 1
-                                                )
-                                                .format('DD/MM/YYYY');
-                                        case 'month':
-                                            return moment()
-                                                .startOf('month')
-                                                .date(label)
-                                                .format('DD/MM/YYYY');
-                                        case 'year':
-                                            return moment()
-                                                .startOf('year')
-                                                .month(label)
-                                                .startOf('month')
-                                                .format('MMM YYYY');
-                                        case 'interval':
-                                            if (
-                                                this.props.totalSteps.dateByEndDate.diff(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate,
-                                                    'months'
-                                                ) >= 1
-                                            ) {
-                                                return moment(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate
-                                                )
-                                                    .startOf('year')
-                                                    .month(label)
-                                                    .startOf('month')
-                                                    .format('MMM YYYY');
-                                            }
-                                            if (
-                                                this.props.totalSteps.dateByEndDate.diff(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate,
-                                                    'weeks'
-                                                ) >= 1
-                                            ) {
-                                                return moment(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate
-                                                )
-                                                    .startOf('month')
-                                                    .date(label)
-                                                    .format('DD/MM/YYYY');
-                                            }
-                                            if (
-                                                this.props.totalSteps.dateByEndDate.diff(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate,
-                                                    'days'
-                                                ) >= 1
-                                            ) {
-                                                return moment(
-                                                    this.props.totalSteps
-                                                        .dateByStartDate
-                                                )
-                                                    .startOf('isoWeek')
-                                                    .day(
-                                                        weekDays.indexOf(
-                                                            label
-                                                        ) + 1
-                                                    )
-                                                    .format('DD/MM/YYYY');
-                                            }
-                                            return moment(
-                                                this.props.totalSteps
-                                                    .dateByStartDate
-                                            ).format('DD/MM/YYYY');
-
-                                        default:
-                                            return moment().format(
-                                                'DD/MM/YYYY'
-                                            );
+                                labelFormatter={value => {
+                                    if (
+                                        this.props.totalSteps.dateByEndDate.diff(
+                                            this.props.totalSteps
+                                                .dateByStartDate,
+                                            'days'
+                                        ) === 0 &&
+                                        (this.props.totalSteps.dateByType ===
+                                            'today' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'yesterday' ||
+                                            this.props.totalSteps.dateByType ===
+                                                'interval')
+                                    ) {
+                                        if (value % 2 === 0) {
+                                            return (value / 2)
+                                                .toString()
+                                                .padStart(2, '0');
+                                        }
+                                        return Math.floor(value / 2) + ':30';
                                     }
+                                    if (
+                                        this.props.totalSteps.dateByType ===
+                                        'last_90_days'
+                                    ) {
+                                        const startOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        const endOfWeekDate = this.props.totalSteps.dateByStartDate
+                                            .clone()
+                                            .week(value);
+                                        if (
+                                            startOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            startOfWeekDate.add(1, 'year');
+                                        }
+                                        if (
+                                            endOfWeekDate <
+                                            this.props.totalSteps
+                                                .dateByStartDate
+                                        ) {
+                                            endOfWeekDate.add(1, 'year');
+                                        }
+                                        return `${startOfWeekDate
+                                            .startOf('isoWeek')
+                                            .format(
+                                                'D'
+                                            )} - ${endOfWeekDate
+                                            .endOf('isoWeek')
+                                            .format('D')}`;
+                                    }
+                                    return value;
                                 }}
                                 formatter={value =>
-                                    new Intl.NumberFormat('en').format(value)
+                                    this.props.totalSteps.chartType === 'steps'
+                                        ? new Intl.NumberFormat('en').format(
+                                              value
+                                          )
+                                        : duration(
+                                              Math.round(parseFloat(value))
+                                          )
                                 }
                             />
                             <Bar
-                                dataKey="total_steps_overview"
-                                name="Total Steps"
+                                dataKey="y_axis"
+                                name={
+                                    this.props.totalSteps.chartType === 'steps'
+                                        ? 'Steps'
+                                        : 'MVPA'
+                                }
                                 maxBarSize={70}
-                            >
-                                {this.props.totalSteps.data.current.map(
-                                    (entry, index) => {
-                                        let color;
-                                        if (
-                                            entry.total_steps_overview <
-                                            this.props.scales.first_step *
-                                                this.props.totalSteps
-                                                    .playersCount
-                                        ) {
-                                            color = COLORS[0];
-                                        } else if (
-                                            entry.total_steps_overview <
-                                            this.props.scales.second_step *
-                                                this.props.totalSteps
-                                                    .playersCount
-                                        ) {
-                                            color = COLORS[1];
-                                        } else if (
-                                            entry.total_steps_overview <
-                                            this.props.scales.third_step *
-                                                this.props.totalSteps
-                                                    .playersCount
-                                        ) {
-                                            color = COLORS[2];
-                                        } else if (
-                                            entry.total_steps_overview <
-                                            this.props.scales.fourth_step *
-                                                this.props.totalSteps
-                                                    .playersCount
-                                        ) {
-                                            color = COLORS[3];
-                                        } else {
-                                            color = COLORS[4];
-                                        }
-                                        return (
-                                            <Cell key={index} fill={color} />
-                                        );
-                                    }
-                                )}
-                            </Bar>
+                                fill="#23dec8"
+                            />
                         </ComposedChart>
                     </ResponsiveContainer>
                 </div>
@@ -256,42 +224,59 @@ export class TotalStepsChart extends Component {
                     <div className="chart-bottom-line">
                         <div className="left-side">
                             <span className="total">
-                                Typical:{' '}
-                                <span className="number-grey">
-                                    {this.props.totalSteps.totalTypical.toLocaleString()}
-                                </span>
-                                <span className="label-grey">steps</span>
-                            </span>
-                        </div>
-                        <div className="center-side">
-                            <span>Trend:</span>
-                            {totalOverview - totalOverviewPrevious !== 0 ? (
+                                MVPA:{' '}
                                 <span
                                     className={
-                                        totalOverview > totalOverviewPrevious
+                                        this.props.chartType === 'mvpa'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
+                                    {duration(this.props.totalSteps.totalMvpa)}
+                                </span>
+                            </span>
+                            {this.props.totalSteps.totalMvpa -
+                                this.props.totalSteps.data.previous.mvpa !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.totalSteps.totalMvpa >
+                                        this.props.totalSteps.data.previous.mvpa
                                             ? 'positive'
                                             : 'negative'
                                     }
                                 >
                                     <span className="percentage-icon" />
-                                    {totalOverviewPrevious > 0 ? (
+                                    {this.props.totalSteps.data.previous.mvpa >
+                                    0 ? (
                                         <span className="percentage">
-                                            {totalOverview >
-                                            totalOverviewPrevious
-                                                ? totalOverviewPrevious > 0
+                                            {this.props.totalSteps.totalMvpa >
+                                            this.props.totalSteps.data.previous
+                                                .mvpa
+                                                ? this.props.totalSteps.data
+                                                      .previous.mvpa > 0
                                                     ? (
-                                                          (totalOverview *
+                                                          (this.props.totalSteps
+                                                              .totalMvpa *
                                                               100) /
-                                                              totalOverviewPrevious -
+                                                              this.props
+                                                                  .totalSteps
+                                                                  .data.previous
+                                                                  .mvpa -
                                                           100
                                                       ).toFixed(0)
-                                                    : totalOverview
-                                                : totalOverview > 0
+                                                    : this.props.totalSteps
+                                                          .totalMvpa
+                                                : this.props.totalSteps
+                                                      .totalMvpa > 0
                                                 ? (
-                                                      ((totalOverviewPrevious -
-                                                          totalOverview) *
+                                                      ((this.props.totalSteps
+                                                          .data.previous.mvpa -
+                                                          this.props.totalSteps
+                                                              .totalMvpa) *
                                                           100) /
-                                                      totalOverviewPrevious
+                                                      this.props.totalSteps.data
+                                                          .previous.mvpa
                                                   ).toFixed(0)
                                                 : 100}
                                             %
@@ -309,12 +294,83 @@ export class TotalStepsChart extends Component {
                         </div>
                         <div className="right-side">
                             <span className="total">
-                                Total:{' '}
-                                <span className="number-green">
-                                    {this.props.totalSteps.totalOverview.toLocaleString()}
+                                Steps:{' '}
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'number-green'
+                                            : 'number-grey'
+                                    }
+                                >
+                                    {this.props.totalSteps.totalSteps.toLocaleString()}
                                 </span>
-                                <span className="label-green">steps</span>
+                                <span
+                                    className={
+                                        this.props.chartType === 'steps'
+                                            ? 'label-green'
+                                            : 'label-grey'
+                                    }
+                                >
+                                    steps
+                                </span>
                             </span>
+                            {this.props.totalSteps.totalSteps -
+                                this.props.totalSteps.data.previous.steps !==
+                            0 ? (
+                                <span
+                                    className={
+                                        this.props.totalSteps.totalSteps >
+                                        this.props.totalSteps.data.previous
+                                            .steps
+                                            ? 'positive'
+                                            : 'negative'
+                                    }
+                                >
+                                    <span className="percentage-icon" />
+                                    {this.props.totalSteps.data.previous.steps >
+                                    0 ? (
+                                        <span className="percentage">
+                                            {this.props.totalSteps.totalSteps >
+                                            this.props.totalSteps.data.previous
+                                                .steps
+                                                ? this.props.totalSteps.data
+                                                      .previous.steps > 0
+                                                    ? (
+                                                          (this.props.totalSteps
+                                                              .totalSteps *
+                                                              100) /
+                                                              this.props
+                                                                  .totalSteps
+                                                                  .data.previous
+                                                                  .steps -
+                                                          100
+                                                      ).toFixed(0)
+                                                    : this.props.totalSteps
+                                                          .totalSteps
+                                                : this.props.totalSteps
+                                                      .totalSteps > 0
+                                                ? (
+                                                      ((this.props.totalSteps
+                                                          .data.previous.steps -
+                                                          this.props.totalSteps
+                                                              .totalSteps) *
+                                                          100) /
+                                                      this.props.totalSteps.data
+                                                          .previous.steps
+                                                  ).toFixed(0)
+                                                : 100}
+                                            %
+                                        </span>
+                                    ) : (
+                                        <span className="percentage">NA</span>
+                                    )}
+                                </span>
+                            ) : (
+                                <span className="positive">
+                                    <span className="percentage-icon" />
+                                    <span className="percentage">0%</span>
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -326,10 +382,10 @@ export class TotalStepsChart extends Component {
 const mapStateToProps = state => ({
     teams: state.reports.teams,
     totalSteps: state.reports.totalSteps,
-    scales: state.reports.scales
+    scales: state.reports.scales,
+    selectedTeam: state.reports.teams.find(
+        team => team.id === state.reports.teamId
+    )
 });
 
-export default connect(
-    mapStateToProps,
-    null
-)(TotalStepsChart);
+export default connect(mapStateToProps, null)(TotalStepsChart);

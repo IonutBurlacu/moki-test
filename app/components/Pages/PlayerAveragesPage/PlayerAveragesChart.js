@@ -10,70 +10,67 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import playersIcon from '../../../images/players_icon_active.png';
+import duration from '../../../utils/duration';
+import dateLegend from '../../../utils/dateLegend';
+import tickFormatter from '../../../utils/tickFormatter';
 
 const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
 export class PlayerAveragesChart extends Component {
-    getDateLegend = () => {
-        switch (this.props.playerAverages.dateByType) {
-            case 'today':
-                return moment().format('D MMMM YYYY');
-            case 'week':
-                return `${moment(
-                    this.props.playerAverages.dateByStartDate
-                ).format('D')} - ${moment(
-                    this.props.playerAverages.dateByEndDate
-                ).format('D MMMM YYYY')}`;
-            case 'month':
-                return `${moment(
-                    this.props.playerAverages.dateByStartDate
-                ).format('D')} - ${moment(
-                    this.props.playerAverages.dateByEndDate
-                ).format('D MMMM YYYY')}`;
-            case 'year':
-                return `${moment(
-                    this.props.playerAverages.dateByStartDate
-                ).format('MMM')} - ${moment(
-                    this.props.playerAverages.dateByEndDate
-                ).format('MMM YYYY')}`;
-            case 'interval':
-                return `${moment(
-                    this.props.playerAverages.dateByStartDate
-                ).format('D MMM YYYY')} - ${moment(
-                    this.props.playerAverages.dateByEndDate
-                ).format('D MMM YYYY')}`;
-            default:
-                return moment().format('D MMMM YYYY');
-        }
-    };
-
     render() {
         return (
             <div className="chart-container">
-                <div className="legend">
-                    {this.props.playerAverages.teamId &&
-                    this.props.teams.length ? (
-                        <div>
-                            <p className="team">
-                                {
-                                    this.props.teams.find(
-                                        team =>
-                                            team.id ===
-                                            this.props.playerAverages.teamId
-                                    ).name
-                                }
-                            </p>
-                            <p className="date">{this.getDateLegend()}</p>
-                        </div>
-                    ) : (
-                        ''
-                    )}
+                <div className="chart-top-bar">
+                    <div className="legend">
+                        {this.props.selectedTeam ? (
+                            <div>
+                                <p className="team">
+                                    {this.props.selectedTeam
+                                        ? this.props.selectedTeam.name
+                                        : ''}
+                                </p>
+                                <p className="date">
+                                    {dateLegend(
+                                        this.props.playerAverages.dateByType,
+                                        this.props.playerAverages
+                                            .dateByStartDate,
+                                        this.props.playerAverages.dateByEndDate
+                                    )}
+                                </p>
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                    <div className="players">
+                        <img
+                            src={playersIcon}
+                            className="players-icon"
+                            alt="players-icon"
+                        />
+                        <span className="players-number">
+                            {this.props.selectedTeam
+                                ? this.props.selectedTeam.players_count
+                                : 0}{' '}
+                            Player
+                            {this.props.selectedTeam &&
+                            this.props.selectedTeam.players_count !== 1
+                                ? 's'
+                                : ''}
+                        </span>
+                    </div>
                 </div>
-                <div className="chart">
+                <div className="chart" style={{ height: '43vmin' }}>
                     <ResponsiveContainer width="99%">
                         <BarChart
-                            data={this.props.playerAverages.data}
+                            data={
+                                this.props.playerAverages.chartType === 'steps'
+                                    ? this.props.playerAverages.data.current
+                                          .steps
+                                    : this.props.playerAverages.data.current
+                                          .mvpa
+                            }
                             barCategoryGap={5}
                             margin={{
                                 top: 10,
@@ -90,59 +87,36 @@ export class PlayerAveragesChart extends Component {
                             />
                             <YAxis
                                 stroke="#f6f6f7"
-                                tickFormatter={number => {
-                                    if (number > 1000000000) {
-                                        return `${(
-                                            number / 1000000000
-                                        ).toString()}B`;
-                                    }
-                                    if (number > 1000000) {
-                                        return `${(
-                                            number / 1000000
-                                        ).toString()}M`;
-                                    }
-                                    if (number > 1000) {
-                                        return `${(number / 1000).toString()}K`;
-                                    }
-                                    return number.toString();
-                                }}
+                                tickFormatter={tickFormatter}
                             />
-                            <Tooltip cursor={false} formatter={(value) => new Intl.NumberFormat('en').format(value)} />
+                            <Tooltip
+                                cursor={false}
+                                formatter={value =>
+                                    this.props.playerAverages.chartType ===
+                                    'steps'
+                                        ? new Intl.NumberFormat('en').format(
+                                              value
+                                          )
+                                        : duration(
+                                              Math.round(parseFloat(value))
+                                          )
+                                }
+                            />
                             <Bar
-                                dataKey="avg_steps"
+                                dataKey="y_axis"
                                 name="Average Day"
                                 maxBarSize={70}
                             >
-                                {this.props.playerAverages.data.map(
-                                    (entry, index) => {
-                                        let color;
-                                        if (
-                                            entry.avg_steps <
-                                            this.props.scales.first_step
-                                        ) {
-                                            color = COLORS[0];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.second_step
-                                        ) {
-                                            color = COLORS[1];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.third_step
-                                        ) {
-                                            color = COLORS[2];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.fourth_step
-                                        ) {
-                                            color = COLORS[3];
-                                        } else {
-                                            color = COLORS[4];
-                                        }
-                                        return (
-                                            <Cell key={index} fill={color} />
-                                        );
-                                    }
+                                {this.props.playerAverages.data.current.steps.map(
+                                    (entry, index) => (
+                                        <Cell
+                                            key={index}
+                                            fill={
+                                                this.props.playerAverages.data
+                                                    .current.grades[index]
+                                            }
+                                        />
+                                    )
                                 )}
                             </Bar>
                         </BarChart>
@@ -156,10 +130,10 @@ export class PlayerAveragesChart extends Component {
 const mapStateToProps = state => ({
     teams: state.reports.teams,
     playerAverages: state.reports.playerAverages,
-    scales: state.reports.scales
+    scales: state.reports.scales,
+    selectedTeam: state.reports.teams.find(
+        team => team.id === state.reports.teamId
+    )
 });
 
-export default connect(
-    mapStateToProps,
-    null
-)(PlayerAveragesChart);
+export default connect(mapStateToProps, null)(PlayerAveragesChart);

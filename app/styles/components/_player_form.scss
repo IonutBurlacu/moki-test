@@ -152,6 +152,16 @@
     .center-side {
         flex: 1;
     }
+
+    .required-label-wrapper {
+        margin-top: 1vmin;
+        text-align: right;
+
+        .required-label {
+            color: #23dec8;
+            font-size: 3vmin;
+        }
+    }
 }
 
 .delete-wrapper {

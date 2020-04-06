@@ -1,11 +1,9 @@
 export default (
     state = {
-        ignore_weekend: false,
         hide_totals: false,
-        min_hour_id: null,
-        max_hour_id: null,
         loading: true,
-        version: ''
+        version: '',
+        token: null
     },
     action
 ) => {
@@ -15,12 +13,18 @@ export default (
                 token: action.token,
                 schoolName: action.schoolName,
                 fullName: action.fullName,
-                email: action.email
+                email: action.email,
+                avatar: action.avatar
             };
         case 'LOGOUT':
             return {};
         case 'DELETE_ACCOUNT':
             return {};
+        case 'UPDATE_AVATAR':
+            return {
+                ...state,
+                avatar: action.avatar
+            };
         case 'CHANGE_SETTING':
             return {
                 ...state,
@@ -35,9 +39,11 @@ export default (
             return {
                 ...state,
                 hide_totals: action.hideTotals,
-                ignore_weekend: action.ignoreWeekend,
-                min_hour_id: action.minHourId,
-                max_hour_id: action.maxHourId,
+                schoolName: action.schoolName,
+                schoolId: action.schoolId,
+                fullName: action.fullName,
+                email: action.email,
+                avatar: action.avatar,
                 loading: false
             };
         case 'GET_VERSION':

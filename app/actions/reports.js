@@ -7,6 +7,55 @@ export const getReportsTeams = teams => ({
     teams
 });
 
+export const getTotalStepsRequest = (
+    teamId,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
+    type: 'GET_TOTAL_STEPS_REQUEST',
+    teamId,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+});
+
+export const getTotalSteps = (
+    teamId,
+    data,
+    average,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate,
+    scales,
+    playersCount
+) => ({
+    type: 'GET_TOTAL_STEPS',
+    teamId,
+    data,
+    average,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate,
+    scales,
+    playersCount
+});
+
+export const openTotalStepsMenu = menu => ({
+    type: 'OPEN_TOTAL_STEPS_MENU',
+    menu
+});
+
+export const closeTotalStepsMenu = menu => ({
+    type: 'CLOSE_TOTAL_STEPS_MENU',
+    menu
+});
+
+export const changeTotalStepsChartType = chartType => ({
+    type: 'CHANGE_TOTAL_STEPS_CHART_TYPE',
+    chartType
+});
+
 export const getPlayerAveragesRequest = (
     teamId,
     dateByType,
@@ -23,6 +72,7 @@ export const getPlayerAveragesRequest = (
 export const getPlayerAverages = (
     teamId,
     data,
+    average,
     dateByType,
     dateByStartDate,
     dateByEndDate,
@@ -31,6 +81,7 @@ export const getPlayerAverages = (
     type: 'GET_PLAYER_AVERAGES',
     teamId,
     data,
+    average,
     dateByType,
     dateByStartDate,
     dateByEndDate,
@@ -45,6 +96,11 @@ export const openPlayerAveragesMenu = menu => ({
 export const closePlayerAveragesMenu = menu => ({
     type: 'CLOSE_PLAYER_AVERAGES_MENU',
     menu
+});
+
+export const changePlayerAveragesChartType = chartType => ({
+    type: 'CHANGE_PLAYER_AVERAGES_CHART_TYPE',
+    chartType
 });
 
 export const getGroupAveragesRequest = (
@@ -63,6 +119,7 @@ export const getGroupAveragesRequest = (
 export const getGroupAverages = (
     teamId,
     data,
+    average,
     dateByType,
     dateByStartDate,
     dateByEndDate,
@@ -71,6 +128,7 @@ export const getGroupAverages = (
     type: 'GET_GROUP_AVERAGES',
     teamId,
     data,
+    average,
     dateByType,
     dateByStartDate,
     dateByEndDate,
@@ -87,63 +145,9 @@ export const closeGroupAveragesMenu = menu => ({
     menu
 });
 
-export const getTotalStepsRequest = (
-    teamId,
-    dateByType,
-    dateByStartDate,
-    dateByEndDate
-) => ({
-    type: 'GET_TOTAL_STEPS_REQUEST',
-    teamId,
-    dateByType,
-    dateByStartDate,
-    dateByEndDate
-});
-
-export const getTotalSteps = (
-    teamId,
-    data,
-    dateByType,
-    dateByStartDate,
-    dateByEndDate,
-    scales,
-    playersCount
-) => ({
-    type: 'GET_TOTAL_STEPS',
-    teamId,
-    data,
-    dateByType,
-    dateByStartDate,
-    dateByEndDate,
-    scales,
-    playersCount
-});
-
-export const openTotalStepsMenu = menu => ({
-    type: 'OPEN_TOTAL_STEPS_MENU',
-    menu
-});
-
-export const closeTotalStepsMenu = menu => ({
-    type: 'CLOSE_TOTAL_STEPS_MENU',
-    menu
-});
-
-export const getDownloadPdfTeamsRequest = (
-    dateByType,
-    dateByStartDate,
-    dateByEndDate
-) => ({
-    type: 'GET_DOWNLOAD_PDF_TEAMS_REQUEST',
-    dateByType,
-    dateByStartDate,
-    dateByEndDate
-});
-
-export const getDownloadPdfTeams = (teams, dateByType) => ({
-    type: 'GET_DOWNLOAD_PDF_TEAMS',
-    teams,
-    dateByType
+export const changeGroupAveragesChartType = chartType => ({
+    type: 'CHANGE_GROUP_AVERAGES_CHART_TYPE',
+    chartType
 });
 
 export const addTeamToDownloadPdf = teamId => ({
@@ -176,23 +180,6 @@ export const openDownloadPdfMenu = menu => ({
 export const closeDownloadPdfMenu = menu => ({
     type: 'CLOSE_DOWNLOAD_PDF_MENU',
     menu
-});
-
-export const getDownloadCsvTeamsRequest = (
-    dateByType,
-    dateByStartDate,
-    dateByEndDate
-) => ({
-    type: 'GET_DOWNLOAD_CSV_TEAMS_REQUEST',
-    dateByType,
-    dateByStartDate,
-    dateByEndDate
-});
-
-export const getDownloadCsvTeams = (teams, dateByType) => ({
-    type: 'GET_DOWNLOAD_CSV_TEAMS',
-    teams,
-    dateByType
 });
 
 export const addTeamToDownloadCsv = teamId => ({

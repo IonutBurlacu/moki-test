@@ -27,12 +27,18 @@ export class DateBy extends Component {
         switch (type) {
             case 'today':
                 return 'Today';
-            case 'week':
-                return 'This Week';
-            case 'month':
-                return 'This Month';
-            case 'year':
-                return 'This Year';
+            case 'yesterday':
+                return 'Yesterday';
+            case 'last_7_days':
+                return 'Last 7 days';
+            case 'last_30_days':
+                return 'Last 30 days';
+            case 'last_90_days':
+                return 'Last 90 days';
+            case 'week_to_date':
+                return 'Week to date';
+            case 'month_to_date':
+                return 'Month to date';
             case 'interval':
                 return 'Interval';
             default:
@@ -56,7 +62,7 @@ export class DateBy extends Component {
         this.props.closeGroupAveragesMenu('dateSelectOpen');
         this.props.showLoader();
         this.props.getGroupAveragesRequest(
-            this.props.groupAverages.teamId,
+            this.props.teamId,
             dateByType,
             this.props.groupAverages.dateByStartDate,
             this.props.groupAverages.dateByEndDate
@@ -76,7 +82,7 @@ export class DateBy extends Component {
                 this.props.closeGroupAveragesMenu('dateSelectOpen');
                 this.props.showLoader();
                 this.props.getGroupAveragesRequest(
-                    this.props.groupAverages.teamId,
+                    this.props.teamId,
                     'interval',
                     this.state.startDate,
                     this.state.endDate
@@ -137,7 +143,8 @@ export class DateBy extends Component {
                         </li>
                         <li
                             className={
-                                this.props.groupAverages.dateByType === 'week'
+                                this.props.groupAverages.dateByType ===
+                                'yesterday'
                                     ? 'selected'
                                     : ''
                             }
@@ -145,15 +152,16 @@ export class DateBy extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleDateSelectChange('week')
+                                    this.handleDateSelectChange('yesterday')
                                 }
                             >
-                                This Week
+                                Yesterday
                             </button>
                         </li>
                         <li
                             className={
-                                this.props.groupAverages.dateByType === 'month'
+                                this.props.groupAverages.dateByType ===
+                                'last_7_days'
                                     ? 'selected'
                                     : ''
                             }
@@ -161,15 +169,16 @@ export class DateBy extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleDateSelectChange('month')
+                                    this.handleDateSelectChange('last_7_days')
                                 }
                             >
-                                This Month
+                                Last 7 days
                             </button>
                         </li>
                         <li
                             className={
-                                this.props.groupAverages.dateByType === 'year'
+                                this.props.groupAverages.dateByType ===
+                                'last_30_days'
                                     ? 'selected'
                                     : ''
                             }
@@ -177,10 +186,61 @@ export class DateBy extends Component {
                             <button
                                 type="button"
                                 onClick={() =>
-                                    this.handleDateSelectChange('year')
+                                    this.handleDateSelectChange('last_30_days')
                                 }
                             >
-                                This Year
+                                Last 30 days
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.groupAverages.dateByType ===
+                                'last_90_days'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleDateSelectChange('last_90_days')
+                                }
+                            >
+                                Last 90 days
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.groupAverages.dateByType ===
+                                'week_to_date'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleDateSelectChange('week_to_date')
+                                }
+                            >
+                                Week to date
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.groupAverages.dateByType ===
+                                'month_to_date'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleDateSelectChange('month_to_date')
+                                }
+                            >
+                                Month to date
                             </button>
                         </li>
                         <li
@@ -216,6 +276,7 @@ export class DateBy extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     groupAverages: state.reports.groupAverages
 });
 
@@ -239,7 +300,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DateBy);
+export default connect(mapStateToProps, mapDispatchToProps)(DateBy);

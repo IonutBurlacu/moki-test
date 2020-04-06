@@ -28,13 +28,7 @@ export class EditPlayerForm extends Component {
     }
 
     editPlayer = () => {
-        if (
-            this.state.first_name === '' ||
-            this.state.last_name === '' ||
-            this.state.grade === '' ||
-            this.state.year === '' ||
-            this.state.birthday === ''
-        ) {
+        if (this.state.first_name === '' || this.state.birthday === '') {
             this.props.showAlert('Please complete all the required fields.');
         } else {
             this.props.showLoader();
@@ -145,12 +139,6 @@ export class EditPlayerForm extends Component {
                             </div>
                             <div className="center-side">
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="firstName"
-                                        className="form-label required"
-                                    >
-                                        First Name
-                                    </label>
                                     <input
                                         type="text"
                                         className="form-input"
@@ -159,15 +147,16 @@ export class EditPlayerForm extends Component {
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
                                         value={this.state.first_name}
+                                        placeholder="Enter first name"
                                     />
-                                </div>
-                                <div className="form-group">
                                     <label
-                                        htmlFor="lastName"
+                                        htmlFor="firstName"
                                         className="form-label required"
                                     >
-                                        Surname
+                                        First Name
                                     </label>
+                                </div>
+                                <div className="form-group">
                                     <input
                                         type="text"
                                         className="form-input"
@@ -176,53 +165,16 @@ export class EditPlayerForm extends Component {
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
                                         value={this.state.last_name}
+                                        placeholder="Enter surname"
                                     />
+                                    <label
+                                        htmlFor="lastName"
+                                        className="form-label"
+                                    >
+                                        Surname
+                                    </label>
                                 </div>
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="teamId"
-                                        className="form-label required"
-                                    >
-                                        Class
-                                    </label>
-                                    <AutoSuggestInput
-                                        className="autosuggest"
-                                        handleChange={
-                                            this.handleSuggestionInputChange
-                                        }
-                                        items={grades}
-                                        name="grade"
-                                        defaultValue={this.state.grade_id}
-                                        defaultLabel={this.state.grade}
-                                    />
-                                </div>
-                            </div>
-                            <div className="right-side">
-                                <div className="form-group">
-                                    <label
-                                        htmlFor="year"
-                                        className="form-label required"
-                                    >
-                                        Year
-                                    </label>
-                                    <AutoSuggestInput
-                                        className="autosuggest"
-                                        handleChange={
-                                            this.handleSuggestionInputChange
-                                        }
-                                        items={years}
-                                        name="year"
-                                        defaultValue={this.state.year_id}
-                                        defaultLabel={this.state.year}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label
-                                        htmlFor="teamId"
-                                        className="form-label required"
-                                    >
-                                        Gender
-                                    </label>
                                     <Select
                                         value={genderOptions.find(
                                             gender =>
@@ -244,14 +196,16 @@ export class EditPlayerForm extends Component {
                                         }}
                                         name="gender"
                                     />
-                                </div>
-                                <div className="form-group datepicker-form-group">
                                     <label
-                                        htmlFor="birthday"
+                                        htmlFor="teamId"
                                         className="form-label required"
                                     >
-                                        D.O.B.
+                                        Gender
                                     </label>
+                                </div>
+                            </div>
+                            <div className="right-side">
+                                <div className="form-group datepicker-form-group">
                                     <input
                                         type="text"
                                         className="form-input"
@@ -263,7 +217,14 @@ export class EditPlayerForm extends Component {
                                         value={moment(
                                             this.state.birthday
                                         ).format('YYYY-MM-DD')}
+                                        placeholder="Enter D.O.B."
                                     />
+                                    <label
+                                        htmlFor="birthday"
+                                        className="form-label required"
+                                    >
+                                        D.O.B.
+                                    </label>
                                     {this.state.calendar_show ? (
                                         <Calendar
                                             onChange={this.onDateChange}
@@ -278,6 +239,54 @@ export class EditPlayerForm extends Component {
                                         ''
                                     )}
                                 </div>
+                                <div className="form-group">
+                                    <AutoSuggestInput
+                                        className="autosuggest"
+                                        handleChange={
+                                            this.handleSuggestionInputChange
+                                        }
+                                        items={years}
+                                        name="year"
+                                        defaultValue={this.state.year_id}
+                                        defaultLabel={this.state.year}
+                                    />
+                                    <label
+                                        htmlFor="year"
+                                        className="form-label"
+                                        style={{
+                                            color:
+                                                this.state.year !== ''
+                                                    ? '#74ef5c'
+                                                    : '#bfc0c5'
+                                        }}
+                                    >
+                                        Year
+                                    </label>
+                                </div>
+                                <div className="form-group">
+                                    <AutoSuggestInput
+                                        className="autosuggest"
+                                        handleChange={
+                                            this.handleSuggestionInputChange
+                                        }
+                                        items={grades}
+                                        name="grade"
+                                        defaultValue={this.state.grade_id}
+                                        defaultLabel={this.state.grade}
+                                    />
+                                    <label
+                                        htmlFor="teamId"
+                                        className="form-label"
+                                        style={{
+                                            color:
+                                                this.state.grade !== ''
+                                                    ? '#74ef5c'
+                                                    : '#bfc0c5'
+                                        }}
+                                    >
+                                        Class
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div className="bottom-side">
@@ -289,6 +298,7 @@ export class EditPlayerForm extends Component {
                                     name="free_school_meals"
                                     checked={this.state.free_school_meals}
                                     onChange={this.handleInputChange}
+                                    placeholder=" "
                                 />
                                 <label
                                     className="form-label form-label-checkbox"
@@ -341,6 +351,11 @@ export class EditPlayerForm extends Component {
                                 />
                             </div>
                         </div>
+                        <div className="required-label-wrapper">
+                            <span className="required-label">
+                                * These fields are required
+                            </span>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -362,7 +377,4 @@ const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditPlayerForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EditPlayerForm);

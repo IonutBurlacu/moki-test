@@ -67,9 +67,7 @@ export class PlayersList extends Component {
                                     </td>
                                     <td>
                                         <h1 className="title">
-                                            {`${item.first_name} ${
-                                                item.last_name
-                                            }`}
+                                            {`${item.first_name} ${item.last_name}`}
                                         </h1>
                                         <span className="subtitle">
                                             Last Sync:{' '}
@@ -101,7 +99,7 @@ export class PlayersList extends Component {
                             <tr className="no-items-row">
                                 <td>
                                     <span>
-                                        Challenge doesn't have any player yet.
+                                        Challenge doesn't have any Players yet.
                                     </span>
                                 </td>
                             </tr>
@@ -127,7 +125,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(PlayersList);
+export default connect(undefined, mapDispatchToProps)(PlayersList);

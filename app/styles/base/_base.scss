@@ -56,9 +56,14 @@ button:disabled {
     }
 }
 
+.container-light {
+    background: #1f1f42;
+}
+
 .current-app-version {
     bottom: 0;
-    color: white;
+    color: #636379;
+    font-size: 2vmin;
     position: absolute;
     right: 2vmin;
 }
@@ -71,4 +76,8 @@ input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.not-bold {
+    font-weight: normal !important;
 }

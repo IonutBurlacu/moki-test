@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Sound from 'react-sound';
 import { connect } from 'react-redux';
 import { stopSyncSound } from '../actions/sound';
-import syncSound from '../sounds/Sync.wav';
+import syncSound from '../sounds/Sync.mp3';
 
 export class SyncSound extends Component {
     constructor(props) {
@@ -20,6 +20,7 @@ export class SyncSound extends Component {
                 url={syncSound}
                 playStatus={this.props.playing}
                 playFromPosition={0}
+                volume={100}
                 onFinishedPlaying={this.handleFinishedPlaying}
             />
         );
@@ -34,7 +35,4 @@ const mapDispatchToProps = dispatch => ({
     stopPlaying: () => dispatch(stopSyncSound())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SyncSound);
+export default connect(mapStateToProps, mapDispatchToProps)(SyncSound);

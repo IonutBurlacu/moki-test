@@ -6,6 +6,7 @@ import { Calendar } from 'react-date-range';
 import moment from 'moment';
 import AutoSuggestInput from '../../AutoSuggestInput';
 import AutoSuggestTags from '../../AutoSuggestTags';
+import TeamsList from './TeamsList';
 import { Header } from '../../Header';
 import { insertPlayerRequest } from '../../../actions/players';
 import { showLoader } from '../../../actions/loader';
@@ -72,17 +73,14 @@ export class AddPlayerForm extends Component {
     }
 
     addPlayer = () => {
-        if (
-            this.state.first_name === '' ||
-            this.state.last_name === '' ||
-            this.state.grade === '' ||
-            this.state.year === '' ||
-            this.state.birthday === ''
-        ) {
+        if (this.state.first_name === '' || this.state.birthday === '') {
             this.props.showAlert('Please complete all the required fields.');
         } else {
             this.props.showLoader();
-            this.props.insertPlayerRequest(this.state);
+            this.props.insertPlayerRequest({
+                ...this.state,
+                teams: this.props.new.teams
+            });
         }
     };
 
@@ -185,12 +183,6 @@ export class AddPlayerForm extends Component {
                             </div>
                             <div className="center-side">
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="firstName"
-                                        className="form-label required"
-                                    >
-                                        First Name
-                                    </label>
                                     <input
                                         type="text"
                                         className="form-input"
@@ -198,15 +190,16 @@ export class AddPlayerForm extends Component {
                                         name="first_name"
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
+                                        placeholder="Enter first name"
                                     />
-                                </div>
-                                <div className="form-group">
                                     <label
-                                        htmlFor="lastName"
+                                        htmlFor="firstName"
                                         className="form-label required"
                                     >
-                                        Surname
+                                        First Name
                                     </label>
+                                </div>
+                                <div className="form-group">
                                     <input
                                         type="text"
                                         className="form-input"
@@ -214,49 +207,16 @@ export class AddPlayerForm extends Component {
                                         name="last_name"
                                         autoComplete="off"
                                         onChange={this.handleInputChange}
+                                        placeholder="Enter surname"
                                     />
+                                    <label
+                                        htmlFor="lastName"
+                                        className="form-label"
+                                    >
+                                        Surname
+                                    </label>
                                 </div>
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="teamId"
-                                        className="form-label required"
-                                    >
-                                        Class
-                                    </label>
-                                    <AutoSuggestInput
-                                        className="autosuggest"
-                                        handleChange={
-                                            this.handleSuggestionInputChange
-                                        }
-                                        items={grades}
-                                        name="grade"
-                                    />
-                                </div>
-                            </div>
-                            <div className="right-side">
-                                <div className="form-group">
-                                    <label
-                                        htmlFor="year"
-                                        className="form-label required"
-                                    >
-                                        Year
-                                    </label>
-                                    <AutoSuggestInput
-                                        className="autosuggest"
-                                        handleChange={
-                                            this.handleSuggestionInputChange
-                                        }
-                                        items={years}
-                                        name="year"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label
-                                        htmlFor="teamId"
-                                        className="form-label required"
-                                    >
-                                        Gender
-                                    </label>
                                     <Select
                                         defaultValue={genderOptions[0]}
                                         isClearable={false}
@@ -274,14 +234,16 @@ export class AddPlayerForm extends Component {
                                             });
                                         }}
                                     />
-                                </div>
-                                <div className="form-group datepicker-form-group">
                                     <label
-                                        htmlFor="birthday"
+                                        htmlFor="teamId"
                                         className="form-label required"
                                     >
-                                        D.O.B.
+                                        Gender
                                     </label>
+                                </div>
+                            </div>
+                            <div className="right-side">
+                                <div className="form-group datepicker-form-group">
                                     <input
                                         type="text"
                                         className="form-input"
@@ -293,7 +255,14 @@ export class AddPlayerForm extends Component {
                                         value={moment(
                                             this.state.birthday
                                         ).format('YYYY-MM-DD')}
+                                        placeholder=" "
                                     />
+                                    <label
+                                        htmlFor="birthday"
+                                        className="form-label required"
+                                    >
+                                        D.O.B.
+                                    </label>
                                     {this.state.calendar_show ? (
                                         <Calendar
                                             onChange={this.onDateChange}
@@ -307,6 +276,52 @@ export class AddPlayerForm extends Component {
                                     ) : (
                                         ''
                                     )}
+                                </div>
+                                <div className="form-group">
+                                    <AutoSuggestInput
+                                        className="autosuggest"
+                                        handleChange={
+                                            this.handleSuggestionInputChange
+                                        }
+                                        items={years}
+                                        name="year"
+                                        placeholder="Enter year"
+                                    />
+                                    <label
+                                        htmlFor="year"
+                                        className="form-label"
+                                        style={{
+                                            color:
+                                                this.state.year !== ''
+                                                    ? '#74ef5c'
+                                                    : '#bfc0c5'
+                                        }}
+                                    >
+                                        Year
+                                    </label>
+                                </div>
+                                <div className="form-group">
+                                    <AutoSuggestInput
+                                        className="autosuggest"
+                                        handleChange={
+                                            this.handleSuggestionInputChange
+                                        }
+                                        items={grades}
+                                        name="grade"
+                                        placeholder="Enter class"
+                                    />
+                                    <label
+                                        htmlFor="teamId"
+                                        className="form-label"
+                                        style={{
+                                            color:
+                                                this.state.grade !== ''
+                                                    ? '#74ef5c'
+                                                    : '#bfc0c5'
+                                        }}
+                                    >
+                                        Class
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -367,8 +382,17 @@ export class AddPlayerForm extends Component {
                                 />
                             </div>
                         </div>
+                        <div className="required-label-wrapper">
+                            <span className="required-label">
+                                * These fields are required
+                            </span>
+                        </div>
                     </form>
                 </div>
+                <TeamsList
+                    items={this.props.new.teams}
+                    teams={this.props.teams}
+                />
             </div>
         );
     }
@@ -377,7 +401,9 @@ export class AddPlayerForm extends Component {
 const mapStateToProps = state => ({
     grades: state.players.grades,
     years: state.players.years,
-    tags: state.players.tags
+    tags: state.players.tags,
+    teams: state.players.teams,
+    new: state.players.new
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -386,7 +412,4 @@ const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddPlayerForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddPlayerForm);

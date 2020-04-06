@@ -95,9 +95,6 @@ export class EditChallengeForm extends Component {
                         </div>
                         <div className="right-side">
                             <div className="form-group">
-                                <label htmlFor="name" className="form-label">
-                                    Name
-                                </label>
                                 <input
                                     type="text"
                                     className="form-input"
@@ -106,15 +103,16 @@ export class EditChallengeForm extends Component {
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
                                     value={this.state.name}
+                                    placeholder="Enter name"
                                 />
+                                <label
+                                    htmlFor="name"
+                                    className="form-label required"
+                                >
+                                    Name
+                                </label>
                             </div>
                             <div className="form-group">
-                                <label
-                                    htmlFor="targetSteps"
-                                    className="form-label"
-                                >
-                                    Steps
-                                </label>
                                 <input
                                     type="number"
                                     className="form-input"
@@ -123,7 +121,14 @@ export class EditChallengeForm extends Component {
                                     autoComplete="off"
                                     onChange={this.handleInputChange}
                                     value={this.state.target_steps}
+                                    placeholder="Enter steps"
                                 />
+                                <label
+                                    htmlFor="targetSteps"
+                                    className="form-label required"
+                                >
+                                    Steps
+                                </label>
                             </div>
                         </div>
                     </form>
@@ -145,7 +150,4 @@ const mapDispatchToProps = dispatch => ({
     showAlert: message => dispatch(showAlert(message))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditChallengeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EditChallengeForm);

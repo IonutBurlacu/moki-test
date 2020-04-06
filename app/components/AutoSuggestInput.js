@@ -62,7 +62,7 @@ export default class AutoSuggestInput extends Component {
 
     render() {
         const inputProps = {
-            placeholder: '',
+            placeholder: this.props.placeholder,
             value: this.state.label,
             onChange: this.onChange
         };

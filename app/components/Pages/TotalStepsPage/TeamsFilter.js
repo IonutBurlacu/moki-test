@@ -47,9 +47,9 @@ export class TeamsFilter extends Component {
                     }
                     onClick={this.handleTeamSelectMenu}
                 >
-                    {this.props.totalSteps.teamId && this.props.teams.length
+                    {this.props.teamId && this.props.teams.length
                         ? this.props.teams.find(
-                              team => team.id === this.props.totalSteps.teamId
+                              team => team.id === this.props.teamId
                           ).name
                         : 'Select team'}
                 </button>
@@ -75,7 +75,7 @@ export class TeamsFilter extends Component {
                             <li
                                 key={team.id}
                                 className={
-                                    this.props.totalSteps.teamId === team.id
+                                    this.props.teamId === team.id
                                         ? 'selected'
                                         : ''
                                 }
@@ -98,6 +98,7 @@ export class TeamsFilter extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     totalSteps: state.reports.totalSteps,
     teams: state.reports.teams
 });
@@ -106,7 +107,12 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
     openTotalStepsMenu: menu => dispatch(openTotalStepsMenu(menu)),
     closeTotalStepsMenu: menu => dispatch(closeTotalStepsMenu(menu)),
-    getTotalStepsRequest: (teamId, dateByType, dateByStartDate, dateByEndDate) =>
+    getTotalStepsRequest: (
+        teamId,
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
+    ) =>
         dispatch(
             getTotalStepsRequest(
                 teamId,
@@ -117,7 +123,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TeamsFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamsFilter);

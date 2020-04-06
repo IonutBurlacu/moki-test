@@ -9,7 +9,6 @@ import {
     getChallengesRequest,
     viewChallengeRequest
 } from '../../actions/challenges';
-import { viewTeamRequest } from '../../actions/teams';
 import { showLoader } from '../../actions/loader';
 import defaultAvatar from '../../images/default_avatar.png';
 import teamsIconWide from '../../images/teams_icon_wide.png';
@@ -32,8 +31,6 @@ export class ChallengesPage extends Component {
     };
 
     handleTeamView = id => {
-        this.props.viewTeamRequest(id);
-        this.props.showLoader();
         this.props.history.push(`/teams/view/${id}`);
     };
 
@@ -57,7 +54,14 @@ export class ChallengesPage extends Component {
                                             ? `${s3URL}${challenge.avatar}`
                                             : defaultAvatar;
                                         return (
-                                            <tr key={challenge.id}>
+                                            <tr
+                                                key={challenge.id}
+                                                onClick={() =>
+                                                    this.handleView(
+                                                        challenge.id
+                                                    )
+                                                }
+                                            >
                                                 <td>
                                                     <div
                                                         className="avatar"
@@ -66,13 +70,7 @@ export class ChallengesPage extends Component {
                                                         }}
                                                     />
                                                 </td>
-                                                <td
-                                                    onClick={() =>
-                                                        this.handleView(
-                                                            challenge.id
-                                                        )
-                                                    }
-                                                >
+                                                <td>
                                                     <h1 className="title">
                                                         {challenge.name}
                                                     </h1>
@@ -103,11 +101,9 @@ export class ChallengesPage extends Component {
                                                                 alt="icon"
                                                             />
                                                             <span className="icon-label">
-                                                                {`${
-                                                                    challenge.players_count
-                                                                } Player`}
+                                                                {`${challenge.players_count} Player`}
                                                                 {challenge.players_count !==
-                                                                0
+                                                                1
                                                                     ? 's'
                                                                     : ''}
                                                             </span>
@@ -164,7 +160,14 @@ export class ChallengesPage extends Component {
                                         <tr className="no-items-row">
                                             <td>
                                                 <span>
-                                                    There are no challenges yet.
+                                                    This list is looking very
+                                                    empty!{' '}
+                                                    <Link
+                                                        to="/challenges/add"
+                                                        className="no-items-row-button"
+                                                    >
+                                                        Add Challenges here
+                                                    </Link>
                                                 </span>
                                             </td>
                                         </tr>
@@ -197,11 +200,7 @@ const mapDispatchToProps = dispatch => ({
     getChallengesRequest: dateByType =>
         dispatch(getChallengesRequest(dateByType)),
     viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
-    viewTeamRequest: id => dispatch(viewTeamRequest(id)),
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ChallengesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengesPage);

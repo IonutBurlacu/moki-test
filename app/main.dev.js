@@ -62,7 +62,16 @@ app.on('ready', async () => {
     mainWindow = new BrowserWindow({
         show: false,
         minWidth: 1300,
-        minHeight: 700
+        minHeight: 700,
+        width: 1300,
+        height: 700
+    });
+
+    mainWindow.on('resize', () => {
+        setTimeout(() => {
+            const size = mainWindow.getSize();
+            mainWindow.setSize(size[0], parseInt((size[0] * 7) / 13, 10));
+        }, 0);
     });
 
     if (process.env.NODE_ENV === 'local') {

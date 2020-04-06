@@ -24,7 +24,10 @@ export function* teamsFetchList(action) {
 
     yield put({
         type: 'GET_TEAMS',
-        teams: decoded.teams
+        teams: decoded.teams,
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
     });
 
     yield put({
@@ -48,9 +51,25 @@ export function* teamStats(action) {
     yield put({
         type: 'STATS_TEAM',
         data: decoded.data,
-        dateByType: action.dateByType,
-        dateByStartDate: action.dateByStartDate,
-        dateByEndDate: action.dateByEndDate
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
+    });
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+}
+
+export function* teamCreate() {
+    const token = yield select(getToken);
+    const response = yield call(TeamsAPI.create, { Authorization: token });
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'CREATE_TEAM',
+        players: decoded.players
     });
 
     yield put({
@@ -141,7 +160,10 @@ export function* teamView(action) {
 
     yield put({
         type: 'VIEW_TEAM',
-        team: decoded.team
+        team: decoded.team,
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
     });
 
     yield put({

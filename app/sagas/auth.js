@@ -1,5 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import moment from 'moment-timezone';
 import { getToken } from '../selectors/auth';
 import decrypt from '../utils/decrypt';
 import AuthAPI from '../apis/auth';
@@ -7,11 +8,13 @@ import appVersion from '../constants/appVersion';
 
 export function* login(action) {
     try {
+        const timezone = moment.tz.guess();
         const response = yield call(
             AuthAPI.login,
-            {},
+            { 'App-Version': appVersion },
             action.email,
-            action.password
+            action.password,
+            timezone
         );
 
         const decoded = decrypt(response.data);
@@ -23,7 +26,8 @@ export function* login(action) {
             token: decoded.token,
             schoolName: decoded.school_name,
             fullName: decoded.full_name,
-            email: decoded.email
+            email: decoded.email,
+            avatar: decoded.avatar
         });
 
         yield put({
@@ -119,6 +123,40 @@ export function* deleteAccount(action) {
     }
 }
 
+export function* updateAvatar(action) {
+    const token = yield select(getToken);
+    const response = yield call(
+        AuthAPI.updateAvatar,
+        {
+            Authorization: token
+        },
+        action.school
+    );
+
+    const decoded = decrypt(response.data);
+
+    yield put({
+        type: 'HIDE_LOADER'
+    });
+
+    if (decoded.success) {
+        yield put({
+            type: 'SHOW_ALERT',
+            message: decoded.message
+        });
+
+        yield put({
+            type: 'UPDATE_AVATAR',
+            avatar: decoded.avatar
+        });
+    } else {
+        yield put({
+            type: 'SHOW_ALERT',
+            message: 'Failed to save avatar.'
+        });
+    }
+}
+
 export function* changeSetting(action) {
     const token = yield select(getToken);
     yield call(
@@ -151,10 +189,12 @@ export function* getSettings() {
 
     yield put({
         type: 'GET_SETTINGS',
-        ignoreWeekend: !!decoded.ignore_weekend,
         hideTotals: !!decoded.hide_totals,
-        minHourId: decoded.min_hour_id,
-        maxHourId: decoded.max_hour_id
+        schoolName: decoded.school_name,
+        schoolId: decoded.school_id,
+        fullName: decoded.full_name,
+        email: decoded.email,
+        avatar: decoded.avatar
     });
 
     yield put({

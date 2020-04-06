@@ -8,7 +8,6 @@ import LoginForm from './LoginPage/LoginForm';
 import Alert from '../Alert';
 import { showLoader } from '../../actions/loader';
 import { getVersionRequest } from '../../actions/auth';
-import host from '../../constants/serverUrl';
 
 import appVersion from '../../constants/appVersion';
 
@@ -23,12 +22,16 @@ class LoginPage extends Component {
     };
 
     handleVideoTutorials = () => {
-        shell.openExternal('https://moki.technology/pages/faq');
+        shell.openExternal('https://moki.technology/pages/help-centre');
+    };
+
+    handleSignUp = () => {
+        shell.openExternal('https://app.moki.technology/register');
     };
 
     render() {
         return (
-            <div className="container">
+            <div className="container container-light">
                 <Header
                     leftButton={<div />}
                     rightButton={
@@ -41,10 +44,19 @@ class LoginPage extends Component {
                     }
                 />
                 <div className="content">
-                    <PageTitle title="Login" />
+                    <PageTitle title="Hello!" />
                     <LoginForm history={this.props.history} />
-                    <p className="current-app-version">{`App version: ${appVersion}`}</p>
-                    <p className="current-app-version">{`App version: ${host}`}</p>
+                    <p className="sign-up-wrapper">
+                        Don't have an account yet?{' '}
+                        <button
+                            type="button"
+                            className="sign-up-button"
+                            onClick={this.handleSignUp}
+                        >
+                            Sign Up
+                        </button>
+                    </p>
+                    <p className="current-app-version">{`Moki App Version: ${appVersion}`}</p>
                 </div>
                 <Alert />
                 <Loader />
@@ -62,7 +74,4 @@ const mapDispatchToProps = dispatch => ({
     getVersionRequest: () => dispatch(getVersionRequest())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

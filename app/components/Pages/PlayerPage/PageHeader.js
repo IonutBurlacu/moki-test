@@ -21,10 +21,8 @@ export default class PageHeader extends Component {
                         />
                     </div>
                     <div className="right-side">
-                        <h3 className="title">
-                            {`${this.props.player.first_name} ${
-                                this.props.player.last_name
-                            }`}
+                        <h3 className="title not-bold">
+                            {`${this.props.player.first_name} ${this.props.player.last_name}`}
                         </h3>
                         <span className="subtitle">
                             {`Age ${this.props.player.age}`},{' '}
@@ -33,20 +31,6 @@ export default class PageHeader extends Component {
                                 : 'Girl'}
                         </span>
                     </div>
-                </div>
-                <div className="col column">
-                    <h1 className="steps">
-                        {this.props.player.total_steps.toLocaleString()}
-                        <small>steps</small>
-                    </h1>
-                    <span className="average">
-                        Average{' '}
-                        {parseInt(
-                            this.props.player.avg_steps,
-                            10
-                        ).toLocaleString()}{' '}
-                        per day
-                    </span>
                 </div>
                 <div className="col column right">
                     <div className="row">
@@ -59,7 +43,7 @@ export default class PageHeader extends Component {
                     </div>
                     <div className="row">
                         <span>
-                            Created:{' '}
+                            Joined:{' '}
                             {moment
                                 .utc(this.props.player.created_at)
                                 .local()

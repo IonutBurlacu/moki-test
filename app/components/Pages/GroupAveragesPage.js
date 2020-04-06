@@ -8,13 +8,13 @@ import { showLoader } from '../../actions/loader';
 import { getGroupAveragesRequest } from '../../actions/reports';
 import GroupAveragesChart from './GroupAveragesPage/GroupAveragesChart';
 import TopFilters from './GroupAveragesPage/TopFilters';
-import { ChartScale } from './GroupAveragesPage/ChartScale';
+import SideDetails from '../SideDetails';
 
 export class GroupAveragesPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getGroupAveragesRequest(
-            this.props.groupAverages.teamId,
+            this.props.teamId,
             this.props.groupAverages.dateByType,
             this.props.groupAverages.dateByStartDate,
             this.props.groupAverages.dateByEndDate
@@ -30,11 +30,24 @@ export class GroupAveragesPage extends Component {
                 />
                 {!this.props.loading ? (
                     <div className="content">
-                        <TopFilters />
                         <PageTitle title="Group Averages" />
+                        <TopFilters />
                         <div className="chart-with-scale">
                             <GroupAveragesChart />
-                            <ChartScale />
+                            <SideDetails
+                                extraStyle={{ marginTop: '5vmin' }}
+                                daily_steps={
+                                    this.props.groupAverages.data.average
+                                        .daily_steps
+                                }
+                                mvpa_minutes={
+                                    this.props.groupAverages.data.average
+                                        .mvpa_minutes
+                                }
+                                grade={
+                                    this.props.groupAverages.data.average.grade
+                                }
+                            />
                         </div>
                     </div>
                 ) : (
@@ -48,6 +61,7 @@ export class GroupAveragesPage extends Component {
 
 const mapStateToProps = state => ({
     loading: state.reports.loading,
+    teamId: state.reports.teamId,
     groupAverages: state.reports.groupAverages
 });
 
@@ -69,7 +83,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(GroupAveragesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupAveragesPage);

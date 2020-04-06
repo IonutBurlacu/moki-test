@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NFC } from 'nfc-pcsc';
+import usbDetect from 'usb-detection';
 import _ from 'lodash';
 import { push } from 'react-router-redux';
 import moment from 'moment';
@@ -27,21 +28,70 @@ export class NFCListener extends Component {
     constructor(props) {
         super(props);
 
-        this.nfc = new NFC();
+        usbDetect.startMonitoring();
+        usbDetect.find((err, devices) => {
+            for (let i = 0; i < devices.length; i++) {
+                if (
+                    devices[i].deviceName.includes('NFC Port') ||
+                    devices[i].deviceName.includes('ACR1252')
+                ) {
+                    this.initNFC();
+                }
+            }
+        });
+        usbDetect.on('add', device => {
+            if (
+                device.deviceName.includes('NFC Port') ||
+                device.deviceName.includes('ACR1252')
+            ) {
+                this.initNFC();
+                this.props.showAlert('The Moki Reader has been connected.');
+            }
+        });
+        usbDetect.on('remove', device => {
+            if (
+                device.deviceName.includes('NFC Port') ||
+                device.deviceName.includes('ACR1252')
+            ) {
+                this.nfc = null;
+            }
+        });
+        this.syncTimeout = null;
 
         this.state = {
             allSteps: [],
             uuid: ''
         };
+    }
+
+    initNFC() {
+        this.nfc = new NFC();
 
         this.nfc.on('reader', reader => {
             console.log(`${reader.reader.name}  device attached`);
 
             reader.on('card', card => {
                 console.log(`Card detected ${card.uid}`);
+
+                // Turn the buzzer off.
+                const turnOffBuzzer = Buffer.from([
+                    0xff,
+                    0x00,
+                    0x52,
+                    0x00,
+                    0x00
+                ]);
+                reader.transmit(turnOffBuzzer, 8);
+
+                // If the user is not logged in, skip all.
+                if (this.props.token === null) {
+                    return;
+                }
+
                 if (this.props.pairing) {
                     if (this.props.selectedPlayerId !== null) {
                         this.props.showLoader();
+                        // this.resetSteps(reader, true);
                         this.writeCurrentDate(reader);
                         // Read the battery level.
                         reader
@@ -73,9 +123,14 @@ export class NFCListener extends Component {
                     this.props.playSyncSound();
                     this.readBatteryLevel(reader, card.uid);
                 } else {
-                    this.props.showLoader();
-                    this.setState({ uuid: card.uid });
-                    this.readDays(reader);
+                    if (this.syncTimeout === null) {
+                        this.syncTimeout = setTimeout(() => {
+                            this.syncTimeout = null;
+                        }, 1000);
+                        this.props.showLoader();
+                        this.setState({ uuid: card.uid });
+                        this.readDays(reader);
+                    }
                     this.props.push('/bands/sync');
                 }
             });
@@ -144,6 +199,10 @@ export class NFCListener extends Component {
                 return true;
             })
             .catch(error => {
+                this.props.hideLoader();
+                this.props.showAlert(
+                    'Failed to complete Sync. Please hold the Band on the Reader for longer.'
+                );
                 console.log('Error while setting current date: ', error);
                 return false;
             });
@@ -183,6 +242,10 @@ export class NFCListener extends Component {
                             return true;
                         })
                         .catch(error => {
+                            this.props.hideLoader();
+                            this.props.showAlert(
+                                'Failed to complete Sync. Please hold the Band on the Reader for longer.'
+                            );
                             console.log(
                                 'Error while reading battery levels: ',
                                 error
@@ -206,15 +269,14 @@ export class NFCListener extends Component {
                     ]).format('YYYY-MM-DD');
                     this.readDay(reader, DAYS[index], date, done);
                 });
-                // if (!dayFound) {
-                //     this.props.hideLoader();
-                //     this.props.playSyncSound();
-                //     this.props.showAlert('No steps found on the band.');
-                // }
 
                 return true;
             })
             .catch(error => {
+                this.props.hideLoader();
+                this.props.showAlert(
+                    'Failed to complete Sync. Please hold the Band on the Reader for longer.'
+                );
                 console.log(`error`, error);
             });
     };
@@ -260,6 +322,10 @@ export class NFCListener extends Component {
                 return true;
             })
             .catch(error => {
+                this.props.hideLoader();
+                this.props.showAlert(
+                    'Failed to complete Sync. Please hold the Band on the Reader for longer.'
+                );
                 console.log(`error`, error);
             });
     };
@@ -275,12 +341,16 @@ export class NFCListener extends Component {
                 return true;
             })
             .catch(error => {
+                this.props.hideLoader();
+                this.props.showAlert(
+                    'Failed to complete Sync. Please hold the Band on the Reader for longer.'
+                );
                 console.log('Error while reading battery levels: ', error);
             });
     };
 
     resetSteps = (reader, setDate = true) => {
-        const data = Buffer.from([0x89, 0x00, 0x00, 0x00]);
+        const data = Buffer.from([0x88, 0x00, 0x00, 0x00]);
         reader
             .write(0xc2, data)
             .then(() => {
@@ -291,6 +361,10 @@ export class NFCListener extends Component {
                 return true;
             })
             .catch(error => {
+                this.props.hideLoader();
+                this.props.showAlert(
+                    'Failed to complete Sync. Please hold the Band on the Reader for longer.'
+                );
                 console.log('Error while resetting steps: ', error);
             });
     };
@@ -301,6 +375,7 @@ export class NFCListener extends Component {
 }
 
 const mapStateToProps = state => ({
+    token: state.auth.token,
     pairing: state.bands.pairing,
     battery_reading: state.bands.battery_reading,
     selectedPlayerId: state.bands.selectedPlayerId
@@ -320,7 +395,4 @@ const mapDispatchToProps = dispatch => ({
     playFailSound: () => dispatch(playFailSound())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(NFCListener);
+export default connect(mapStateToProps, mapDispatchToProps)(NFCListener);

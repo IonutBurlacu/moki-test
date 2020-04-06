@@ -24,27 +24,26 @@ export class LoginForm extends Component {
     };
 
     handleSubmit = () => {
-        if (this.state.email === '' || this.state.password === '') {
-            this.props.showAlert('Please complete all the required fields.');
+        if (navigator.onLine) {
+            if (this.state.email === '' || this.state.password === '') {
+                this.props.showAlert(
+                    'Please complete all the required fields.'
+                );
+            } else {
+                store.set('email', this.state.email);
+                this.props.showLoader();
+                this.props.loginRequest(this.state.email, this.state.password);
+            }
         } else {
-            store.set('email', this.state.email);
-            this.props.showLoader();
-            this.props.loginRequest(this.state.email, this.state.password);
+            this.props.showAlert('No internet connection.');
         }
     };
 
     render() {
         return (
             <div className="login-form">
-                <h1 className="login-form__title">
-                    Please enter details to get started
-                </h1>
                 <form action="">
-                    <div className="login-form__separator" />
                     <div className="form-group">
-                        <label htmlFor="email" className="form-label">
-                            Email
-                        </label>
                         <input
                             type="text"
                             className="form-input"
@@ -52,34 +51,40 @@ export class LoginForm extends Component {
                             name="email"
                             value={this.state.email}
                             onChange={this.handleInputChange}
+                            placeholder="Enter email"
                         />
+                        <label htmlFor="email" className="form-label">
+                            Email
+                        </label>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password" className="form-label">
-                            Password
-                        </label>
                         <input
                             type="password"
                             className="form-input"
                             id="password"
                             name="password"
                             onChange={this.handleInputChange}
+                            placeholder="Enter password"
                         />
+                        <label htmlFor="password" className="form-label">
+                            Password
+                        </label>
                     </div>
-                    <div className="login-form__separator" />
-                    <button
-                        type="button"
-                        className="login-form__button"
-                        onClick={this.handleSubmit}
-                    >
-                        Done
-                    </button>
-                    <Link
-                        className="forgot-password-link"
-                        to="/forgot_password"
-                    >
-                        Forgot password?
-                    </Link>
+                    <div className="login-buttons">
+                        <button
+                            type="button"
+                            className="login-form__button"
+                            onClick={this.handleSubmit}
+                        >
+                            Log in
+                        </button>
+                        <Link
+                            className="forgot-password-link"
+                            to="/forgot_password"
+                        >
+                            Forgot password?
+                        </Link>
+                    </div>
                 </form>
             </div>
         );
@@ -92,7 +97,4 @@ const mapDispatchToProps = dispatch => ({
     loginRequest: (email, password) => dispatch(loginRequest(email, password))
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(LoginForm);
+export default connect(undefined, mapDispatchToProps)(LoginForm);

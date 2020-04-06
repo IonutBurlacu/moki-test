@@ -6,10 +6,11 @@ import encrypt from '../utils/encrypt';
 const root = '/api/auth';
 
 export default class AuthAPI {
-    static login(headers = {}, email, password) {
+    static login(headers = {}, email, password, timezone) {
         const encrypted = encrypt({
             email,
-            password
+            password,
+            timezone
         });
         return new Promise((resolve, reject) => {
             axios({
@@ -64,6 +65,26 @@ export default class AuthAPI {
             },
             data: {
                 encrypted
+            }
+        });
+    }
+
+    static updateAvatar(headers = {}, school) {
+        const formData = new FormData();
+        formData.append('avatar', school.file);
+        const encrypted = encrypt({
+            test: 'test'
+        });
+        formData.append('encrypted', encrypted);
+        // if (school.file) {
+
+        // } else {
+        //     formData.append('default_avatar', school.default_avatar);
+        // }
+        return axios.post(`${host}${root}/update_avatar`, formData, {
+            headers: {
+                ...headers,
+                'Content-Type': 'multipart/form-data'
             }
         });
     }

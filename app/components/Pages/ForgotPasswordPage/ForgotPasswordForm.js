@@ -36,16 +36,17 @@ export class ForgotPasswordForm extends Component {
                 <form action="">
                     <div className="login-form__separator" />
                     <div className="form-group">
-                        <label htmlFor="email" className="form-label">
-                            Email
-                        </label>
                         <input
                             type="text"
                             className="form-input"
                             id="email"
                             name="email"
                             onChange={this.handleInputChange}
+                            placeholder="Enter email"
                         />
+                        <label htmlFor="email" className="form-label required">
+                            Email
+                        </label>
                     </div>
                     <div className="login-form__separator" />
                     <button
@@ -68,7 +69,4 @@ const mapDispatchToProps = dispatch => ({
         dispatch(forgotPasswordRequest(email, className))
 });
 
-export default connect(
-    undefined,
-    mapDispatchToProps
-)(ForgotPasswordForm);
+export default connect(undefined, mapDispatchToProps)(ForgotPasswordForm);

@@ -7,7 +7,6 @@ import encrypt from '../../../utils/encrypt';
 import { showLoader, hideLoader } from '../../../actions/loader';
 import { showAlert } from '../../../actions/alert';
 import {
-    getDownloadPdfTeamsRequest,
     changeDownloadPdfTeamsDateByType,
     openDownloadPdfMenu,
     closeDownloadPdfMenu
@@ -17,12 +16,12 @@ import DateBy from '../../DateBy';
 
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
-        if (this.props.downloadPdf.teamId === null) {
+        if (this.props.teamId === null) {
             this.props.showAlert('Please select at least one Team.');
             return;
         }
         const encrypted = encrypt({
-            team_id: this.props.downloadPdf.teamId,
+            team_id: this.props.teamId,
             type: this.props.downloadPdf.dateByType,
             start_date: this.props.downloadPdf.dateByStartDate,
             end_date: this.props.downloadPdf.dateByEndDate
@@ -46,15 +45,13 @@ export class TopFilters extends Component {
                 );
                 const link = document.createElement('a');
                 link.href = url;
-                const teamName = this.props.downloadPdf.teams
-                    .find(team => team.id === this.props.downloadPdf.teamId)
+                const teamName = this.props.teams
+                    .find(team => team.id === this.props.teamId)
                     .name.split(' ')
                     .join('_');
                 link.setAttribute(
                     'download',
-                    `MOKI_${teamName}_all_reports_${
-                        this.props.downloadPdf.dateByType
-                    }.pdf`
+                    `MOKI_${teamName}_all_reports_${this.props.downloadPdf.dateByType}.pdf`
                 );
                 document.body.appendChild(link);
                 link.click();
@@ -69,15 +66,12 @@ export class TopFilters extends Component {
     render() {
         return (
             <div className="top-filters">
-                <div className="left-side">
-                    <SortBy />
-                </div>
+                <div className="left-side"></div>
                 <div className="center-side">
                     <DateBy
                         startDate={this.props.downloadPdf.dateByStartDate}
                         endDate={this.props.downloadPdf.dateByEndDate}
                         dateSelectOpen={this.props.downloadPdf.dateSelectOpen}
-                        fetchNewData={this.props.getDownloadPdfTeamsRequest}
                         changeDateType={
                             this.props.changeDownloadPdfTeamsDateByType
                         }
@@ -91,7 +85,7 @@ export class TopFilters extends Component {
                         <button
                             type="button"
                             className={
-                                this.props.downloadPdf.teamId !== null
+                                this.props.teamId !== null
                                     ? 'filter-button active'
                                     : 'filter-button'
                             }
@@ -107,7 +101,9 @@ export class TopFilters extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     token: state.auth.token,
+    teams: state.reports.teams,
     downloadPdf: state.reports.downloadPdf
 });
 
@@ -128,18 +124,7 @@ const mapDispatchToProps = dispatch => ({
                 dateByStartDate,
                 dateByEndDate
             )
-        ),
-    getDownloadPdfTeamsRequest: (
-        dateByType,
-        dateByStartDate = moment.utc().local(),
-        dateByEndDate = moment.utc().local()
-    ) =>
-        dispatch(
-            getDownloadPdfTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TopFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(TopFilters);

@@ -3,6 +3,7 @@ import {
     login,
     changePassword,
     deleteAccount,
+    updateAvatar,
     changeSetting,
     getSettings,
     forgotPassword,
@@ -24,6 +25,7 @@ import {
 
 import {
     teamsFetchList,
+    teamCreate,
     teamInsert,
     teamEdit,
     teamUpdate,
@@ -59,9 +61,7 @@ import {
     getReportsTeams,
     getPlayerAverages,
     getGroupAverages,
-    getTotalSteps,
-    getDownloadPdfTeams,
-    getDownloadCsvTeams
+    getTotalSteps
 } from './reports';
 
 export default function* sagas() {
@@ -70,6 +70,7 @@ export default function* sagas() {
         fork(takeLatest, 'FORGOT_PASSWORD_REQUEST', forgotPassword),
         fork(takeLatest, 'CHANGE_PASSWORD_REQUEST', changePassword),
         fork(takeLatest, 'DELETE_ACCOUNT_REQUEST', deleteAccount),
+        fork(takeLatest, 'UPDATE_AVATAR_REQUEST', updateAvatar),
         fork(takeLatest, 'CHANGE_SETTING_REQUEST', changeSetting),
         fork(takeLatest, 'GET_SETTINGS_REQUEST', getSettings),
         fork(takeLatest, 'GET_VERSION_REQUEST', getVersion),
@@ -81,8 +82,6 @@ export default function* sagas() {
         fork(takeLatest, 'GET_PLAYER_AVERAGES_REQUEST', getPlayerAverages),
         fork(takeLatest, 'GET_GROUP_AVERAGES_REQUEST', getGroupAverages),
         fork(takeLatest, 'GET_TOTAL_STEPS_REQUEST', getTotalSteps),
-        fork(takeLatest, 'GET_DOWNLOAD_PDF_TEAMS_REQUEST', getDownloadPdfTeams),
-        fork(takeLatest, 'GET_DOWNLOAD_CSV_TEAMS_REQUEST', getDownloadCsvTeams),
 
         fork(takeLatest, 'GET_CHALLENGES_REQUEST', challengesFetchList),
         fork(takeLatest, 'CREATE_CHALLENGE_REQUEST', challengeCreate),
@@ -113,6 +112,7 @@ export default function* sagas() {
         ),
 
         fork(takeLatest, 'GET_TEAMS_REQUEST', teamsFetchList),
+        fork(takeLatest, 'CREATE_TEAM_REQUEST', teamCreate),
         fork(takeLatest, 'INSERT_TEAM_REQUEST', teamInsert),
         fork(takeLatest, 'EDIT_TEAM_REQUEST', teamEdit),
         fork(takeLatest, 'UPDATE_TEAM_REQUEST', teamUpdate),

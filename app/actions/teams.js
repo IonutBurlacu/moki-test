@@ -9,9 +9,17 @@ export const getTeamsRequest = (
     dateByEndDate
 });
 
-export const getTeams = teams => ({
+export const getTeams = (
+    teams,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
     type: 'GET_TEAMS',
-    teams
+    teams,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const changeTeamsDateByType = (
@@ -45,14 +53,25 @@ export const clearTeamsListFilter = () => ({
     type: 'CLEAR_TEAMS_LIST_FILTER'
 });
 
-export const viewTeamRequest = id => ({
+export const viewTeamRequest = (
+    id,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
+) => ({
     type: 'VIEW_TEAM_REQUEST',
-    id
+    id,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
-export const viewTeam = team => ({
+export const viewTeam = (team, dateByType, dateByStartDate, dateByEndDate) => ({
     type: 'VIEW_TEAM',
-    team
+    team,
+    dateByType,
+    dateByStartDate,
+    dateByEndDate
 });
 
 export const statsTeamRequest = (
@@ -91,6 +110,15 @@ export const deleteTeamRequest = id => ({
 export const deleteTeam = id => ({
     type: 'DELETE_TEAM',
     id
+});
+
+export const createTeamRequest = () => ({
+    type: 'CREATE_TEAM_REQUEST'
+});
+
+export const createTeam = players => ({
+    type: 'CREATE_TEAM',
+    players
 });
 
 export const insertTeamRequest = team => ({
@@ -169,6 +197,16 @@ export const detachTeamFromChallenge = challengeId => ({
     challengeId
 });
 
+export const attachNewTeamToPlayer = playerId => ({
+    type: 'ATTACH_NEW_TEAM_TO_PLAYER',
+    playerId
+});
+
+export const detachNewTeamFromPlayer = playerId => ({
+    type: 'DETACH_NEW_TEAM_FROM_PLAYER',
+    playerId
+});
+
 export const openTeamsMenu = menu => ({
     type: 'OPEN_TEAMS_MENU',
     menu
@@ -181,4 +219,9 @@ export const closeTeamsMenu = menu => ({
 
 export const closeAllTeamsMenu = () => ({
     type: 'CLOSE_ALL_TEAMS_MENU'
+});
+
+export const changeTeamsChartType = chartType => ({
+    type: 'CHANGE_TEAMS_CHART_TYPE',
+    chartType
 });

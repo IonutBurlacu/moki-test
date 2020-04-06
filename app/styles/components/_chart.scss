@@ -14,7 +14,7 @@
             display: flex;
             flex-direction: column;
             margin-bottom: 2vmin;
-            padding: 0 7vmin;
+            padding: 0 3.9vmin 0 7vmin;
 
             .chart-bottom-line {
                 display: flex;
@@ -76,53 +76,47 @@
                     }
                 }
 
-                .center-side {
-                    color: white;
-                    font-size: 2.8vmin;
-                    justify-content: center;
+                .positive {
+                    color: #74ef5c;
 
-                    .positive {
-                        color: #23dec8;
-
-                        .percentage-icon {
-                            border-color: transparent transparent #23dec8
-                                transparent;
-                            border-style: solid;
-                            border-width: 0 1.2vmin 2.2vmin 1.2vmin;
-                            display: inline-block;
-                            height: 0;
-                            margin-left: 2vmin;
-                            margin-right: 1vmin;
-                            vertical-align: middle;
-                            width: 0;
-                        }
-
-                        .percentage {
-                            font-size: 4vmin;
-                            vertical-align: middle;
-                        }
+                    .percentage-icon {
+                        border-color: transparent transparent #74ef5c
+                            transparent;
+                        border-style: solid;
+                        border-width: 0 1.2vmin 2.2vmin 1.2vmin;
+                        display: inline-block;
+                        height: 0;
+                        margin-left: 2vmin;
+                        margin-right: 1vmin;
+                        vertical-align: middle;
+                        width: 0;
                     }
 
-                    .negative {
-                        color: #fe335e;
+                    .percentage {
+                        font-size: 3vmin;
+                        vertical-align: middle;
+                    }
+                }
 
-                        .percentage-icon {
-                            border-color: #fe335e transparent transparent
-                                transparent;
-                            border-style: solid;
-                            border-width: 2.2vmin 1.2vmin 0 1.2vmin;
-                            display: inline-block;
-                            height: 0;
-                            margin-left: 2vmin;
-                            margin-right: 1vmin;
-                            vertical-align: middle;
-                            width: 0;
-                        }
+                .negative {
+                    color: #fe335e;
 
-                        .percentage {
-                            font-size: 4vmin;
-                            vertical-align: middle;
-                        }
+                    .percentage-icon {
+                        border-color: #fe335e transparent transparent
+                            transparent;
+                        border-style: solid;
+                        border-width: 2.2vmin 1.2vmin 0 1.2vmin;
+                        display: inline-block;
+                        height: 0;
+                        margin-left: 2vmin;
+                        margin-right: 1vmin;
+                        vertical-align: middle;
+                        width: 0;
+                    }
+
+                    .percentage {
+                        font-size: 3vmin;
+                        vertical-align: middle;
                     }
                 }
 
@@ -143,7 +137,12 @@
     .chart-container {
         flex: 1;
 
+        .chart-top-bar {
+            display: flex;
+        }
+
         .legend {
+            flex: 1;
             padding: 1vmin 0 1vmin 10vmin;
 
             .team {
@@ -160,10 +159,30 @@
             }
         }
 
+        .players {
+            align-items: center;
+            display: flex;
+            flex: 1;
+            justify-content: flex-end;
+            padding: 1vmin 4vmin 1vmin 0;
+
+            .players-icon {
+                height: 5vmin;
+            }
+
+            .players-number {
+                color: white;
+            }
+        }
+
         .chart {
-            height: 40vmin;
+            height: 37vmin;
             margin-top: 0;
             width: 100%;
+        }
+
+        .total {
+            margin-right: 4vmin;
         }
     }
 }
@@ -222,6 +241,86 @@
                 margin-bottom: 2vmin;
                 text-align: center;
             }
+        }
+    }
+}
+
+.side-details-container {
+    align-items: center;
+    border-left: 1px solid #3e3e4b;
+    display: flex;
+    flex-direction: column;
+    padding: 1vmin 4vmin 1.2vmin 3vmin;
+    width: 35vmin;
+
+    .title {
+        color: white;
+        font-size: 3vmin;
+        margin-top: 0;
+        margin-bottom: 1.4vmin;
+        text-align: center;
+    }
+
+    .grade {
+        margin-bottom: 1.2vmin;
+        width: 14vmin;
+    }
+
+    .grade-text {
+        font-size: 2.4vmin;
+        margin: 0;
+    }
+
+    .grade-text-A {
+        color: #77f55e;
+    }
+
+    .grade-text-B {
+        color: #23dec8;
+    }
+
+    .grade-text-C {
+        color: #fee300;
+    }
+
+    .grade-text-D {
+        color: #fc9cac;
+    }
+
+    .grade-text-E {
+        color: #fe335e;
+    }
+
+    .separator {
+        background: #373743;
+        height: 1px;
+        margin: 2vmin 0;
+        width: 100%;
+    }
+
+    .details-box {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+
+        .steps,
+        .mvpa {
+            margin-right: 2vmin;
+            width: 5.5vmin;
+        }
+
+        .top-text {
+            color: white;
+            font-size: 4vmin;
+            line-height: 4vmin;
+            margin-top: 0;
+            margin-bottom: 1vmin;
+        }
+
+        .bottom-text {
+            color: white;
+            font-size: 2vmin;
+            margin: 0;
         }
     }
 }

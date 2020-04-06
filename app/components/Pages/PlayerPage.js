@@ -3,15 +3,26 @@ import { connect } from 'react-redux';
 import Link from 'react-router-dom/Link';
 import Footer from '../Footer';
 import { Header } from '../Header';
-import { editPlayerRequest } from '../../actions/players';
+import { viewPlayerRequest, editPlayerRequest } from '../../actions/players';
 import { showLoader } from '../../actions/loader';
 import PageHeader from './PlayerPage/PageHeader';
 import PlayerChart from './PlayerPage/PlayerChart';
 import TeamsList from './PlayerPage/TeamsList';
 import ChallengesList from './PlayerPage/ChallengesList';
 import TopFilters from './PlayerPage/TopFilters';
+import SideDetails from '../SideDetails';
 
 export class PlayerPage extends Component {
+    componentWillMount() {
+        this.props.viewPlayerRequest(
+            this.props.match.params.id,
+            this.props.dateByType,
+            this.props.dateByStartDate,
+            this.props.dateByEndDate
+        );
+        this.props.showLoader();
+    }
+
     handleEdit = id => {
         this.props.showLoader();
         this.props.editPlayerRequest(id);
@@ -42,8 +53,17 @@ export class PlayerPage extends Component {
                     <div className="content">
                         <PageHeader player={this.props.player} />
                         <TopFilters />
-                        <div className="charts-container">
+                        <div className="charts-container chart-with-scale">
                             <PlayerChart />
+                            <SideDetails
+                                daily_steps={
+                                    this.props.player.data.average.daily_steps
+                                }
+                                mvpa_minutes={
+                                    this.props.player.data.average.mvpa_minutes
+                                }
+                                grade={this.props.player.data.average.grade}
+                            />
                         </div>
                         <div className="two-sides">
                             <div className="side">
@@ -75,15 +95,19 @@ const mapStateToProps = state => ({
     player: state.players.player,
     loading: state.players.loading,
     teams: state.players.teams,
-    challenges: state.players.challenges
+    challenges: state.players.challenges,
+    dateByType: state.players.dateByType,
+    dateByStartDate: state.players.dateByStartDate,
+    dateByEndDate: state.players.dateByEndDate
 });
 
 const mapDispatchToProps = dispatch => ({
     editPlayerRequest: id => dispatch(editPlayerRequest(id)),
+    viewPlayerRequest: (id, dateByType, dateByStartDate, dateByEndDate) =>
+        dispatch(
+            viewPlayerRequest(id, dateByType, dateByStartDate, dateByEndDate)
+        ),
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PlayerPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerPage);

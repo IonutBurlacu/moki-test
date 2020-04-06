@@ -8,13 +8,13 @@ import { showLoader } from '../../actions/loader';
 import { getPlayerAveragesRequest } from '../../actions/reports';
 import PlayerAveragesChart from './PlayerAveragesPage/PlayerAveragesChart';
 import TopFilters from './PlayerAveragesPage/TopFilters';
-import { ChartScale } from './PlayerAveragesPage/ChartScale';
+import SideDetails from '../SideDetails';
 
 export class PlayerAveragesPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getPlayerAveragesRequest(
-            this.props.playerAverages.teamId,
+            this.props.teamId,
             this.props.playerAverages.dateByType,
             this.props.playerAverages.dateByStartDate,
             this.props.playerAverages.dateByEndDate
@@ -30,11 +30,24 @@ export class PlayerAveragesPage extends Component {
                 />
                 {!this.props.loading ? (
                     <div className="content">
+                        <PageTitle title="Player Variation" />
                         <TopFilters />
-                        <PageTitle title="Player Averages" />
                         <div className="chart-with-scale">
                             <PlayerAveragesChart />
-                            <ChartScale />
+                            <SideDetails
+                                extraStyle={{ marginTop: '5vmin' }}
+                                daily_steps={
+                                    this.props.playerAverages.data.average
+                                        .daily_steps
+                                }
+                                mvpa_minutes={
+                                    this.props.playerAverages.data.average
+                                        .mvpa_minutes
+                                }
+                                grade={
+                                    this.props.playerAverages.data.average.grade
+                                }
+                            />
                         </div>
                         <p className="below-chart">PLAYERS</p>
                     </div>
@@ -49,6 +62,7 @@ export class PlayerAveragesPage extends Component {
 
 const mapStateToProps = state => ({
     loading: state.reports.loading,
+    teamId: state.reports.teamId,
     playerAverages: state.reports.playerAverages
 });
 
@@ -70,7 +84,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PlayerAveragesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerAveragesPage);

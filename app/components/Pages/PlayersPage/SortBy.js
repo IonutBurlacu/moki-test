@@ -94,6 +94,82 @@ export class SortBy extends Component {
                         </li>
                         <li
                             className={
+                                this.props.listSort === 'most_mvpa'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleSortSelectChange(
+                                        'most_mvpa',
+                                        'Highest MVPA'
+                                    )
+                                }
+                            >
+                                Highest MVPA
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.listSort === 'fewest_mvpa'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleSortSelectChange(
+                                        'fewest_mvpa',
+                                        'Lowest MVPA'
+                                    )
+                                }
+                            >
+                                Lowest MVPA
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.listSort === 'most_moki_grade'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleSortSelectChange(
+                                        'most_moki_grade',
+                                        'Highest Moki Grade'
+                                    )
+                                }
+                            >
+                                Highest Moki Grade
+                            </button>
+                        </li>
+                        <li
+                            className={
+                                this.props.listSort === 'fewest_moki_grade'
+                                    ? 'selected'
+                                    : ''
+                            }
+                        >
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    this.handleSortSelectChange(
+                                        'fewest_moki_grade',
+                                        'Lowest Moki Grade'
+                                    )
+                                }
+                            >
+                                Lowest Moki Grade
+                            </button>
+                        </li>
+                        <li
+                            className={
                                 this.props.listSort === 'name_asc'
                                     ? 'selected'
                                     : ''
@@ -226,7 +302,4 @@ const mapDispatchToProps = dispatch => ({
         dispatch(changePlayersListSort(listSort, listSortLabel))
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SortBy);
+export default connect(mapStateToProps, mapDispatchToProps)(SortBy);

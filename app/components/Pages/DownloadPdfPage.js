@@ -5,38 +5,16 @@ import moment from 'moment';
 import Footer from '../Footer';
 import { Header } from '../Header';
 import PageTitle from './DownloadPdfPage/PageTitle';
-import {
-    getDownloadPdfTeamsRequest,
-    addTeamToDownloadPdf
-} from '../../actions/reports';
-import { viewChallengeRequest } from '../../actions/challenges';
+import { addTeamToDownloadPdf } from '../../actions/reports';
 import { showLoader } from '../../actions/loader';
-import getFilteredTeams from '../../selectors/teams';
 import defaultAvatar from '../../images/default_avatar.png';
-import challengesIconWide from '../../images/challenges_icon_wide.png';
-import playersIconWide from '../../images/players_icon_wide.png';
 import TopFilters from './DownloadPdfPage/TopFilters';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
 export class DownloadPdfPage extends Component {
-    componentWillMount() {
-        this.props.showLoader();
-        this.props.getDownloadPdfTeamsRequest(
-            this.props.downloadPdf.dateByType,
-            this.props.downloadPdf.dateByStartDate,
-            this.props.downloadPdf.dateByEndDate
-        );
-    }
-
-    handleChallengeView = id => {
-        this.props.viewChallengeRequest(id);
-        this.props.showLoader();
-        this.props.history.push(`/challenges/view/${id}`);
-    };
-
     handleTeamClick = teamId => {
-        if (this.props.downloadPdf.teamId === teamId) {
+        if (this.props.teamId === teamId) {
             this.props.addTeamToDownloadPdf(null);
         } else {
             this.props.addTeamToDownloadPdf(teamId);
@@ -62,15 +40,7 @@ export class DownloadPdfPage extends Component {
                                             ? `${s3URL}${team.avatar}`
                                             : defaultAvatar;
                                         return (
-                                            <tr
-                                                key={team.id}
-                                                className={
-                                                    this.props.downloadPdf
-                                                        .teamId === team.id
-                                                        ? 'selected-tr'
-                                                        : ''
-                                                }
-                                            >
+                                            <tr key={team.id}>
                                                 <td>
                                                     <div
                                                         className="avatar"
@@ -79,13 +49,7 @@ export class DownloadPdfPage extends Component {
                                                         }}
                                                     />
                                                 </td>
-                                                <td
-                                                    onClick={() =>
-                                                        this.handleTeamClick(
-                                                            team.id
-                                                        )
-                                                    }
-                                                >
+                                                <td>
                                                     <h1 className="title">
                                                         {team.name}
                                                     </h1>
@@ -104,76 +68,24 @@ export class DownloadPdfPage extends Component {
                                                                   )}
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    {team.challenges.length >
-                                                    0 ? (
-                                                        <img
-                                                            src={
-                                                                challengesIconWide
-                                                            }
-                                                            className="icon"
-                                                            alt="icon"
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
-                                                    <span className="icon-label">
-                                                        {team.challenges.map(
-                                                            item => (
-                                                                <span
-                                                                    key={
-                                                                        item.id
-                                                                    }
-                                                                    onClick={() =>
-                                                                        this.handleChallengeView(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                    className="table-link"
-                                                                >
-                                                                    {item.name}
-                                                                </span>
-                                                            )
-                                                        )}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <img
-                                                        src={playersIconWide}
-                                                        className="icon"
-                                                        alt="icon"
-                                                    />{' '}
-                                                    <span className="icon-label">
-                                                        {team.players_count}{' '}
-                                                        Player
-                                                        {team.players_count !==
-                                                        1
-                                                            ? 's'
-                                                            : ''}
-                                                    </span>
-                                                </td>
                                                 <td
-                                                    className={
-                                                        team.current_steps <
-                                                        team.previous_steps
-                                                            ? 'negative align-right'
-                                                            : 'positive align-right'
+                                                    className="align-right"
+                                                    onClick={() =>
+                                                        this.handleTeamClick(
+                                                            team.id
+                                                        )
                                                     }
                                                 >
-                                                    <span className="percentage-icon" />
-                                                    <span className="percentage">
-                                                        {team.percentage !== -1
-                                                            ? `${
-                                                                  team.percentage
-                                                              }%`
-                                                            : 'NA'}
-                                                    </span>
-                                                </td>
-                                                <td className="align-right">
-                                                    <h1 className="title">
-                                                        {team.current_steps.toLocaleString()}
-                                                        <small>steps</small>
-                                                    </h1>
+                                                    {this.props.teamId ===
+                                                    team.id ? (
+                                                        <h1 className="title selected-title">
+                                                            Selected
+                                                        </h1>
+                                                    ) : (
+                                                        <h1 className="title">
+                                                            Select
+                                                        </h1>
+                                                    )}
                                                 </td>
                                             </tr>
                                         );
@@ -203,29 +115,15 @@ export class DownloadPdfPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    teams: getFilteredTeams(state.reports.downloadPdf.teams, {
-        filterByValues: [],
-        sortBy: state.reports.downloadPdf.listSort
-    }),
+    teamId: state.reports.teamId,
+    teams: state.reports.teams,
     downloadPdf: state.reports.downloadPdf,
     loading: state.reports.loading
 });
 
 const mapDispatchToProps = dispatch => ({
-    getDownloadPdfTeamsRequest: (dateByType, dateByStartDate, dateByEndDate) =>
-        dispatch(
-            getDownloadPdfTeamsRequest(
-                dateByType,
-                dateByStartDate,
-                dateByEndDate
-            )
-        ),
-    viewChallengeRequest: id => dispatch(viewChallengeRequest(id)),
     addTeamToDownloadPdf: teamId => dispatch(addTeamToDownloadPdf(teamId)),
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(DownloadPdfPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DownloadPdfPage);

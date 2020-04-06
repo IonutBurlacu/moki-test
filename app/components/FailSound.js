@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Sound from 'react-sound';
 import { connect } from 'react-redux';
 import { stopFailSound } from '../actions/sound';
-import failSound from '../sounds/Fail.wav';
+import failSound from '../sounds/Fail.mp3';
 
 export class FailSound extends Component {
     constructor(props) {
@@ -20,6 +20,7 @@ export class FailSound extends Component {
                 url={failSound}
                 playStatus={this.props.playing}
                 playFromPosition={0}
+                volume={100}
                 onFinishedPlaying={this.handleFinishedPlaying}
             />
         );
@@ -34,7 +35,4 @@ const mapDispatchToProps = dispatch => ({
     stopPlaying: () => dispatch(stopFailSound())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FailSound);
+export default connect(mapStateToProps, mapDispatchToProps)(FailSound);

@@ -8,13 +8,13 @@ import { showLoader } from '../../actions/loader';
 import { getTotalStepsRequest } from '../../actions/reports';
 import TotalStepsChart from './TotalStepsPage/TotalStepsChart';
 import TopFilters from './TotalStepsPage/TopFilters';
-import { ChartScale } from './TotalStepsPage/ChartScale';
+import SideDetails from '../SideDetails';
 
 export class TotalStepsPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getTotalStepsRequest(
-            this.props.totalSteps.teamId,
+            this.props.teamId,
             this.props.totalSteps.dateByType,
             this.props.totalSteps.dateByStartDate,
             this.props.totalSteps.dateByEndDate
@@ -30,11 +30,22 @@ export class TotalStepsPage extends Component {
                 />
                 {!this.props.loading ? (
                     <div className="content">
+                        <PageTitle title="Overview" />
                         <TopFilters />
-                        <PageTitle title="Total Steps" />
                         <div className="charts-container chart-with-scale">
                             <TotalStepsChart />
-                            <ChartScale />
+                            <SideDetails
+                                extraStyle={{ marginTop: '5vmin' }}
+                                daily_steps={
+                                    this.props.totalSteps.data.average
+                                        .daily_steps
+                                }
+                                mvpa_minutes={
+                                    this.props.totalSteps.data.average
+                                        .mvpa_minutes
+                                }
+                                grade={this.props.totalSteps.data.average.grade}
+                            />
                         </div>
                     </div>
                 ) : (
@@ -48,12 +59,18 @@ export class TotalStepsPage extends Component {
 
 const mapStateToProps = state => ({
     loading: state.reports.loading,
+    teamId: state.reports.teamId,
     totalSteps: state.reports.totalSteps
 });
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
-    getTotalStepsRequest: (teamId, dateByType, dateByStartDate, dateByEndDate) =>
+    getTotalStepsRequest: (
+        teamId,
+        dateByType,
+        dateByStartDate,
+        dateByEndDate
+    ) =>
         dispatch(
             getTotalStepsRequest(
                 teamId,
@@ -64,7 +81,4 @@ const mapDispatchToProps = dispatch => ({
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TotalStepsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TotalStepsPage);

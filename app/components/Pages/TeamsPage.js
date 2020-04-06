@@ -13,6 +13,8 @@ import defaultAvatar from '../../images/default_avatar.png';
 import challengesIconWide from '../../images/challenges_icon_wide.png';
 import playersIconWide from '../../images/players_icon_wide.png';
 import TopFilters from './TeamsPage/TopFilters';
+import duration from '../../utils/duration';
+import gradeIcon from '../../utils/gradeIcon';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -27,8 +29,6 @@ export class TeamsPage extends Component {
     }
 
     handleView = id => {
-        this.props.viewTeamRequest(id);
-        this.props.showLoader();
         this.props.history.push(`/teams/view/${id}`);
     };
 
@@ -58,23 +58,21 @@ export class TeamsPage extends Component {
                                             ? `${s3URL}${team.avatar}`
                                             : defaultAvatar;
                                         return (
-                                            <tr key={team.id}>
+                                            <tr
+                                                key={team.id}
+                                                onClick={() =>
+                                                    this.handleView(team.id)
+                                                }
+                                            >
                                                 <td>
                                                     <div
                                                         className="avatar"
                                                         style={{
-                                                            backgroundImage:
-                                                                `url(${ 
-                                                                imageSource 
-                                                                })`
+                                                            backgroundImage: `url(${imageSource})`
                                                         }}
                                                     />
                                                 </td>
-                                                <td
-                                                    onClick={() =>
-                                                        this.handleView(team.id)
-                                                    }
-                                                >
+                                                <td style={{ width: '71vmin' }}>
                                                     <h1 className="title">
                                                         {team.name}
                                                     </h1>
@@ -93,58 +91,34 @@ export class TeamsPage extends Component {
                                                                   )}
                                                     </span>
                                                 </td>
-                                                <td>
-                                                    {team.challenges.length >
-                                                    0 ? (
-                                                        <img
-                                                            src={
-                                                                challengesIconWide
-                                                            }
-                                                            className="icon"
-                                                            alt="icon"
-                                                        />
-                                                    ) : (
-                                                        ''
-                                                    )}
-                                                    <span className="icon-label">
-                                                        {team.challenges.map(
-                                                            item => (
-                                                                <span
-                                                                    key={
-                                                                        item.id
-                                                                    }
-                                                                    onClick={() =>
-                                                                        this.handleChallengeView(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                    className="table-link"
-                                                                >
-                                                                    {item.name}
-                                                                </span>
-                                                            )
-                                                        )}
-                                                    </span>
+                                                <td
+                                                    className="align-center"
+                                                    style={{
+                                                        width: '30.2vmin'
+                                                    }}
+                                                >
+                                                    <h1 className="subtitle not-bold">
+                                                        Player Daily Average:
+                                                    </h1>
                                                 </td>
-                                                <td>
-                                                    <img
-                                                        src={playersIconWide}
-                                                        className="icon"
-                                                        alt="icon"
-                                                    />{' '}
-                                                    <span className="icon-label">
-                                                        {team.players_count}{' '}
-                                                        Player
-                                                        {team.players_count !==
-                                                        1
-                                                            ? 's'
-                                                            : ''}
-                                                    </span>
+                                                <td className="align-right">
+                                                    <h1 className="title">
+                                                        {duration(
+                                                            team.mvpa_minutes_current
+                                                        )}
+                                                        <small>MVPA</small>
+                                                    </h1>
+                                                </td>
+                                                <td className="align-right">
+                                                    <h1 className="title">
+                                                        {team.daily_steps_current.toLocaleString()}
+                                                        <small>steps</small>
+                                                    </h1>
                                                 </td>
                                                 <td
                                                     className={
-                                                        team.current_steps <
-                                                        team.previous_steps
+                                                        team.grade_score_current <
+                                                        team.grade_score_previous
                                                             ? 'negative align-right'
                                                             : 'positive align-right'
                                                     }
@@ -152,17 +126,20 @@ export class TeamsPage extends Component {
                                                     <span className="percentage-icon" />
                                                     <span className="percentage">
                                                         {team.percentage !== -1
-                                                            ? `${
+                                                            ? `${Math.abs(
                                                                   team.percentage
-                                                              }%`
+                                                              )}%`
                                                             : 'NA'}
                                                     </span>
                                                 </td>
                                                 <td className="align-right">
-                                                    <h1 className="title">
-                                                        {team.current_steps.toLocaleString()}
-                                                        <small>steps</small>
-                                                    </h1>
+                                                    <img
+                                                        src={gradeIcon(
+                                                            team.grade_current
+                                                        )}
+                                                        className="grade"
+                                                        alt="grade"
+                                                    />
                                                 </td>
                                             </tr>
                                         );
@@ -171,7 +148,14 @@ export class TeamsPage extends Component {
                                         <tr className="no-items-row">
                                             <td>
                                                 <span>
-                                                    There are no teams yet.
+                                                    This list is looking very
+                                                    empty!{' '}
+                                                    <Link
+                                                        to="/teams/add"
+                                                        className="no-items-row-button"
+                                                    >
+                                                        Add Teams here
+                                                    </Link>
                                                 </span>
                                             </td>
                                         </tr>
@@ -210,7 +194,4 @@ const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TeamsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamsPage);

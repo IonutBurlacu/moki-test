@@ -13,6 +13,8 @@ import defaultAvatar from '../../images/default_avatar.png';
 import challengesIconWide from '../../images/challenges_icon_wide.png';
 import teamsIconWide from '../../images/teams_icon_wide.png';
 import TopFilters from './PairBandsPage/TopFilters';
+import duration from '../../utils/duration';
+import gradeIcon from '../../utils/gradeIcon';
 
 const s3URL = 'https://s3-eu-west-1.amazonaws.com/moki-avatars/';
 
@@ -27,7 +29,11 @@ export class PairBandsPage extends Component {
     componentWillMount() {
         this.props.pairModeOn();
         this.props.showLoader();
-        this.props.getPlayersRequest('today');
+        this.props.getPlayersRequest(
+            this.props.dateByType,
+            this.props.dateByStartDate,
+            this.props.dateByEndDate
+        );
         this.state.playerId = this.props.match.params.id
             ? parseInt(this.props.match.params.id, 10)
             : null;
@@ -91,19 +97,19 @@ export class PairBandsPage extends Component {
                                                             }}
                                                         />
                                                     </td>
-                                                    <td>
+                                                    <td
+                                                        style={{
+                                                            width: '71vmin'
+                                                        }}
+                                                    >
                                                         <h1 className="title">
-                                                            {`${
-                                                                player.first_name
-                                                            } ${
-                                                                player.last_name
-                                                            }`}
+                                                            {`${player.first_name} ${player.last_name}`}
                                                         </h1>
                                                         {this.props
                                                             .selectedPlayerId ===
                                                         player.id ? (
                                                             <span className="subtitle cyan">
-                                                                Tap Band on
+                                                                Hold Band on
                                                                 Reader to Pair
                                                             </span>
                                                         ) : player.band ===
@@ -157,110 +163,57 @@ export class PairBandsPage extends Component {
                                                             </span>
                                                         )}
                                                     </td>
-                                                    <td>
-                                                        {player.challenges
-                                                            .length > 0 ? (
-                                                            <img
-                                                                src={
-                                                                    challengesIconWide
-                                                                }
-                                                                className="icon"
-                                                                alt="icon"
-                                                            />
-                                                        ) : (
-                                                            ''
-                                                        )}
-                                                        <span className="icon-label">
-                                                            {player.challenges
-                                                                .reduce(
-                                                                    (
-                                                                        string,
-                                                                        item
-                                                                    ) =>
-                                                                        `${string +
-                                                                            item.name}, `,
-                                                                    ''
-                                                                )
-                                                                .slice(0, -2)}
-                                                        </span>
+                                                    <td
+                                                        className="align-center"
+                                                        style={{
+                                                            width: '30.2vmin'
+                                                        }}
+                                                    >
+                                                        <h1 className="subtitle not-bold">
+                                                            Player Daily
+                                                            Average:
+                                                        </h1>
                                                     </td>
-                                                    <td>
-                                                        {player.teams.length >
-                                                        0 ? (
-                                                            <img
-                                                                src={
-                                                                    teamsIconWide
-                                                                }
-                                                                className="icon"
-                                                                alt="icon"
-                                                            />
-                                                        ) : (
-                                                            ''
-                                                        )}
-
-                                                        <span className="icon-label">
-                                                            {player.teams
-                                                                .reduce(
-                                                                    (
-                                                                        string,
-                                                                        item
-                                                                    ) =>
-                                                                        `${string +
-                                                                            item.name}, `,
-                                                                    ''
-                                                                )
-                                                                .slice(0, -2)}
-                                                        </span>
-                                                    </td>
-                                                    {player.previous_steps -
-                                                        player.current_steps !==
-                                                    0 ? (
-                                                        <td
-                                                            className={
-                                                                player.previous_steps >
-                                                                player.current_steps
-                                                                    ? 'negative align-right'
-                                                                    : 'positive align-right'
-                                                            }
-                                                        >
-                                                            <span className="percentage-icon" />
-                                                            <span className="percentage">
-                                                                {player.current_steps >
-                                                                player.previous_steps
-                                                                    ? player.previous_steps >
-                                                                      0
-                                                                        ? Math.round(
-                                                                              (player.current_steps *
-                                                                                  100) /
-                                                                                  player.previous_steps -
-                                                                                  100
-                                                                          )
-                                                                        : player.current_steps
-                                                                    : player.current_steps >
-                                                                      0
-                                                                    ? Math.round(
-                                                                          ((player.previous_steps -
-                                                                              player.current_steps) *
-                                                                              100) /
-                                                                              player.previous_steps
-                                                                      )
-                                                                    : 100}
-                                                                %
-                                                            </span>
-                                                        </td>
-                                                    ) : (
-                                                        <td className="positive align-right">
-                                                            <span className="percentage-icon" />
-                                                            <span className="percentage">
-                                                                0%
-                                                            </span>
-                                                        </td>
-                                                    )}
                                                     <td className="align-right">
                                                         <h1 className="title">
-                                                            {player.current_steps.toLocaleString()}
+                                                            {duration(
+                                                                player.mvpa_minutes_current
+                                                            )}
+                                                            <small>MVPA</small>
+                                                        </h1>
+                                                    </td>
+                                                    <td className="align-right">
+                                                        <h1 className="title">
+                                                            {player.daily_steps_current.toLocaleString()}
                                                             <small>steps</small>
                                                         </h1>
+                                                    </td>
+                                                    <td
+                                                        className={
+                                                            player.grade_score_current <
+                                                            player.grade_score_previous
+                                                                ? 'negative align-right'
+                                                                : 'positive align-right'
+                                                        }
+                                                    >
+                                                        <span className="percentage-icon" />
+                                                        <span className="percentage">
+                                                            {player.percentage !==
+                                                            -1
+                                                                ? `${Math.abs(
+                                                                      player.percentage
+                                                                  )}%`
+                                                                : 'NA'}
+                                                        </span>
+                                                    </td>
+                                                    <td className="align-right">
+                                                        <img
+                                                            src={gradeIcon(
+                                                                player.grade_current
+                                                            )}
+                                                            className="grade"
+                                                            alt="grade"
+                                                        />
                                                     </td>
                                                 </tr>
                                             );
@@ -302,14 +255,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    getPlayersRequest: (dateByType, dateByStartDate, dateByEndDate) =>
+        dispatch(getPlayersRequest(dateByType, dateByStartDate, dateByEndDate)),
     pairModeOn: () => dispatch(pairModeOn()),
     pairModeOff: () => dispatch(pairModeOff()),
-    getPlayersRequest: dateByType => dispatch(getPlayersRequest(dateByType)),
     playerSelected: id => dispatch(playerSelected(id)),
     showLoader: () => dispatch(showLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PairBandsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PairBandsPage);

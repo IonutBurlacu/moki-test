@@ -25,7 +25,10 @@ export function* playersFetchList(action) {
     yield put({
         type: 'GET_PLAYERS',
         players: decoded.players,
-        teams: decoded.teams
+        teams: decoded.teams,
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
     });
 
     yield put({
@@ -52,8 +55,9 @@ export function* playerView(action) {
     yield put({
         type: 'VIEW_PLAYER',
         player: decoded.player,
-        grades: decoded.grades,
-        years: decoded.years
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
     });
 
     yield put({
@@ -97,9 +101,9 @@ export function* playerStats(action) {
     yield put({
         type: 'STATS_PLAYER',
         data: decoded.data,
-        dateByType: action.dateByType,
-        dateByStartDate: action.dateByStartDate,
-        dateByEndDate: action.dateByEndDate
+        dateByType: decoded.type,
+        dateByStartDate: decoded.startDate,
+        dateByEndDate: decoded.endDate
     });
 
     yield put({
@@ -117,7 +121,8 @@ export function* playerCreate() {
         type: 'CREATE_PLAYER',
         grades: decoded.grades,
         years: decoded.years,
-        tags: decoded.tags
+        tags: decoded.tags,
+        teams: decoded.teams
     });
 
     yield put({

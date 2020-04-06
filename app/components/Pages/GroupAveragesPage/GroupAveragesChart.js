@@ -10,70 +10,66 @@ import {
     YAxis
 } from 'recharts';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import playersIcon from '../../../images/players_icon_active.png';
+import duration from '../../../utils/duration';
+import dateLegend from '../../../utils/dateLegend';
+import tickFormatter from '../../../utils/tickFormatter';
 
 const COLORS = ['#fe335e', '#fc9cac', '#fee300', '#23dec8', '#74ef5c'];
 
 export class GroupAveragesChart extends Component {
-    getDateLegend = () => {
-        switch (this.props.groupAverages.dateByType) {
-            case 'today':
-                return moment().format('D MMMM YYYY');
-            case 'week':
-                return `${moment(
-                    this.props.groupAverages.dateByStartDate
-                ).format('D')} - ${moment(
-                    this.props.groupAverages.dateByEndDate
-                ).format('D MMMM YYYY')}`;
-            case 'month':
-                return `${moment(
-                    this.props.groupAverages.dateByStartDate
-                ).format('D')} - ${moment(
-                    this.props.groupAverages.dateByEndDate
-                ).format('D MMMM YYYY')}`;
-            case 'year':
-                return `${moment(
-                    this.props.groupAverages.dateByStartDate
-                ).format('MMM')} - ${moment(
-                    this.props.groupAverages.dateByEndDate
-                ).format('MMM YYYY')}`;
-            case 'interval':
-                return `${moment(
-                    this.props.groupAverages.dateByStartDate
-                ).format('D MMM YYYY')} - ${moment(
-                    this.props.groupAverages.dateByEndDate
-                ).format('D MMM YYYY')}`;
-            default:
-                return moment().format('D MMMM YYYY');
-        }
-    };
-
     render() {
         return (
             <div className="chart-container">
-                <div className="legend">
-                    {this.props.groupAverages.teamId &&
-                    this.props.teams.length ? (
-                        <div>
-                            <p className="team">
-                                {
-                                    this.props.teams.find(
-                                        team =>
-                                            team.id ===
-                                            this.props.groupAverages.teamId
-                                    ).name
-                                }
-                            </p>
-                            <p className="date">{this.getDateLegend()}</p>
-                        </div>
-                    ) : (
-                        ''
-                    )}
+                <div className="chart-top-bar">
+                    <div className="legend">
+                        {this.props.selectedTeam ? (
+                            <div>
+                                <p className="team">
+                                    {this.props.selectedTeam
+                                        ? this.props.selectedTeam.name
+                                        : ''}
+                                </p>
+                                <p className="date">
+                                    {dateLegend(
+                                        this.props.groupAverages.dateByType,
+                                        this.props.groupAverages
+                                            .dateByStartDate,
+                                        this.props.groupAverages.dateByEndDate
+                                    )}
+                                </p>
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
+                    <div className="players">
+                        <img
+                            src={playersIcon}
+                            className="players-icon"
+                            alt="players-icon"
+                        />
+                        <span className="players-number">
+                            {this.props.selectedTeam
+                                ? this.props.selectedTeam.players_count
+                                : 0}{' '}
+                            Player
+                            {this.props.selectedTeam &&
+                            this.props.selectedTeam.players_count !== 1
+                                ? 's'
+                                : ''}
+                        </span>
+                    </div>
                 </div>
-                <div className="chart">
+                <div className="chart" style={{ height: '49vmin' }}>
                     <ResponsiveContainer width="99%">
                         <BarChart
-                            data={this.props.groupAverages.data}
+                            data={
+                                this.props.groupAverages.chartType === 'steps'
+                                    ? this.props.groupAverages.data.current
+                                          .steps
+                                    : this.props.groupAverages.data.current.mvpa
+                            }
                             barCategoryGap={5}
                             margin={{
                                 top: 10,
@@ -83,68 +79,39 @@ export class GroupAveragesChart extends Component {
                             }}
                         >
                             <CartesianGrid stroke="#53535d" vertical={false} />
-                            <XAxis dataKey="tag_name" stroke="#f6f6f7" />
+                            <XAxis dataKey="x_axis" stroke="#f6f6f7" />
                             <YAxis
                                 stroke="#f6f6f7"
-                                tickFormatter={number => {
-                                    if (number > 1000000000) {
-                                        return `${(
-                                            number / 1000000000
-                                        ).toString()}B`;
-                                    }
-                                    if (number > 1000000) {
-                                        return `${(
-                                            number / 1000000
-                                        ).toString()}M`;
-                                    }
-                                    if (number > 1000) {
-                                        return `${(number / 1000).toString()}K`;
-                                    }
-                                    return number.toString();
-                                }}
+                                tickFormatter={tickFormatter}
                             />
                             <Tooltip
                                 cursor={false}
                                 formatter={value =>
-                                    new Intl.NumberFormat('en').format(value)
+                                    this.props.groupAverages.chartType ===
+                                    'steps'
+                                        ? new Intl.NumberFormat('en').format(
+                                              value
+                                          )
+                                        : duration(
+                                              Math.round(parseFloat(value))
+                                          )
                                 }
                             />
                             <Bar
-                                dataKey="avg_steps"
+                                dataKey="y_axis"
                                 name="Average Day"
                                 maxBarSize={70}
                             >
-                                {this.props.groupAverages.data.map(
-                                    (entry, index) => {
-                                        let color;
-                                        console.log(entry);
-                                        if (
-                                            entry.avg_steps <
-                                            this.props.scales.first_step
-                                        ) {
-                                            color = COLORS[0];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.second_step
-                                        ) {
-                                            color = COLORS[1];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.third_step
-                                        ) {
-                                            color = COLORS[2];
-                                        } else if (
-                                            entry.avg_steps <
-                                            this.props.scales.fourth_step
-                                        ) {
-                                            color = COLORS[3];
-                                        } else {
-                                            color = COLORS[4];
-                                        }
-                                        return (
-                                            <Cell key={index} fill={color} />
-                                        );
-                                    }
+                                {this.props.groupAverages.data.current.steps.map(
+                                    (entry, index) => (
+                                        <Cell
+                                            key={index}
+                                            fill={
+                                                this.props.groupAverages.data
+                                                    .current.grades[index]
+                                            }
+                                        />
+                                    )
                                 )}
                             </Bar>
                         </BarChart>
@@ -158,10 +125,10 @@ export class GroupAveragesChart extends Component {
 const mapStateToProps = state => ({
     teams: state.reports.teams,
     groupAverages: state.reports.groupAverages,
-    scales: state.reports.scales
+    scales: state.reports.scales,
+    selectedTeam: state.reports.teams.find(
+        team => team.id === state.reports.teamId
+    )
 });
 
-export default connect(
-    mapStateToProps,
-    null
-)(GroupAveragesChart);
+export default connect(mapStateToProps, null)(GroupAveragesChart);

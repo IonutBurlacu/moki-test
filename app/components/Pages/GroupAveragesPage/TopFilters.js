@@ -6,11 +6,12 @@ import encrypt from '../../../utils/encrypt';
 import { showLoader, hideLoader } from '../../../actions/loader';
 import TeamsFilter from './TeamsFilter';
 import DateBy from './DateBy';
+import ChartType from './ChartType';
 
 export class TopFilters extends Component {
     handleDownloadPDF = () => {
         const encrypted = encrypt({
-            team_id: this.props.groupAverages.teamId,
+            team_id: this.props.teamId,
             type: this.props.groupAverages.dateByType,
             start_date: this.props.groupAverages.dateByStartDate,
             end_date: this.props.groupAverages.dateByEndDate
@@ -34,15 +35,13 @@ export class TopFilters extends Component {
                 );
                 const link = document.createElement('a');
                 const teamName = this.props.teams
-                    .find(team => team.id === this.props.groupAverages.teamId)
+                    .find(team => team.id === this.props.teamId)
                     .name.split(' ')
                     .join('_');
                 link.href = url;
                 link.setAttribute(
                     'download',
-                    `MOKI_${teamName}_group_averages_${
-                        this.props.groupAverages.dateByType
-                    }.pdf`
+                    `MOKI_${teamName}_group_averages_${this.props.groupAverages.dateByType}.pdf`
                 );
                 document.body.appendChild(link);
                 link.click();
@@ -58,7 +57,7 @@ export class TopFilters extends Component {
         return (
             <div className="top-filters">
                 <div className="left-side">
-                    <TeamsFilter />
+                    <ChartType />
                 </div>
                 <div className="center-side">
                     <DateBy />
@@ -80,6 +79,7 @@ export class TopFilters extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     token: state.auth.token,
     teams: state.reports.teams,
     groupAverages: state.reports.groupAverages
@@ -90,7 +90,4 @@ const mapDispatchToProps = dispatch => ({
     hideLoader: () => dispatch(hideLoader())
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TopFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(TopFilters);

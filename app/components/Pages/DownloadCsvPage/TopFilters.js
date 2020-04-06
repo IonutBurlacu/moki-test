@@ -9,7 +9,6 @@ import { showAlert } from '../../../actions/alert';
 import SortBy from './SortBy';
 import DateBy from '../../DateBy';
 import {
-    getDownloadCsvTeamsRequest,
     changeDownloadCsvTeamsDateByType,
     openDownloadCsvMenu,
     closeDownloadCsvMenu
@@ -17,12 +16,12 @@ import {
 
 export class TopFilters extends Component {
     handleDownloadCSV = () => {
-        if (this.props.downloadCsv.teamId === null) {
+        if (this.props.teamId === null) {
             this.props.showAlert('Please select at least one Team.');
             return;
         }
         const encrypted = encrypt({
-            team_id: this.props.downloadCsv.teamId,
+            team_id: this.props.teamId,
             type: this.props.downloadCsv.dateByType,
             start_date: this.props.downloadCsv.dateByStartDate,
             end_date: this.props.downloadCsv.dateByEndDate
@@ -46,15 +45,13 @@ export class TopFilters extends Component {
                 );
                 const link = document.createElement('a');
                 link.href = url;
-                const teamName = this.props.downloadCsv.teams
-                    .find(team => team.id === this.props.downloadCsv.teamId)
+                const teamName = this.props.teams
+                    .find(team => team.id === this.props.teamId)
                     .name.split(' ')
                     .join('_');
                 link.setAttribute(
                     'download',
-                    `MOKI_export_${teamName}_${
-                        this.props.downloadCsv.dateByType
-                    }.csv`
+                    `MOKI_export_${teamName}_${this.props.downloadCsv.dateByType}.csv`
                 );
                 document.body.appendChild(link);
                 link.click();
@@ -69,15 +66,12 @@ export class TopFilters extends Component {
     render() {
         return (
             <div className="top-filters">
-                <div className="left-side">
-                    <SortBy />
-                </div>
+                <div className="left-side"></div>
                 <div className="center-side">
                     <DateBy
                         startDate={this.props.downloadCsv.dateByStartDate}
                         endDate={this.props.downloadCsv.dateByEndDate}
                         dateSelectOpen={this.props.downloadCsv.dateSelectOpen}
-                        fetchNewData={this.props.getDownloadCsvTeamsRequest}
                         changeDateType={
                             this.props.changeDownloadCsvTeamsDateByType
                         }
@@ -91,7 +85,7 @@ export class TopFilters extends Component {
                         <button
                             type="button"
                             className={
-                                this.props.downloadCsv.teamId !== null
+                                this.props.teamId !== null
                                     ? 'filter-button active'
                                     : 'filter-button'
                             }
@@ -107,7 +101,9 @@ export class TopFilters extends Component {
 }
 
 const mapStateToProps = state => ({
+    teamId: state.reports.teamId,
     token: state.auth.token,
+    teams: state.reports.teams,
     downloadCsv: state.reports.downloadCsv
 });
 
@@ -128,18 +124,7 @@ const mapDispatchToProps = dispatch => ({
                 dateByStartDate,
                 dateByEndDate
             )
-        ),
-    getDownloadCsvTeamsRequest: (
-        dateByType,
-        dateByStartDate = moment.utc().local(),
-        dateByEndDate = moment.utc().local()
-    ) =>
-        dispatch(
-            getDownloadCsvTeamsRequest(dateByType, dateByStartDate, dateByEndDate)
         )
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TopFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(TopFilters);
