@@ -4,6 +4,6 @@ if (process.env.NODE_ENV === 'production') {
 } else if (process.env.NODE_ENV === 'development') {
     serverUrl = 'http://dev.moki.technology';
 } else {
-    serverUrl = 'http://dev.moki.technology';
+    serverUrl = 'http://local.moki.com';
 }
 export default serverUrl;
