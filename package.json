@@ -82,7 +82,8 @@
         "mac": {
             "gatekeeperAssess": false,
             "hardenedRuntime": true,
-            "entitlements": "./entitlements.mac.inherit.plist"
+            "entitlements": "./entitlements.mac.plist",
+            "entitlementsInherit": "./entitlements.mac.plist"
         },
         "linux": {
             "target": [
