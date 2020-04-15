@@ -51,6 +51,7 @@
     "build": {
         "productName": "MokiApp",
         "appId": "com.mokitechnology.pkg.Moki",
+        "afterSign": "./afterSign.js",
         "files": [
             "dist/",
             "node_modules/",
@@ -79,7 +80,9 @@
             ]
         },
         "mac": {
-            "gatekeeperAssess": false
+            "gatekeeperAssess": false,
+            "hardenedRuntime": true,
+            "entitlements": "./entitlements.mac.inherit.plist"
         },
         "linux": {
             "target": [
@@ -163,6 +166,7 @@
         "electron-builder": "^20.44.4",
         "electron-devtools-installer": "^2.2.4",
         "electron-icon-maker": "^0.0.4",
+        "electron-notarize": "^0.3.0",
         "electron-rebuild": "^1.8.2",
         "enzyme": "^3.3.0",
         "enzyme-adapter-react-16": "^1.1.1",
