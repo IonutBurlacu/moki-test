@@ -50,7 +50,7 @@
     },
     "build": {
         "productName": "MokiApp",
-        "appId": "org.develar.ElectronReact",
+        "appId": "com.mokitechnology.pkg.Moki",
         "files": [
             "dist/",
             "node_modules/",
