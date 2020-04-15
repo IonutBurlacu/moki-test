@@ -1,7 +1,7 @@
 {
     "name": "MokiAppElectron",
-    "productName": "MokiApp",
-    "version": "0.14.0",
+    "productName": "Moki",
+    "version": "1.21.0",
     "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
     "scripts": {
         "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -49,7 +49,8 @@
         ]
     },
     "build": {
-        "productName": "MokiApp",
+        "productName": "Moki",
+        "buildVersion": "1.21.0",
         "appId": "com.mokitechnology.pkg.Moki",
         "afterSign": "./afterSign.js",
         "files": [
@@ -83,7 +84,8 @@
             "gatekeeperAssess": false,
             "hardenedRuntime": true,
             "entitlements": "./entitlements.mac.plist",
-            "entitlementsInherit": "./entitlements.mac.plist"
+            "entitlementsInherit": "./entitlements.mac.plist",
+            "icon": "./resources/icon.icns"
         },
         "linux": {
             "target": [
