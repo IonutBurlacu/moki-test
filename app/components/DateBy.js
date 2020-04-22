@@ -74,12 +74,14 @@ export class DateBy extends Component {
                     this.state.startDate,
                     this.state.endDate
                 );
-                this.props.showLoader();
-                this.props.fetchNewData(
-                    'interval',
-                    this.state.startDate,
-                    this.state.endDate
-                );
+                if (this.props.fetchNewData) {
+                    this.props.showLoader();
+                    this.props.fetchNewData(
+                        'interval',
+                        this.state.startDate,
+                        this.state.endDate
+                    );
+                }
             }
         }, 1);
     };
