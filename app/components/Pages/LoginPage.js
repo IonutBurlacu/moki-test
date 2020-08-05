@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { shell, ipcRenderer } from 'electron';
+import { shell, ipcRenderer, Notification } from 'electron';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
 import { Header } from '../Header';
@@ -7,6 +7,7 @@ import { PageTitle } from '../PageTitle';
 import LoginForm from './LoginPage/LoginForm';
 import Alert from '../Alert';
 import { showLoader } from '../../actions/loader';
+import { showToast } from '../../actions/toast';
 import { getVersionRequest } from '../../actions/auth';
 
 import appVersion from '../../constants/appVersion';
@@ -16,19 +17,19 @@ class LoginPage extends Component {
         this.props.showLoader();
         this.props.getVersionRequest();
 
-        // ipcRenderer.send('app_version');
-        // ipcRenderer.on('app_version', (event, arg) => {
-        //     ipcRenderer.removeAllListeners('app_version');
-        // });
         ipcRenderer.on('update_available', () => {
             ipcRenderer.removeAllListeners('update_available');
-            console.log('new update available');
-            alert('update available');
+            this.props.showToast(
+                'There is a new version available. Downloading it now.'
+            );
+        });
+        ipcRenderer.on('update_error', () => {
+            ipcRenderer.removeAllListeners('update_error');
+            this.props.showToast('There was an error while updating the app.');
         });
         ipcRenderer.on('update_downloaded', () => {
             ipcRenderer.removeAllListeners('update_downloaded');
-            console.log('update downloaded');
-            alert('update downloaded');
+            this.props.showToast('Update downloaded. Click here to restart');
         });
     }
 
@@ -59,7 +60,7 @@ class LoginPage extends Component {
                     }
                 />
                 <div className="content">
-                    <PageTitle title="Hello! 4.0" />
+                    <PageTitle title="Hello! 1.25" />
                     <LoginForm history={this.props.history} />
                     <p className="sign-up-wrapper">
                         Don't have an account yet?{' '}
@@ -86,6 +87,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     showLoader: () => dispatch(showLoader()),
+    showToast: message => dispatch(showToast(message)),
     getVersionRequest: () => dispatch(getVersionRequest())
 });
 

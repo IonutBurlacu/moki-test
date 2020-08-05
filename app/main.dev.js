@@ -108,6 +108,8 @@ app.on('ready', async () => {
         mainWindow = null;
     });
 
+    mainWindow.openDevTools();
+
     const menuBuilder = new MenuBuilder(mainWindow);
     menuBuilder.buildMenu();
 
@@ -115,8 +117,10 @@ app.on('ready', async () => {
         autoUpdater.checkForUpdatesAndNotify();
     });
 
-    console.log('1');
-    autoUpdater.updateConfigPath = path.join(__dirname, 'app-update.yml');
+    // Don't remove this if condition. It doesn't work without it.
+    if (process.env.NODE_ENV === 'local') {
+        autoUpdater.updateConfigPath = path.join(__dirname, 'app-update.yml');
+    }
 
     autoUpdater.setFeedURL({
         provider: 'github',
@@ -127,12 +131,13 @@ app.on('ready', async () => {
     });
 
     autoUpdater.on('update-available', () => {
-        console.log('2');
         mainWindow.webContents.send('update_available');
     });
+
     autoUpdater.on('error', err => {
-        sendStatusToWindow('Error in auto-updater. ' + err);
+        mainWindow.webContents.send('update_error', err);
     });
+
     autoUpdater.on('update-downloaded', () => {
         mainWindow.webContents.send('update_downloaded');
     });

@@ -10,6 +10,7 @@ import bandsReducer from './bands';
 import reportsReducer from './reports';
 import soundsReducer from './sounds';
 import footerReducer from './footer';
+import toastReducer from './toast';
 
 export default combineReducers({
     auth: authReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
     players: playersReducer,
     reports: reportsReducer,
     sounds: soundsReducer,
-    footer: footerReducer
+    footer: footerReducer,
+    toast: toastReducer
 });

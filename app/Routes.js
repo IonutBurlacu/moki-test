@@ -31,6 +31,7 @@ import ChallengePage from './components/Pages/ChallengePage';
 import PlayerPage from './components/Pages/PlayerPage';
 import TeamPage from './components/Pages/TeamPage';
 import NFCListener from './components/NFCListener';
+import Toast from './components/Toast';
 
 export default () => (
     <App>
@@ -88,5 +89,6 @@ export default () => (
             <Route component={NotFoundPage} />
         </Switch>
         <NFCListener />
+        <Toast />
     </App>
 );
