@@ -59,7 +59,7 @@ class LoginPage extends Component {
                     }
                 />
                 <div className="content">
-                    <PageTitle title="Hello!" />
+                    <PageTitle title="Hello! 1.22" />
                     <LoginForm history={this.props.history} />
                     <p className="sign-up-wrapper">
                         Don't have an account yet?{' '}
