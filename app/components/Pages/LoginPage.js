@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { shell } from 'electron';
+import { shell, ipcRenderer } from 'electron';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
 import { Header } from '../Header';
@@ -15,6 +15,21 @@ class LoginPage extends Component {
     componentWillMount() {
         this.props.showLoader();
         this.props.getVersionRequest();
+
+        // ipcRenderer.send('app_version');
+        // ipcRenderer.on('app_version', (event, arg) => {
+        //     ipcRenderer.removeAllListeners('app_version');
+        // });
+        ipcRenderer.on('update_available', () => {
+            ipcRenderer.removeAllListeners('update_available');
+            console.log('new update available');
+            alert('update available');
+        });
+        ipcRenderer.on('update_downloaded', () => {
+            ipcRenderer.removeAllListeners('update_downloaded');
+            console.log('update downloaded');
+            alert('update downloaded');
+        });
     }
 
     handleContactSupport = () => {

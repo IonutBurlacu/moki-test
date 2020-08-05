@@ -15,6 +15,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "electron-updater": "^4.3.4",
     "nfc-pcsc": "^0.6.2",
     "usb-detection": "^4.7.0"
   }

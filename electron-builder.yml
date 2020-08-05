@@ -1,0 +1,4 @@
+appId: com.madeinme.moki
+publish:
+    provider: github
+    token: 0105dea0c0dbd9bb267e182a1ba3b5a47b667bfb

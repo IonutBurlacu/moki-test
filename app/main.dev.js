@@ -10,7 +10,8 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import MenuBuilder from './menu';
 
 let mainWindow = null;
@@ -108,4 +109,21 @@ app.on('ready', async () => {
 
     const menuBuilder = new MenuBuilder(mainWindow);
     menuBuilder.buildMenu();
+
+    mainWindow.once('ready-to-show', () => {
+        autoUpdater.checkForUpdatesAndNotify();
+    });
+
+    console.log('1');
+    autoUpdater.on('update-available', () => {
+        console.log('1');
+        mainWindow.webContents.send('update_available');
+    });
+    autoUpdater.on('update-downloaded', () => {
+        mainWindow.webContents.send('update_downloaded');
+    });
+});
+
+ipcMain.on('app_version', event => {
+    event.sender.send('app_version', { version: app.getVersion() });
 });
