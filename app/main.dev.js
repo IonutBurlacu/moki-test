@@ -16,6 +16,8 @@ import MenuBuilder from './menu';
 
 let mainWindow = null;
 
+const path = require('path');
+
 if (
     process.env.NODE_ENV === 'production' ||
     process.env.NODE_ENV === 'development'
@@ -26,7 +28,6 @@ if (
 
 if (process.env.NODE_ENV === 'local' || process.env.DEBUG_PROD === 'true') {
     require('electron-debug')();
-    const path = require('path');
     const p = path.join(__dirname, '..', 'app', 'node_modules');
     require('module').globalPaths.push(p);
 }
@@ -115,8 +116,18 @@ app.on('ready', async () => {
     });
 
     console.log('1');
+    autoUpdater.updateConfigPath = path.join(__dirname, 'app-update.yml');
+
+    autoUpdater.setFeedURL({
+        provider: 'github',
+        repo: 'moki-test',
+        owner: 'IonutBurlacu',
+        private: true,
+        token: '0105dea0c0dbd9bb267e182a1ba3b5a47b667bfb'
+    });
+
     autoUpdater.on('update-available', () => {
-        console.log('1');
+        console.log('2');
         mainWindow.webContents.send('update_available');
     });
     autoUpdater.on('update-downloaded', () => {
