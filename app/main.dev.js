@@ -130,6 +130,9 @@ app.on('ready', async () => {
         console.log('2');
         mainWindow.webContents.send('update_available');
     });
+    autoUpdater.on('error', err => {
+        sendStatusToWindow('Error in auto-updater. ' + err);
+    });
     autoUpdater.on('update-downloaded', () => {
         mainWindow.webContents.send('update_downloaded');
     });
